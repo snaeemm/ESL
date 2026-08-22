@@ -1,0 +1,44 @@
+# secrets
+.env
+
+# python envs
+.venv/
+.venv_live2d/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+
+# node (unrelated VRM proof-of-concept under scripts/test/vrm-poc)
+node_modules/
+scripts/test/vrm-poc/output/
+
+# model binaries (large, downloadable, not source deliverables)
+*.task
+yolo11n-pose.pt
+
+# downloaded ZHO clips/thumbs (large, re-downloadable via scripts/zho_download.py)
+data/zho/clips/
+data/zho/thumbs/
+
+# large generated/experimental media (reproducible via scripts, not source)
+# EXCEPTION: lesson_captioned_xfade.mp4 is the known-working baseline video,
+# kept as checkpoint evidence (see CHECKPOINT.md) - explicitly un-ignored below.
+data/zho/spike_mediapipe/*.mp4
+data/zho/spike_mediapipe/trimmed/
+data/zho/spike_mediapipe/lesson/*
+!data/zho/spike_mediapipe/lesson/lesson_captioned_xfade.mp4
+data/zho/spike_mediapipe/rigged/
+data/zho/spike_mediapipe/sentence/
+data/zho/spike_mediapipe/paragraph/
+data/zho/spike_mediapipe/normalized/
+data/zho/spike_mediapipe/avatar_parts/*.png
+data/zho/spike_mediapipe/avatar_parts/*.jpeg
+scratch/*.html
+
+# pipeline run outputs (generated, one dir per run - see outputs/README.md)
+outputs/*/
+!outputs/.gitkeep
+
+# benchmark cache/scratch (keep results/, ignore nothing here currently - explicit allow below)

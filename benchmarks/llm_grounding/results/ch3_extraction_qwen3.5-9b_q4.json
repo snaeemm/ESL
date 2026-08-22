@@ -1,0 +1,83 @@
+{
+  "raw_response": "[{\"concept\": \"cell definition\", \"key_terms\": [\"living things\", \"basic unit\"], \"source_span\": \"All living things are made of very small parts called cells.\"}, {\"concept\": \"microscope necessity\", \"key_terms\": [\"too small to see\", \"eyes\", \"microscope\"], \"source_span\": \"Cells are too small to see with just your eyes. You need a microscope to see them, because most cells are only a few thousandths of a millimeter across.\"}, {\"concept\": \"organelles function\", \"key_terms\": [\"organized structure\", \"parts\", \"job\"], \"source_span\": \"Inside a cell there are many different parts, and each part has its own job to do. These parts are called organelles.\"}, {\"concept\": \"cell membrane role\", \"key_terms\": [\"thin outer layer\", \"protect the cell\", \"control what substances\"], \"source_span\": \"**The cell membrane.** This is the thin outer layer that surrounds the cell. Its job is to protect the cell and to control what substances are allowed to enter or leave.\"}, {\"concept\": \"nucleus role\", \"key_terms\": [\"control center\", \"instructions\"], \"source_span\": \"**The nucleus.** This is often called the control center of the cell, because it contains the instructions that direct everything the cell does.\"}, {\"concept\": \"cytoplasm composition\", \"key_terms\": [\"jelly-like substance\", \"fills inside\", \"float\"], \"source_span\": \"**The cytoplasm.** This is the jelly-like substance that fills the inside of the cell. The other organelles float inside the cytoplasm.\"}, {\"concept\": \"mitochondria role\", \"key_terms\": [\"powerhouse\", \"produce energy\"], \"source_span\": \"**The mitochondria.** These organelles are sometimes called the \\\"powerhouse\\\" of the cell, because their job is to produce the energy the cell needs to function.\"}, {\"concept\": \"plant vs animal cells difference\", \"key_terms\": [\"cell wall\", \"rigid\", \"fixed shape\"], \"source_span\": \"**Plant cells and animal cells**... But there is one important difference: plant cells have an extra layer outside the cell membrane called the **cell wall**. The cell wall is rigid and gives the plant cell a fixed shape.\"}, {\"concept\": \"hierarchy of life structure\", \"key_terms\": [\"tissues\", \"organs\", \"body systems\"], \"source_span\": \"Groups of similar cells work together to form tissues, tissues form organs, and organs form body systems. This is true for both plants and animals\"}]",
+  "parsed_items": [
+    {
+      "concept": "cell definition",
+      "key_terms": [
+        "living things",
+        "basic unit"
+      ],
+      "source_span": "All living things are made of very small parts called cells."
+    },
+    {
+      "concept": "microscope necessity",
+      "key_terms": [
+        "too small to see",
+        "eyes",
+        "microscope"
+      ],
+      "source_span": "Cells are too small to see with just your eyes. You need a microscope to see them, because most cells are only a few thousandths of a millimeter across."
+    },
+    {
+      "concept": "organelles function",
+      "key_terms": [
+        "organized structure",
+        "parts",
+        "job"
+      ],
+      "source_span": "Inside a cell there are many different parts, and each part has its own job to do. These parts are called organelles."
+    },
+    {
+      "concept": "cell membrane role",
+      "key_terms": [
+        "thin outer layer",
+        "protect the cell",
+        "control what substances"
+      ],
+      "source_span": "**The cell membrane.** This is the thin outer layer that surrounds the cell. Its job is to protect the cell and to control what substances are allowed to enter or leave."
+    },
+    {
+      "concept": "nucleus role",
+      "key_terms": [
+        "control center",
+        "instructions"
+      ],
+      "source_span": "**The nucleus.** This is often called the control center of the cell, because it contains the instructions that direct everything the cell does."
+    },
+    {
+      "concept": "cytoplasm composition",
+      "key_terms": [
+        "jelly-like substance",
+        "fills inside",
+        "float"
+      ],
+      "source_span": "**The cytoplasm.** This is the jelly-like substance that fills the inside of the cell. The other organelles float inside the cytoplasm."
+    },
+    {
+      "concept": "mitochondria role",
+      "key_terms": [
+        "powerhouse",
+        "produce energy"
+      ],
+      "source_span": "**The mitochondria.** These organelles are sometimes called the \"powerhouse\" of the cell, because their job is to produce the energy the cell needs to function."
+    },
+    {
+      "concept": "plant vs animal cells difference",
+      "key_terms": [
+        "cell wall",
+        "rigid",
+        "fixed shape"
+      ],
+      "source_span": "**Plant cells and animal cells**... But there is one important difference: plant cells have an extra layer outside the cell membrane called the **cell wall**. The cell wall is rigid and gives the plant cell a fixed shape."
+    },
+    {
+      "concept": "hierarchy of life structure",
+      "key_terms": [
+        "tissues",
+        "organs",
+        "body systems"
+      ],
+      "source_span": "Groups of similar cells work together to form tissues, tissues form organs, and organs form body systems. This is true for both plants and animals"
+    }
+  ]
+}

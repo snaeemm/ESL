@@ -1,0 +1,137 @@
+{
+  "canvas": {
+    "width": 1365,
+    "height": 649
+  },
+  "reference": "avatar_clean_reference.png",
+  "method": "piecewise_affine_mesh",
+  "description": "Mesh-rig starting point for MediaPipe retargeting. Source points are calibrated to the supplied neutral avatar image; target points are supplied by the MediaPipe retargeter.",
+  "joints": {
+    "neck": [
+      690,
+      374
+    ],
+    "left_shoulder": [
+      548,
+      394
+    ],
+    "left_elbow": [
+      430,
+      516
+    ],
+    "left_wrist": [
+      520,
+      449
+    ],
+    "right_shoulder": [
+      832,
+      394
+    ],
+    "right_elbow": [
+      950,
+      516
+    ],
+    "right_wrist": [
+      819,
+      470
+    ],
+    "left_hand_center": [
+      548,
+      438
+    ],
+    "right_hand_center": [
+      820,
+      469
+    ]
+  },
+  "body_controls": [
+    [
+      0,
+      0
+    ],
+    [
+      340,
+      0
+    ],
+    [
+      690,
+      0
+    ],
+    [
+      1040,
+      0
+    ],
+    [
+      1364,
+      0
+    ],
+    [
+      0,
+      250
+    ],
+    [
+      430,
+      250
+    ],
+    [
+      690,
+      250
+    ],
+    [
+      950,
+      250
+    ],
+    [
+      1364,
+      250
+    ],
+    [
+      0,
+      649
+    ],
+    [
+      350,
+      649
+    ],
+    [
+      690,
+      649
+    ],
+    [
+      1030,
+      649
+    ],
+    [
+      1364,
+      649
+    ]
+  ],
+  "hand_model": {
+    "strategy": "separate local hand mesh",
+    "note": "Use the MediaPipe 21 landmarks as target controls. The avatar hand mesh should be calibrated once from the neutral illustration; do not redraw the character per pose.",
+    "landmark_count": 21,
+    "landmarks": {
+      "WRIST": 0,
+      "THUMB_CMC": 1,
+      "THUMB_MCP": 2,
+      "THUMB_IP": 3,
+      "THUMB_TIP": 4,
+      "INDEX_MCP": 5,
+      "INDEX_PIP": 6,
+      "INDEX_DIP": 7,
+      "INDEX_TIP": 8,
+      "MIDDLE_MCP": 9,
+      "MIDDLE_PIP": 10,
+      "MIDDLE_DIP": 11,
+      "MIDDLE_TIP": 12,
+      "RING_MCP": 13,
+      "RING_PIP": 14,
+      "RING_DIP": 15,
+      "RING_TIP": 16,
+      "PINKY_MCP": 17,
+      "PINKY_PIP": 18,
+      "PINKY_DIP": 19,
+      "PINKY_TIP": 20
+    }
+  }
+}

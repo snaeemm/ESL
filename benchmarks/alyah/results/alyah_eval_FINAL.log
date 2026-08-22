@@ -1,0 +1,90 @@
+Total questions: 1173
+Categories: ['Language & Dialect', 'Imagery & Figurative Meaning', 'Etiquette & Values', 'Religious & Social Sensitivity', 'Historical & Heritage Knowledge', 'Greetings & Daily Expressions', 'Poetry & Creative Expression']
+Resuming: 3519 question-model pairs already done
+[qwen3:latest] 50/1173 done, 42s elapsed, ~949s remaining
+[qwen3:latest] 100/1173 done, 78s elapsed, ~836s remaining
+[qwen3:latest] 150/1173 done, 115s elapsed, ~782s remaining
+[qwen3:latest] 200/1173 done, 151s elapsed, ~735s remaining
+[qwen3:latest] 250/1173 done, 188s elapsed, ~693s remaining
+[qwen3:latest] 300/1173 done, 223s elapsed, ~650s remaining
+[qwen3:latest] 350/1173 done, 259s elapsed, ~608s remaining
+[qwen3:latest] 400/1173 done, 295s elapsed, ~570s remaining
+[qwen3:latest] 450/1173 done, 331s elapsed, ~532s remaining
+[qwen3:latest] 500/1173 done, 366s elapsed, ~493s remaining
+[qwen3:latest] 550/1173 done, 402s elapsed, ~455s remaining
+[qwen3:latest] 600/1173 done, 437s elapsed, ~418s remaining
+[qwen3:latest] 650/1173 done, 472s elapsed, ~380s remaining
+[qwen3:latest] 700/1173 done, 508s elapsed, ~343s remaining
+[qwen3:latest] 750/1173 done, 543s elapsed, ~306s remaining
+[qwen3:latest] 800/1173 done, 577s elapsed, ~269s remaining
+[qwen3:latest] 850/1173 done, 610s elapsed, ~232s remaining
+[qwen3:latest] 900/1173 done, 642s elapsed, ~195s remaining
+[qwen3:latest] 950/1173 done, 674s elapsed, ~158s remaining
+[qwen3:latest] 1000/1173 done, 705s elapsed, ~122s remaining
+[qwen3:latest] 1050/1173 done, 738s elapsed, ~86s remaining
+[qwen3:latest] 1100/1173 done, 771s elapsed, ~51s remaining
+[qwen3:latest] 1150/1173 done, 802s elapsed, ~16s remaining
+
+=== FINAL RESULTS ===
+{
+  "qwen3:latest": {
+    "accuracy": 64.11,
+    "correct": 752,
+    "total": 1173,
+    "parse_rate": 100.0,
+    "by_category": {
+      "Language & Dialect": "361/619 (58%)",
+      "Imagery & Figurative Meaning": "99/121 (82%)",
+      "Etiquette & Values": "131/173 (76%)",
+      "Religious & Social Sensitivity": "50/78 (64%)",
+      "Historical & Heritage Knowledge": "56/89 (63%)",
+      "Greetings & Daily Expressions": "35/61 (57%)",
+      "Poetry & Creative Expression": "20/32 (62%)"
+    }
+  },
+  "hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M": {
+    "accuracy": 64.88,
+    "correct": 761,
+    "total": 1173,
+    "parse_rate": 100.0,
+    "by_category": {
+      "Language & Dialect": "365/619 (59%)",
+      "Imagery & Figurative Meaning": "98/121 (81%)",
+      "Etiquette & Values": "130/173 (75%)",
+      "Religious & Social Sensitivity": "50/78 (64%)",
+      "Historical & Heritage Knowledge": "61/89 (69%)",
+      "Greetings & Daily Expressions": "37/61 (61%)",
+      "Poetry & Creative Expression": "20/32 (62%)"
+    }
+  },
+  "jais-adaptive-q4:7b": {
+    "accuracy": 51.41,
+    "correct": 603,
+    "total": 1173,
+    "parse_rate": 99.49,
+    "by_category": {
+      "Language & Dialect": "290/619 (47%)",
+      "Imagery & Figurative Meaning": "83/121 (69%)",
+      "Etiquette & Values": "97/173 (56%)",
+      "Religious & Social Sensitivity": "41/78 (53%)",
+      "Historical & Heritage Knowledge": "42/89 (47%)",
+      "Greetings & Daily Expressions": "31/61 (51%)",
+      "Poetry & Creative Expression": "19/32 (59%)"
+    }
+  },
+  "qwen3.5-9b:q4": {
+    "accuracy": 26.0,
+    "correct": 305,
+    "total": 1173,
+    "parse_rate": 100.0,
+    "by_category": {
+      "Language & Dialect": "166/619 (27%)",
+      "Imagery & Figurative Meaning": "32/121 (26%)",
+      "Etiquette & Values": "43/173 (25%)",
+      "Religious & Social Sensitivity": "21/78 (27%)",
+      "Historical & Heritage Knowledge": "23/89 (26%)",
+      "Greetings & Daily Expressions": "13/61 (21%)",
+      "Poetry & Creative Expression": "7/32 (22%)"
+    }
+  }
+}

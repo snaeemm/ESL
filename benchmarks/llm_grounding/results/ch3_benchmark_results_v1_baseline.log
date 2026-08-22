@@ -1,0 +1,88 @@
+=== qwen3:latest ===
+  {
+  "cosine_similarity": 0.7639,
+  "rouge1_f1": 0.5478,
+  "rougeL_f1": 0.4856,
+  "jaccard": 0.4362,
+  "bleu": 0.2098,
+  "source_span_verbatim_match_rate_pct": 75.0,
+  "num_concepts_extracted": 4,
+  "json_parsed_successfully": true
+}
+=== hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M ===
+  {
+  "cosine_similarity": 0.9102,
+  "rouge1_f1": 0.7652,
+  "rougeL_f1": 0.742,
+  "jaccard": 0.6818,
+  "bleu": 0.6133,
+  "source_span_verbatim_match_rate_pct": 71.4,
+  "num_concepts_extracted": 7,
+  "json_parsed_successfully": true
+}
+=== jais-adaptive-q4:7b ===
+  {
+  "cosine_similarity": 0.242,
+  "rouge1_f1": 0.1596,
+  "rougeL_f1": 0.109,
+  "jaccard": 0.1777,
+  "bleu": 0.0501,
+  "source_span_verbatim_match_rate_pct": 0,
+  "num_concepts_extracted": 0,
+  "json_parsed_successfully": false
+}
+=== qwen3.5-9b:q4 ===
+  {
+  "cosine_similarity": 0.7313,
+  "rouge1_f1": 0.4543,
+  "rougeL_f1": 0.21,
+  "jaccard": 0.2749,
+  "bleu": 0.1227,
+  "source_span_verbatim_match_rate_pct": 0,
+  "num_concepts_extracted": 0,
+  "json_parsed_successfully": false
+}
+
+=== FINAL RESULTS (all models) ===
+{
+  "qwen3:latest": {
+    "cosine_similarity": 0.7639,
+    "rouge1_f1": 0.5478,
+    "rougeL_f1": 0.4856,
+    "jaccard": 0.4362,
+    "bleu": 0.2098,
+    "source_span_verbatim_match_rate_pct": 75.0,
+    "num_concepts_extracted": 4,
+    "json_parsed_successfully": true
+  },
+  "hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M": {
+    "cosine_similarity": 0.9102,
+    "rouge1_f1": 0.7652,
+    "rougeL_f1": 0.742,
+    "jaccard": 0.6818,
+    "bleu": 0.6133,
+    "source_span_verbatim_match_rate_pct": 71.4,
+    "num_concepts_extracted": 7,
+    "json_parsed_successfully": true
+  },
+  "jais-adaptive-q4:7b": {
+    "cosine_similarity": 0.242,
+    "rouge1_f1": 0.1596,
+    "rougeL_f1": 0.109,
+    "jaccard": 0.1777,
+    "bleu": 0.0501,
+    "source_span_verbatim_match_rate_pct": 0,
+    "num_concepts_extracted": 0,
+    "json_parsed_successfully": false
+  },
+  "qwen3.5-9b:q4": {
+    "cosine_similarity": 0.7313,
+    "rouge1_f1": 0.4543,
+    "rougeL_f1": 0.21,
+    "jaccard": 0.2749,
+    "bleu": 0.1227,
+    "source_span_verbatim_match_rate_pct": 0,
+    "num_concepts_extracted": 0,
+    "json_parsed_successfully": false
+  }
+}

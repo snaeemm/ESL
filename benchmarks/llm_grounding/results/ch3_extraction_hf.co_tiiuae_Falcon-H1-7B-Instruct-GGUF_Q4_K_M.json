@@ -1,0 +1,70 @@
+{
+  "raw_response": "```json\n[\n    {\n        \"concept\": \"Cell Structure\",\n        \"key_terms\": [\"cell\", \"organelles\", \"cell membrane\", \"nucleus\", \"cytoplasm\", \"mitochondria\"],\n        \"source_span\": \"Cells are too small to see with just your eyes. You need a microscope to see them, because most cells are only a few thousandths of a millimeter across.\\n\\nEven though a cell is small, it has an organized structure. Inside a cell there are many different parts, and each part has its own job to do. These parts are called organelles. Just like the organs in your body each have a function \\u2014 your heart pumps blood, your lungs help you breathe \\u2014 the organelles inside a cell each perform a specific function that keeps the cell alive and working properly.\"\n    },\n    {\n        \"concept\": \"Cell Membrane\",\n        \"key_terms\": [\"cell membrane\", \"protect\", \"control substances\"],\n        \"source_span\": \"**The cell membrane.** This is the thin outer layer that surrounds the cell. Its job is to protect the cell and to control what substances are allowed to enter or leave.\"\n    },\n    {\n        \"concept\": \"Nucleus\",\n        \"key_terms\": [\"nucleus\", \"control center\", \"instructions\"],\n        \"source_span\": \"**The nucleus.** This is often called the control center of the cell, because it contains the instructions that direct everything the cell does.\"\n    },\n    {\n        \"concept\": \"Cytoplasm\",\n        \"key_terms\": [\"cytoplasm\", \"jelly-like substance\"],\n        \"source_span\": \"**The cytoplasm.** This is the jelly-like substance that fills the inside of the cell. The other organelles float inside the cytoplasm.\"\n    },\n    {\n        \"concept\": \"Mitochondria\",\n        \"key_terms\": [\"mitochondria\", \"powerhouse\"],\n        \"source_span\": \"**The mitochondria.** These organelles are sometimes called the \\\"powerhouse\\\" of the cell, because their job is to produce the energy the cell needs to function.\"\n    },\n    {\n        \"concept\": \"Plant vs Animal Cells\",\n        \"key_terms\": [\"plant cells\", \"animal cells\", \"cell wall\"],\n        \"source_span\": \"Plant cells and animal cells are similar in many ways \\u2014 both contain a nucleus, cytoplasm, mitochondria, and a cell membrane. But there is one important difference: plant cells have an extra layer outside the cell membrane called the **cell wall**. The cell wall is rigid and gives the plant cell a fixed shape and extra protection, which is one reason plants can grow tall and stand upright. Animal cells do not have a cell wall, which is why animal cells tend to have a more rounded, flexible shape.\"\n    },\n    {\n        \"concept\": \"Cells in Living Organisms\",\n        \"key_terms\": [\"living organisms\", \"tissues\", \"organs\", \"body systems\"],\n        \"source_span\": \"A living organism's whole body is built from cells. Groups of similar cells work together to form tissues, tissues form organs, and organs form body systems. This is true for both plants and animals \\u2014 from the smallest insect to the largest tree, every part of a living organism's body is ultimately made of cells, each one small, each one containing the same basic organelles, each one doing its part to keep the whole organism alive.\"\n    }\n]\n```",
+  "parsed_items": [
+    {
+      "concept": "Cell Structure",
+      "key_terms": [
+        "cell",
+        "organelles",
+        "cell membrane",
+        "nucleus",
+        "cytoplasm",
+        "mitochondria"
+      ],
+      "source_span": "Cells are too small to see with just your eyes. You need a microscope to see them, because most cells are only a few thousandths of a millimeter across.\n\nEven though a cell is small, it has an organized structure. Inside a cell there are many different parts, and each part has its own job to do. These parts are called organelles. Just like the organs in your body each have a function — your heart pumps blood, your lungs help you breathe — the organelles inside a cell each perform a specific function that keeps the cell alive and working properly."
+    },
+    {
+      "concept": "Cell Membrane",
+      "key_terms": [
+        "cell membrane",
+        "protect",
+        "control substances"
+      ],
+      "source_span": "**The cell membrane.** This is the thin outer layer that surrounds the cell. Its job is to protect the cell and to control what substances are allowed to enter or leave."
+    },
+    {
+      "concept": "Nucleus",
+      "key_terms": [
+        "nucleus",
+        "control center",
+        "instructions"
+      ],
+      "source_span": "**The nucleus.** This is often called the control center of the cell, because it contains the instructions that direct everything the cell does."
+    },
+    {
+      "concept": "Cytoplasm",
+      "key_terms": [
+        "cytoplasm",
+        "jelly-like substance"
+      ],
+      "source_span": "**The cytoplasm.** This is the jelly-like substance that fills the inside of the cell. The other organelles float inside the cytoplasm."
+    },
+    {
+      "concept": "Mitochondria",
+      "key_terms": [
+        "mitochondria",
+        "powerhouse"
+      ],
+      "source_span": "**The mitochondria.** These organelles are sometimes called the \"powerhouse\" of the cell, because their job is to produce the energy the cell needs to function."
+    },
+    {
+      "concept": "Plant vs Animal Cells",
+      "key_terms": [
+        "plant cells",
+        "animal cells",
+        "cell wall"
+      ],
+      "source_span": "Plant cells and animal cells are similar in many ways — both contain a nucleus, cytoplasm, mitochondria, and a cell membrane. But there is one important difference: plant cells have an extra layer outside the cell membrane called the **cell wall**. The cell wall is rigid and gives the plant cell a fixed shape and extra protection, which is one reason plants can grow tall and stand upright. Animal cells do not have a cell wall, which is why animal cells tend to have a more rounded, flexible shape."
+    },
+    {
+      "concept": "Cells in Living Organisms",
+      "key_terms": [
+        "living organisms",
+        "tissues",
+        "organs",
+        "body systems"
+      ],
+      "source_span": "A living organism's whole body is built from cells. Groups of similar cells work together to form tissues, tissues form organs, and organs form body systems. This is true for both plants and animals — from the smallest insect to the largest tree, every part of a living organism's body is ultimately made of cells, each one small, each one containing the same basic organelles, each one doing its part to keep the whole organism alive."
+    }
+  ]
+}

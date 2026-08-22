@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Alif Retarget Test</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #222; font-family: sans-serif; }
+    #layout { display: flex; height: 100%; }
+    #video-pane, #vrm-pane { flex: 1; position: relative; }
+    video, canvas { display: block; width: 100%; height: 100%; object-fit: contain; }
+    #video-overlay { position: absolute; top: 0; left: 0; pointer-events: none; object-fit: contain; }
+    .label {
+      position: absolute; top: 8px; left: 8px; color: #fff;
+      background: rgba(0,0,0,0.5); padding: 4px 8px; font-size: 13px; z-index: 1;
+    }
+    #status {
+      position: absolute; bottom: 8px; left: 8px; color: #9f9; font-size: 12px;
+      background: rgba(0,0,0,0.5); padding: 4px 8px; z-index: 1; white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div id="layout">
+    <div id="video-pane">
+      <div class="label">Alif source (alif_active.mp4) — dots = MediaPipe landmarks</div>
+      <video id="source-video" src="/assets/alif_active.mp4" muted loop playsinline></video>
+      <canvas id="video-overlay"></canvas>
+    </div>
+    <div id="vrm-pane">
+      <div class="label">VRM retarget</div>
+      <div id="status"></div>
+    </div>
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

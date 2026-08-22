@@ -1,0 +1,31 @@
+{
+  "successes": 3,
+  "total": 4,
+  "items": [
+    {
+      "concept": "Cell",
+      "key_terms": [
+        "living",
+        "organism"
+      ],
+      "source_span": "All living things are made of very small parts called cells."
+    },
+    {
+      "concept": "Plant Cell vs Animal Cell",
+      "key_terms": [
+        "cell wall",
+        "cytoplasm",
+        "animal cell"
+      ],
+      "source_span": "Plant cells and animal cells are similar in many ways — both contain a nucleus, cytoplasm, mitochondria, and a cell membrane. But there is one important difference: plant cells have an extra layer outside the cell membrane called the **cell wall**."
+    },
+    {
+      "concept": "Cells",
+      "key_terms": [
+        "cells",
+        "organisms"
+      ],
+      "source_span": "A living organism's whole body is built from cells."
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+Total questions: 1173
+Categories: ['Language & Dialect', 'Imagery & Figurative Meaning', 'Etiquette & Values', 'Religious & Social Sensitivity', 'Historical & Heritage Knowledge', 'Greetings & Daily Expressions', 'Poetry & Creative Expression']
+Resuming: 1672 question-model pairs already done
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 50/1173 done, 90s elapsed, ~2011s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 100/1173 done, 171s elapsed, ~1830s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 150/1173 done, 251s elapsed, ~1715s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 200/1173 done, 341s elapsed, ~1659s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 250/1173 done, 437s elapsed, ~1612s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 300/1173 done, 528s elapsed, ~1536s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 350/1173 done, 615s elapsed, ~1447s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 400/1173 done, 700s elapsed, ~1353s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 450/1173 done, 783s elapsed, ~1258s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 500/1173 done, 1190s elapsed, ~1601s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 550/1173 done, 1271s elapsed, ~1440s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 600/1173 done, 1436s elapsed, ~1372s remaining
+[hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M] 650/1173 done, 1581s elapsed, ~1272s remaining
+[jais-adaptive-q4:7b] 50/1173 done, 180s elapsed, ~4040s remaining
+[jais-adaptive-q4:7b] 100/1173 done, 212s elapsed, ~2277s remaining
+[jais-adaptive-q4:7b] 150/1173 done, 244s elapsed, ~1666s remaining
+[jais-adaptive-q4:7b] 200/1173 done, 296s elapsed, ~1438s remaining
+[jais-adaptive-q4:7b] 250/1173 done, 328s elapsed, ~1211s remaining
+[jais-adaptive-q4:7b] 300/1173 done, 360s elapsed, ~1049s remaining
+[jais-adaptive-q4:7b] 350/1173 done, 392s elapsed, ~922s remaining
+[jais-adaptive-q4:7b] 400/1173 done, 424s elapsed, ~820s remaining
+[jais-adaptive-q4:7b] 450/1173 done, 456s elapsed, ~732s remaining
+[jais-adaptive-q4:7b] 500/1173 done, 487s elapsed, ~656s remaining
+[jais-adaptive-q4:7b] 550/1173 done, 519s elapsed, ~588s remaining
+[jais-adaptive-q4:7b] 600/1173 done, 566s elapsed, ~540s remaining
+[jais-adaptive-q4:7b] 650/1173 done, 610s elapsed, ~491s remaining
+[jais-adaptive-q4:7b] 700/1173 done, 644s elapsed, ~435s remaining
+[jais-adaptive-q4:7b] 750/1173 done, 676s elapsed, ~382s remaining
+[jais-adaptive-q4:7b] 800/1173 done, 707s elapsed, ~330s remaining
+[jais-adaptive-q4:7b] 850/1173 done, 736s elapsed, ~280s remaining
+[jais-adaptive-q4:7b] 900/1173 done, 764s elapsed, ~232s remaining
+[jais-adaptive-q4:7b] 950/1173 done, 793s elapsed, ~186s remaining
+[jais-adaptive-q4:7b] 1000/1173 done, 821s elapsed, ~142s remaining
+[jais-adaptive-q4:7b] 1050/1173 done, 849s elapsed, ~99s remaining
+[jais-adaptive-q4:7b] 1100/1173 done, 877s elapsed, ~58s remaining
+[jais-adaptive-q4:7b] 1150/1173 done, 905s elapsed, ~18s remaining
+[qwen3.5-9b:q4] 50/1173 done, 63s elapsed, ~1425s remaining
+[qwen3.5-9b:q4] 100/1173 done, 121s elapsed, ~1300s remaining
+[qwen3.5-9b:q4] 150/1173 done, 179s elapsed, ~1223s remaining
+[qwen3.5-9b:q4] 200/1173 done, 243s elapsed, ~1184s remaining
+[qwen3.5-9b:q4] 250/1173 done, 386s elapsed, ~1425s remaining
+[qwen3.5-9b:q4] 300/1173 done, 459s elapsed, ~1335s remaining
+[qwen3.5-9b:q4] 350/1173 done, 515s elapsed, ~1211s remaining
+[qwen3.5-9b:q4] 400/1173 done, 573s elapsed, ~1107s remaining
+[qwen3.5-9b:q4] 450/1173 done, 632s elapsed, ~1016s remaining
+[qwen3.5-9b:q4] 500/1173 done, 695s elapsed, ~935s remaining
+[qwen3.5-9b:q4] 550/1173 done, 761s elapsed, ~862s remaining
+[qwen3.5-9b:q4] 600/1173 done, 826s elapsed, ~789s remaining
+[qwen3.5-9b:q4] 650/1173 done, 892s elapsed, ~717s remaining
+[qwen3.5-9b:q4] 700/1173 done, 959s elapsed, ~648s remaining
+[qwen3.5-9b:q4] 750/1173 done, 1032s elapsed, ~582s remaining
+[qwen3.5-9b:q4] 800/1173 done, 1100s elapsed, ~513s remaining
+[qwen3.5-9b:q4] 850/1173 done, 1169s elapsed, ~444s remaining
+[qwen3.5-9b:q4] 900/1173 done, 1234s elapsed, ~374s remaining
+[qwen3.5-9b:q4] 950/1173 done, 1299s elapsed, ~305s remaining
+[qwen3.5-9b:q4] 1000/1173 done, 1364s elapsed, ~236s remaining
+[qwen3.5-9b:q4] 1050/1173 done, 1431s elapsed, ~168s remaining
+[qwen3.5-9b:q4] 1100/1173 done, 1497s elapsed, ~99s remaining
+[qwen3.5-9b:q4] 1150/1173 done, 1562s elapsed, ~31s remaining
+
+=== FINAL RESULTS ===
+{
+  "qwen3:latest": {
+    "accuracy": 0.0,
+    "correct": 0,
+    "total": 1173,
+    "parse_rate": 0.0,
+    "by_category": {
+      "Language & Dialect": "0/619 (0%)",
+      "Imagery & Figurative Meaning": "0/121 (0%)",
+      "Etiquette & Values": "0/173 (0%)",
+      "Religious & Social Sensitivity": "0/78 (0%)",
+      "Historical & Heritage Knowledge": "0/89 (0%)",
+      "Greetings & Daily Expressions": "0/61 (0%)",
+      "Poetry & Creative Expression": "0/32 (0%)"
+    }
+  },
+  "hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M": {
+    "accuracy": 64.88,
+    "correct": 761,
+    "total": 1173,
+    "parse_rate": 100.0,
+    "by_category": {
+      "Language & Dialect": "365/619 (59%)",
+      "Imagery & Figurative Meaning": "98/121 (81%)",
+      "Etiquette & Values": "130/173 (75%)",
+      "Religious & Social Sensitivity": "50/78 (64%)",
+      "Historical & Heritage Knowledge": "61/89 (69%)",
+      "Greetings & Daily Expressions": "37/61 (61%)",
+      "Poetry & Creative Expression": "20/32 (62%)"
+    }
+  },
+  "jais-adaptive-q4:7b": {
+    "accuracy": 51.41,
+    "correct": 603,
+    "total": 1173,
+    "parse_rate": 99.49,
+    "by_category": {
+      "Language & Dialect": "290/619 (47%)",
+      "Imagery & Figurative Meaning": "83/121 (69%)",
+      "Etiquette & Values": "97/173 (56%)",
+      "Religious & Social Sensitivity": "41/78 (53%)",
+      "Historical & Heritage Knowledge": "42/89 (47%)",
+      "Greetings & Daily Expressions": "31/61 (51%)",
+      "Poetry & Creative Expression": "19/32 (59%)"
+    }
+  },
+  "qwen3.5-9b:q4": {
+    "accuracy": 26.0,
+    "correct": 305,
+    "total": 1173,
+    "parse_rate": 100.0,
+    "by_category": {
+      "Language & Dialect": "166/619 (27%)",
+      "Imagery & Figurative Meaning": "32/121 (26%)",
+      "Etiquette & Values": "43/173 (25%)",
+      "Religious & Social Sensitivity": "21/78 (27%)",
+      "Historical & Heritage Knowledge": "23/89 (26%)",
+      "Greetings & Daily Expressions": "13/61 (21%)",
+      "Poetry & Creative Expression": "7/32 (22%)"
+    }
+  }
+}

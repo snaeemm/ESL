@@ -1,0 +1,102 @@
+{
+  "raw_response": "[{\"concept\": \"Cell Structure\", \"key_terms\": [\"cell membrane\", \"nucleus\", \"cytoplasm\", \"mitochondria\"], \"source_span\": \"Inside a cell there are many different parts, and each part has its own job to do. These parts are called organelles.\"}, {\"concept\": \"Organelle Functions\", \"key_terms\": [\"organelles\", \"cell membrane\", \"nucleus\", \"cytoplasm\", \"mitochondria\"], \"source_span\": \"Three important parts found inside cells are: - The cell membrane... - The nucleus... - The cytoplasm... - The mitochondria.\"}, {\"concept\": \"Cell Membrane Function\", \"key_terms\": [\"cell membrane\", \"protect the cell\", \"control substances\"], \"source_span\": \"This is the thin outer layer that surrounds the cell. Its job is to protect the cell and to control what substances are allowed to enter or leave.\"}, {\"concept\": \"Nucleus Role\", \"key_terms\": [\"nucleus\", \"instructions\", \"direct everything\"], \"source_span\": \"The nucleus... contains the instructions that direct everything the cell does.\"}, {\"concept\": \"Cytoplasm Description\", \"key_terms\": [\"cytoplasm\", \"jelly-like substance\", \"organelles float inside\"], \"source_span\": \"This is the jelly-like substance that fills the inside of the cell. The other organelles float inside the cytoplasm.\"}, {\"concept\": \"Mitochondria Function\", \"key_terms\": [\"mitochondria\", \"powerhouse\", \"produce energy\"], \"source_span\": \"These organelles are sometimes called the \\\"powerhouse\\\" of the cell, because their job is to produce the energy the cell needs to function.\"}, {\"concept\": \"Plant vs. Animal Cells\", \"key_terms\": [\"plant cells\", \"animal cells\", \"cell wall\"], \"source_span\": \"But there is one important difference: plant cells have an extra layer outside the cell membrane called the \\\"cell wall\\\".\"}, {\"concept\": \"Cell Wall Characteristics\", \"key_terms\": [\"cell wall\", \"rigid\", \"fixed shape\", \"protection\"], \"source_span\": \"The cell wall is rigid and gives the plant cell a fixed shape and extra protection, which is one reason plants can grow tall and stand upright.\"}, {\"concept\": \"Living Organisms Composition\", \"key_terms\": [\"living organism\", \"cells\", \"tissues\", \"organs\", \"body systems\"], \"source_span\": \"A living organism's whole body is built from cells. Groups of similar cells work together to form tissues, tissues form organs, and organs form body systems.\"}, {\"concept\": \"Cell Organization in Organisms\", \"key_terms\": [\"cells\", \"tissues\", \"organs\", \"body systems\"], \"source_span\": \"This is true for both plants and animals — from the smallest insect to the largest tree, every part of a living organism's body is ultimately made of cells.\"}]",
+  "parsed_items": [
+    {
+      "concept": "Cell Structure",
+      "key_terms": [
+        "cell membrane",
+        "nucleus",
+        "cytoplasm",
+        "mitochondria"
+      ],
+      "source_span": "Inside a cell there are many different parts, and each part has its own job to do. These parts are called organelles."
+    },
+    {
+      "concept": "Organelle Functions",
+      "key_terms": [
+        "organelles",
+        "cell membrane",
+        "nucleus",
+        "cytoplasm",
+        "mitochondria"
+      ],
+      "source_span": "Three important parts found inside cells are: - The cell membrane... - The nucleus... - The cytoplasm... - The mitochondria."
+    },
+    {
+      "concept": "Cell Membrane Function",
+      "key_terms": [
+        "cell membrane",
+        "protect the cell",
+        "control substances"
+      ],
+      "source_span": "This is the thin outer layer that surrounds the cell. Its job is to protect the cell and to control what substances are allowed to enter or leave."
+    },
+    {
+      "concept": "Nucleus Role",
+      "key_terms": [
+        "nucleus",
+        "instructions",
+        "direct everything"
+      ],
+      "source_span": "The nucleus... contains the instructions that direct everything the cell does."
+    },
+    {
+      "concept": "Cytoplasm Description",
+      "key_terms": [
+        "cytoplasm",
+        "jelly-like substance",
+        "organelles float inside"
+      ],
+      "source_span": "This is the jelly-like substance that fills the inside of the cell. The other organelles float inside the cytoplasm."
+    },
+    {
+      "concept": "Mitochondria Function",
+      "key_terms": [
+        "mitochondria",
+        "powerhouse",
+        "produce energy"
+      ],
+      "source_span": "These organelles are sometimes called the \"powerhouse\" of the cell, because their job is to produce the energy the cell needs to function."
+    },
+    {
+      "concept": "Plant vs. Animal Cells",
+      "key_terms": [
+        "plant cells",
+        "animal cells",
+        "cell wall"
+      ],
+      "source_span": "But there is one important difference: plant cells have an extra layer outside the cell membrane called the \"cell wall\"."
+    },
+    {
+      "concept": "Cell Wall Characteristics",
+      "key_terms": [
+        "cell wall",
+        "rigid",
+        "fixed shape",
+        "protection"
+      ],
+      "source_span": "The cell wall is rigid and gives the plant cell a fixed shape and extra protection, which is one reason plants can grow tall and stand upright."
+    },
+    {
+      "concept": "Living Organisms Composition",
+      "key_terms": [
+        "living organism",
+        "cells",
+        "tissues",
+        "organs",
+        "body systems"
+      ],
+      "source_span": "A living organism's whole body is built from cells. Groups of similar cells work together to form tissues, tissues form organs, and organs form body systems."
+    },
+    {
+      "concept": "Cell Organization in Organisms",
+      "key_terms": [
+        "cells",
+        "tissues",
+        "organs",
+        "body systems"
+      ],
+      "source_span": "This is true for both plants and animals — from the smallest insect to the largest tree, every part of a living organism's body is ultimately made of cells."
+    }
+  ]
+}
