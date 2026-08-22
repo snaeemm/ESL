@@ -56,25 +56,34 @@ def _P(landmarks, i, w, h):
 
 
 def compute_brow_calibration(face_v2_list):
-    """Per-clip (or per-pooled-sequence) min/max of each brow's raise
-    value, computed from frames actually present — the same idea as the
-    hand-depth fix: don't compare against one fixed NEUTRAL constant
-    tuned on different footage/different signer, stretch to what THIS
-    clip's signer actually does. Returns None if no v2 data available
-    (caller must fall back to the fixed-NEUTRAL behavior)."""
-    lefts, rights = [], []
+    """Per-clip (or per-pooled-sequence) min/max of brow raise, computed
+    from frames actually present — the same idea as the hand-depth fix:
+    don't compare against one fixed NEUTRAL constant tuned on different
+    footage/different signer, stretch to what THIS clip's signer
+    actually does. Returns None if no v2 data available (caller must
+    fall back to the fixed-NEUTRAL behavior).
+
+    IMPORTANT: uses ONE SHARED range for both L and R (pooled together),
+    not independent per-side ranges. An earlier version normalized each
+    side against its OWN min/max — if the right eyebrow's natural raw
+    range happened to be wider than the left's (plausible real variation,
+    not necessarily meaningful), independently stretching each side to
+    fill 0..1 exaggerated the L/R difference well beyond what the real
+    data showed, per user feedback ("right brow goes way higher"). A
+    shared range preserves genuine relative differences between sides
+    without amplifying whichever side happens to have a wider raw span.
+    """
+    both = []
     for v2 in face_v2_list:
         if v2 is None:
             continue
         b = v2["brows"]
-        lefts.append((b["left_inner_raise"] + b["left_outer_raise"]) / 2)
-        rights.append((b["right_inner_raise"] + b["right_outer_raise"]) / 2)
-    if not lefts:
+        both.append((b["left_inner_raise"] + b["left_outer_raise"]) / 2)
+        both.append((b["right_inner_raise"] + b["right_outer_raise"]) / 2)
+    if not both:
         return None
-    return {
-        "left_min": min(lefts), "left_max": max(lefts),
-        "right_min": min(rights), "right_max": max(rights),
-    }
+    lo, hi = min(both), max(both)
+    return {"left_min": lo, "left_max": hi, "right_min": lo, "right_max": hi}
 
 
 def compute_mouth_contour_calibration(face_v2_list):
@@ -97,23 +106,24 @@ def compute_mouth_contour_calibration(face_v2_list):
 
 
 def compute_mouth_calibration(face_v2_list):
-    """Same idea as compute_brow_calibration, for the two mouth corners
-    independently — this is what makes an ASYMMETRIC mouth shape (a
-    smirk, a natural talking asymmetry) renderable at all: v1 only ever
-    had one shared `smile` value applied equally to both corners."""
-    lefts, rights = [], []
+    """Same idea as compute_brow_calibration, for the two mouth corners —
+    this is what makes an ASYMMETRIC mouth shape (a smirk, a natural
+    talking asymmetry) renderable at all: v1 only ever had one shared
+    `smile` value applied equally to both corners. Uses ONE SHARED range
+    for both corners (same fix/reasoning as compute_brow_calibration —
+    independent per-side ranges exaggerate whichever side has a wider
+    raw span beyond what the real data shows)."""
+    both = []
     for v2 in face_v2_list:
         if v2 is None:
             continue
         mo = v2["mouth"]
-        lefts.append(mo["left_corner_elevation"])
-        rights.append(mo["right_corner_elevation"])
-    if not lefts:
+        both.append(mo["left_corner_elevation"])
+        both.append(mo["right_corner_elevation"])
+    if not both:
         return None
-    return {
-        "left_min": min(lefts), "left_max": max(lefts),
-        "right_min": min(rights), "right_max": max(rights),
-    }
+    lo, hi = min(both), max(both)
+    return {"left_min": lo, "left_max": hi, "right_min": lo, "right_max": hi}
 
 
 def face_features_v2(landmarks, w, h):
