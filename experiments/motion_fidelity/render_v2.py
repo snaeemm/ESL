@@ -309,16 +309,10 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
             # mouth-open lesson (too much amplification looks fake)
             # applies here too.
             mean_c = eye_contour_calibration[name]
-            # Vertical stretch (user-requested: real eye contour is
-            # naturally very flat - dy range is roughly 1/3 of dx range -
-            # so tracing it literally gives a thin slit rather than a
-            # proper rounder eye shape). _EYE_VSTRETCH fattens it
-            # vertically only, around the eye's own vertical center.
-            _EYE_VSTRETCH = 1.8
             pts = []
             for (dx, dy), (mx, my) in zip(eye_contour, mean_c):
                 adx = mx + (dx - mx) * 1.3
-                ady = (my + (dy - my) * 1.3) * _EYE_VSTRETCH
+                ady = my + (dy - my) * 1.3
                 pts.append((int(ex + adx * face_r * 2.0), int(eye_y + ady * face_r * 2.0)))
             cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 2, cv2.LINE_AA)
             cv2.fillPoly(layer, [np.array(pts, dtype=np.int32)], (*SKIN_LINE, 255))
@@ -381,7 +375,6 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
             adx = mx + (dx - mx) * _AMPLIFY_X
             ady = my + (dy - my) * _AMPLIFY_Y
             pts.append((int(lc[0] + adx * _MOUTH_SCALE), int(mouth_y + ady * _MOUTH_SCALE)))
-        cv2.fillPoly(layer, [np.array(pts, dtype=np.int32)], (*SKIN_LINE, 255))
         cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 3, cv2.LINE_AA)
     elif mouth_h > int(face_r * 0.08):
         avg_delta = (left_delta + right_delta) / 2
