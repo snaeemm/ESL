@@ -38,7 +38,7 @@ import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "scripts"))
 from spike_cartoon_avatar import (  # noqa: E402 — reused unmodified from production
     ipt, draw_capsule, FINGER_CHAINS, PALM_OUTLINE, HALO,
-    SKIN, SKIN_SHADE, SKIN_LINE, KANDURA_LINE, clamp, NEUTRAL,
+    SKIN, SKIN_SHADE, SKIN_LINE, clamp, NEUTRAL,
 )
 
 
@@ -224,16 +224,6 @@ def draw_hand_v3(img, pts, alpha, zs, palm_nz):
             draw_gradient_capsule(layer, ipts[prev_i], ipts[idx], r_in, [5, 4, 3, 2][k - 1], c_prev, c_idx)
         cv2.circle(layer, ipts[chain[-1]], 3, point_color(chain[-1]), -1, cv2.LINE_AA)
 
-    # Wrist boundary marker (user-requested: "would coloring the wrist
-    # differently separate wrist from fingers?"). Previously the wrist
-    # point was just part of the palm fill, with no visual boundary
-    # between the sleeve/forearm and the hand at all. A thin ring in the
-    # sleeve's own outline colour (KANDURA_LINE, not a skin tone) at the
-    # wrist landmark reads as a real "cuff" joint, distinct from every
-    # skin-toned part of the hand.
-    wrist_r = 5
-    cv2.circle(layer, ipts[0], wrist_r, KANDURA_LINE, 2, cv2.LINE_AA)
-
     if alpha >= 1.0:
         img[:] = layer
     else:
@@ -283,18 +273,15 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
                 lo, hi = brow_calibration[f"{name}_min"], brow_calibration[f"{name}_max"]
                 span = max(1e-6, hi - lo)
                 t = (raise_val - lo) / span
-                t = max(0.0, min(1.0, 0.5 + (t - 0.5) * _CONTRAST))
+                # Brows use a GENTLER contrast than hands/mouth (1.4, not
+                # the shared 2.2) and a tighter raised-side bound (0.18,
+                # not v1's 0.22) - per user feedback the raised eyebrow
+                # was reading as exaggerated/"way higher than it should
+                # be". The lowered-side bound (0.16) is left alone since
+                # that's the one the earlier collapse-bug fix depends on.
+                t = max(0.0, min(1.0, 0.5 + (t - 0.5) * 1.4))
                 centered = (t - 0.5) * 2  # -1..1
-                # BUG FIX (found via visual review: low-raise frames rendered
-                # with NO visible eyebrow at all): the original v1 code used
-                # an intentionally ASYMMETRIC range (-face_r*0.16 lowered,
-                # +face_r*0.22 raised), not a symmetric one. My first version
-                # used a symmetric +-0.22 range, which for low-t frames pushed
-                # brow_y close enough to eye_y that the eye ellipse (drawn
-                # after, on top) completely covered the brow line beneath it
-                # - not "hard to see", literally hidden. Matching v1's
-                # asymmetric bounds here fixes that collapse.
-                brow_delta = centered * (face_r * 0.16 if centered < 0 else face_r * 0.22)
+                brow_delta = centered * (face_r * 0.16 if centered < 0 else face_r * 0.18)
             else:
                 brow_delta = clamp((raise_val - NEUTRAL["brow_raise"]) * face_r * 5, -face_r * 0.16, face_r * 0.22)
             eye_state = v2["eyes"][f"{name}_state"]
@@ -350,11 +337,20 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
         # actually visible, same reasoning as the other calibrations —
         # the RAW shape's frame-to-frame differences were confirmed too
         # small to perceive at video scale during visual review.
+        # SCALE fix: contour_norm is normalized by face_h (a full real
+        # face height), so the correct avatar-space reference is
+        # face_r*2.0 (~face diameter), NOT face_r*2.6 - that constant was
+        # v1's own tuning specifically for the tiny "mouth open" height
+        # value (~0.045 typical), roughly 6x smaller than this contour's
+        # ~0.28 typical width. Reusing it here is what made the mouth
+        # render oversized relative to the head. Amplify also reduced
+        # 3.0 -> 1.8 now that the base scale itself is correct.
+        _MOUTH_SCALE = face_r * 2.0
         pts = []
         for (dx, dy), (mx, my) in zip(contour_norm, mouth_contour_calibration):
-            adx = mx + (dx - mx) * _CONTOUR_AMPLIFY
-            ady = my + (dy - my) * _CONTOUR_AMPLIFY
-            pts.append((int(lc[0] + adx * face_r * 2.6), int(mouth_y + ady * face_r * 2.6)))
+            adx = mx + (dx - mx) * 1.8
+            ady = my + (dy - my) * 1.8
+            pts.append((int(lc[0] + adx * _MOUTH_SCALE), int(mouth_y + ady * _MOUTH_SCALE)))
         cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 3, cv2.LINE_AA)
     elif mouth_h > int(face_r * 0.08):
         avg_delta = (left_delta + right_delta) / 2
