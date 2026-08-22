@@ -69,6 +69,26 @@ def compute_brow_calibration(face_v2_list):
     }
 
 
+def compute_mouth_calibration(face_v2_list):
+    """Same idea as compute_brow_calibration, for the two mouth corners
+    independently — this is what makes an ASYMMETRIC mouth shape (a
+    smirk, a natural talking asymmetry) renderable at all: v1 only ever
+    had one shared `smile` value applied equally to both corners."""
+    lefts, rights = [], []
+    for v2 in face_v2_list:
+        if v2 is None:
+            continue
+        mo = v2["mouth"]
+        lefts.append(mo["left_corner_elevation"])
+        rights.append(mo["right_corner_elevation"])
+    if not lefts:
+        return None
+    return {
+        "left_min": min(lefts), "left_max": max(lefts),
+        "right_min": min(rights), "right_max": max(rights),
+    }
+
+
 def face_features_v2(landmarks, w, h):
     P = lambda i: _P(landmarks, i, w, h)
     face_h = np.linalg.norm(P(_TOP) - P(_CHIN)) or 1.0

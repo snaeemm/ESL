@@ -229,7 +229,8 @@ def draw_hand_v3(img, pts, alpha, zs, palm_nz):
         cv2.addWeighted(layer, alpha, img, 1 - alpha, 0, dst=img)
 
 
-def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_pose, brow_calibration=None):
+def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_pose,
+                           brow_calibration=None, mouth_calibration=None):
     """Draws eyebrows (independent L/R), eyes (with blink), and mouth
     (unchanged from v1's curve — mouth v2 fields are captured/exported
     but NOT yet rendered differently, see final report classification)
@@ -304,13 +305,38 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
             eye_h = int(clamp(aperture * face_r * 2.6, face_r * 0.03, face_r * 0.16))
             cv2.ellipse(layer, (ex, eye_y), (eye_w, eye_h), 0, 0, 360, (*SKIN_LINE, 255), -1, cv2.LINE_AA)
 
+    # Per-corner elevation (v2 + calibration) — this is the actual new
+    # capability: v1 only ever had one shared `smile` value applied
+    # equally to both mouth corners, so it could NOT represent a real
+    # asymmetric mouth shape (a smirk, natural asymmetric talking
+    # motion). Each corner is now calibrated/contrast-boosted the same
+    # way as brows, using the SAME symmetric +-face_r*0.22 bound v1's own
+    # `smile` clamp already used (matching those bounds deliberately,
+    # after the asymmetric-range bug found in the eyebrow fix — no new
+    # bounds mismatch here).
+    def corner_delta(name, elev):
+        if metrics_v2 and mouth_calibration:
+            lo, hi = mouth_calibration[f"{name}_min"], mouth_calibration[f"{name}_max"]
+            span = max(1e-6, hi - lo)
+            t = (elev - lo) / span
+            t = max(0.0, min(1.0, 0.5 + (t - 0.5) * _CONTRAST))
+            return (t - 0.5) * 2 * face_r * 0.22
+        return smile
+
+    if metrics_v2 and mouth_calibration:
+        left_delta = corner_delta("left", metrics_v2["mouth"]["left_corner_elevation"])
+        right_delta = corner_delta("right", metrics_v2["mouth"]["right_corner_elevation"])
+    else:
+        left_delta = right_delta = smile
+
     mouth_y = lc[1] + int(face_r * 0.46)
     if mouth_h > int(face_r * 0.08):
-        cv2.ellipse(layer, (lc[0], mouth_y - smile // 2), (mouth_w // 2, mouth_h // 2), 0, 0, 360, (*SKIN_LINE, 255), -1, cv2.LINE_AA)
+        avg_delta = (left_delta + right_delta) / 2
+        cv2.ellipse(layer, (lc[0], int(mouth_y - avg_delta / 2)), (mouth_w // 2, mouth_h // 2), 0, 0, 360, (*SKIN_LINE, 255), -1, cv2.LINE_AA)
     else:
-        left = (lc[0] - mouth_w // 2, mouth_y)
-        right = (lc[0] + mouth_w // 2, mouth_y)
-        mid = (lc[0], mouth_y - smile)
+        left = (lc[0] - mouth_w // 2, mouth_y - left_delta)
+        right = (lc[0] + mouth_w // 2, mouth_y - right_delta)
+        mid = (lc[0], mouth_y - (left_delta + right_delta) / 2)
         pts = []
         for t in np.linspace(0, 1, 12):
             x = (1 - t) ** 2 * left[0] + 2 * (1 - t) * t * mid[0] + t ** 2 * right[0]
