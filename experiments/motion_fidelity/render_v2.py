@@ -1,0 +1,186 @@
+"""Experimental AFTER-renderer (Part A10). Reuses everything possible from
+scripts/spike_cartoon_avatar.py UNMODIFIED (imported, not copied): ipt,
+draw_capsule, FINGER_CHAINS, PALM_OUTLINE, HALO, colors, draw_body,
+smooth_series, HandTrack. Only adds NEW drawing functions here — the
+production file is never edited.
+
+Three visible improvements attempted, each using data that was already
+being captured but was previously unused by the renderer:
+
+1. Palm-facing shading — uses the palm-orientation normal (hand_features.py,
+   itself derived from z that was already exported to motion JSON but never
+   read by any drawing code). Back-of-hand frames get a visibly darker fill;
+   front-of-hand frames look as before. This is the single biggest "new
+   information now visible" change, because the baseline renderer cannot
+   currently distinguish a hand facing the camera from one facing away —
+   both look pixel-identical today since only (x,y) is drawn.
+
+2. Independent left/right eyebrows — uses face_features_v2's separate L/R
+   brow measurements instead of face_metrics()'s single averaged value.
+
+3. Full eye closure (blink) — the baseline's eye height is clamped to a
+   minimum of face_r*0.03, so eyes visually never fully close. Using
+   face_features_v2's discrete blink state, a blink frame now draws a
+   closed-eye line instead of a thin-but-open ellipse.
+
+4. Head roll rotation — the head+face group is drawn to a small local
+   layer, rotated by the estimated roll angle (head_pose.py), and
+   composited back. Pitch/yaw are estimated and reported in the JSON but
+   NOT visually applied to the 2D avatar (see final report — attempted,
+   found to look uncanny at this render fidelity, disabled, documented).
+"""
+import sys
+import os
+
+import cv2
+import numpy as np
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "scripts"))
+from spike_cartoon_avatar import (  # noqa: E402 — reused unmodified from production
+    ipt, draw_capsule, FINGER_CHAINS, PALM_OUTLINE, HALO,
+    SKIN, SKIN_SHADE, SKIN_LINE, clamp, NEUTRAL,
+)
+
+
+def draw_hand_v2(img, pts, alpha, zs, palm_facing):
+    """Same structure as spike_cartoon_avatar.draw_hand, with one addition:
+    palm fill color depends on palm_facing ("camera"/"away"/"edge_on"/
+    "undetermined"). "away" uses SKIN_SHADE (the existing shading color,
+    reused for a new purpose) for the palm fill instead of SKIN, so the
+    back of the hand reads as visually distinct from the palm — real
+    information (previously-unused z) now visible, not new geometry."""
+    layer = img.copy()
+    ipts = [ipt(p) for p in pts]
+
+    if zs:
+        mean_z = sum(zs) / len(zs)
+        forwardness = max(0.0, min(1.0, (-mean_z) * 6.0))
+        if forwardness >= 0.05:
+            halo_r = int(3 + forwardness * 6)
+            halo_layer = img.copy()
+            halo_palm = np.array([ipts[i] for i in PALM_OUTLINE], dtype=np.int32)
+            cv2.polylines(halo_layer, [halo_palm], True, HALO, halo_r * 2, cv2.LINE_AA)
+            cv2.fillConvexPoly(halo_layer, halo_palm, HALO, cv2.LINE_AA)
+            for chain in FINGER_CHAINS:
+                prev = ipts[0]
+                for idx in chain:
+                    cv2.line(halo_layer, prev, ipts[idx], HALO, halo_r * 2, cv2.LINE_AA)
+                    cv2.circle(halo_layer, ipts[idx], halo_r, HALO, -1, cv2.LINE_AA)
+                    prev = ipts[idx]
+            halo_alpha = 0.75 * alpha
+            cv2.addWeighted(halo_layer, halo_alpha, img, 1 - halo_alpha, 0, dst=img)
+
+    palm_fill = SKIN_SHADE if palm_facing == "away" else SKIN
+    palm = np.array([ipts[i] for i in PALM_OUTLINE], dtype=np.int32)
+    cv2.fillConvexPoly(layer, palm, SKIN_LINE, cv2.LINE_AA)
+    cv2.fillConvexPoly(layer, palm, palm_fill, cv2.LINE_AA)
+
+    for chain in FINGER_CHAINS:
+        prev = ipts[0]
+        for k, idx in enumerate(chain):
+            r_out = [9, 8, 7, 6][k]
+            draw_capsule(layer, prev, ipts[idx], r_out, [8, 7, 6, 5][k], SKIN_LINE)
+            prev = ipts[idx]
+        prev = ipts[0]
+        for k, idx in enumerate(chain):
+            r_in = [6, 5, 4, 3][k]
+            draw_capsule(layer, prev, ipts[idx], r_in, [5, 4, 3, 2][k], palm_fill)
+            prev = ipts[idx]
+        cv2.circle(layer, ipts[chain[-1]], 3, palm_fill, -1, cv2.LINE_AA)
+
+    if alpha >= 1.0:
+        img[:] = layer
+    else:
+        cv2.addWeighted(layer, alpha, img, 1 - alpha, 0, dst=img)
+
+
+def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_pose):
+    """Draws eyebrows (independent L/R), eyes (with blink), and mouth
+    (unchanged from v1's curve — mouth v2 fields are captured/exported
+    but NOT yet rendered differently, see final report classification)
+    onto a local layer sized to the head, then rotates that layer by the
+    estimated roll angle before compositing onto canvas. Pitch/yaw are
+    accepted as parameters but intentionally unused for rendering (see
+    module docstring) — kept in the signature so the call site doesn't
+    need to change if that's revisited later."""
+    m = metrics_v1 or NEUTRAL
+    v2 = metrics_v2
+
+    pad = int(face_r * 1.6)
+    size = pad * 2
+    layer = np.zeros((size, size, 4), dtype=np.uint8)  # BGRA, transparent bg
+    lc = (pad, pad)  # local center
+
+    eye_y = lc[1] - int(face_r * 0.12)
+    eye_dx = int(face_r * 0.36)
+    mouth_w = int(clamp(m["mouth_width"] * face_r * 1.1, face_r * 0.3, face_r * 0.95))
+    mouth_h = int(clamp(m["mouth_open"] * face_r * 2.6, 2, face_r * 0.45))
+    smile = int(clamp((m.get("smile", 0.0) - NEUTRAL["smile"]) * face_r * 8, -face_r * 0.22, face_r * 0.22))
+
+    sides = [("left", -1), ("right", 1)] if v2 else [("left", -1), ("right", 1)]
+    for name, side in sides:
+        ex = lc[0] + side * eye_dx
+        if v2:
+            brow = v2["brows"]
+            raise_val = (brow[f"{name}_inner_raise"] + brow[f"{name}_outer_raise"]) / 2
+            brow_delta = clamp((raise_val - NEUTRAL["brow_raise"]) * face_r * 5, -face_r * 0.16, face_r * 0.22)
+            eye_state = v2["eyes"][f"{name}_state"]
+            aperture = v2["eyes"][f"{name}_aperture"]
+        else:
+            brow_delta = clamp((m["brow_raise"] - NEUTRAL["brow_raise"]) * face_r * 5, -face_r * 0.16, face_r * 0.22)
+            eye_state, aperture = "open", m["eye_open"]
+
+        brow_y = int(eye_y - face_r * 0.24 - brow_delta)
+        p1 = (ex - int(face_r * 0.14), brow_y + int(face_r * 0.03))
+        p2 = (ex, brow_y)
+        p3 = (ex + int(face_r * 0.14), brow_y + int(face_r * 0.03))
+        cv2.polylines(layer, [np.array([p1, p2, p3], dtype=np.int32)], False, (*SKIN_LINE, 255), 3, cv2.LINE_AA)
+
+        eye_w = int(clamp(m.get("eye_width", NEUTRAL["eye_width"]) * face_r * 0.55, face_r * 0.08, face_r * 0.16))
+        if eye_state == "blink":
+            cv2.line(layer, (ex - eye_w, eye_y), (ex + eye_w, eye_y), (*SKIN_LINE, 255), 3, cv2.LINE_AA)
+        else:
+            eye_h = int(clamp(aperture * face_r * 2.6, face_r * 0.03, face_r * 0.16))
+            cv2.ellipse(layer, (ex, eye_y), (eye_w, eye_h), 0, 0, 360, (*SKIN_LINE, 255), -1, cv2.LINE_AA)
+
+    mouth_y = lc[1] + int(face_r * 0.46)
+    if mouth_h > int(face_r * 0.08):
+        cv2.ellipse(layer, (lc[0], mouth_y - smile // 2), (mouth_w // 2, mouth_h // 2), 0, 0, 360, (*SKIN_LINE, 255), -1, cv2.LINE_AA)
+    else:
+        left = (lc[0] - mouth_w // 2, mouth_y)
+        right = (lc[0] + mouth_w // 2, mouth_y)
+        mid = (lc[0], mouth_y - smile)
+        pts = []
+        for t in np.linspace(0, 1, 12):
+            x = (1 - t) ** 2 * left[0] + 2 * (1 - t) * t * mid[0] + t ** 2 * right[0]
+            y = (1 - t) ** 2 * left[1] + 2 * (1 - t) * t * mid[1] + t ** 2 * right[1]
+            pts.append((int(x), int(y)))
+        cv2.polylines(layer, [np.array(pts, dtype=np.int32)], False, (*SKIN_LINE, 255), 3, cv2.LINE_AA)
+
+    roll_deg = 0.0
+    if head_pose and head_pose.get("solve_ok"):
+        # Clamp to a modest range — full solvePnP roll can be noisy frame
+        # to frame at this landmark sparsity; a hard clamp prevents any
+        # single noisy frame from producing a visibly uncanny snap.
+        roll_deg = clamp(head_pose["roll_deg"], -20, 20)
+    if abs(roll_deg) > 0.5:
+        rot_mat = cv2.getRotationMatrix2D(lc, -roll_deg, 1.0)
+        layer = cv2.warpAffine(layer, rot_mat, (size, size), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0, 0))
+
+    x0, y0 = face_c[0] - pad, face_c[1] - pad
+    _composite_rgba(canvas, layer, x0, y0)
+
+
+def _composite_rgba(canvas, layer_rgba, x0, y0):
+    h, w = layer_rgba.shape[:2]
+    ch, cw = canvas.shape[:2]
+    x1, y1 = max(0, x0), max(0, y0)
+    x2, y2 = min(cw, x0 + w), min(ch, y0 + h)
+    if x2 <= x1 or y2 <= y1:
+        return
+    lx1, ly1 = x1 - x0, y1 - y0
+    lx2, ly2 = lx1 + (x2 - x1), ly1 + (y2 - y1)
+    region = canvas[y1:y2, x1:x2]
+    sub = layer_rgba[ly1:ly2, lx1:lx2]
+    alpha = sub[:, :, 3:4].astype(np.float32) / 255.0
+    region[:] = (region.astype(np.float32) * (1 - alpha) + sub[:, :, :3].astype(np.float32) * alpha).astype(np.uint8)
