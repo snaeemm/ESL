@@ -1,0 +1,278 @@
+/* Federal visual identity tokens — matches the high-fidelity design
+   handoff (design_handoff_sign_language_generator/, see BRAND_GUIDE.md /
+   CLAUDE.md at repo root) exactly, not an approximation. See
+   docs/FEDERAL_VISUAL_IDENTITY.md for the full decision record. */
+:root {
+  --federal-white: #FFFFFF;
+  --federal-silver: #C6C6C6;
+  --federal-iron: #414042;
+  --federal-gold: #B68A35;
+  --federal-gold-tint: #FBF5EB;
+
+  --page-bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-alt: #FAFAFA;
+  --heading: #262626;
+  --text-primary: var(--federal-iron);
+  --text-secondary: #6b6b6d;
+  --text-muted: #9a9a9c;
+  --border: #E5E5E5;
+  --border-input: #DADADA;
+  --accent: var(--federal-gold);
+  --accent-tint: var(--federal-gold-tint);
+  --accent-contrast: #ffffff;
+
+  --status-ok-bg: rgb(232, 242, 233);
+  --status-ok-fg: rgb(42, 92, 45);
+  --status-warn-bg: rgb(252, 243, 224);
+  --status-warn-fg: rgb(139, 98, 8);
+  --status-error-bg: rgb(250, 232, 230);
+  --status-error-fg: rgb(150, 45, 38);
+  --status-neutral-bg: #FAFAFA;
+  --status-neutral-fg: var(--federal-iron);
+
+  --radius: 10px;
+  --radius-card: 14px;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+  --font-family: "Helvetica Neue", Arial, sans-serif; /* stand-in for Univers Next — see CLAUDE.md */
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { margin: 0; padding: 0; min-height: 100%; }
+
+body {
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  background: var(--page-bg);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+::placeholder { color: #A9A9AC; }
+
+h1, h2, h3, h4 { line-height: 1.25; font-weight: 700; color: var(--heading); }
+
+a { color: var(--text-primary); }
+
+button { font-family: inherit; cursor: pointer; }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* Logo strip — header bar per design spec: white bg, 1px #E5E5E5 bottom
+   border, 20px 48px padding, logo left (64px height), pill badge right. */
+.brand-strip { background: var(--surface); border-bottom: 1px solid var(--border); }
+.brand-strip-inner { display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; max-width: none; }
+.moe-logo { height: 64px; width: auto; object-fit: contain; display: block; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  background: transparent;
+}
+
+/* Title band — H1 + subtext left, nav cluster right; white bg, same
+   bottom border, 40px 48px padding, wraps on narrow widths. */
+.app-header { background: var(--surface); border-bottom: 1px solid var(--border); }
+.app-header-inner {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap; padding: 40px 48px; max-width: none;
+}
+.app-title { font-size: 30px; font-weight: 700; color: var(--heading); margin: 0 0 8px; letter-spacing: -0.01em; }
+.app-subtitle { font-size: 15px; color: var(--text-secondary); margin: 0; max-width: 640px; line-height: 1.6; }
+
+.nav { display: flex; align-items: center; gap: 28px; padding-top: 6px; }
+.nav a { font-size: 14px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 0; border-radius: 0; background: none; }
+.nav a.active { font-weight: 700; color: var(--accent); }
+.nav a:hover { color: var(--text-primary); }
+
+.lang-toggle { display: flex; border: 1px solid var(--border-input); border-radius: 8px; overflow: hidden; }
+.lang-toggle button {
+  padding: 8px 14px; font-size: 13px; font-weight: 700; border: none; background: transparent; color: var(--text-secondary);
+}
+.lang-toggle button.active { background: var(--federal-iron); color: #fff; }
+
+main { padding: 40px 0 80px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 36px;
+}
+
+.field { margin-top: 26px; }
+.field:first-child { margin-top: 0; }
+
+.field label {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.field .hint { font-size: 12.5px; color: var(--text-muted); margin-top: 10px; line-height: 1.5; }
+
+textarea, input[type="text"], input[type="number"], select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+textarea { min-height: 220px; padding: 16px; resize: vertical; }
+
+textarea:focus, input:focus, select:focus, button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.radio-group { display: flex; flex-direction: column; gap: 10px; }
+.radio-group label {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; border: 1.5px solid var(--border-input); border-radius: var(--radius);
+  font-size: 14px; color: var(--text-primary); cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+.radio-group label.selected { border-color: var(--accent); background: var(--accent-tint); }
+.radio-group input[type="radio"] { accent-color: var(--accent); width: 16px; height: 16px; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 700;
+  width: 100%;
+  transition: background 150ms ease;
+}
+.btn-primary:disabled { background: var(--border-input); color: var(--text-muted); cursor: not-allowed; }
+.btn-primary:hover:not(:disabled) { background: #9c7830; }
+
+.btn-secondary {
+  background: transparent;
+  border: 1.5px solid var(--border-input);
+  color: var(--text-primary);
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 700;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+.btn-secondary:hover { border-color: var(--federal-iron); }
+.btn-secondary.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-tint); }
+.btn-secondary.filled { background: var(--federal-iron); border-color: var(--federal-iron); color: #fff; }
+
+.file-drop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 22px 20px;
+  border: 1.5px dashed var(--border-input);
+  border-radius: var(--radius);
+  background: var(--page-bg);
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+.file-drop:hover, .file-drop:focus-within { border-color: var(--accent); background: var(--accent-tint); }
+.file-drop-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--border-input);
+  color: var(--text-secondary); font-size: 16px; flex: none;
+}
+.file-drop-text { flex: 1; font-size: 14px; color: var(--text-primary); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-drop .btn-secondary { flex: none; pointer-events: none; padding: 10px 18px; font-size: 13px; }
+
+.tab-row { display: flex; gap: 12px; margin-bottom: 18px; }
+.tab-row button {
+  flex: 1; text-align: center; padding: 14px; border-radius: var(--radius);
+  font-weight: 700; font-size: 14px; border: 1.5px solid var(--border-input); background: var(--surface); color: var(--text-primary);
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.tab-row button.active { border-color: var(--federal-iron); background: var(--federal-iron); color: #fff; }
+
+.duration-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.duration-row button { padding: 12px 22px; }
+.duration-row input[type="number"] { flex: 1; min-width: 140px; padding: 12px 16px; }
+
+.stage-tracker { display: flex; flex-direction: column; gap: 2px; }
+.stage-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius); }
+.stage-row.current { background: var(--accent-tint); }
+.stage-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--border-input); flex: none; }
+.stage-dot.done { background: var(--status-ok-fg); border-color: var(--status-ok-fg); }
+.stage-dot.current { background: var(--accent); border-color: var(--accent); }
+.stage-dot.blocked, .stage-dot.error { background: var(--status-error-fg); border-color: var(--status-error-fg); }
+.stage-label { font-weight: 700; font-size: 14px; color: var(--text-primary); }
+.stage-message { font-size: 13px; color: var(--text-secondary); }
+
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 24px 0; }
+.metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.metric-value { font-size: 1.6rem; font-weight: 700; color: var(--heading); }
+.metric-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+
+.status-banner { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: var(--radius); margin: 16px 0; font-weight: 600; }
+.status-banner.ok { background: var(--status-ok-bg); color: var(--status-ok-fg); }
+.status-banner.warn { background: var(--status-warn-bg); color: var(--status-warn-fg); }
+.status-banner.error { background: var(--status-error-bg); color: var(--status-error-fg); }
+
+.status-chip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 3px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; }
+.status-chip.verified { background: var(--status-ok-bg); color: var(--status-ok-fg); }
+.status-chip.fingerspell { background: var(--accent-tint); color: #8a6420; }
+.status-chip.review { background: var(--status-warn-bg); color: var(--status-warn-fg); }
+.status-chip.unsupported { background: var(--status-error-bg); color: var(--status-error-fg); }
+
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--border); margin: 28px 0 20px; }
+.tabs button { background: none; border: none; border-bottom: 2px solid transparent; padding: 10px 4px; margin-inline-end: 24px; font-size: 14px; font-weight: 700; color: var(--text-muted); }
+.tabs button.active { color: var(--text-primary); border-bottom-color: var(--accent); }
+
+video.lesson-video { width: 100%; max-width: 640px; border-radius: var(--radius); border: 1px solid var(--border); background: #000; display: block; }
+
+table.trace-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+table.trace-table th, table.trace-table td { text-align: start; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+table.trace-table th { font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); }
+
+.filter-chips { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.filter-chips button { border: 1px solid var(--border-input); background: var(--surface); border-radius: var(--radius-pill); padding: 5px 14px; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+.filter-chips button.active { background: var(--federal-iron); color: #fff; border-color: var(--federal-iron); }
+
+.disclaimer-box { background: var(--accent-tint); border-inline-start: 3px solid var(--accent); padding: 12px 16px; font-size: 0.85rem; color: var(--text-secondary); border-radius: 2px; margin: 14px 0; }
+
+.app-footer { border-top: 1px solid var(--border); padding: 24px 0; color: var(--text-muted); font-size: 12.5px; background: var(--surface); }
+.footnote { font-size: 12.5px; color: var(--text-muted); text-align: center; margin-top: 22px; line-height: 1.6; }
+
+.history-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+
+.unit-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; background: var(--surface); }
+.unit-card summary { cursor: pointer; font-size: 0.85rem; color: var(--text-secondary); font-weight: 600; }
+.source-span-quote { font-style: italic; color: var(--text-secondary); border-inline-start: 2px solid var(--border); padding-inline-start: 10px; margin: 8px 0; }
+
+.page-title { font-size: 22px; font-weight: 700; color: var(--heading); margin: 0 0 18px; }
+
+/* RTL adaptation: logical properties above (margin-inline-*, border-inline-*,
+   text-align: start) already flip correctly under dir="rtl" without any
+   overrides here — this is deliberate, not an oversight. */
+[dir="rtl"] .brand-strip-inner { flex-direction: row-reverse; }
+[dir="rtl"] .app-header-inner { flex-direction: row-reverse; }
+[dir="rtl"] .nav { flex-direction: row-reverse; }
+[dir="rtl"] .stage-row { flex-direction: row-reverse; justify-content: flex-end; }
+[dir="rtl"] .metric-value, [dir="rtl"] .metric-label { text-align: right; }

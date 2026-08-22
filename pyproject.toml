@@ -1,0 +1,62 @@
+[project]
+name = "moi-sign-language-episode-generator"
+version = "0.1.0"
+description = "UAE MoE case-study prototype: SOURCE -> UNDERSTAND -> STRUCTURE -> SIGN RESOLUTION -> VALIDATE -> SIGN VIDEO"
+requires-python = "==3.11.*"
+dependencies = [
+    # UNDERSTAND / STRUCTURE / SIGN PLAN / TERMINOLOGY (lib/understand.py,
+    # lib/episode_builder.py, lib/sign_plan.py, lib/terminology.py) - calls
+    # a local Ollama server over HTTP.
+    "requests",
+
+    # MediaPipe / avatar rendering (scripts/spike_cartoon_avatar.py,
+    # scripts/spike_render_captioned_lesson.py, scripts/spike_find_active_window.py,
+    # lib/clip_prep.py). Pinned to 0.10.14: the current pip release (1.0.1)
+    # crashes natively on the development machine (Metal/GPU graph-service
+    # fault in its newer Tasks API) - the legacy `mp.solutions` API in
+    # 0.10.14 is what the renderer actually uses and is confirmed working.
+    "mediapipe==0.10.14",
+    "opencv-python",
+    "numpy",
+    "Pillow",
+
+    # Arabic caption shaping (scripts/spike_render_captioned_lesson.py) -
+    # cv2.putText cannot shape Arabic (no letter joining, no RTL reordering,
+    # confirmed by inspection to produce garbled output), so captions are
+    # drawn via PIL after reshaping/reordering with these two.
+    "arabic-reshaper",
+    "python-bidi",
+]
+
+[project.optional-dependencies]
+# Only needed to re-run the benchmark evidence in benchmarks/ — not
+# required for run_pipeline.py itself.
+benchmark = [
+    "scikit-learn",
+    "rouge-score",
+    "nltk",
+]
+
+# Only needed to run webapp/backend (the local FastAPI wrapper around
+# run_pipeline.py) — not required for CLI-only use.
+webapp = [
+    "fastapi",
+    "uvicorn",
+    "python-multipart",
+]
+
+# --- External (non-pip) requirements, not expressible above ---
+#
+# - Ollama, running locally (`ollama serve`), with the benchmark-winning
+#   model pulled: `ollama pull hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M`
+# - ffmpeg on PATH (video crossfade/concatenation, and clip trimming in
+#   lib/clip_prep.py). Installed via e.g. `brew install ffmpeg`.
+# - uv on PATH (lib/clip_prep.py shells out to
+#   `uv run --python 3.11 --with mediapipe==0.10.14 ...` for the
+#   active-window trim step, matching scripts/spike_find_active_window.py's
+#   own documented invocation, rather than assuming this project's own
+#   venv has the exact same pins active in a subprocess).
+#
+# No API keys/secrets are required by run_pipeline.py or anything under
+# lib/ (all inference is local). The .env file in this repo (hf_token) is
+# unrelated to the pipeline in this repository — not read by any script here.

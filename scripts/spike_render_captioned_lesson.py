@@ -38,6 +38,7 @@ from spike_cartoon_avatar import (  # noqa: E402
 ROOT = "/Users/shaz/MOI-Arabic-Sign-Language"
 NORM_DIR = f"{ROOT}/data/zho/spike_mediapipe/lesson/norm"
 OUT_DIR = f"{ROOT}/data/zho/spike_mediapipe/lesson/captioned"
+DEFAULT_FINAL_OUT_PATH = f"{ROOT}/data/zho/spike_mediapipe/lesson/lesson_captioned_xfade.mp4"
 os.makedirs(OUT_DIR, exist_ok=True)
 # Cleaned-motion export for the whole lesson (all segments), same idea as
 # spike_cartoon_avatar.py's SPIKE_MOTION_JSON but covering every sign, not
@@ -116,7 +117,7 @@ def draw_caption(canvas, w, h, english, arabic):
     region[:] = (region.astype(np.float32) * (1 - alpha) + layer_rgba[:, :, :3].astype(np.float32) * alpha).astype(np.uint8)
 
 
-def detect_segment(stem):
+def detect_segment(stem, norm_dir=NORM_DIR):
     """Detection only - no rendering, no scale decision yet. Splitting
     this out is what makes a single GLOBAL scale possible: every segment
     is a separate short clip, so a scale computed per-segment (as the
@@ -125,7 +126,7 @@ def detect_segment(stem):
     and the character visibly jumps size at every cut. The fix is to
     detect everything first, then pick one scale from the combined pool
     before any segment is rendered."""
-    clip = f"{NORM_DIR}/{stem}.mp4"
+    clip = f"{norm_dir}/{stem}.mp4"
     cap = cv2.VideoCapture(clip)
     fps = cap.get(cv2.CAP_PROP_FPS) or 25
     w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -284,8 +285,9 @@ def export_lesson_motion_json(path, detected, segments):
           file=sys.stderr)
 
 
-def render_segment(stem, english, arabic, data, scale_w):
-    out_path = f"{OUT_DIR}/{stem}.mp4"
+def render_segment(stem, english, arabic, data, scale_w, out_dir=OUT_DIR):
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = f"{out_dir}/{stem}.mp4"
     w, h, fps = data["w"], data["h"], data["fps"]
     pose_px_list, left_pts, right_pts, face_metrics_list = data["pose"], data["left"], data["right"], data["face"]
     left_z, right_z = data["left_z"], data["right_z"]
@@ -325,7 +327,7 @@ def render_segment(stem, english, arabic, data, scale_w):
     return out_path, total, fps
 
 
-def chain_with_xfade(rendered):
+def chain_with_xfade(rendered, final_out_path=DEFAULT_FINAL_OUT_PATH):
     """Builds a single ffmpeg filter_complex chaining sequential xfade
     transitions across all segments - each transition overlaps the tail
     of one clip with the head of the next rather than hard-cutting."""
@@ -348,24 +350,40 @@ def chain_with_xfade(rendered):
         cum_duration = offset + dur
 
     filter_complex = ";".join(filter_parts)
-    out_path = f"{ROOT}/data/zho/spike_mediapipe/lesson/lesson_captioned_xfade.mp4"
+    os.makedirs(os.path.dirname(final_out_path), exist_ok=True)
     cmd = ["ffmpeg", "-y", "-v", "error"] + inputs + [
         "-filter_complex", filter_complex,
         "-map", f"[{prev_label}]",
         "-c:v", "libx264", "-crf", "20", "-preset", "fast", "-pix_fmt", "yuv420p",
-        out_path,
+        final_out_path,
     ]
     subprocess.run(cmd, check=True)
-    print(f"Wrote {out_path}", file=sys.stderr)
+    print(f"Wrote {final_out_path}", file=sys.stderr)
+    return final_out_path
 
 
-def main():
+def render_lesson(segments=None, norm_dir=NORM_DIR, out_dir=OUT_DIR,
+                   motion_json_path=LESSON_MOTION_JSON, final_out_path=DEFAULT_FINAL_OUT_PATH):
+    """Additive entry point (build order Step 14): accepts a generated
+    segment manifest instead of relying only on the hard-coded module-level
+    SEGMENTS list, so run_pipeline.py can drive this renderer from a
+    validated sign sequence. Calling with no arguments reproduces exactly
+    the original behavior/paths (the known-working lesson_captioned_xfade.mp4)
+    unchanged — this is what `python spike_render_captioned_lesson.py` still
+    does via main() below.
+
+    segments: list of (stem, english_caption, arabic_caption) tuples, same
+    shape as the original module-level SEGMENTS constant.
+    """
+    if segments is None:
+        segments = SEGMENTS
+
     print("=== Pass 1: detecting all segments ===", file=sys.stderr)
     detected = {}
     all_shoulder_widths = []
     anchors = {}
-    for stem, eng, ar in SEGMENTS:
-        data = detect_segment(stem)
+    for stem, eng, ar in segments:
+        data = detect_segment(stem, norm_dir=norm_dir)
         detected[stem] = data
         all_shoulder_widths += [abs(p["r_sh"][0] - p["l_sh"][0]) for p in data["pose"] if p is not None]
         anchors[stem] = segment_anchor(data["pose"])
@@ -388,7 +406,7 @@ def main():
     target_y = float(np.median([a[1] for a in valid_anchors]))
     print(f"Global target anchor = ({target_x:.1f}, {target_y:.1f})", file=sys.stderr)
 
-    for stem, eng, ar in SEGMENTS:
+    for stem, eng, ar in segments:
         a = anchors[stem]
         if a is None:
             continue
@@ -399,14 +417,22 @@ def main():
         d["right"] = shift_pts_list(d["right"], dx, dy)
         print(f"  {stem}: shift=({dx:.1f}, {dy:.1f})", file=sys.stderr)
 
-    export_lesson_motion_json(LESSON_MOTION_JSON, detected, SEGMENTS)
+    export_lesson_motion_json(motion_json_path, detected, segments)
 
     print("=== Pass 2: rendering with shared scale + position ===", file=sys.stderr)
     rendered = []
-    for stem, eng, ar in SEGMENTS:
-        path, nframes, fps = render_segment(stem, eng, ar, detected[stem], global_scale_w)
+    for stem, eng, ar in segments:
+        path, nframes, fps = render_segment(stem, eng, ar, detected[stem], global_scale_w, out_dir=out_dir)
         rendered.append((path, nframes, fps))
-    chain_with_xfade(rendered)
+    return chain_with_xfade(rendered, final_out_path=final_out_path)
+
+
+def main():
+    """Unchanged entry point: reproduces the original, known-working
+    behavior exactly (module-level SEGMENTS, original paths) - this is
+    what makes lesson_captioned_xfade.mp4 still regenerable byte-for-byte
+    the same way it always was."""
+    render_lesson()
 
 
 if __name__ == "__main__":

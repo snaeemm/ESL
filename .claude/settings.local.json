@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sS -L -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0 Safari/537.36\" \"https://www.za.gov.ae/en/Sign-Language-Dictionary/UAE-Sign-Language-Categories\" -o /private/tmp/claude-501/-Users-shaz-MOI-Arabic-Sign-Language/009f236c-3b8b-4b60-ac1d-53f2ca7acc1d/scratchpad/zho_categories.html -w \"HTTP %{http_code}, size %{size_download} bytes\\\\n\")",
+      "Bash(curl -sS -L -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0 Safari/537.36\" \"https://www.za.gov.ae/en/Sign-Language-Dictionary/UAE-Sign-Language-Categories/Arabic-Sign-Languages\" -o zho_words.html -w \"HTTP %{http_code}, size %{size_download} bytes\\\\n\")",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -sS -I -A \"Mozilla/5.0\" \"https://www.za.gov.ae/en/Data/Sign-Category-Items/Family/Mother_5206\")"
+    ]
+  }
+}

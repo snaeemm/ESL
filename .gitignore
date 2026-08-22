@@ -42,3 +42,8 @@ outputs/*/
 !outputs/.gitkeep
 
 # benchmark cache/scratch (keep results/, ignore nothing here currently - explicit allow below)
+webapp/outputs/
+
+# clip-prep cache (re-downloadable/re-derivable, not source)
+data/zho/spike_mediapipe/norm_cache/
+data/zho/spike_mediapipe/trim_cache.json
