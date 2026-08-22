@@ -38,6 +38,7 @@ from spike_cartoon_avatar import (  # noqa: E402
 from hand_features import palm_orientation  # noqa: E402
 from face_features_v2 import (  # noqa: E402
     face_features_v2, compute_brow_calibration, compute_mouth_calibration, compute_mouth_contour_calibration,
+    compute_eye_contour_calibration,
 )
 from head_pose import estimate_head_pose  # noqa: E402
 from render_v2 import draw_hand_v3, draw_face_features_v2  # noqa: E402
@@ -161,6 +162,7 @@ def main():
     brow_calibration = compute_brow_calibration(all_v2)
     mouth_calibration = compute_mouth_calibration(all_v2)
     mouth_contour_calibration = compute_mouth_contour_calibration(all_v2)
+    eye_contour_calibration = compute_eye_contour_calibration(all_v2)
     print(f"brow_calibration: {brow_calibration}", file=sys.stderr)
     print(f"mouth_calibration: {mouth_calibration}", file=sys.stderr)
 
@@ -192,7 +194,7 @@ def main():
                     if use_v2 and d["face_lm"][i] is not None:
                         v2 = d["face_v2"][i]
                         hp = estimate_head_pose(d["face_lm"][i], w, h)
-                        draw_face_features_v2(canvas, face_c, face_r, d["face_v1"][i], v2, hp, brow_calibration, mouth_calibration, mouth_contour_calibration)
+                        draw_face_features_v2(canvas, face_c, face_r, d["face_v1"][i], v2, hp, brow_calibration, mouth_calibration, mouth_contour_calibration, eye_contour_calibration)
                     else:
                         draw_face_features(canvas, face_c, face_r, d["face_v1"][i])
 

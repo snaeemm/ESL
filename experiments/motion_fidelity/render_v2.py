@@ -231,7 +231,8 @@ def draw_hand_v3(img, pts, alpha, zs, palm_nz):
 
 
 def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_pose,
-                           brow_calibration=None, mouth_calibration=None, mouth_contour_calibration=None):
+                           brow_calibration=None, mouth_calibration=None, mouth_contour_calibration=None,
+                           eye_contour_calibration=None):
     """Draws eyebrows (independent L/R), eyes (with blink), and mouth
     (unchanged from v1's curve — mouth v2 fields are captured/exported
     but NOT yet rendered differently, see final report classification)
@@ -297,8 +298,24 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
         cv2.polylines(layer, [np.array([p1, p2, p3], dtype=np.int32)], False, (*SKIN_LINE, 255), 3, cv2.LINE_AA)
 
         eye_w = int(clamp(m.get("eye_width", NEUTRAL["eye_width"]) * face_r * 0.55, face_r * 0.08, face_r * 0.16))
+        eye_contour = v2["eyes"].get(f"{name}_contour_norm") if (v2 and eye_contour_calibration) else None
         if eye_state == "blink":
             cv2.line(layer, (ex - eye_w, eye_y), (ex + eye_w, eye_y), (*SKIN_LINE, 255), 3, cv2.LINE_AA)
+        elif eye_contour:
+            # Real 8-point eye contour (was 4 points / 1 aperture scalar
+            # before) - same scale basis as the mouth-contour fix
+            # (face_r*2.0, matches face_h normalization), gentler
+            # amplification than the mouth's horizontal axis since the
+            # mouth-open lesson (too much amplification looks fake)
+            # applies here too.
+            mean_c = eye_contour_calibration[name]
+            pts = []
+            for (dx, dy), (mx, my) in zip(eye_contour, mean_c):
+                adx = mx + (dx - mx) * 1.3
+                ady = my + (dy - my) * 1.3
+                pts.append((int(ex + adx * face_r * 2.0), int(eye_y + ady * face_r * 2.0)))
+            cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 2, cv2.LINE_AA)
+            cv2.fillPoly(layer, [np.array(pts, dtype=np.int32)], (*SKIN_LINE, 255))
         else:
             eye_h = int(clamp(aperture * face_r * 2.6, face_r * 0.03, face_r * 0.16))
             cv2.ellipse(layer, (ex, eye_y), (eye_w, eye_h), 0, 0, 360, (*SKIN_LINE, 255), -1, cv2.LINE_AA)
@@ -345,11 +362,18 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
         # ~0.28 typical width. Reusing it here is what made the mouth
         # render oversized relative to the head. Amplify also reduced
         # 3.0 -> 1.8 now that the base scale itself is correct.
-        _MOUTH_SCALE = face_r * 2.0
+        # Per-axis amplification, not uniform: vertical (dy) movement is
+        # natural mouth-opening, which already has real, visible dynamic
+        # range on its own - amplifying it too made wide-open talking
+        # frames look exaggeratedly open (per user feedback). Horizontal
+        # (dx) asymmetry/corner movement was the one that needed help to
+        # be visible at all, so it keeps a stronger boost.
+        _MOUTH_SCALE = face_r * 1.7
+        _AMPLIFY_X, _AMPLIFY_Y = 1.8, 0.75  # Y < 1.0: DAMPEN vertical opening, it read as too much even after the first reduction
         pts = []
         for (dx, dy), (mx, my) in zip(contour_norm, mouth_contour_calibration):
-            adx = mx + (dx - mx) * 1.8
-            ady = my + (dy - my) * 1.8
+            adx = mx + (dx - mx) * _AMPLIFY_X
+            ady = my + (dy - my) * _AMPLIFY_Y
             pts.append((int(lc[0] + adx * _MOUTH_SCALE), int(mouth_y + ady * _MOUTH_SCALE)))
         cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 3, cv2.LINE_AA)
     elif mouth_h > int(face_r * 0.08):

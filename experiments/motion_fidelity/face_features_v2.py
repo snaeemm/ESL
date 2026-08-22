@@ -46,6 +46,13 @@ _UPPER_LIP_TOP, _LOWER_LIP_BOT = 0, 17  # outer lip contour top/bottom for lip-c
 # mouth wasn't using enough of the available landmark detail.
 _OUTER_LIP_LOOP = [61, 39, 37, 0, 267, 269, 291, 405, 314, 17, 84, 181]
 
+# Same idea for eyes (8 points each, standard FaceMesh eye-contour subset)
+# — the eyes previously used only 4 total points (top/bottom per side)
+# for a single aperture scalar. Added per explicit user request after the
+# mouth-contour upgrade ("if eyes can be made better why not").
+_L_EYE_LOOP = [33, 160, 159, 158, 133, 153, 145, 144]
+_R_EYE_LOOP = [263, 387, 386, 385, 362, 380, 374, 373]
+
 BLINK_THRESHOLD = 0.02   # eye_open (normalized) below this = blink — engineering threshold, not clinically validated
 SQUINT_BAND = (0.02, 0.035)  # between blink and neutral-open = squint band
 
@@ -103,6 +110,22 @@ def compute_mouth_contour_calibration(face_v2_list):
         my = sum(c[i][1] for c in contours) / len(contours)
         mean.append((mx, my))
     return mean
+
+
+def compute_eye_contour_calibration(face_v2_list):
+    """Same idea, per side, for the new 8-point eye contours."""
+    def mean_of(key):
+        contours = [v2["eyes"][key] for v2 in face_v2_list if v2 is not None]
+        if not contours:
+            return None
+        n = len(contours[0])
+        return [(sum(c[i][0] for c in contours) / len(contours),
+                  sum(c[i][1] for c in contours) / len(contours)) for i in range(n)]
+    left = mean_of("left_contour_norm")
+    right = mean_of("right_contour_norm")
+    if left is None or right is None:
+        return None
+    return {"left": left, "right": right}
 
 
 def compute_mouth_calibration(face_v2_list):
@@ -173,6 +196,15 @@ def face_features_v2(landmarks, w, h):
     cy = sum(p[1] for p in contour_pts) / len(contour_pts)
     contour_norm = [((p[0] - cx) / face_h, (p[1] - cy) / face_h) for p in contour_pts]
 
+    def eye_contour(loop):
+        pts = [P(i) for i in loop]
+        ecx = sum(p[0] for p in pts) / len(pts)
+        ecy = sum(p[1] for p in pts) / len(pts)
+        return [((p[0] - ecx) / face_h, (p[1] - ecy) / face_h) for p in pts]
+
+    l_eye_contour = eye_contour(_L_EYE_LOOP)
+    r_eye_contour = eye_contour(_R_EYE_LOOP)
+
     return {
         "brows": {
             "left_inner_raise": l_brow_inner_raise, "left_outer_raise": l_brow_outer_raise,
@@ -184,6 +216,7 @@ def face_features_v2(landmarks, w, h):
             "left_state": eye_state(l_eye_open), "right_state": eye_state(r_eye_open),
             "asymmetry": eye_asymmetry,
             "gaze": None,  # NOT AVAILABLE — refine_face_landmarks=False, no iris landmarks (see module docstring)
+            "left_contour_norm": l_eye_contour, "right_contour_norm": r_eye_contour,
         },
         "mouth": {
             "open": float(np.linalg.norm(mouth_top - mouth_bot) / face_h),
