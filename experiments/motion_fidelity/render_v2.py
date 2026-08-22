@@ -99,6 +99,18 @@ def _blend_color(c1, c2, t):
     return tuple(c1[k] * (1 - t) + c2[k] * t for k in range(3))
 
 
+# Wider-contrast pair specifically for depth shading, distinct from
+# SKIN_SHADE (which is a subtle robe-fold-shading tone designed for a
+# different purpose and too close to SKIN to read as a depth cue at
+# video scale/compression). NEAR is a touch lighter/warmer than SKIN;
+# FAR is pulled most of the way toward the dark outline tone. Fixed
+# 2026-08-22 after visual review showed the original SKIN/SKIN_SHADE
+# blend, while numerically correct, was too subtle to actually see.
+_DEPTH_NEAR = tuple(min(255, c + (255 - c) * 0.18) for c in SKIN)
+_DEPTH_FAR = tuple(SKIN_SHADE[k] * 0.55 + SKIN_LINE[k] * 0.45 for k in range(3))
+_CONTRAST = 2.2  # boosts mid-range t away from 0.5 toward the extremes
+
+
 def draw_hand_v3(img, pts, alpha, zs, palm_nz):
     """v3 (2026-08-22, per user feedback that whole-hand binary light/dark
     "doesn't really help" when only part of the hand is turned): shades
@@ -142,24 +154,36 @@ def draw_hand_v3(img, pts, alpha, zs, palm_nz):
             cv2.addWeighted(halo_layer, halo_alpha, img, 1 - halo_alpha, 0, dst=img)
 
     if zs:
-        zmin, zmax = min(zs), max(zs)
+        # Exclude the wrist (index 0) from the range: MediaPipe defines
+        # hand z relative to the wrist, so the wrist is ALWAYS exactly 0
+        # by convention, not a real depth measurement of the fingers.
+        # Including it wasted a large chunk of the 0..1 range on the gap
+        # between "wrist" and "first knuckle" instead of spending that
+        # range on actual finger-to-finger variation, which is what this
+        # is supposed to show.
+        finger_zs = zs[1:]
+        zmin, zmax = min(finger_zs), max(finger_zs)
         zrange = max(1e-6, zmax - zmin)
     else:
         zmin, zrange = 0.0, 1.0
 
+    def _contrast(t):
+        return max(0.0, min(1.0, 0.5 + (t - 0.5) * _CONTRAST))
+
     def seg_color(i, j):
         # z more negative = closer to camera (MediaPipe's own convention,
         # already documented elsewhere in this codebase) -> t=0 (closest)
-        # renders normal SKIN, t=1 (farthest in THIS hand's own range)
-        # renders the SKIN_SHADE tone.
+        # renders _DEPTH_NEAR, t=1 (farthest among this hand's own finger
+        # landmarks) renders _DEPTH_FAR, with a contrast boost so a modest
+        # real difference still reads as a visible one.
         if not zs:
             return SKIN
         zseg = (zs[i] + zs[j]) / 2
-        t = (zseg - zmin) / zrange
-        return _blend_color(SKIN, SKIN_SHADE, t)
+        t = _contrast((zseg - zmin) / zrange)
+        return _blend_color(_DEPTH_NEAR, _DEPTH_FAR, t)
 
-    palm_t = (palm_nz + 1.0) / 2.0 if palm_nz is not None else 0.0  # nz in [-1,1] -> t in [0,1]
-    palm_fill = _blend_color(SKIN, SKIN_SHADE, palm_t)
+    palm_t = _contrast((palm_nz + 1.0) / 2.0) if palm_nz is not None else 0.0  # nz in [-1,1] -> t in [0,1]
+    palm_fill = _blend_color(_DEPTH_NEAR, _DEPTH_FAR, palm_t)
     palm = np.array([ipts[i] for i in PALM_OUTLINE], dtype=np.int32)
     cv2.fillConvexPoly(layer, palm, SKIN_LINE, cv2.LINE_AA)
     cv2.fillConvexPoly(layer, palm, palm_fill, cv2.LINE_AA)
