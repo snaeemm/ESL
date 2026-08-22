@@ -42,6 +42,7 @@ from face_features_v2 import (  # noqa: E402
 )
 from head_pose import estimate_head_pose  # noqa: E402
 from render_v2 import draw_hand_v3, draw_face_features_v2  # noqa: E402
+from one_euro_filter import one_euro_smooth_series  # noqa: E402
 
 OUT_DIR = os.path.join(ROOT, "outputs", "motion_fidelity_test")
 os.makedirs(OUT_DIR, exist_ok=True)
@@ -53,6 +54,54 @@ NORM_DIR = os.path.join(ROOT, "data/zho/spike_mediapipe/lesson/norm")
 # motion-heavy hand signs (find, circle, center, grows, answer).
 CLIP_STEMS = ["03_teacher", "04_explain", "08_examine", "14_looking",
               "16_find", "17_circle", "19_center", "25_grows", "27_answer"]
+
+
+def _denoise_hand_series(series, min_run=4, min_surrounding_gap=8):
+    """Removes isolated short 'blip' detections — a run of detected
+    frames shorter than min_run, surrounded on both sides by gaps of at
+    least min_surrounding_gap frames — by nulling them out (treated as
+    part of the surrounding gap instead of real detections).
+
+    Confirmed via direct inspection (printing raw per-frame detection
+    sequences) that these blips are real and common: e.g. 27_answer's
+    left hand shows "........LL.................................................LLL......"
+    — a 2-frame and a 3-frame blip, each sandwiched in gaps of 8+ and
+    61+ frames. These are almost certainly spurious brief false-positive
+    detections (this hand isn't part of these one-handed signs at all),
+    not genuine hand use. Left as-is, HandTrack renders the hand flashing
+    into existence for 2-3 frames then vanishing again — the reported
+    "jittery"/"hand gets lost" artifact. Removing them BEFORE they reach
+    HandTrack means a genuinely-unused hand renders as consistently
+    absent, not flickering.
+
+    A run that's long enough to plausibly be real hand use (>= min_run)
+    is never touched, even if surrounded by long gaps - e.g. 16_find's
+    21-frame run is real two-handed motion, not noise, and is preserved.
+    """
+    n = len(series)
+    runs = []  # (start, end_exclusive) of detected runs
+    i = 0
+    while i < n:
+        if series[i] is not None:
+            j = i
+            while j < n and series[j] is not None:
+                j += 1
+            runs.append((i, j))
+            i = j
+        else:
+            i += 1
+
+    out = list(series)
+    for idx, (start, end) in enumerate(runs):
+        run_len = end - start
+        if run_len >= min_run:
+            continue
+        gap_before = start - (runs[idx - 1][1] if idx > 0 else -min_surrounding_gap - 1)
+        gap_after = (runs[idx + 1][0] if idx < len(runs) - 1 else n + min_surrounding_gap + 1) - end
+        if gap_before >= min_surrounding_gap and gap_after >= min_surrounding_gap:
+            for k in range(start, end):
+                out[k] = None
+    return out
 
 
 def extract_one(clip_path, holistic):
@@ -164,8 +213,23 @@ def main():
             print(f"extracting {stem}...", file=sys.stderr)
             d = extract_one(path, holistic)
             d["pose"] = prod_smooth([{k: (v[0], v[1]) for k, v in p.items()} if p else None for p in d["pose"]], alpha=0.25)
-            d["left_xyz"] = smooth_xyz(d["left_xyz"], alpha=0.3)
-            d["right_xyz"] = smooth_xyz(d["right_xyz"], alpha=0.3)
+            # Denoise BEFORE smoothing: isolated short blip detections
+            # (confirmed real via direct inspection - e.g. 27_answer's
+            # left hand briefly "detected" for 2-3 frames in the middle
+            # of a 60+ frame gap) must be removed first, or the smoother
+            # would treat each blip as a real short detected run and
+            # smooth INTO it, which still produces a visible flash.
+            d["left_xyz"] = _denoise_hand_series(d["left_xyz"])
+            d["right_xyz"] = _denoise_hand_series(d["right_xyz"])
+            # One-Euro filter replaces the fixed-alpha EMA (smooth_xyz)
+            # for hands specifically - adaptive smoothing (heavier when
+            # slow/still, lighter when moving fast) is what real
+            # continuous multi-gap motion like the circle sign needs to
+            # stop feeling like separately-smoothed segments stitched
+            # together, per user feedback comparing directly against the
+            # real signer footage.
+            d["left_xyz"] = one_euro_smooth_series(d["left_xyz"], d["fps"])
+            d["right_xyz"] = one_euro_smooth_series(d["right_xyz"], d["fps"])
             d["face_v1"] = prod_smooth(d["face_v1"], alpha=0.25)
             all_data.append(d)
     extraction_s = time.time() - t0
