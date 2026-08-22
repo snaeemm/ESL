@@ -272,7 +272,17 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
                 span = max(1e-6, hi - lo)
                 t = (raise_val - lo) / span
                 t = max(0.0, min(1.0, 0.5 + (t - 0.5) * _CONTRAST))
-                brow_delta = (t - 0.5) * 2 * face_r * 0.22  # map contrasted t to the same visual range as before
+                centered = (t - 0.5) * 2  # -1..1
+                # BUG FIX (found via visual review: low-raise frames rendered
+                # with NO visible eyebrow at all): the original v1 code used
+                # an intentionally ASYMMETRIC range (-face_r*0.16 lowered,
+                # +face_r*0.22 raised), not a symmetric one. My first version
+                # used a symmetric +-0.22 range, which for low-t frames pushed
+                # brow_y close enough to eye_y that the eye ellipse (drawn
+                # after, on top) completely covered the brow line beneath it
+                # - not "hard to see", literally hidden. Matching v1's
+                # asymmetric bounds here fixes that collapse.
+                brow_delta = centered * (face_r * 0.16 if centered < 0 else face_r * 0.22)
             else:
                 brow_delta = clamp((raise_val - NEUTRAL["brow_raise"]) * face_r * 5, -face_r * 0.16, face_r * 0.22)
             eye_state = v2["eyes"][f"{name}_state"]
