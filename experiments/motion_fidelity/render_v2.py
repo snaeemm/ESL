@@ -38,7 +38,7 @@ import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "scripts"))
 from spike_cartoon_avatar import (  # noqa: E402 — reused unmodified from production
     ipt, draw_capsule, FINGER_CHAINS, PALM_OUTLINE, HALO,
-    SKIN, SKIN_SHADE, SKIN_LINE, clamp, NEUTRAL,
+    SKIN, SKIN_SHADE, SKIN_LINE, KANDURA_LINE, clamp, NEUTRAL,
 )
 
 
@@ -131,6 +131,7 @@ def draw_gradient_capsule(img, p1, p2, r1, r2, color1, color2, steps=6):
 _DEPTH_NEAR = tuple(min(255, c + (255 - c) * 0.18) for c in SKIN)
 _DEPTH_FAR = tuple(SKIN_SHADE[k] * 0.55 + SKIN_LINE[k] * 0.45 for k in range(3))
 _CONTRAST = 2.2  # boosts mid-range t away from 0.5 toward the extremes
+_CONTOUR_AMPLIFY = 3.0  # amplifies per-point lip-contour deviation from the clip's own mean shape
 
 
 def draw_hand_v3(img, pts, alpha, zs, palm_nz):
@@ -223,6 +224,16 @@ def draw_hand_v3(img, pts, alpha, zs, palm_nz):
             draw_gradient_capsule(layer, ipts[prev_i], ipts[idx], r_in, [5, 4, 3, 2][k - 1], c_prev, c_idx)
         cv2.circle(layer, ipts[chain[-1]], 3, point_color(chain[-1]), -1, cv2.LINE_AA)
 
+    # Wrist boundary marker (user-requested: "would coloring the wrist
+    # differently separate wrist from fingers?"). Previously the wrist
+    # point was just part of the palm fill, with no visual boundary
+    # between the sleeve/forearm and the hand at all. A thin ring in the
+    # sleeve's own outline colour (KANDURA_LINE, not a skin tone) at the
+    # wrist landmark reads as a real "cuff" joint, distinct from every
+    # skin-toned part of the hand.
+    wrist_r = 5
+    cv2.circle(layer, ipts[0], wrist_r, KANDURA_LINE, 2, cv2.LINE_AA)
+
     if alpha >= 1.0:
         img[:] = layer
     else:
@@ -230,7 +241,7 @@ def draw_hand_v3(img, pts, alpha, zs, palm_nz):
 
 
 def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_pose,
-                           brow_calibration=None, mouth_calibration=None):
+                           brow_calibration=None, mouth_calibration=None, mouth_contour_calibration=None):
     """Draws eyebrows (independent L/R), eyes (with blink), and mouth
     (unchanged from v1's curve — mouth v2 fields are captured/exported
     but NOT yet rendered differently, see final report classification)
@@ -330,7 +341,22 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
         left_delta = right_delta = smile
 
     mouth_y = lc[1] + int(face_r * 0.46)
-    if mouth_h > int(face_r * 0.08):
+    contour_norm = metrics_v2["mouth"].get("contour_norm") if metrics_v2 else None
+    if contour_norm and mouth_contour_calibration:
+        # Real 12-point outer-lip shape (Part: "not using enough mouth
+        # keypoints" fix) instead of a 3-4-scalar parametric
+        # reconstruction. Deviation from this clip's own mean contour is
+        # amplified (_CONTOUR_AMPLIFY) so real-but-small lip movement is
+        # actually visible, same reasoning as the other calibrations —
+        # the RAW shape's frame-to-frame differences were confirmed too
+        # small to perceive at video scale during visual review.
+        pts = []
+        for (dx, dy), (mx, my) in zip(contour_norm, mouth_contour_calibration):
+            adx = mx + (dx - mx) * _CONTOUR_AMPLIFY
+            ady = my + (dy - my) * _CONTOUR_AMPLIFY
+            pts.append((int(lc[0] + adx * face_r * 2.6), int(mouth_y + ady * face_r * 2.6)))
+        cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 3, cv2.LINE_AA)
+    elif mouth_h > int(face_r * 0.08):
         avg_delta = (left_delta + right_delta) / 2
         cv2.ellipse(layer, (lc[0], int(mouth_y - avg_delta / 2)), (mouth_w // 2, mouth_h // 2), 0, 0, 360, (*SKIN_LINE, 255), -1, cv2.LINE_AA)
     else:

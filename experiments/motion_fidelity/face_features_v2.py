@@ -38,6 +38,14 @@ _MOUTH_TOP, _MOUTH_BOT = 13, 14
 _MOUTH_L, _MOUTH_R = 61, 291
 _UPPER_LIP_TOP, _LOWER_LIP_BOT = 0, 17  # outer lip contour top/bottom for lip-closure distinct from inner mouth_open
 
+# Standard MediaPipe FaceMesh OUTER lip contour loop (12 points, starting
+# at the left corner and going around) — real per-point shape data, vs.
+# the 6 aggregate points above that only ever produced 3-4 abstract
+# scalars (width/open/corner-height) for the renderer to reconstruct an
+# approximate curve from. Added 2026-08-22 per user feedback that the
+# mouth wasn't using enough of the available landmark detail.
+_OUTER_LIP_LOOP = [61, 39, 37, 0, 267, 269, 291, 405, 314, 17, 84, 181]
+
 BLINK_THRESHOLD = 0.02   # eye_open (normalized) below this = blink — engineering threshold, not clinically validated
 SQUINT_BAND = (0.02, 0.035)  # between blink and neutral-open = squint band
 
@@ -67,6 +75,25 @@ def compute_brow_calibration(face_v2_list):
         "left_min": min(lefts), "left_max": max(lefts),
         "right_min": min(rights), "right_max": max(rights),
     }
+
+
+def compute_mouth_contour_calibration(face_v2_list):
+    """Mean outer-lip contour across the clip (per-point average of the
+    12 (dx,dy) offsets) — the reference shape that per-frame deviation
+    gets amplified against, same reasoning as the other calibrations:
+    real lip movement is often a small deviation from a resting shape,
+    and amplifying THAT deviation (rather than the raw shape) is what
+    makes subtle real motion actually visible."""
+    contours = [v2["mouth"]["contour_norm"] for v2 in face_v2_list if v2 is not None]
+    if not contours:
+        return None
+    n = len(contours[0])
+    mean = []
+    for i in range(n):
+        mx = sum(c[i][0] for c in contours) / len(contours)
+        my = sum(c[i][1] for c in contours) / len(contours)
+        mean.append((mx, my))
+    return mean
 
 
 def compute_mouth_calibration(face_v2_list):
@@ -127,6 +154,15 @@ def face_features_v2(landmarks, w, h):
     mouth_corner_asymmetry = float(abs(l_corner_elev - r_corner_elev))
     lip_closure = float(np.linalg.norm(P(_UPPER_LIP_TOP) - P(_LOWER_LIP_BOT)) / face_h)
 
+    # Real outer-lip contour (12 points instead of 6 abstract scalars) -
+    # stored as (dx, dy) offsets from the mouth centroid, normalized by
+    # face_h, so it can be scaled/repositioned onto the avatar's own head
+    # circle at render time regardless of this frame's real pixel scale.
+    contour_pts = [P(i) for i in _OUTER_LIP_LOOP]
+    cx = sum(p[0] for p in contour_pts) / len(contour_pts)
+    cy = sum(p[1] for p in contour_pts) / len(contour_pts)
+    contour_norm = [((p[0] - cx) / face_h, (p[1] - cy) / face_h) for p in contour_pts]
+
     return {
         "brows": {
             "left_inner_raise": l_brow_inner_raise, "left_outer_raise": l_brow_outer_raise,
@@ -146,5 +182,6 @@ def face_features_v2(landmarks, w, h):
             "corner_asymmetry": mouth_corner_asymmetry,
             "lip_closure": lip_closure,
             "lip_protrusion": None,  # REJECT/UNSTABLE — see module docstring
+            "contour_norm": contour_norm,  # 12 (dx,dy) points, real lip shape, see module docstring
         },
     }
