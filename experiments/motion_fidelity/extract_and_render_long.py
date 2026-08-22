@@ -292,12 +292,22 @@ def main():
                     for lm, lx, rx in zip(d["face_lm"], d["left_xyz"], d["right_xyz"])]
         d["face_occluded"] = occluded
 
+        # BUG FIX (user-reported: "one of the eyebrows goes way higher
+        # than it should for a moment, likely false detection" during
+        # circular hand motion). Root cause confirmed on 17_circle: a
+        # single frame of total face-detection dropout (v2 is None, e.g.
+        # frame 57) was resetting last_good to None. The very next frame
+        # (58) was flagged occluded but, with last_good now None, the
+        # hold fell through to the raw noisy reading instead of holding
+        # - producing exactly this spike (brow value 0.172 vs a stable
+        # ~0.133 baseline on both neighbors). A one-frame total dropout
+        # doesn't mean the last known-good reading is stale, so it must
+        # not be discarded here.
         held_v2 = []
         last_good = None
         for v2, occ in zip(raw_v2, occluded):
             if v2 is None:
                 held_v2.append(None)
-                last_good = None
                 continue
             if occ and last_good is not None:
                 held_v2.append(last_good)  # hold, don't trust the noisy reading
