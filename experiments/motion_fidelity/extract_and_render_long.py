@@ -18,6 +18,7 @@ Run with:
       --with numpy python3 experiments/motion_fidelity/extract_and_render_long.py
 """
 import json
+import math
 import os
 import subprocess
 import sys
@@ -33,7 +34,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from spike_cartoon_avatar import (  # noqa: E402
     mp_holistic, extract_pose_px, face_metrics, draw_body, draw_face_features,
-    draw_hand, HandTrack, BG,
+    draw_hand, HandTrack, BG, blend_val,
 )
 from hand_features import palm_orientation  # noqa: E402
 from face_features_v2 import (  # noqa: E402
@@ -216,6 +217,80 @@ def _smooth_face_v2(series, alpha):
 
 
 UPSAMPLE = 2  # 25fps source -> 50fps render, same real duration
+
+
+class _HandTrackScaled(HandTrack):
+    """Production HandTrack's MAX_HOLD=8 is a frame count tuned for
+    native 25fps (~0.32s real tolerance before hiding the hand - see its
+    docstring). Since main() now upsamples every landmark series to 2x
+    temporal resolution (UPSAMPLE) before this ever runs, an unscaled
+    MAX_HOLD would only tolerate half as much real time as intended -
+    confirmed as the actual cause of the user-reported "skipped frames"
+    during the circle sign: gap 27-32 (6 real missing frames) becomes
+    ~12 frames post-upsample, which is > the unscaled MAX_HOLD=8, so the
+    hand was being hidden entirely for a stretch that used to be safely
+    bridged. Scaling MAX_HOLD by the same factor restores the original
+    real-time tolerance."""
+    MAX_HOLD = HandTrack.MAX_HOLD * UPSAMPLE
+
+
+class _HandTrackRigid(_HandTrackScaled):
+    """User-reported: obvious real rotation (e.g. the whole hand
+    sweeping through the circle sign) still looks jittery/snappy across
+    a bridged gap, even with translation-interpolation and the MAX_HOLD
+    fix above. Confirmed with real data: across gap 27-32 the hand's
+    orientation (wrist -> middle-MCP angle) genuinely rotates from
+    -94.8 deg to -120.4 deg; across gap 94-96 it rotates from -55.5 deg
+    to -109.0 deg. Production HandTrack interpolates the wrist POSITION
+    across a gap but holds the hand's SHAPE (and therefore its
+    orientation) fixed - correct for genuinely unknown finger
+    articulation (see its docstring on why full-shape morphing was
+    reverted), but orientation is NOT unknown here: it's directly
+    measurable at both real endpoints of the gap, same as position. So
+    this adds a rigid rotation blend (whole hand rotated as one unit
+    around the wrist, using the wrist->middle-MCP vector at both real
+    endpoints) on top of the existing translation blend - it still does
+    NOT fabricate individual finger movement (relative finger shape is
+    unchanged, still held from last_real, exactly as production does),
+    it only accounts for the rotation of the rigid hand as a whole,
+    which is real known data. Deterministic - no model/AI needed, this
+    is the same category as every other fix in this session (a known
+    quantity that just wasn't being used yet)."""
+
+    def get(self, frame_idx, pts_now, future_lookup):
+        if pts_now is not None:
+            self.last_real = (frame_idx, pts_now)
+            return pts_now, 1.0
+        if self.last_real is None:
+            return None, 0.0
+        gap = frame_idx - self.last_real[0]
+        if gap > self.MAX_HOLD:
+            return None, 0.0
+        nxt = future_lookup(frame_idx)
+        if nxt is None:
+            alpha = max(0.0, 1.0 - gap / self.MAX_HOLD)
+            return self.last_real[1], alpha
+
+        nxt_idx, nxt_pts = nxt
+        span = nxt_idx - self.last_real[0]
+        t = (frame_idx - self.last_real[0]) / span if span else 0
+        p0, w0 = self.last_real[1], self.last_real[1][0]
+        w1 = nxt_pts[0]
+        wrist_now = blend_val(w0, w1, t)
+
+        r0, r1 = p0[9], nxt_pts[9]  # middle-finger MCP - stable orientation reference
+        a0 = math.atan2(r0[1] - w0[1], r0[0] - w0[0])
+        a1 = math.atan2(r1[1] - w1[1], r1[0] - w1[0])
+        da = (a1 - a0 + math.pi) % (2 * math.pi) - math.pi  # shortest-path wraparound
+        rot = da * t
+        cos_r, sin_r = math.cos(rot), math.sin(rot)
+
+        out = []
+        for p in p0:
+            rx, ry = p[0] - w0[0], p[1] - w0[1]
+            out.append((wrist_now[0] + rx * cos_r - ry * sin_r,
+                        wrist_now[1] + rx * sin_r + ry * cos_r))
+        return out, 1.0
 
 
 def _lerp_value(a, b, t):
@@ -468,7 +543,8 @@ def main():
         writer = cv2.VideoWriter(out_path, cv2.VideoWriter_fourcc(*"mp4v"), render_fps, (w, h))
         for d in all_data:
             total = len(d["pose"])
-            left_track, right_track = HandTrack(), HandTrack()
+            track_cls = _HandTrackRigid if use_v2 else _HandTrackScaled
+            left_track, right_track = track_cls(), track_cls()
 
             def future_lookup(pts_list):
                 nxt = [None] * total
