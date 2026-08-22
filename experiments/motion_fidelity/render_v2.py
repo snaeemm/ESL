@@ -291,7 +291,7 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
             brow_delta = clamp((m["brow_raise"] - NEUTRAL["brow_raise"]) * face_r * 5, -face_r * 0.16, face_r * 0.22)
             eye_state, aperture = "open", m["eye_open"]
 
-        brow_y = int(eye_y - face_r * 0.24 - brow_delta)
+        brow_y = int(eye_y - face_r * 0.32 - brow_delta)  # more clearance from eye (was 0.24) — user: "too close to eyes"
         p1 = (ex - int(face_r * 0.14), brow_y + int(face_r * 0.03))
         p2 = (ex, brow_y)
         p3 = (ex + int(face_r * 0.14), brow_y + int(face_r * 0.03))
@@ -302,18 +302,30 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
         if eye_state == "blink":
             cv2.line(layer, (ex - eye_w, eye_y), (ex + eye_w, eye_y), (*SKIN_LINE, 255), 3, cv2.LINE_AA)
         elif eye_contour:
-            # Real 8-point eye contour (was 4 points / 1 aperture scalar
-            # before) - same scale basis as the mouth-contour fix
-            # (face_r*2.0, matches face_h normalization), gentler
-            # amplification than the mouth's horizontal axis since the
-            # mouth-open lesson (too much amplification looks fake)
-            # applies here too.
+            # Real 8-point eye contour, STILL genuinely traced from live
+            # per-frame data (not a static shape) - but per user request
+            # ("should be tracing but properly done... circular yet still
+            # expressive... this is an avatar, not meant to be human"),
+            # each point is pulled toward a circle of the contour's own
+            # mean radius (ROUNDNESS blend in polar space, angle kept,
+            # radius blended toward the mean). A blink/aperture change
+            # still shrinks the traced shape for real (mean radius drops),
+            # so it stays expressive - it just no longer reads as a flat
+            # biological slit, closer to a stylized round cartoon eye.
             mean_c = eye_contour_calibration[name]
-            pts = []
+            raw_pts = []
             for (dx, dy), (mx, my) in zip(eye_contour, mean_c):
                 adx = mx + (dx - mx) * 1.3
                 ady = my + (dy - my) * 1.3
-                pts.append((int(ex + adx * face_r * 2.0), int(eye_y + ady * face_r * 2.0)))
+                raw_pts.append((adx * face_r * 2.0, ady * face_r * 2.0))
+            mean_r = sum((px ** 2 + py ** 2) ** 0.5 for px, py in raw_pts) / len(raw_pts)
+            ROUNDNESS = 0.6  # 0 = pure traced shape, 1 = perfect circle
+            pts = []
+            for px, py in raw_pts:
+                r = (px ** 2 + py ** 2) ** 0.5 or 1e-6
+                angle = np.arctan2(py, px)
+                blended_r = r * (1 - ROUNDNESS) + mean_r * ROUNDNESS
+                pts.append((int(ex + np.cos(angle) * blended_r), int(eye_y + np.sin(angle) * blended_r)))
             cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 2, cv2.LINE_AA)
             cv2.fillPoly(layer, [np.array(pts, dtype=np.int32)], (*SKIN_LINE, 255))
         else:

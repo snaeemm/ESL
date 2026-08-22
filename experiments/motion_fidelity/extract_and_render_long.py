@@ -85,6 +85,39 @@ def extract_one(clip_path, holistic):
             "right_xyz": right_xyz, "face_v1": face_v1_list, "face_lm": face_lm_list}
 
 
+def _blend_v2_value(prev, cur, alpha):
+    """Recursively EMA-blends face_features_v2's nested structure: dicts
+    blend key-by-key; lists of (x,y) tuples (contour_norm) blend
+    elementwise; plain numbers blend directly; strings (eye_state) and
+    None (gaze, lip_protrusion) pass through as the CURRENT frame's value
+    unchanged — blink/squint/open should stay a real discrete event, not
+    get smeared into an intermediate state that never existed."""
+    if isinstance(cur, dict):
+        return {k: _blend_v2_value(prev.get(k) if isinstance(prev, dict) else None, v, alpha) for k, v in cur.items()}
+    if isinstance(cur, list):
+        if prev is None or len(prev) != len(cur):
+            return cur
+        return [_blend_v2_value(pv, cv, alpha) for pv, cv in zip(prev, cur)]
+    if isinstance(cur, tuple):
+        if prev is None:
+            return cur
+        return tuple(_blend_v2_value(pv, cv, alpha) for pv, cv in zip(prev, cur))
+    if isinstance(cur, (int, float)) and isinstance(prev, (int, float)):
+        return prev * (1 - alpha) + cur * alpha
+    return cur  # strings, None, or no previous value to blend with
+
+
+def _smooth_face_v2(series, alpha):
+    out, prev = [None] * len(series), None
+    for i, v in enumerate(series):
+        if v is None:
+            prev = None
+            continue
+        out[i] = v if prev is None else _blend_v2_value(prev, v, alpha)
+        prev = out[i]
+    return out
+
+
 def smooth_xyz(series, alpha):
     def blend(a, b):
         return tuple(a[i] * (1 - alpha) + b[i] * alpha for i in range(len(a)))
@@ -157,7 +190,14 @@ def main():
     # until you've looked at all its frames.
     all_v2 = []
     for d in all_data:
-        d["face_v2"] = [face_features_v2(lm, w, h) if lm is not None else None for lm in d["face_lm"]]
+        raw_v2 = [face_features_v2(lm, w, h) if lm is not None else None for lm in d["face_lm"]]
+        # BUG FIX (user-reported jitter): unlike v1's face_metrics(), which
+        # gets EMA-smoothed (prod_smooth, alpha=0.25) before rendering,
+        # face_v2 was being computed fresh from RAW unsmoothed landmarks
+        # every single frame with no filtering at all - that IS the
+        # jitter, not a rendering issue. _smooth_face_v2 applies the same
+        # EMA idea recursively over the nested dict/list structure.
+        d["face_v2"] = _smooth_face_v2(raw_v2, alpha=0.25)
         all_v2.extend(d["face_v2"])
     brow_calibration = compute_brow_calibration(all_v2)
     mouth_calibration = compute_mouth_calibration(all_v2)
