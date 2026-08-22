@@ -215,6 +215,95 @@ def _smooth_face_v2(series, alpha):
     return out
 
 
+UPSAMPLE = 2  # 25fps source -> 50fps render, same real duration
+
+
+def _lerp_value(a, b, t):
+    """Same recursive structure as _blend_v2_value, but a direct pairwise
+    interpolation between two known frames rather than an EMA blend -
+    used to synthesize real in-between frames (higher temporal
+    resolution), not to smooth noise. Strings/None pass through as b's
+    value unchanged (discrete states like blink/eye_state shouldn't get
+    a fabricated halfway value)."""
+    if isinstance(b, dict):
+        return {k: _lerp_value(a.get(k) if isinstance(a, dict) else None, v, t) for k, v in b.items()}
+    if isinstance(b, list):
+        if not isinstance(a, list) or len(a) != len(b):
+            return b
+        return [_lerp_value(av, bv, t) for av, bv in zip(a, b)]
+    if isinstance(b, tuple):
+        if not isinstance(a, tuple) or len(a) != len(b):
+            return b
+        return tuple(_lerp_value(av, bv, t) for av, bv in zip(a, b))
+    if isinstance(b, (int, float)) and isinstance(a, (int, float)):
+        return a * (1 - t) + b * t
+    return b
+
+
+def _upsample_series(series, factor=UPSAMPLE):
+    """Doubles (or `factor`-multiplies) temporal resolution by linearly
+    interpolating real in-between frames between each consecutive pair
+    of non-None frames. User-reported: the rendered comparison "seems to
+    be going fast" / not smooth, even though duration and real signing
+    speed exactly match the source (confirmed: long_before/after.mp4
+    and long_real.mp4 have identical frame count and duration - not a
+    speed bug). Root cause is that native 25fps reads as choppier on a
+    flat-shaded stylized avatar than on real video (which has natural
+    motion blur masking the same per-frame jump). This adds genuine
+    in-between motion samples (not frame duplication) so the SAME real
+    duration and SAME real signing speed render with twice the temporal
+    resolution. Detection gaps (None) are never interpolated across -
+    held/duplicated instead, matching this file's existing
+    "don't fabricate motion you don't actually know" rule."""
+    out = []
+    n = len(series)
+    for i in range(n):
+        cur = series[i]
+        out.append(cur)
+        if i == n - 1:
+            continue
+        nxt = series[i + 1]
+        for k in range(1, factor):
+            if cur is None or nxt is None:
+                out.append(cur)  # hold across a real gap, don't fabricate
+            else:
+                out.append(_lerp_value(cur, nxt, k / factor))
+    return out
+
+
+class _LerpLandmark:
+    __slots__ = ("x", "y", "z")
+
+    def __init__(self, x, y, z):
+        self.x, self.y, self.z = x, y, z
+
+
+def _upsample_face_lm(series, factor=UPSAMPLE):
+    """Same idea as _upsample_series but for raw MediaPipe landmark
+    lists (protobuf-like objects, not plain tuples) - used for head
+    pose estimation, which is computed straight from face_lm at render
+    time. Builds lightweight x/y/z stand-ins for the interpolated
+    in-between frames only; real frames are passed through unchanged."""
+    out = []
+    n = len(series)
+    for i in range(n):
+        cur = series[i]
+        out.append(cur)
+        if i == n - 1:
+            continue
+        nxt = series[i + 1]
+        for k in range(1, factor):
+            if cur is None or nxt is None or len(cur) != len(nxt):
+                out.append(cur)
+            else:
+                t = k / factor
+                out.append([_LerpLandmark(a.x * (1 - t) + b.x * t,
+                                           a.y * (1 - t) + b.y * t,
+                                           a.z * (1 - t) + b.z * t)
+                            for a, b in zip(cur, nxt)])
+    return out
+
+
 def smooth_xyz(series, alpha):
     def blend(a, b):
         return tuple(a[i] * (1 - alpha) + b[i] * alpha for i in range(len(a)))
@@ -262,6 +351,7 @@ def main():
     extraction_s = time.time() - t0
 
     w, h, fps = all_data[0]["w"], all_data[0]["h"], all_data[0]["fps"]
+    render_fps = fps * UPSAMPLE  # 2x frame count at 2x fps = identical real duration, smoother motion
 
     # Pooled global scale across all 9 clips (same technique
     # spike_render_captioned_lesson.py uses across the real lesson's 29
@@ -352,6 +442,21 @@ def main():
         d["face_v2"] = _smooth_face_v2(held_v2, alpha=0.25)
 
         all_v2.extend(v2 for v2, occ in zip(raw_v2, occluded) if v2 is not None and not occ)
+
+        # User-reported: rendered comparison "seems to be going fast" /
+        # not smooth, despite duration and signing speed exactly
+        # matching the source (verified separately). Upsample to 2x
+        # temporal resolution via real interpolation (not duplication)
+        # AFTER all smoothing/hold/denoise is done, so the higher-
+        # resolution render is built from the already-clean series, not
+        # raw noise. Calibration above intentionally still pools the
+        # ORIGINAL (pre-upsample) frames only.
+        d["pose"] = _upsample_series(d["pose"])
+        d["left_xyz"] = _upsample_series(d["left_xyz"])
+        d["right_xyz"] = _upsample_series(d["right_xyz"])
+        d["face_v1"] = _upsample_series(d["face_v1"])
+        d["face_v2"] = _upsample_series(d["face_v2"])
+        d["face_lm"] = _upsample_face_lm(d["face_lm"])
     brow_calibration = compute_brow_calibration(all_v2)
     mouth_calibration = compute_mouth_calibration(all_v2)
     mouth_contour_calibration = compute_mouth_contour_calibration(all_v2)
@@ -360,7 +465,7 @@ def main():
     print(f"mouth_calibration: {mouth_calibration}", file=sys.stderr)
 
     def render(out_path, use_v2):
-        writer = cv2.VideoWriter(out_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
+        writer = cv2.VideoWriter(out_path, cv2.VideoWriter_fourcc(*"mp4v"), render_fps, (w, h))
         for d in all_data:
             total = len(d["pose"])
             left_track, right_track = HandTrack(), HandTrack()
@@ -426,7 +531,7 @@ def main():
 
     total_frames = sum(len(d["pose"]) for d in all_data)
     print(f"\nclips: {CLIP_STEMS}", file=sys.stderr)
-    print(f"total frames: {total_frames} (~{total_frames/fps:.1f}s @ {fps}fps)", file=sys.stderr)
+    print(f"total frames: {total_frames} (~{total_frames/render_fps:.1f}s @ {render_fps}fps)", file=sys.stderr)
     print(f"extraction: {extraction_s:.2f}s  render_before: {render_before_s:.2f}s  render_after: {render_after_s:.2f}s", file=sys.stderr)
     print(f"before: {before_path}\nafter: {after_path}\ncomparison: {cmp_path}", file=sys.stderr)
 
