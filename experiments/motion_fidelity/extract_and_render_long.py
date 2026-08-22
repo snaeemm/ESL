@@ -134,6 +134,33 @@ def extract_one(clip_path, holistic):
             "right_xyz": right_xyz, "face_v1": face_v1_list, "face_lm": face_lm_list}
 
 
+def _dilate_occlusion(occluded, radius=3):
+    """Widen each occluded run by `radius` frames on both sides.
+
+    User-reported: mouth "gitteriness" during the circle sign, at points
+    where the hand orbits near the face without ever fully covering it -
+    confirmed on 17_circle that the binary occlusion flag flickers
+    exactly at the boundary (frames 55-56 sit just under the 0.75x
+    threshold as the hand approaches, then a total-detection dropout at
+    57, then clearly occluded 58-62). Frames right at that boundary are
+    already visibly degraded (mouth "open" and corner values jump before
+    the flag ever trips) but get trusted as clean - one becomes the
+    held/last-good value frozen across the whole occluded run, and the
+    first clean frame after release gets trusted immediately, both
+    producing a visible jump. Dilating the mask treats a few frames
+    around every occluded run as unsafe too, so hold/calibration always
+    draws from a frame that's actually clear of the hand, not just
+    technically under threshold."""
+    n = len(occluded)
+    out = list(occluded)
+    for i, o in enumerate(occluded):
+        if o:
+            for j in range(max(0, i - radius), min(n, i + radius + 1)):
+                if occluded[j] is not None:
+                    out[j] = True
+    return out
+
+
 def _face_is_occluded(face_lm, left_xyz, right_xyz, w, h):
     """True if any hand landmark is within the face's own bounding
     region — MediaPipe still reports face landmarks as "detected" (not
@@ -290,6 +317,7 @@ def main():
         # missing hand landmarks, applied here to noisy-not-missing face data.
         occluded = [_face_is_occluded(lm, lx, rx, w, h)
                     for lm, lx, rx in zip(d["face_lm"], d["left_xyz"], d["right_xyz"])]
+        occluded = _dilate_occlusion(occluded, radius=3)
         d["face_occluded"] = occluded
 
         # BUG FIX (user-reported: "one of the eyebrows goes way higher
