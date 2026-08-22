@@ -47,6 +47,28 @@ def _P(landmarks, i, w, h):
     return np.array([lm.x * w, lm.y * h])
 
 
+def compute_brow_calibration(face_v2_list):
+    """Per-clip (or per-pooled-sequence) min/max of each brow's raise
+    value, computed from frames actually present — the same idea as the
+    hand-depth fix: don't compare against one fixed NEUTRAL constant
+    tuned on different footage/different signer, stretch to what THIS
+    clip's signer actually does. Returns None if no v2 data available
+    (caller must fall back to the fixed-NEUTRAL behavior)."""
+    lefts, rights = [], []
+    for v2 in face_v2_list:
+        if v2 is None:
+            continue
+        b = v2["brows"]
+        lefts.append((b["left_inner_raise"] + b["left_outer_raise"]) / 2)
+        rights.append((b["right_inner_raise"] + b["right_outer_raise"]) / 2)
+    if not lefts:
+        return None
+    return {
+        "left_min": min(lefts), "left_max": max(lefts),
+        "right_min": min(rights), "right_max": max(rights),
+    }
+
+
 def face_features_v2(landmarks, w, h):
     P = lambda i: _P(landmarks, i, w, h)
     face_h = np.linalg.norm(P(_TOP) - P(_CHIN)) or 1.0

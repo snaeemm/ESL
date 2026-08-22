@@ -36,7 +36,7 @@ from spike_cartoon_avatar import (  # noqa: E402
     draw_hand, HandTrack, BG,
 )
 from hand_features import palm_orientation  # noqa: E402
-from face_features_v2 import face_features_v2  # noqa: E402
+from face_features_v2 import face_features_v2, compute_brow_calibration  # noqa: E402
 from head_pose import estimate_head_pose  # noqa: E402
 from render_v2 import draw_hand_v3, draw_face_features_v2  # noqa: E402
 
@@ -146,6 +146,19 @@ def main():
         d["left_xyz"] = norm_hand_scale(d["left_xyz"])
         d["right_xyz"] = norm_hand_scale(d["right_xyz"])
 
+    # Precompute face_features_v2 for every frame once (was previously
+    # recomputed inline during rendering) so it can ALSO be pooled across
+    # all 9 clips into one brow_calibration BEFORE rendering starts —
+    # same two-pass pattern as scale_w above (detect everything, THEN
+    # render), needed because you can't know a clip's own brow range
+    # until you've looked at all its frames.
+    all_v2 = []
+    for d in all_data:
+        d["face_v2"] = [face_features_v2(lm, w, h) if lm is not None else None for lm in d["face_lm"]]
+        all_v2.extend(d["face_v2"])
+    brow_calibration = compute_brow_calibration(all_v2)
+    print(f"brow_calibration: {brow_calibration}", file=sys.stderr)
+
     def render(out_path, use_v2):
         writer = cv2.VideoWriter(out_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
         for d in all_data:
@@ -172,9 +185,9 @@ def main():
                 if d["pose"][i] is not None:
                     face_c, face_r = draw_body(canvas, d["pose"][i], w, h, scale_w=scale_w)
                     if use_v2 and d["face_lm"][i] is not None:
-                        v2 = face_features_v2(d["face_lm"][i], w, h)
+                        v2 = d["face_v2"][i]
                         hp = estimate_head_pose(d["face_lm"][i], w, h)
-                        draw_face_features_v2(canvas, face_c, face_r, d["face_v1"][i], v2, hp)
+                        draw_face_features_v2(canvas, face_c, face_r, d["face_v1"][i], v2, hp, brow_calibration)
                     else:
                         draw_face_features(canvas, face_c, face_r, d["face_v1"][i])
 

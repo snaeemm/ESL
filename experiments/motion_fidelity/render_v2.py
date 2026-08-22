@@ -99,6 +99,28 @@ def _blend_color(c1, c2, t):
     return tuple(c1[k] * (1 - t) + c2[k] * t for k in range(3))
 
 
+def draw_gradient_capsule(img, p1, p2, r1, r2, color1, color2, steps=6):
+    """Same tapered-capsule shape as draw_capsule, but the fill colour
+    interpolates continuously from color1 (at p1) to color2 (at p2)
+    instead of one flat colour — drawn as `steps` small sub-capsules with
+    interpolated position/radius/colour. Fixes the "blocky, one colour
+    per segment" look the per-segment shading had before (each segment
+    used its own single averaged colour, creating a hard edge at every
+    joint) — adjacent segments now share the same colour at the joint
+    they meet, since each one interpolates FROM that joint's own colour."""
+    p1, p2 = np.array(p1, dtype=float), np.array(p2, dtype=float)
+    for s in range(steps):
+        t0, t1 = s / steps, (s + 1) / steps
+        a = p1 + (p2 - p1) * t0
+        b = p1 + (p2 - p1) * t1
+        ra = max(1, int(round(r1 + (r2 - r1) * t0)))
+        rb = max(1, int(round(r1 + (r2 - r1) * t1)))
+        ca = _blend_color(color1, color2, t0)
+        cb = _blend_color(color1, color2, t1)
+        c = _blend_color(ca, cb, 0.5)  # one flat colour per sub-step, averaged
+        draw_capsule(img, tuple(a), tuple(b), ra, rb, c)
+
+
 # Wider-contrast pair specifically for depth shading, distinct from
 # SKIN_SHADE (which is a subtle robe-fold-shading tone designed for a
 # different purpose and too close to SKIN to read as a depth cue at
@@ -170,16 +192,15 @@ def draw_hand_v3(img, pts, alpha, zs, palm_nz):
     def _contrast(t):
         return max(0.0, min(1.0, 0.5 + (t - 0.5) * _CONTRAST))
 
-    def seg_color(i, j):
-        # z more negative = closer to camera (MediaPipe's own convention,
-        # already documented elsewhere in this codebase) -> t=0 (closest)
-        # renders _DEPTH_NEAR, t=1 (farthest among this hand's own finger
-        # landmarks) renders _DEPTH_FAR, with a contrast boost so a modest
-        # real difference still reads as a visible one.
+    def point_color(i):
+        # Per-LANDMARK colour (not per-segment-averaged) so adjacent
+        # segments share an identical colour at the joint where they
+        # meet — that continuity, plus draw_gradient_capsule interpolating
+        # within each segment, is what makes the whole finger read as one
+        # smooth gradient instead of a stack of flat-coloured blocks.
         if not zs:
             return SKIN
-        zseg = (zs[i] + zs[j]) / 2
-        t = _contrast((zseg - zmin) / zrange)
+        t = _contrast((zs[i] - zmin) / zrange)
         return _blend_color(_DEPTH_NEAR, _DEPTH_FAR, t)
 
     palm_t = _contrast((palm_nz + 1.0) / 2.0) if palm_nz is not None else 0.0  # nz in [-1,1] -> t in [0,1]
@@ -197,9 +218,10 @@ def draw_hand_v3(img, pts, alpha, zs, palm_nz):
         for k in range(1, len(idxs)):
             prev_i, idx = idxs[k - 1], idxs[k]
             r_in = [6, 5, 4, 3][k - 1]
-            seg_fill = seg_color(prev_i, idx)
-            draw_capsule(layer, ipts[prev_i], ipts[idx], r_in, [5, 4, 3, 2][k - 1], seg_fill)
-        cv2.circle(layer, ipts[chain[-1]], 3, seg_color(chain[-2], chain[-1]), -1, cv2.LINE_AA)
+            c_prev = palm_fill if prev_i == 0 else point_color(prev_i)  # wrist end blends from palm colour
+            c_idx = point_color(idx)
+            draw_gradient_capsule(layer, ipts[prev_i], ipts[idx], r_in, [5, 4, 3, 2][k - 1], c_prev, c_idx)
+        cv2.circle(layer, ipts[chain[-1]], 3, point_color(chain[-1]), -1, cv2.LINE_AA)
 
     if alpha >= 1.0:
         img[:] = layer
@@ -207,7 +229,7 @@ def draw_hand_v3(img, pts, alpha, zs, palm_nz):
         cv2.addWeighted(layer, alpha, img, 1 - alpha, 0, dst=img)
 
 
-def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_pose):
+def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_pose, brow_calibration=None):
     """Draws eyebrows (independent L/R), eyes (with blink), and mouth
     (unchanged from v1's curve — mouth v2 fields are captured/exported
     but NOT yet rendered differently, see final report classification)
@@ -215,7 +237,16 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
     estimated roll angle before compositing onto canvas. Pitch/yaw are
     accepted as parameters but intentionally unused for rendering (see
     module docstring) — kept in the signature so the call site doesn't
-    need to change if that's revisited later."""
+    need to change if that's revisited later.
+
+    brow_calibration (optional, from face_features_v2.compute_brow_calibration):
+    same fix as the hand-depth shading — instead of comparing this clip's
+    brow position against one fixed NEUTRAL constant tuned on different
+    footage/a different signer, rescale against what THIS clip's own
+    signer actually did (min/max observed across the clip), with the same
+    contrast-boost curve, so a real but modest brow movement still reads
+    as visible instead of being compressed into a couple of pixels of
+    difference. Falls back to the old fixed-NEUTRAL behavior if None."""
     m = metrics_v1 or NEUTRAL
     v2 = metrics_v2
 
@@ -236,7 +267,14 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
         if v2:
             brow = v2["brows"]
             raise_val = (brow[f"{name}_inner_raise"] + brow[f"{name}_outer_raise"]) / 2
-            brow_delta = clamp((raise_val - NEUTRAL["brow_raise"]) * face_r * 5, -face_r * 0.16, face_r * 0.22)
+            if brow_calibration:
+                lo, hi = brow_calibration[f"{name}_min"], brow_calibration[f"{name}_max"]
+                span = max(1e-6, hi - lo)
+                t = (raise_val - lo) / span
+                t = max(0.0, min(1.0, 0.5 + (t - 0.5) * _CONTRAST))
+                brow_delta = (t - 0.5) * 2 * face_r * 0.22  # map contrasted t to the same visual range as before
+            else:
+                brow_delta = clamp((raise_val - NEUTRAL["brow_raise"]) * face_r * 5, -face_r * 0.16, face_r * 0.22)
             eye_state = v2["eyes"][f"{name}_state"]
             aperture = v2["eyes"][f"{name}_aperture"]
         else:
