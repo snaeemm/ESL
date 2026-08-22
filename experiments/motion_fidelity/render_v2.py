@@ -286,7 +286,16 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
                 # was reading as exaggerated/"way higher than it should
                 # be". The lowered-side bound (0.16) is left alone since
                 # that's the one the earlier collapse-bug fix depends on.
-                t = max(0.0, min(1.0, 0.5 + (t - 0.5) * 1.4))
+                # Pulled way back (1.4 -> 1.15) per user feedback: the
+                # contrast boost was optimizing for "visible without
+                # pausing the video" over "matches the real signer's
+                # actual movement magnitude" - once real ground-truth
+                # footage was available side-by-side (long_comparison_3way.mp4),
+                # it was clear the brows were moving noticeably more than
+                # the real person, including amplifying landmark noise
+                # during partial hand-over-face occlusion into visible
+                # spikes. 1.15 stays a mild boost, not a multiplier.
+                t = max(0.0, min(1.0, 0.5 + (t - 0.5) * 1.15))
                 centered = (t - 0.5) * 2  # -1..1
                 brow_delta = centered * (face_r * 0.16 if centered < 0 else face_r * 0.18)
             else:
@@ -386,8 +395,13 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
         # frames look exaggeratedly open (per user feedback). Horizontal
         # (dx) asymmetry/corner movement was the one that needed help to
         # be visible at all, so it keeps a stronger boost.
-        _MOUTH_SCALE = face_r * 1.7
-        _AMPLIFY_X, _AMPLIFY_Y = 1.8, 0.75  # Y < 1.0: DAMPEN vertical opening, it read as too much even after the first reduction
+        # Scale/amplify pulled back further (1.7->1.4 scale, 1.8->1.3
+        # horizontal amplify) - same reasoning as the brow contrast fix:
+        # once compared directly against real signer footage, the lips
+        # read as "too fat"/exaggerated relative to reality, not just
+        # subjectively large in isolation.
+        _MOUTH_SCALE = face_r * 1.4
+        _AMPLIFY_X, _AMPLIFY_Y = 1.3, 0.75  # Y < 1.0: DAMPEN vertical opening, it read as too much even after the first reduction
         pts = []
         for (dx, dy), (mx, my) in zip(contour_norm, mouth_contour_calibration):
             adx = mx + (dx - mx) * _AMPLIFY_X
