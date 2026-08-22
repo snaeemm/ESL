@@ -407,16 +407,31 @@ def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_p
             adx = mx + (dx - mx) * _AMPLIFY_X
             ady = my + (dy - my) * _AMPLIFY_Y
             pts.append((int(lc[0] + adx * _MOUTH_SCALE), int(mouth_y + ady * _MOUTH_SCALE)))
-        # Fill with a distinct lip tone (not plain skin, not the flat
-        # dark blob from the earlier reverted attempt) + a seam line
-        # splitting upper/lower lip using the real corner points
-        # (_OUTER_LIP_LOOP index 0 = left corner, index 6 = right corner
-        # in face_features_v2.py) - this is what actually makes it read
-        # as "a mouth" rather than a single undifferentiated shape.
-        cv2.fillPoly(layer, [np.array(pts, dtype=np.int32)], (*_LIP_FILL, 255))
-        cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 2, cv2.LINE_AA)
-        seam_mid = (int((pts[0][0] + pts[6][0]) / 2), int((pts[0][1] + pts[6][1]) / 2))
-        cv2.polylines(layer, [np.array([pts[0], seam_mid, pts[6]], dtype=np.int32)], False, (*SKIN_LINE, 255), 2, cv2.LINE_AA)
+        # BUG FIX: previously always drew a seam line corner-to-corner
+        # regardless of whether the real mouth was open or closed, so an
+        # open mouth just looked like the lip shape scaling bigger/
+        # smaller instead of actually PARTING - lips stayed visually
+        # "together" no matter what. Now branches on the same open/closed
+        # threshold v1's own ellipse-vs-curve logic already used
+        # (m["mouth_open"] ~0.031, matching mouth_h > face_r*0.08):
+        # OPEN -> fill the whole contour as a dark cavity (real gap, like
+        # v1's filled-ellipse open mouth) with lip-tone arcs framing it,
+        # no seam. CLOSED -> lip-fill + seam, as before.
+        is_open = m["mouth_open"] > 0.031
+        if is_open:
+            cv2.fillPoly(layer, [np.array(pts, dtype=np.int32)], (*SKIN_LINE, 255))
+            upper_arc = pts[0:7]
+            lower_arc = pts[6:12] + [pts[0]]
+            cv2.polylines(layer, [np.array(upper_arc, dtype=np.int32)], False, (*_LIP_FILL, 255), 3, cv2.LINE_AA)
+            cv2.polylines(layer, [np.array(lower_arc, dtype=np.int32)], False, (*_LIP_FILL, 255), 3, cv2.LINE_AA)
+            cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 1, cv2.LINE_AA)
+            pts = None  # signal below: seam already skipped for open state
+        else:
+            cv2.fillPoly(layer, [np.array(pts, dtype=np.int32)], (*_LIP_FILL, 255))
+            cv2.polylines(layer, [np.array(pts, dtype=np.int32)], True, (*SKIN_LINE, 255), 2, cv2.LINE_AA)
+        if pts:
+            seam_mid = (int((pts[0][0] + pts[6][0]) / 2), int((pts[0][1] + pts[6][1]) / 2))
+            cv2.polylines(layer, [np.array([pts[0], seam_mid, pts[6]], dtype=np.int32)], False, (*SKIN_LINE, 255), 2, cv2.LINE_AA)
     elif mouth_h > int(face_r * 0.08):
         avg_delta = (left_delta + right_delta) / 2
         cv2.ellipse(layer, (lc[0], int(mouth_y - avg_delta / 2)), (mouth_w // 2, mouth_h // 2), 0, 0, 360, (*SKIN_LINE, 255), -1, cv2.LINE_AA)

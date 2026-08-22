@@ -85,6 +85,27 @@ def extract_one(clip_path, holistic):
             "right_xyz": right_xyz, "face_v1": face_v1_list, "face_lm": face_lm_list}
 
 
+def _face_is_occluded(face_lm, left_xyz, right_xyz, w, h):
+    """True if any hand landmark is within the face's own bounding
+    region — MediaPipe still reports face landmarks as "detected" (not
+    None) even when a hand partially covers the face, but those readings
+    are visibly noisy (confirmed: user-reported eyebrow spikes happened
+    on frames where face detection never actually dropped out). This is
+    the actual occlusion signal to gate on, not detection dropout."""
+    if face_lm is None:
+        return False
+    nose = np.array([face_lm[1].x * w, face_lm[1].y * h])
+    chin = np.array([face_lm[152].x * w, face_lm[152].y * h])
+    face_h = np.linalg.norm(nose - chin) * 2 or 1.0  # rough full-face-height proxy
+    for hand in (left_xyz, right_xyz):
+        if hand is None:
+            continue
+        for (x, y, _z) in hand:
+            if np.linalg.norm(np.array([x, y]) - nose) < face_h * 0.75:
+                return True
+    return False
+
+
 def _blend_v2_value(prev, cur, alpha):
     """Recursively EMA-blends face_features_v2's nested structure: dicts
     blend key-by-key; lists of (x,y) tuples (contour_norm) blend
@@ -191,14 +212,44 @@ def main():
     all_v2 = []
     for d in all_data:
         raw_v2 = [face_features_v2(lm, w, h) if lm is not None else None for lm in d["face_lm"]]
+
+        # BUG FIX (user-reported: "eyebrows go crazy when face gets
+        # covered by hand"): a hand partially covering the face makes
+        # MediaPipe's face landmarks noisy WITHOUT dropping detection
+        # (face_lm is never None here - confirmed by direct inspection).
+        # occluded[i] flags those frames; for calibration we POOL ONLY
+        # non-occluded frames (so one noisy occluded frame can't skew the
+        # brow/mouth range), and for rendering we HOLD the last known-good
+        # (non-occluded) reading instead of trusting the noisy one -
+        # same "don't fabricate motion you don't actually know" principle
+        # scripts/spike_cartoon_avatar.py's HandTrack already uses for
+        # missing hand landmarks, applied here to noisy-not-missing face data.
+        occluded = [_face_is_occluded(lm, lx, rx, w, h)
+                    for lm, lx, rx in zip(d["face_lm"], d["left_xyz"], d["right_xyz"])]
+        d["face_occluded"] = occluded
+
+        held_v2 = []
+        last_good = None
+        for v2, occ in zip(raw_v2, occluded):
+            if v2 is None:
+                held_v2.append(None)
+                last_good = None
+                continue
+            if occ and last_good is not None:
+                held_v2.append(last_good)  # hold, don't trust the noisy reading
+            else:
+                held_v2.append(v2)
+                last_good = v2
+
         # BUG FIX (user-reported jitter): unlike v1's face_metrics(), which
         # gets EMA-smoothed (prod_smooth, alpha=0.25) before rendering,
         # face_v2 was being computed fresh from RAW unsmoothed landmarks
         # every single frame with no filtering at all - that IS the
         # jitter, not a rendering issue. _smooth_face_v2 applies the same
         # EMA idea recursively over the nested dict/list structure.
-        d["face_v2"] = _smooth_face_v2(raw_v2, alpha=0.25)
-        all_v2.extend(d["face_v2"])
+        d["face_v2"] = _smooth_face_v2(held_v2, alpha=0.25)
+
+        all_v2.extend(v2 for v2, occ in zip(raw_v2, occluded) if v2 is not None and not occ)
     brow_calibration = compute_brow_calibration(all_v2)
     mouth_calibration = compute_mouth_calibration(all_v2)
     mouth_contour_calibration = compute_mouth_contour_calibration(all_v2)
