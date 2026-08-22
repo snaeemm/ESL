@@ -37,7 +37,7 @@ from hand_features import palm_orientation, finger_flexion, finger_spread, thumb
 from face_features_v2 import face_features_v2  # noqa: E402
 from head_pose import estimate_head_pose  # noqa: E402
 from body_features import body_features  # noqa: E402
-from render_v2 import draw_hand_v2, draw_face_features_v2  # noqa: E402
+from render_v2 import draw_hand_v3, draw_face_features_v2  # noqa: E402
 
 OUT_DIR = os.path.join(ROOT, "outputs", "motion_fidelity_test")
 os.makedirs(OUT_DIR, exist_ok=True)
@@ -184,7 +184,7 @@ def derive_features(data):
             pts = data["left_xyz"][i]
             left_history.append((pts[0][0], pts[0][1]))
             frame_out["left_hand_features"] = {
-                "palm_orientation": palm_orientation(pts),
+                "palm_orientation": palm_orientation(pts, handedness="left"),
                 "finger_flexion": finger_flexion(pts),
                 "finger_spread": finger_spread(pts),
                 "thumb_opposition": thumb_opposition(pts),
@@ -197,7 +197,7 @@ def derive_features(data):
             pts = data["right_xyz"][i]
             right_history.append((pts[0][0], pts[0][1]))
             frame_out["right_hand_features"] = {
-                "palm_orientation": palm_orientation(pts),
+                "palm_orientation": palm_orientation(pts, handedness="right"),
                 "finger_flexion": finger_flexion(pts),
                 "finger_spread": finger_spread(pts),
                 "thumb_opposition": thumb_opposition(pts),
@@ -282,12 +282,12 @@ def render_after(data, derived, out_path):
         r_pts, r_alpha = right_track.get(i, right_xy[i], right_future)
         if l_pts:
             lf = derived[i].get("left_hand_features")
-            facing = lf["palm_orientation"]["facing"] if lf else "undetermined"
-            draw_hand_v2(canvas, l_pts, l_alpha, left_z[i], facing)
+            nz = lf["palm_orientation"]["normal"][2] if lf else None
+            draw_hand_v3(canvas, l_pts, l_alpha, left_z[i], nz)
         if r_pts:
             rf = derived[i].get("right_hand_features")
-            facing = rf["palm_orientation"]["facing"] if rf else "undetermined"
-            draw_hand_v2(canvas, r_pts, r_alpha, right_z[i], facing)
+            nz = rf["palm_orientation"]["normal"][2] if rf else None
+            draw_hand_v3(canvas, r_pts, r_alpha, right_z[i], nz)
         out.write(canvas)
     out.release()
 

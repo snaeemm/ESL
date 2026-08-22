@@ -38,7 +38,7 @@ from spike_cartoon_avatar import (  # noqa: E402
 from hand_features import palm_orientation  # noqa: E402
 from face_features_v2 import face_features_v2  # noqa: E402
 from head_pose import estimate_head_pose  # noqa: E402
-from render_v2 import draw_hand_v2, draw_face_features_v2  # noqa: E402
+from render_v2 import draw_hand_v3, draw_face_features_v2  # noqa: E402
 
 OUT_DIR = os.path.join(ROOT, "outputs", "motion_fidelity_test")
 os.makedirs(OUT_DIR, exist_ok=True)
@@ -182,14 +182,14 @@ def main():
                 r_pts, r_alpha = right_track.get(i, right_xy[i], rf)
                 if l_pts:
                     if use_v2:
-                        facing = palm_orientation(d["left_xyz"][i])["facing"] if d["left_xyz"][i] else "undetermined"
-                        draw_hand_v2(canvas, l_pts, l_alpha, left_z[i], facing)
+                        nz = palm_orientation(d["left_xyz"][i], handedness="left")["normal"][2] if d["left_xyz"][i] else None
+                        draw_hand_v3(canvas, l_pts, l_alpha, left_z[i], nz)
                     else:
                         draw_hand(canvas, l_pts, l_alpha)
                 if r_pts:
                     if use_v2:
-                        facing = palm_orientation(d["right_xyz"][i])["facing"] if d["right_xyz"][i] else "undetermined"
-                        draw_hand_v2(canvas, r_pts, r_alpha, right_z[i], facing)
+                        nz = palm_orientation(d["right_xyz"][i], handedness="right")["normal"][2] if d["right_xyz"][i] else None
+                        draw_hand_v3(canvas, r_pts, r_alpha, right_z[i], nz)
                     else:
                         draw_hand(canvas, r_pts, r_alpha)
                 writer.write(canvas)

@@ -94,6 +94,95 @@ def draw_hand_v2(img, pts, alpha, zs, palm_facing):
         cv2.addWeighted(layer, alpha, img, 1 - alpha, 0, dst=img)
 
 
+def _blend_color(c1, c2, t):
+    t = max(0.0, min(1.0, t))
+    return tuple(c1[k] * (1 - t) + c2[k] * t for k in range(3))
+
+
+def draw_hand_v3(img, pts, alpha, zs, palm_nz):
+    """v3 (2026-08-22, per user feedback that whole-hand binary light/dark
+    "doesn't really help" when only part of the hand is turned): shades
+    each finger SEGMENT continuously by ITS OWN two endpoint z-values,
+    instead of one binary decision for the entire hand. A curled finger
+    whose tip has rotated toward the camera while its base is still
+    turned away now visibly shows that difference along its own length —
+    previously every joint used the same single whole-hand color.
+
+    Per-frame z range is taken from this hand's own 21 landmarks (not a
+    fixed constant) so the shading is self-normalizing to whatever depth
+    spread this particular pose actually has, rather than assuming a
+    fixed real-world scale MediaPipe's relative z doesn't actually
+    guarantee.
+
+    Palm fill is also now a CONTINUOUS blend on palm_nz (the raw
+    z-component of the palm normal from hand_features.palm_orientation,
+    handedness-corrected) instead of 3 discrete buckets — a hand turning
+    edge-on now visibly transitions instead of snapping between two
+    colors.
+    """
+    layer = img.copy()
+    ipts = [ipt(p) for p in pts]
+
+    if zs:
+        mean_z = sum(zs) / len(zs)
+        forwardness = max(0.0, min(1.0, (-mean_z) * 6.0))
+        if forwardness >= 0.05:
+            halo_r = int(3 + forwardness * 6)
+            halo_layer = img.copy()
+            halo_palm = np.array([ipts[i] for i in PALM_OUTLINE], dtype=np.int32)
+            cv2.polylines(halo_layer, [halo_palm], True, HALO, halo_r * 2, cv2.LINE_AA)
+            cv2.fillConvexPoly(halo_layer, halo_palm, HALO, cv2.LINE_AA)
+            for chain in FINGER_CHAINS:
+                prev = ipts[0]
+                for idx in chain:
+                    cv2.line(halo_layer, prev, ipts[idx], HALO, halo_r * 2, cv2.LINE_AA)
+                    cv2.circle(halo_layer, ipts[idx], halo_r, HALO, -1, cv2.LINE_AA)
+                    prev = ipts[idx]
+            halo_alpha = 0.75 * alpha
+            cv2.addWeighted(halo_layer, halo_alpha, img, 1 - halo_alpha, 0, dst=img)
+
+    if zs:
+        zmin, zmax = min(zs), max(zs)
+        zrange = max(1e-6, zmax - zmin)
+    else:
+        zmin, zrange = 0.0, 1.0
+
+    def seg_color(i, j):
+        # z more negative = closer to camera (MediaPipe's own convention,
+        # already documented elsewhere in this codebase) -> t=0 (closest)
+        # renders normal SKIN, t=1 (farthest in THIS hand's own range)
+        # renders the SKIN_SHADE tone.
+        if not zs:
+            return SKIN
+        zseg = (zs[i] + zs[j]) / 2
+        t = (zseg - zmin) / zrange
+        return _blend_color(SKIN, SKIN_SHADE, t)
+
+    palm_t = (palm_nz + 1.0) / 2.0 if palm_nz is not None else 0.0  # nz in [-1,1] -> t in [0,1]
+    palm_fill = _blend_color(SKIN, SKIN_SHADE, palm_t)
+    palm = np.array([ipts[i] for i in PALM_OUTLINE], dtype=np.int32)
+    cv2.fillConvexPoly(layer, palm, SKIN_LINE, cv2.LINE_AA)
+    cv2.fillConvexPoly(layer, palm, palm_fill, cv2.LINE_AA)
+
+    for chain in FINGER_CHAINS:
+        idxs = [0] + list(chain)  # wrist, then the 4 joints of this finger
+        for k in range(1, len(idxs)):
+            prev_i, idx = idxs[k - 1], idxs[k]
+            r_out = [9, 8, 7, 6][k - 1]
+            draw_capsule(layer, ipts[prev_i], ipts[idx], r_out, [8, 7, 6, 5][k - 1], SKIN_LINE)
+        for k in range(1, len(idxs)):
+            prev_i, idx = idxs[k - 1], idxs[k]
+            r_in = [6, 5, 4, 3][k - 1]
+            seg_fill = seg_color(prev_i, idx)
+            draw_capsule(layer, ipts[prev_i], ipts[idx], r_in, [5, 4, 3, 2][k - 1], seg_fill)
+        cv2.circle(layer, ipts[chain[-1]], 3, seg_color(chain[-2], chain[-1]), -1, cv2.LINE_AA)
+
+    if alpha >= 1.0:
+        img[:] = layer
+    else:
+        cv2.addWeighted(layer, alpha, img, 1 - alpha, 0, dst=img)
+
+
 def draw_face_features_v2(canvas, face_c, face_r, metrics_v1, metrics_v2, head_pose):
     """Draws eyebrows (independent L/R), eyes (with blink), and mouth
     (unchanged from v1's curve — mouth v2 fields are captured/exported

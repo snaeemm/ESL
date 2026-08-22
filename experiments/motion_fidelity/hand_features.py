@@ -33,13 +33,14 @@ def _v(pts, i):
     return np.array(pts[i], dtype=float)  # (x, y, z)
 
 
-def palm_orientation(pts):
+def palm_orientation(pts, handedness="right"):
     """Palm normal via the plane through wrist, index-MCP, pinky-MCP —
     the standard three-point-plane technique for approximate palm facing.
     Middle-MCP is used only to sanity-check planarity, not in the formula
     itself (documented, not silently dropped).
 
-    normal = (index_mcp - wrist) x (pinky_mcp - wrist), normalized.
+    normal = (index_mcp - wrist) x (pinky_mcp - wrist), normalized,
+    NEGATED for the left hand — see handedness note below.
 
     Returns {"normal": [nx,ny,nz], "facing": "camera"|"away"|"edge_on"}.
     z is MediaPipe's own convention: more negative = closer to the camera.
@@ -48,6 +49,24 @@ def palm_orientation(pts):
     the hand faces the viewer. Near-zero z-component of the normal means
     the hand is roughly edge-on (thresholded at |nz| < 0.15 of unit
     normal — an engineering choice, not a measured constant).
+
+    HANDEDNESS BUG FIX (found via visual review of the two-hand test
+    video, 2026-08-22): MediaPipe numbers landmarks 0-20 consistently
+    relative to each hand's OWN anatomy (wrist -> thumb side -> pinky
+    side), and a left hand is a mirror image of a right hand. Mirroring
+    a hand flips the sign of exactly the z-component of
+    cross(index_mcp-wrist, pinky_mcp-wrist) for an otherwise identical
+    real-world orientation (provable: mirroring the x-axis negates the
+    y- and z-components of a 3D cross product). Using the same formula
+    unmodified for both hands therefore made two hands held in the SAME
+    real orientation report OPPOSITE "facing" values — confirmed by
+    inspecting real output on a two-hand clip where a systematic
+    right-hand-always-darker pattern appeared regardless of actual
+    orientation. Fix: negate the normal for the left hand so both hands
+    use a consistent camera-facing convention. `handedness` must be
+    "left" or "right" — the caller is responsible for passing MediaPipe's
+    own left_hand_landmarks/right_hand_landmarks distinction correctly;
+    this function does not guess it.
     """
     wrist = _v(pts, 0)
     idx_mcp = _v(pts, MCP_IDX["index"])
@@ -55,6 +74,13 @@ def palm_orientation(pts):
     v1 = idx_mcp - wrist
     v2 = pinky_mcp - wrist
     normal = np.cross(v1, v2)
+    if handedness == "left":
+        # Mirroring the x-axis (left vs right hand) leaves the cross
+        # product's x-component unchanged and flips ONLY y and z (proven
+        # by expanding the cross-product formula under x -> -x) — negate
+        # the whole vector here would also flip x, which is wrong; only
+        # y/z are corrected.
+        normal = normal * np.array([1.0, -1.0, -1.0])
     norm = np.linalg.norm(normal)
     if norm < 1e-6:
         return {"normal": [0.0, 0.0, 0.0], "facing": "undetermined"}
