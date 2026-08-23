@@ -59,5 +59,7 @@
       "caption_start_s": 13.5,
       "caption_end_s": 15.5
     }
-  ]
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
 }

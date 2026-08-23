@@ -51,5 +51,7 @@
       "caption_start_s": null,
       "caption_end_s": null
     }
-  ]
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 4/6"
 }

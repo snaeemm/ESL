@@ -10,6 +10,8 @@ FIXTURES = {
     "emirati_d": "content/test_d_emirati.md",
     "cells": "content/grade6_science_ch3_cells.md",
     "photosynthesis": "content/photosynthesis_constructed.md",
+    "general_vocab_daily_habits": "content/test_e_general_vocab_daily_habits.md",
+    "general_vocab_shopping_gifts": "content/test_f_general_vocab_shopping_gifts.md",
 }
 
 def main():
@@ -21,7 +23,7 @@ def main():
         print(f"=== {name} ===")
         try:
             last = None
-            for ev in pr.run(src, out_dir, skip_clip_prep=True):
+            for ev in pr.run(src, out_dir, skip_clip_prep=True, allow_review_render=True):
                 last = ev
                 print(" ", ev.get("stage"), ev.get("status"), ev.get("message", "")[:120])
         except Exception as e:

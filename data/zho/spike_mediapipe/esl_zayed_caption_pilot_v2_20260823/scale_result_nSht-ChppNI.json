@@ -67,5 +67,7 @@
       "caption_start_s": 21.0,
       "caption_end_s": 24.5
     }
-  ]
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 6/8"
 }
