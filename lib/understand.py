@@ -36,6 +36,7 @@ Extract the key educational concepts as a structured JSON array. Each item must 
 Rules:
 - Only use information that is literally present in the source text. Do not add outside knowledge.
 - Do not translate the source text. Keep "concept" and "key_terms" in the same language the source text is written in.
+- "concept" must be a short plain label (1-4 words), never a slug, never mixing scripts (no underscores joining words, no embedded Latin words inside an Arabic concept, no slashes).
 - "source_span" MUST be an exact substring of the source text, character for character.
 - Output ONLY a JSON array, no other text, no markdown code fences.
 """
