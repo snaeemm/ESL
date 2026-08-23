@@ -1,0 +1,71 @@
+{
+  "video_id": "nSht-ChppNI",
+  "n_expected_items": 8,
+  "n_matched_items": 6,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "أنا",
+      "english_meaning_from_video": "I",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "أنت",
+      "english_meaning_from_video": "You",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 5.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "هو",
+      "english_meaning_from_video": "He",
+      "content_type": "WORD",
+      "caption_start_s": 5.5,
+      "caption_end_s": 14.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "هي",
+      "english_meaning_from_video": "She",
+      "content_type": "WORD",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "هو",
+      "english_meaning_from_video": "It",
+      "content_type": "WORD",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "نحن",
+      "english_meaning_from_video": "We",
+      "content_type": "WORD",
+      "caption_start_s": 15.0,
+      "caption_end_s": 17.5
+    },
+    {
+      "item_index_in_video": 6,
+      "arabic_caption": "أنتم",
+      "english_meaning_from_video": "You",
+      "content_type": "WORD",
+      "caption_start_s": 18.0,
+      "caption_end_s": 20.5
+    },
+    {
+      "item_index_in_video": 7,
+      "arabic_caption": "هم",
+      "english_meaning_from_video": "They",
+      "content_type": "WORD",
+      "caption_start_s": 21.0,
+      "caption_end_s": 24.5
+    }
+  ]
+}

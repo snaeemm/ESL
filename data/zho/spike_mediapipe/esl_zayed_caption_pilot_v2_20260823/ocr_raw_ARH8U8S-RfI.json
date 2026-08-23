@@ -1,0 +1,132 @@
+[
+  {
+    "t": 0.0,
+    "frame": "f_0001.png",
+    "text": "Important"
+  },
+  {
+    "t": 0.5,
+    "frame": "f_0002.png",
+    "text": "Important"
+  },
+  {
+    "t": 1.0,
+    "frame": "f_0003.png",
+    "text": "Important"
+  },
+  {
+    "t": 1.5,
+    "frame": "f_0004.png",
+    "text": "Important"
+  },
+  {
+    "t": 2.0,
+    "frame": "f_0005.png",
+    "text": "Important"
+  },
+  {
+    "t": 2.5,
+    "frame": "f_0006.png",
+    "text": "Important"
+  },
+  {
+    "t": 3.0,
+    "frame": "f_0007.png",
+    "text": "انتبه | Be careful"
+  },
+  {
+    "t": 3.5,
+    "frame": "f_0008.png",
+    "text": "انتبه | Be careful"
+  },
+  {
+    "t": 4.0,
+    "frame": "f_0009.png",
+    "text": "انتبه | Be careful"
+  },
+  {
+    "t": 4.5,
+    "frame": "f_0010.png",
+    "text": "انتبه | Be careful"
+  },
+  {
+    "t": 5.0,
+    "frame": "f_0011.png",
+    "text": "انتبه | Be careful"
+  },
+  {
+    "t": 5.5,
+    "frame": "f_0012.png",
+    "text": "انتبه | Be careful"
+  },
+  {
+    "t": 6.0,
+    "frame": "f_0013.png",
+    "text": "خطر | Danger"
+  },
+  {
+    "t": 6.5,
+    "frame": "f_0014.png",
+    "text": "خطر | Danger"
+  },
+  {
+    "t": 7.0,
+    "frame": "f_0015.png",
+    "text": "خطر | Danger"
+  },
+  {
+    "t": 7.5,
+    "frame": "f_0016.png",
+    "text": "خطر | Danger"
+  },
+  {
+    "t": 8.0,
+    "frame": "f_0017.png",
+    "text": "خطر | Danger"
+  },
+  {
+    "t": 8.5,
+    "frame": "f_0018.png",
+    "text": "خطر | Danger"
+  },
+  {
+    "t": 9.0,
+    "frame": "f_0019.png",
+    "text": "مشكلة Problem"
+  },
+  {
+    "t": 9.5,
+    "frame": "f_0020.png",
+    "text": "مشكلة Problem"
+  },
+  {
+    "t": 10.0,
+    "frame": "f_0021.png",
+    "text": "مشكلة Problem"
+  },
+  {
+    "t": 10.5,
+    "frame": "f_0022.png",
+    "text": "مشكلة Problem"
+  },
+  {
+    "t": 11.0,
+    "frame": "f_0023.png",
+    "text": "لغة الإشارة الإما guage | مع"
+  },
+  {
+    "t": 11.5,
+    "frame": "f_0024.png",
+    "text": "لغة الإشارة الإما guage | مع"
+  },
+  {
+    "t": 12.0,
+    "frame": "f_0025.png",
+    "text": "لغة الإشارة الإما guage | مع"
+  },
+  {
+    "t": 12.5,
+    "frame": "f_0026.png",
+    "text": "لغة الإشارة الإما guage | مع"
+  }
+]

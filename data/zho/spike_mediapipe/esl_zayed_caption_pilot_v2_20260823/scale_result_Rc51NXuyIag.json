@@ -1,0 +1,55 @@
+{
+  "video_id": "Rc51NXuyIag",
+  "n_expected_items": 6,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "شراب",
+      "english_meaning_from_video": "Drink",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "ماء",
+      "english_meaning_from_video": "Water",
+      "content_type": "WORD",
+      "caption_start_s": 2.0,
+      "caption_end_s": 3.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "قهوة",
+      "english_meaning_from_video": "Coffee",
+      "content_type": "WORD",
+      "caption_start_s": 4.0,
+      "caption_end_s": 6.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "شاي",
+      "english_meaning_from_video": "Tea",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 13.5
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "شاي أخضر",
+      "english_meaning_from_video": "Green Tea",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "شاي حليب",
+      "english_meaning_from_video": "Tea Milk",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ]
+}
