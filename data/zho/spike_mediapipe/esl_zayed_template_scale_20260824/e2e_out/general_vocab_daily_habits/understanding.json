@@ -1,6 +1,6 @@
 {
   "model": "hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M",
-  "raw_response": "[\n    {\n        \"concept\": \"Morning Routine\",\n        \"key_terms\": [\"wake up\", \"read a book\", \"eat breakfast\"],\n        \"source_span\": \"A clever student uses a clear routine: wake up, read a book, and eat breakfast before school starts.\"\n    },\n    {\n        \"concept\": \"Patience\",\n        \"key_terms\": [\"patience\", \"bored\", \"listen carefully\"],\n        \"source_span\": \"A polite and patient student does not get bored during a difficult lesson. They stay active and quiet, listen carefully, and try not to forget what they have learned.\"\n    },\n    {\n        \"concept\": \"Focus\",\n        \"key_terms\": [\"lose focus\", \"lose hope\", \"practice\"],\n        \"source_span\": \"If a student loses focus, they should not lose hope -- with practice, even a difficult subject becomes easy.\"\n    }\n]",
+  "raw_response": "[\n    {\n        \"concept\": \"Morning Routine\",\n        \"key_terms\": [\"wake up\", \"read a book\", \"eat breakfast\"],\n        \"source_span\": \"A clever student uses a clear routine: wake up, read a book, and eat breakfast before school starts.\"\n    },\n    {\n        \"concept\": \"Patience\",\n        \"key_terms\": [\"patience\", \"polite\", \"stay active\", \"listen carefully\"],\n        \"source_span\": \"A polite and patient student does not get bored during a difficult lesson. They stay active and quiet, listen carefully, and try not to forget what they have learned.\"\n    },\n    {\n        \"concept\": \"Focus\",\n        \"key_terms\": [\"lose focus\", \"lose hope\", \"practice\"],\n        \"source_span\": \"If a student loses focus, they should not lose hope, with practice, even a difficult subject becomes easy.\"\n    }\n]",
   "json_parsed_successfully": true,
   "num_concepts_extracted": 3,
   "concepts": [
@@ -12,19 +12,20 @@
         "eat breakfast"
       ],
       "source_span": "A clever student uses a clear routine: wake up, read a book, and eat breakfast before school starts.",
-      "source_span_verified": false,
-      "review_required": true
+      "source_span_verified": true,
+      "review_required": false
     },
     {
       "concept": "Patience",
       "key_terms": [
         "patience",
-        "bored",
+        "polite",
+        "stay active",
         "listen carefully"
       ],
       "source_span": "A polite and patient student does not get bored during a difficult lesson. They stay active and quiet, listen carefully, and try not to forget what they have learned.",
-      "source_span_verified": false,
-      "review_required": true
+      "source_span_verified": true,
+      "review_required": false
     },
     {
       "concept": "Focus",
@@ -33,9 +34,9 @@
         "lose hope",
         "practice"
       ],
-      "source_span": "If a student loses focus, they should not lose hope -- with practice, even a difficult subject becomes easy.",
-      "source_span_verified": false,
-      "review_required": true
+      "source_span": "If a student loses focus, they should not lose hope, with practice, even a difficult subject becomes easy.",
+      "source_span_verified": true,
+      "review_required": false
     }
   ],
   "structured_output_trace": {
