@@ -1,0 +1,36 @@
+{
+  "english_total": 1143,
+  "arabic_locale_reported_count": 1142,
+  "arabic_matched_by_id": 1137,
+  "missing_arabic_counterpart": [
+    {
+      "id": "59cf6b0b-c65d-4828-a0eb-bd2f39fbb706",
+      "word_en": "Work"
+    },
+    {
+      "id": "a68a5164-871c-414c-92e4-0620cfdb365b",
+      "word_en": "Oven"
+    }
+  ],
+  "matched_id_but_empty_title": [
+    {
+      "id": "f6b779db-a7cc-4da3-a605-4ed59517706b",
+      "word_en": "Grandmother"
+    },
+    {
+      "id": "7a9cecc5-749b-4f76-85ce-f3c0b12b5ec0",
+      "word_en": "Grandfather"
+    },
+    {
+      "id": "e2171fca-4dd6-4818-a44e-1ffbdbc91ea7",
+      "word_en": "Couple"
+    },
+    {
+      "id": "f0832ca5-cc82-47a0-972d-470bf3c77d4e",
+      "word_en": "Brothers Wife"
+    }
+  ],
+  "arabic_ids_not_in_english_catalog": [
+    "1e33e20a-7e43-44b8-93de-114517d95358"
+  ]
+}

@@ -45,6 +45,15 @@ webapp = [
     "python-multipart",
 ]
 
+# Only needed to re-run the OPTIONAL local multilingual embedding
+# retrieval experiment (scripts/vocab_embedding_benchmark.py,
+# lib/vocab_embedding_st.py) — NOT required for run_pipeline.py, which
+# uses lexical/token-overlap retrieval (lib/vocab_retrieval.py) by
+# default. Kept separate/optional deliberately: this pulls in torch.
+vocab-embedding-experiment = [
+    "sentence-transformers",
+]
+
 # --- External (non-pip) requirements, not expressible above ---
 #
 # - Ollama, running locally (`ollama serve`), with the benchmark-winning

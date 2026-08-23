@@ -74,14 +74,55 @@ def _call_ollama(source_text: str, model: str) -> str:
 
 
 def _parse_json_array(raw: str):
-    raw = re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL)
-    match = re.search(r"\[.*\]", raw, re.DOTALL)
-    if not match:
-        return None
+    """Strict parse + bounded surrounding-text extraction only - no
+    repair of the JSON content itself happens here (that would risk
+    silently inventing/mangling model output). Returns (parsed_or_None,
+    extraction_used: bool)."""
+    stripped = re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL).strip()
     try:
-        return json.loads(match.group())
+        parsed = json.loads(stripped)
+        return parsed, False
     except json.JSONDecodeError:
-        return None
+        pass
+    match = re.search(r"\[.*\]", stripped, re.DOTALL)
+    if not match:
+        return None, True
+    try:
+        return json.loads(match.group()), True
+    except json.JSONDecodeError:
+        return None, True
+
+
+def _validate_schema(items) -> bool:
+    """Deterministic schema check (brief §L step 4): every item must be a
+    dict with concept (str), key_terms (list of str), source_span (str).
+    A structurally-broken array (wrong types, missing fields) is treated
+    the same as a parse failure - it must not silently pass through with
+    missing data."""
+    if not isinstance(items, list):
+        return False
+    for item in items:
+        if not isinstance(item, dict):
+            return False
+        if not isinstance(item.get("concept"), str) or not item.get("concept"):
+            return False
+        if not isinstance(item.get("key_terms"), list) or not all(isinstance(t, str) for t in item.get("key_terms")):
+            return False
+        if not isinstance(item.get("source_span"), str) or not item.get("source_span"):
+            return False
+    return True
+
+
+REPAIR_PROMPT_TEMPLATE = """Your previous response was supposed to be a JSON array but was invalid or malformed. \
+Here is exactly what you produced:
+
+{broken}
+
+Re-output ONLY a corrected, strictly valid JSON array with the same schema as before: each item must have \
+"concept" (string), "key_terms" (list of strings), "source_span" (string, an exact verbatim substring of the \
+original source text). Do not add commentary, markdown fences, or explanation. If you cannot reconstruct valid \
+content, output an empty JSON array: []
+"""
 
 
 def verify_source_spans(items: list, source_text: str) -> list:
@@ -107,20 +148,59 @@ def verify_source_spans(items: list, source_text: str) -> list:
 def extract_concepts(source_text: str, model: str = DEFAULT_MODEL) -> dict:
     """Runs UNDERSTAND on source_text with the given local Ollama model.
 
-    Returns {"model": ..., "raw_response": ..., "json_parsed": bool,
-    "concepts": [...]} where each concept dict has source_span_verified /
-    review_required set by verify_source_spans(). Never raises on a
-    parse failure — an empty/unparseable extraction is itself a valid,
-    reportable outcome (mirrors jais-adaptive's documented failure mode
-    in the benchmark), not something to hide.
+    Bounded structured-output handling (brief §L): strict parse -> safe
+    extraction from surrounding text if needed -> schema validation ->
+    ONE bounded repair/retry re-prompting the model with its own broken
+    output -> deterministic REVIEW/BLOCKED failure (empty concepts) if
+    still invalid. No unbounded retry loop, no silent JSON repair of the
+    model's actual content.
+
+    Returns {"model", "raw_response", "json_parsed_successfully",
+    "num_concepts_extracted", "concepts", "structured_output_trace"}
+    where structured_output_trace records the initial parse/extraction/
+    schema outcome and whether a repair retry ran and its result, for
+    traceability. Never raises on a parse failure — an empty/unparseable
+    extraction is itself a valid, reportable outcome, not something to
+    hide.
     """
     raw = _call_ollama(source_text, model)
-    items = _parse_json_array(raw)
-    concepts = verify_source_spans(items, source_text) if items is not None else []
+    items, extraction_used = _parse_json_array(raw)
+    initial_valid = items is not None and _validate_schema(items)
+
+    trace = {
+        "initial_parse_success": items is not None,
+        "initial_extraction_used": extraction_used,
+        "initial_schema_valid": initial_valid,
+        "repair_retry_attempted": False,
+        "repair_retry_parse_success": None,
+        "final_parse_status": "OK" if initial_valid else None,
+    }
+
+    if not initial_valid:
+        trace["repair_retry_attempted"] = True
+        repair_prompt = REPAIR_PROMPT_TEMPLATE.format(broken=raw[:4000])
+        try:
+            repaired_raw = _call_ollama(repair_prompt, model)
+            repaired_items, repaired_extraction_used = _parse_json_array(repaired_raw)
+            repaired_valid = repaired_items is not None and _validate_schema(repaired_items)
+        except UnderstandError:
+            repaired_items, repaired_valid, repaired_raw = None, False, None
+
+        trace["repair_retry_parse_success"] = repaired_valid
+        if repaired_valid:
+            items = repaired_items
+            raw = f"{raw}\n\n--- REPAIR RETRY RESPONSE ---\n{repaired_raw}"
+            trace["final_parse_status"] = "OK_AFTER_REPAIR"
+        else:
+            items = []
+            trace["final_parse_status"] = "FAILED_AFTER_REPAIR"
+
+    concepts = verify_source_spans(items, source_text) if items else []
     return {
         "model": model,
         "raw_response": raw,
-        "json_parsed_successfully": items is not None,
+        "json_parsed_successfully": trace["final_parse_status"] in ("OK", "OK_AFTER_REPAIR"),
         "num_concepts_extracted": len(concepts),
         "concepts": concepts,
+        "structured_output_trace": trace,
     }

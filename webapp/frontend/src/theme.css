@@ -215,15 +215,49 @@ textarea:focus, input:focus, select:focus, button:focus-visible, a:focus-visible
 .duration-row button { padding: 12px 22px; }
 .duration-row input[type="number"] { flex: 1; min-width: 140px; padding: 12px 16px; }
 
-.stage-tracker { display: flex; flex-direction: column; gap: 2px; }
-.stage-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius); }
-.stage-row.current { background: var(--accent-tint); }
-.stage-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--border-input); flex: none; }
-.stage-dot.done { background: var(--status-ok-fg); border-color: var(--status-ok-fg); }
-.stage-dot.current { background: var(--accent); border-color: var(--accent); }
-.stage-dot.blocked, .stage-dot.error { background: var(--status-error-fg); border-color: var(--status-error-fg); }
-.stage-label { font-weight: 700; font-size: 14px; color: var(--text-primary); }
-.stage-message { font-size: 13px; color: var(--text-secondary); }
+.stage-tracker { display: flex; flex-direction: column; padding: 8px 28px; }
+.stage-row { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; }
+.stage-dot-col { flex: none; width: 20px; display: flex; flex-direction: column; align-items: center; }
+.stage-dot {
+  width: 20px; height: 20px; border-radius: 50%; flex: none;
+  box-shadow: 0 0 0 3px var(--surface);
+  animation: rowIn 0.4s ease;
+}
+.stage-dot.done { background: var(--federal-iron); }
+.stage-dot.pending { background: var(--surface); border: 2px solid var(--border-input); }
+.stage-dot.active { background: var(--federal-gold); animation: rowIn 0.4s ease, pulseRing 1.6s ease-out infinite; }
+.stage-connector { width: 2px; flex: 1; min-height: 20px; margin-top: 2px; background: var(--border); transition: background-color 0.5s ease; }
+.stage-connector.done { background: var(--federal-iron); }
+
+.stage-text { flex: 1; min-width: 0; padding-top: 1px; animation: rowIn 0.4s ease; }
+.stage-title { font-weight: 700; font-size: 15px; color: var(--text-muted); }
+.stage-title.done, .stage-title.active { color: var(--federal-iron); }
+.stage-title.active { color: var(--federal-gold); }
+.stage-detail { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+.stage-detail.done { color: #9a9a9c; }
+.stage-detail.active { color: #8a6b2c; }
+
+.stage-progress-track { height: 4px; border-radius: 2px; background: var(--federal-gold-tint); margin-top: 10px; overflow: hidden; }
+.stage-progress-fill {
+  height: 100%; width: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, #B68A35, #D9B876, #B68A35);
+  background-size: 200px 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 3px var(--surface), 0 0 0 0 rgba(182, 138, 53, 0.35); }
+  70% { box-shadow: 0 0 0 3px var(--surface), 0 0 0 10px rgba(182, 138, 53, 0); }
+  100% { box-shadow: 0 0 0 3px var(--surface), 0 0 0 0 rgba(182, 138, 53, 0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+@keyframes rowIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 24px 0; }
 .metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }

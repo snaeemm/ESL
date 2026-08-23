@@ -29,10 +29,12 @@ def build_traceability(source_manifest: dict, units: list, rendered_segments: li
             "sign_decision": {
                 "term": resolution.get("term"),
                 "status": resolution.get("status"),
+                "match_method": resolution.get("match_method"),
                 "fallback_type": resolution.get("fallback_type"),
                 "catalog_ref": resolution.get("catalog_ref"),
                 "fingerspell": resolution.get("fingerspell"),
                 "match_reason": resolution.get("match_reason"),
+                "retrieval_trace": resolution.get("retrieval_trace"),
             },
             "semantic_sign_plan_item_index": idx,
             "unit_id": seg["unit_id"],
@@ -56,16 +58,18 @@ def write_traceability_markdown(trace: dict, out_path: str) -> None:
     lines = ["# Traceability Report", "",
               f"Source: `{trace['source_path']}`", f"Source ID: `{trace['source_id']}`", "",
               "Every rendered segment below is traced back to the exact verified source span it came from.", "",
-              "| Segment | Sign decision | Term | Concept | Educational sentence | Source span |",
-              "|---|---|---|---|---|---|"]
+              "| Segment | Sign decision | Match method | Term | ZHO sign (EN / AR) | Concept | Educational sentence | Source span |",
+              "|---|---|---|---|---|---|---|---|"]
     for row in trace["segments"]:
         decision = row["sign_decision"]
         status = decision.get("status") or ""
         if decision.get("fallback_type"):
             status = f"{status} ({decision['fallback_type']})"
+        ref = decision.get("catalog_ref") or {}
+        zho_label = f"{ref.get('word_en','')} / {ref.get('word_ar','')}" if ref else ""
         lines.append(
-            f"| `{row['segment_stem']}` | {status} | {decision.get('term','')} | "
-            f"{row.get('concept','')} | {row.get('educational_sentence','')} | "
+            f"| `{row['segment_stem']}` | {status} | {decision.get('match_method') or ''} | {decision.get('term','')} | "
+            f"{zho_label} | {row.get('concept','')} | {row.get('educational_sentence','')} | "
             f"\"{row.get('source_span','')}\" |"
         )
     lines.append("")
