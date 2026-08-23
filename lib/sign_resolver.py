@@ -32,7 +32,171 @@ import re
 
 from lib.fingerspell import fingerspell
 from lib.terminology import resolve_terminology
-from lib.vocab_retrieval import get_index, MATCH_CANDIDATE_SELECTED, MATCH_MORPHOLOGY_CANDIDATE, MODIFIER_WORDS_EN
+from lib.vocab_retrieval import (
+    get_index, get_esl_zayed_index, MATCH_CANDIDATE_SELECTED, MATCH_MORPHOLOGY_CANDIDATE, MODIFIER_WORDS_EN,
+)
+
+# ESL Zayed supplementary WORD-level candidate source (smallest-safe
+# integration per data/zho/spike_mediapipe/ab_experiment_20260823/FINAL_REPORT.md
+# §Z/§AF). Only consulted AFTER ZHO's own deterministic layers (exact,
+# morphology, alias, ZHO candidate-selection) have already failed to
+# produce a verified sign for the SAME item - see _esl_zayed_resolution()'s
+# call site in resolve_item(). ZHO always retains priority: an ESL Zayed
+# candidate can never override an existing EXACT_EN/EXACT_AR/ALIAS/
+# candidate-selected ZHO match, because this function is only ever reached
+# when lex["row"] is already None. Defaults ON so the production website
+# path actually exercises it (per the task's hard requirement); can be
+# disabled for a run via MOI_DISABLE_ESL_ZAYED=1 (e.g. for exact A/B
+# comparisons against the pre-integration baseline).
+MATCH_ESL_ZAYED_EXACT = "ESL_ZAYED_EXACT"
+MATCH_ESL_ZAYED_CANDIDATE_SELECTED = "ESL_ZAYED_CANDIDATE_SELECTED"
+
+ESL_ZAYED_SELECTION_SYSTEM_PROMPT = """You are helping select a SUPPLEMENTARY sign-language vocabulary entry for one
+word/phrase in a school lesson video, drawn from an OBSERVED Emirati educational video source (NOT the institutional
+UAE sign reference - this is a secondary, supplementary source, used only because no institutional sign was found).
+You will be given the educational sentence, the exact source span it came from, the specific semantic item that needs
+a sign, and a short list of CANDIDATE supplementary entries (each with a stable id and its English/Arabic labels).
+
+Choose the candidate whose meaning is genuinely equivalent to the semantic item IN THIS CONTEXT - not merely a word
+that looks similar. If none of the candidates are a legitimate match, you MUST answer NONE. Do not force a match. A
+wrong sign is worse than no sign.
+
+You may ONLY select an id that appears in the candidate list below, or answer NONE. Never invent an id.
+
+Respond with ONLY a JSON object, no other text, no markdown fences:
+{"selected_candidate_id": "<id from the list, or null>", "reason": "<one short sentence>", "confidence": "high|medium|low"}
+"""
+
+
+def _call_falcon_esl_zayed_selection(item_text: str, source_span: str, educational_sentence: str,
+                                      candidates: list, model: str) -> dict:
+    from lib.episode_builder import _call_ollama_raw
+    from lib.understand import UnderstandError
+
+    candidate_payload = [
+        {"id": c["supplementary_id"], "word_en": c.get("english_meaning"), "word_ar": c.get("arabic_text")}
+        for c in candidates
+    ]
+    prompt_input = {
+        "source_span": source_span,
+        "educational_sentence": educational_sentence,
+        "semantic_item": item_text,
+        "candidates": candidate_payload,
+    }
+    prompt = (f"{ESL_ZAYED_SELECTION_SYSTEM_PROMPT}\n\nINPUT:\n"
+              f"{json.dumps(prompt_input, ensure_ascii=False)}\n\nJSON:")
+    try:
+        raw = _call_ollama_raw(prompt, model)
+    except UnderstandError as e:
+        return {"selected_candidate_id": None, "reason": f"model call failed: {e}", "confidence": "low"}
+
+    raw = re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL).strip()
+    match = re.search(r"\{.*\}", raw, re.DOTALL)
+    if not match:
+        return {"selected_candidate_id": None, "reason": "model output was not valid JSON", "confidence": "low"}
+    try:
+        parsed = json.loads(match.group())
+    except json.JSONDecodeError:
+        return {"selected_candidate_id": None, "reason": "model output was not valid JSON", "confidence": "low"}
+
+    sel = parsed.get("selected_candidate_id")
+    if sel in ("NONE", "None", "none", ""):
+        sel = None
+    return {
+        "selected_candidate_id": sel,
+        "reason": parsed.get("reason", ""),
+        "confidence": parsed.get("confidence", "low"),
+    }
+
+
+def _esl_zayed_row_is_renderable(row: dict) -> bool:
+    """Deterministic authorization gate (brief §4). A row may only ever be
+    used if ALL of: word-level content_type, complete source provenance
+    (video id + segment boundaries), and non-empty English/Arabic labels.
+    Mirrors the discipline of the ZHO `has_video` check in
+    _deterministic_lexical_resolution() above."""
+    if not row:
+        return False
+    if row.get("content_type") != "WORD":
+        return False
+    if not row.get("youtube_video_id"):
+        return False
+    if row.get("segment_start_s") is None or row.get("segment_end_s") is None:
+        return False
+    if not row.get("english_meaning") or not row.get("arabic_text"):
+        return False
+    return True
+
+
+def _esl_zayed_resolution(item_text: str, model: str, source_span: str,
+                           educational_sentence: str, allow_candidate_selection: bool) -> dict:
+    """ESL Zayed fallback layer. Only ever called once ZHO's own
+    deterministic resolution has already returned no row for this item -
+    see resolve_item(). Returns the same shaped dict as
+    _deterministic_lexical_resolution() (row/method/information_loss/
+    match_reason/candidates/falcon_selection) so callers can treat it
+    uniformly, but every non-null row carries source=ESL_ZAYED /
+    source_authority=OBSERVED_EMIRATI_EDUCATIONAL_SOURCE so it is never
+    mistaken for an institutional ZHO match downstream."""
+    idx = get_esl_zayed_index()
+    if not idx.rows:
+        return {"row": None, "method": None, "candidates": [], "match_reason": "ESL Zayed supplementary catalog is empty or missing"}
+
+    exact = idx.exact_match(item_text)
+    if exact and _esl_zayed_row_is_renderable(exact):
+        return {"row": exact, "method": MATCH_ESL_ZAYED_EXACT, "information_loss": LOSS_FULL,
+                "match_reason": (f"ESL Zayed exact WORD-level match: query='{item_text}' == supplementary "
+                                  f"english_meaning/arabic_text='{exact.get('english_meaning')}' / '{exact.get('arabic_text')}' "
+                                  f"(source_authority=OBSERVED_EMIRATI_EDUCATIONAL_SOURCE, not institutional ZHO)")}
+
+    candidates = idx.retrieve_candidates(item_text, top_n=5)
+    if not candidates:
+        return {"row": None, "method": None, "candidates": [], "match_reason": "no ESL Zayed lexical candidates found"}
+
+    if not allow_candidate_selection:
+        return {"row": None, "method": None, "candidates": candidates,
+                "match_reason": f"{len(candidates)} ESL Zayed candidates found but Falcon selection unavailable/disabled"}
+
+    selection = _call_falcon_esl_zayed_selection(item_text, source_span, educational_sentence, candidates, model)
+    selected_id = selection.get("selected_candidate_id")
+    candidate_ids = {c["supplementary_id"] for c in candidates}
+
+    if selected_id and selected_id in candidate_ids:
+        verified_row = idx.by_id.get(selected_id)
+        if verified_row and _esl_zayed_row_is_renderable(verified_row):
+            loss = classify_information_loss(item_text, verified_row.get("english_meaning"))
+            if loss in (LOSS_ESSENTIAL_INFORMATION_LOSS, LOSS_AMBIGUOUS):
+                return {"row": None, "method": None, "candidates": candidates, "falcon_selection": selection,
+                        "information_loss": loss,
+                        "match_reason": (f"Falcon selected ESL Zayed candidate '{verified_row.get('english_meaning')}' "
+                                          f"(id={selected_id}) but it was rejected by the information-loss safeguard "
+                                          f"({loss}) - a false lexical sign is worse than honest fingerspelling")}
+            if _looks_arabic(verified_row.get("english_meaning") or "") or not _looks_arabic(verified_row.get("arabic_text") or ""):
+                # Arabic-script integrity guard (brief §D/§9): the ESL Zayed
+                # arabic_text field must actually contain Arabic script, and
+                # the english_meaning field must not itself be mixed/garbled
+                # Arabic - reject rather than trust a corrupted catalog row.
+                return {"row": None, "method": None, "candidates": candidates, "falcon_selection": selection,
+                        "match_reason": (f"ESL Zayed candidate id={selected_id} failed the Arabic-script integrity "
+                                          f"check (arabic_text/english_meaning fields malformed) - rejected")}
+            return {
+                "row": verified_row, "method": MATCH_ESL_ZAYED_CANDIDATE_SELECTED, "candidates": candidates,
+                "falcon_selection": selection, "information_loss": loss,
+                "match_reason": (f"Falcon selected ESL Zayed candidate '{verified_row.get('english_meaning')}' "
+                                  f"from {len(candidates)} retrieved candidates (id={selected_id}); "
+                                  f"reason: {selection.get('reason', '')}; verified id is in candidate set, "
+                                  f"content_type=WORD, source segment/video metadata complete, "
+                                  f"information_loss={loss}; source_authority=OBSERVED_EMIRATI_EDUCATIONAL_SOURCE"),
+            }
+        return {"row": None, "method": None, "candidates": candidates, "falcon_selection": selection,
+                "match_reason": f"Falcon selected ESL Zayed id={selected_id} but it failed deterministic authorization (not WORD-level, or incomplete provenance) - rejected"}
+
+    if selected_id and selected_id not in candidate_ids:
+        return {"row": None, "method": None, "candidates": candidates, "falcon_selection": selection,
+                "match_reason": f"Falcon selected ESL Zayed id={selected_id} which was NOT in the candidate set - rejected outright (possible hallucination)"}
+
+    return {"row": None, "method": None, "candidates": candidates, "falcon_selection": selection,
+            "match_reason": f"Falcon reviewed {len(candidates)} ESL Zayed candidates and answered NONE: {selection.get('reason', '')}"}
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CATALOG_PATH = os.path.join(ROOT, "data", "zho", "catalog.json")
@@ -297,6 +461,18 @@ def resolve_item(item_text: str, source_language: str, source_span: str,
     Arabic fingerspelling only when no verified lexical sign is found."""
     lex = _deterministic_lexical_resolution(item_text, model, source_span, educational_sentence, allow_candidate_selection)
     if lex["row"]:
+        supporting = []
+        if os.environ.get("MOI_DISABLE_ESL_ZAYED") != "1":
+            esl_evidence = get_esl_zayed_index().exact_match(item_text)
+            if esl_evidence:
+                # ZHO was selected; any ESL Zayed evidence for the same item
+                # is recorded as a SUPPORTING source, never as the render
+                # source - per brief §6 ("never say the rendered asset came
+                # from both").
+                supporting.append({
+                    "source": "ESL_ZAYED", "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+                    "supplementary_id": esl_evidence.get("supplementary_id"),
+                })
         return {
             "term": item_text,
             "status": STATUS_VERIFIED,
@@ -307,7 +483,37 @@ def resolve_item(item_text: str, source_language: str, source_span: str,
             "match_reason": lex["match_reason"],
             "retrieval_trace": {k: v for k, v in lex.items() if k not in ("row", "method", "match_reason")},
             "review_required": False,
+            "render_source": "ZHO",
+            "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+            "supporting_sources": supporting,
         }
+
+    # 1c. ZHO has no verified sign for this item - fall back to the ESL
+    # Zayed supplementary WORD catalog (smallest-safe integration, see
+    # _esl_zayed_resolution() above). This can NEVER run before ZHO has
+    # already had its full chance above (exact/morphology/alias/ZHO
+    # candidate-selection all failed to find lex["row"]), so ZHO priority
+    # is structurally guaranteed, not just a policy statement.
+    if os.environ.get("MOI_DISABLE_ESL_ZAYED") != "1":
+        esl = _esl_zayed_resolution(item_text, model, source_span, educational_sentence, allow_candidate_selection)
+        if esl.get("row"):
+            esl_row = esl["row"]
+            return {
+                "term": item_text,
+                "status": STATUS_VERIFIED,
+                "catalog_ref": None,
+                "supplementary_ref": esl_row,
+                "match_method": esl["method"],
+                "fallback_type": None,
+                "information_loss": esl.get("information_loss", LOSS_FULL),
+                "match_reason": esl["match_reason"],
+                "retrieval_trace": {**{k: v for k, v in lex.items() if k not in ("row", "method", "match_reason")},
+                                     "esl_zayed_trace": {k: v for k, v in esl.items() if k not in ("row", "method", "match_reason")}},
+                "review_required": False,
+                "render_source": "ESL_ZAYED",
+                "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+                "supporting_sources": [],
+            }
 
     # 1b. Guard against a real observed Falcon failure mode: for an
     # Arabic-source lesson, the semantic-plan step (lib/sign_plan.py)
@@ -331,6 +537,10 @@ def resolve_item(item_text: str, source_language: str, source_span: str,
                               f"lesson (likely model drift to English/transliteration) - flagged rather than "
                               f"fingerspelled, since it cannot resolve against the Arabic alphabet map"),
             "review_required": True,
+            "render_source": "FINGERSPELL",
+            "source_authority": "NONE",
+            "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+            "supporting_sources": [],
         }
 
     # 2. No lexical match -> attempt Arabic fingerspelling fallback.
@@ -346,6 +556,10 @@ def resolve_item(item_text: str, source_language: str, source_span: str,
             "retrieval_trace": {k: v for k, v in lex.items() if k not in ("row", "method", "match_reason")},
             "match_reason": "no verified lexical sign, and Arabic terminology translation was not usable",
             "review_required": True,
+            "render_source": "FINGERSPELL",
+            "source_authority": "NONE",
+            "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+            "supporting_sources": [],
         }
 
     # 2b. The Arabic academic term Falcon produced may itself BE an
@@ -370,6 +584,9 @@ def resolve_item(item_text: str, source_language: str, source_span: str,
                               f"'{term_info['arabic_term']}' exactly matches official ZHO word_ar for "
                               f"'{ar_row.get('word_en')}' — used instead of fingerspelling per official-label preference"),
             "review_required": True,
+            "render_source": "ZHO",
+            "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+            "supporting_sources": [],
         }
 
     spelled = fingerspell(term_info["arabic_term"])
@@ -385,6 +602,10 @@ def resolve_item(item_text: str, source_language: str, source_span: str,
             "retrieval_trace": {k: v for k, v in lex.items() if k not in ("row", "method", "match_reason")},
             "match_reason": f"no verified lexical sign for '{item_text}' ({lex['match_reason']}); fingerspelled Arabic term '{term_info['arabic_term']}' — all letters resolved against data/zho/arabic_alphabet_map.json",
             "review_required": False,
+            "render_source": "FINGERSPELL",
+            "source_authority": "NONE",
+            "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+            "supporting_sources": [],
         }
 
     return {
@@ -398,6 +619,10 @@ def resolve_item(item_text: str, source_language: str, source_span: str,
         "retrieval_trace": {k: v for k, v in lex.items() if k not in ("row", "method", "match_reason")},
         "match_reason": f"no verified lexical sign, and fingerspelling '{term_info['arabic_term']}' left unresolved letters {spelled['unresolved_letters']}",
         "review_required": True,
+        "render_source": "FINGERSPELL",
+        "source_authority": "NONE",
+        "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+        "supporting_sources": [],
     }
 
 
@@ -432,6 +657,17 @@ def coverage_report(units: list) -> dict:
     unsupported = sum(1 for r in all_resolutions if r["status"] == STATUS_UNSUPPORTED)
     review = sum(1 for r in all_resolutions if r["status"] == STATUS_REVIEW)
 
+    # ESL Zayed vs ZHO kept STRUCTURALLY separate everywhere (brief §7) -
+    # never folded into the "verified lexical coverage" headline, which
+    # historically means ZHO/institutional coverage only.
+    verified_zho = sum(1 for r in all_resolutions
+                        if r["status"] == STATUS_VERIFIED and r.get("render_source") == "ZHO")
+    verified_esl_zayed = sum(1 for r in all_resolutions
+                              if r["status"] == STATUS_VERIFIED and r.get("render_source") == "ESL_ZAYED")
+    zho_coverage_pct = round(100.0 * verified_zho / total, 1) if total else 0.0
+    esl_zayed_supplementary_coverage_pct = round(100.0 * verified_esl_zayed / total, 1) if total else 0.0
+    combined_known_source_lexical_coverage_pct = round(100.0 * (verified_zho + verified_esl_zayed) / total, 1) if total else 0.0
+
     # Headline coverage stays conservative: FULL representations only.
     # CORE_WITH_MODIFIER_LOSS matches are real, verified, renderable signs
     # (a false lexical sign is worse than fingerspelling, but a modifier-
@@ -460,6 +696,11 @@ def coverage_report(units: list) -> dict:
         "verified_lexical_sign_coverage_pct": lexical_pct,
         "partial_lexical_representation_pct": partial_pct,
         "renderable_coverage_with_fallback_pct": renderable_pct,
+        "verified_signs_zho": verified_zho,
+        "verified_signs_esl_zayed_supplementary": verified_esl_zayed,
+        "institutional_zho_coverage_pct": zho_coverage_pct,
+        "supplementary_observed_emirati_coverage_pct": esl_zayed_supplementary_coverage_pct,
+        "combined_known_source_lexical_coverage_pct": combined_known_source_lexical_coverage_pct,
         "_note": (
             "full_verified_lexical_coverage_pct is the conservative headline number - only "
             "information_loss=FULL matches (exact/alias/safe-morphology, or a Falcon-selected "
@@ -477,6 +718,13 @@ def coverage_report(units: list) -> dict:
             "and MORPHOLOGY_CANDIDATE matches were chosen/confirmed by Falcon from deterministically "
             "retrieved candidates and passed deterministic verification (including the information-loss "
             "gate), but are still LLM-in-the-loop and warrant closer human review than EXACT_EN/EXACT_AR "
-            "matches — see the recovered-match audit table."
+            "matches — see the recovered-match audit table. institutional_zho_coverage_pct counts ONLY "
+            "render_source=ZHO matches (the institutional UAE sign reference). "
+            "supplementary_observed_emirati_coverage_pct counts ONLY render_source=ESL_ZAYED matches (an "
+            "observed, supplementary, NOT institutionally verified source - verification_status is always "
+            "SUPPLEMENTARY_UNVERIFIED on every ESL Zayed row). combined_known_source_lexical_coverage_pct "
+            "is their sum and is deliberately NOT called an 'accuracy' number. verified_signs_zho / "
+            "verified_signs_esl_zayed_supplementary are the same split as raw counts - ESL Zayed is never "
+            "folded into ZHO's own headline coverage number."
         ),
     }
