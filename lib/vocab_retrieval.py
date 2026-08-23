@@ -35,6 +35,7 @@ import re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CATALOG_PATH = os.path.join(ROOT, "data", "zho", "catalog.json")
 ALIASES_PATH = os.path.join(ROOT, "data", "zho", "aliases.json")
+ESL_ZAYED_CATALOG_PATH = os.path.join(ROOT, "data", "zho", "esl_zayed_supplementary_catalog.json")
 
 MATCH_EXACT_EN = "EXACT_EN"
 MATCH_EXACT_AR = "EXACT_AR"
@@ -247,3 +248,89 @@ def reset_index_cache():
     """Test/dev helper - forces the next get_index() to reload from disk."""
     global _INDEX
     _INDEX = None
+
+
+# ---------------------------------------------------------------------------
+# ESL Zayed supplementary WORD-level candidate source (approved smallest-safe
+# integration, per data/zho/spike_mediapipe/ab_experiment_20260823/FINAL_REPORT.md
+# §Z). Loads data/zho/esl_zayed_supplementary_catalog.json - a separate,
+# production-safe WORD-only subset built from the read-only research spike's
+# corpus (see that file's own header comment / the build script for exact
+# inclusion criteria). NEVER merged into catalog.json. Every row keeps
+# source=ESL_ZAYED / source_authority=OBSERVED_EMIRATI_EDUCATIONAL_SOURCE so
+# it can never be silently mistaken for an institutional ZHO row downstream.
+# This index is consulted by lib/sign_resolver.py ONLY after ZHO's own
+# deterministic layers (exact/morphology/alias/candidate-selection) have
+# already failed to produce a verified sign for the same item - see
+# sign_resolver.py's resolve_item() ordering and its "ZHO priority" tests.
+# ---------------------------------------------------------------------------
+
+
+class ESLZayedIndex:
+    """Mirrors VocabIndex's exact-match + token-overlap-candidate shape, but
+    over the small, curated ESL Zayed supplementary WORD catalog instead of
+    the institutional ZHO catalog.json. No embeddings/vector search here
+    either, for the same reason as VocabIndex (small corpus, explicit
+    auditable token overlap is enough signal for Falcon to choose from)."""
+
+    def __init__(self, catalog_path: str = ESL_ZAYED_CATALOG_PATH):
+        self.catalog_path = catalog_path
+        if os.path.exists(catalog_path):
+            with open(catalog_path, encoding="utf-8") as f:
+                self.rows = json.load(f)
+        else:
+            self.rows = []
+        self.by_id = {r["supplementary_id"]: r for r in self.rows}
+
+        self.en_exact = {}
+        self.ar_exact = {}
+        self.en_tokens_by_row = {}
+        self.ar_tokens_by_row = {}
+        for r in self.rows:
+            if r.get("english_meaning"):
+                self.en_exact.setdefault(r["english_meaning"].strip().lower(), []).append(r)
+                self.en_tokens_by_row[r["supplementary_id"]] = set(_tokenize_en(r["english_meaning"]))
+            if r.get("arabic_text"):
+                self.ar_exact.setdefault(_normalize_ar(r["arabic_text"]), []).append(r)
+                self.ar_tokens_by_row[r["supplementary_id"]] = set(_tokenize_ar(r["arabic_text"]))
+
+    def exact_match(self, term: str):
+        key_en = term.strip().lower()
+        if key_en in self.en_exact:
+            return self.en_exact[key_en][0]
+        key_ar = _normalize_ar(term)
+        if key_ar and key_ar in self.ar_exact:
+            return self.ar_exact[key_ar][0]
+        return None
+
+    def retrieve_candidates(self, term: str, top_n: int = 5) -> list:
+        q_en = set(_tokenize_en(term))
+        q_ar = set(_tokenize_ar(term))
+        if not q_en and not q_ar:
+            return []
+        scored = []
+        for r in self.rows:
+            score = 0
+            if q_en:
+                score += len(q_en & self.en_tokens_by_row.get(r["supplementary_id"], set()))
+            if q_ar:
+                score += len(q_ar & self.ar_tokens_by_row.get(r["supplementary_id"], set()))
+            if score > 0:
+                scored.append((score, r))
+        scored.sort(key=lambda x: -x[0])
+        return [r for _, r in scored[:top_n]]
+
+
+_ESL_ZAYED_INDEX = None
+
+
+def get_esl_zayed_index() -> ESLZayedIndex:
+    global _ESL_ZAYED_INDEX
+    if _ESL_ZAYED_INDEX is None:
+        _ESL_ZAYED_INDEX = ESLZayedIndex()
+    return _ESL_ZAYED_INDEX
+
+
+def reset_esl_zayed_index_cache():
+    global _ESL_ZAYED_INDEX
+    _ESL_ZAYED_INDEX = None

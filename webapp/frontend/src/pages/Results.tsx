@@ -86,6 +86,14 @@ export default function Results() {
           <div className="metric-value">{cov?.renderable_coverage_with_fallback_pct ?? '—'}%</div>
           <div className="metric-label">{t('metric_fallback')}</div>
         </div>
+        {!!cov?.verified_signs_esl_zayed_supplementary && (
+          <div className="metric-card">
+            <div className="metric-value">{cov.verified_signs_esl_zayed_supplementary}</div>
+            <div className="metric-label" title="Observed Emirati educational source signs (ESL Zayed) — supplementary, NOT the institutional UAE sign reference, NOT independently verified">
+              ESL Zayed supplementary signs
+            </div>
+          </div>
+        )}
         <div className="metric-card">
           <div className="metric-value">{cov?.review_required_units ?? 0}</div>
           <div className="metric-label">{t('metric_review')}</div>
@@ -137,9 +145,19 @@ export default function Results() {
                     <StatusChip status={r.status} t={t} />
                     {r.status === 'VERIFIED_SIGN' && r.catalog_ref && (
                       <p className="hint" style={{ margin: '4px 0 0' }}>
-                        ZHO: {r.catalog_ref.word_en}{r.catalog_ref.word_ar ? ` — ${r.catalog_ref.word_ar}` : ''} ({r.catalog_ref.category})
+                        ZHO (institutional): {r.catalog_ref.word_en}{r.catalog_ref.word_ar ? ` — ${r.catalog_ref.word_ar}` : ''} ({r.catalog_ref.category})
                         {r.information_loss && r.information_loss !== 'FULL' && (
                           <> · <span title="This match preserves the core meaning but not every word (e.g. an intensity modifier was dropped) — see Traceability for detail.">{r.information_loss}</span></>
+                        )}
+                      </p>
+                    )}
+                    {r.status === 'VERIFIED_SIGN' && r.supplementary_ref && (
+                      <p className="hint" style={{ margin: '4px 0 0' }}>
+                        <span title="Observed Emirati educational source (ESL Zayed) — supplementary, NOT the institutional UAE sign reference, NOT independently verified.">
+                          ESL Zayed (supplementary, unverified):
+                        </span> {r.supplementary_ref.english_meaning}{r.supplementary_ref.arabic_text ? ` — ${r.supplementary_ref.arabic_text}` : ''}
+                        {r.information_loss && r.information_loss !== 'FULL' && (
+                          <> · <span>{r.information_loss}</span></>
                         )}
                       </p>
                     )}
@@ -189,7 +207,7 @@ export default function Results() {
             <table className="trace-table">
               <thead>
                 <tr>
-                  <th>Segment</th><th>Status</th><th>Term</th><th>Concept</th><th>Educational sentence</th><th>Source span</th>
+                  <th>Segment</th><th>Status</th><th>Render source</th><th>Term</th><th>Concept</th><th>Educational sentence</th><th>Source span</th>
                 </tr>
               </thead>
               <tbody>
@@ -197,6 +215,12 @@ export default function Results() {
                   <tr key={i}>
                     <td>{row.segment_stem}</td>
                     <td><StatusChip status={row.sign_decision.status} t={t} /></td>
+                    <td>
+                      {row.render_source === 'ZHO' && <span title="Institutional UAE sign reference">ZHO</span>}
+                      {row.render_source === 'ESL_ZAYED' && <span title="Observed Emirati educational source — supplementary, unverified">ESL Zayed (supplementary)</span>}
+                      {row.render_source === 'FINGERSPELL' && <span>Fingerspell</span>}
+                      {!row.render_source && '—'}
+                    </td>
                     <td>{row.sign_decision.term}</td>
                     <td>{row.concept}</td>
                     <td>{row.educational_sentence}</td>
