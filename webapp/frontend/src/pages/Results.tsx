@@ -76,8 +76,11 @@ export default function Results() {
           <div className="metric-label">{t('metric_traceability')}</div>
         </div>
         <div className="metric-card">
-          <div className="metric-value">{cov?.verified_lexical_sign_coverage_pct ?? '—'}%</div>
+          <div className="metric-value">{cov?.full_verified_lexical_coverage_pct ?? cov?.verified_lexical_sign_coverage_pct ?? '—'}%</div>
           <div className="metric-label">{t('metric_lexical')}</div>
+          {!!cov?.partial_lexical_representation_pct && (
+            <div className="hint" style={{ marginTop: 2 }}>+{cov.partial_lexical_representation_pct}% partial (modifier lost)</div>
+          )}
         </div>
         <div className="metric-card">
           <div className="metric-value">{cov?.renderable_coverage_with_fallback_pct ?? '—'}%</div>
@@ -133,7 +136,12 @@ export default function Results() {
                     <div style={{ fontWeight: 600, fontSize: '0.85rem' }}>{r.term}</div>
                     <StatusChip status={r.status} t={t} />
                     {r.status === 'VERIFIED_SIGN' && r.catalog_ref && (
-                      <p className="hint" style={{ margin: '4px 0 0' }}>ZHO: {r.catalog_ref.word_en} ({r.catalog_ref.category})</p>
+                      <p className="hint" style={{ margin: '4px 0 0' }}>
+                        ZHO: {r.catalog_ref.word_en}{r.catalog_ref.word_ar ? ` — ${r.catalog_ref.word_ar}` : ''} ({r.catalog_ref.category})
+                        {r.information_loss && r.information_loss !== 'FULL' && (
+                          <> · <span title="This match preserves the core meaning but not every word (e.g. an intensity modifier was dropped) — see Traceability for detail.">{r.information_loss}</span></>
+                        )}
+                      </p>
                     )}
                     {r.status === 'FINGERSPELL_CANDIDATE' && r.terminology && (
                       <p className="hint" style={{ margin: '4px 0 0' }}>

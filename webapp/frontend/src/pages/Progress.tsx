@@ -46,11 +46,16 @@ export default function Progress() {
   for (const e of events) latestByStage[e.stage] = e
 
   const blocked = snapshot?.status === 'blocked' || snapshot?.status === 'error'
+  const allDone = latestByStage['DONE']?.status === 'done'
+
+  const mm = Math.floor(elapsed / 60)
+  const ss = elapsed % 60
+  const elapsedLabel = mm > 0 ? `${mm}m ${ss}s` : `${ss}s`
 
   return (
-    <div style={{ maxWidth: 760, margin: '0 auto' }}>
-      <h2 className="page-title">{t('generating')}</h2>
-      <p className="hint">{t('elapsed')}: {elapsed}s</p>
+    <div style={{ maxWidth: 620, margin: '0 auto' }}>
+      <h2 className="page-title" style={{ fontSize: 26 }}>{allDone ? t('stage_DONE') : t('generating')}</h2>
+      <p className="hint" style={{ marginTop: -8, marginBottom: 18 }}>{t('elapsed')}: {elapsedLabel}</p>
 
       {blocked && (
         <div className="status-banner error">
@@ -62,23 +67,36 @@ export default function Progress() {
       )}
 
       <div className="card stage-tracker">
-        {STAGE_ORDER.map((stage) => {
+        {STAGE_ORDER.map((stage, i) => {
           const ev = latestByStage[stage]
           const isDone = ev?.status === 'done'
-          const isRunning = ev?.status === 'running' && !isDone
           const isBlocked = ev?.status === 'blocked' || ev?.status === 'error'
-          const cls = isBlocked ? 'blocked' : isDone ? 'done' : isRunning ? 'current' : ''
+          const isActive = (ev?.status === 'running' || isBlocked) && !isDone
+          const state = isDone ? 'done' : isActive ? 'active' : 'pending'
+          const isLast = i === STAGE_ORDER.length - 1
           return (
-            <div key={stage} className={`stage-row ${isRunning ? 'current' : ''}`}>
-              <span className={`stage-dot ${cls}`} />
-              <div>
-                <div className="stage-label">{t(`stage_${stage}` as any)}</div>
-                {ev && <div className="stage-message">{ev.message}</div>}
+            <div key={stage} className="stage-row">
+              <div className="stage-dot-col">
+                <span className={`stage-dot ${state}`} />
+                {!isLast && <span className={`stage-connector ${isDone ? 'done' : ''}`} />}
+              </div>
+              <div className="stage-text">
+                <div className={`stage-title ${state}`}>{t(`stage_${stage}` as any)}</div>
+                {(state === 'active' || state === 'done') && ev?.message && (
+                  <div className={`stage-detail ${state}`}>{ev.message}</div>
+                )}
+                {state === 'active' && !isBlocked && (
+                  <div className="stage-progress-track">
+                    <div className="stage-progress-fill" />
+                  </div>
+                )}
               </div>
             </div>
           )
         })}
       </div>
+
+      <p className="footnote">Technical prototype — not an officially deployed Ministry service.</p>
 
       {blocked && (
         <button className="btn-secondary" style={{ marginTop: 16 }} onClick={() => navigate('/')}>

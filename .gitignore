@@ -47,3 +47,10 @@ webapp/outputs/
 # clip-prep cache (re-downloadable/re-derivable, not source)
 data/zho/spike_mediapipe/norm_cache/
 data/zho/spike_mediapipe/trim_cache.json
+
+# optional embedding retrieval cache (reproducibly rebuildable via
+# scripts/vocab_embedding_benchmark.py / lib/vocab_embedding_st.py -
+# not source, and large - see catalog_bilingual_report.json for the
+# evidence that IS kept as source)
+data/zho/catalog_embeddings.json
+data/zho/catalog_embeddings_*.npz
