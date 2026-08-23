@@ -1,0 +1,33 @@
+{
+  "path": "GwMOAeE1eP4.mp4",
+  "duration_s": 19.5,
+  "fps": 29.97,
+  "resolution": "640x360",
+  "caption_band_used": "top",
+  "band_energy": {
+    "top": 10.277,
+    "bottom": 8.944
+  },
+  "n_frames_sampled": 97,
+  "step_s": 0.2,
+  "diff_threshold": 12.0,
+  "n_candidate_segments": 4,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 11.0
+    },
+    {
+      "start_s": 11.0,
+      "end_s": 13.6
+    },
+    {
+      "start_s": 13.6,
+      "end_s": 18.4
+    },
+    {
+      "start_s": 18.4,
+      "end_s": 19.5
+    }
+  ]
+}

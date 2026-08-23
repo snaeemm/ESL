@@ -1,0 +1,117 @@
+{
+  "english_family_school": {
+    "label": "English Family/School",
+    "metrics_plan_a": {
+      "total_planned_semantic_units": 8,
+      "zho_renderable_units": 6,
+      "esl_zayed_supported_units": 0,
+      "fingerspelled_units": 2,
+      "unsupported_or_review_units": 0,
+      "unnecessary_function_word_units": 0,
+      "candidate_selections_rejected_by_verification": 1,
+      "provenance_complete_units": 8
+    },
+    "metrics_plan_b": {
+      "total_planned_semantic_units": 7,
+      "zho_renderable_units": 2,
+      "esl_zayed_supported_units": 4,
+      "fingerspelled_units": 0,
+      "unsupported_or_review_units": 1,
+      "unnecessary_function_word_units": 0,
+      "candidate_selections_rejected_by_verification": 0,
+      "provenance_complete_units": 6
+    }
+  },
+  "arabic_family_school": {
+    "label": "Arabic/MSA Family/School",
+    "metrics_plan_a": {
+      "total_planned_semantic_units": 15,
+      "zho_renderable_units": 3,
+      "esl_zayed_supported_units": 0,
+      "fingerspelled_units": 10,
+      "unsupported_or_review_units": 2,
+      "unnecessary_function_word_units": 0,
+      "candidate_selections_rejected_by_verification": 2,
+      "provenance_complete_units": 13
+    },
+    "metrics_plan_b": {
+      "total_planned_semantic_units": 15,
+      "zho_renderable_units": 3,
+      "esl_zayed_supported_units": 1,
+      "fingerspelled_units": 7,
+      "unsupported_or_review_units": 4,
+      "unnecessary_function_word_units": 0,
+      "candidate_selections_rejected_by_verification": 0,
+      "provenance_complete_units": 11
+    }
+  },
+  "emirati_dialect": {
+    "label": "Emirati/dialectal development test",
+    "metrics_plan_a": {
+      "total_planned_semantic_units": 12,
+      "zho_renderable_units": 2,
+      "esl_zayed_supported_units": 0,
+      "fingerspelled_units": 10,
+      "unsupported_or_review_units": 0,
+      "unnecessary_function_word_units": 3,
+      "candidate_selections_rejected_by_verification": 3,
+      "provenance_complete_units": 12
+    },
+    "metrics_plan_b": {
+      "total_planned_semantic_units": 11,
+      "zho_renderable_units": 3,
+      "esl_zayed_supported_units": 3,
+      "fingerspelled_units": 5,
+      "unsupported_or_review_units": 0,
+      "unnecessary_function_word_units": 2,
+      "candidate_selections_rejected_by_verification": 0,
+      "provenance_complete_units": 11
+    }
+  },
+  "cells": {
+    "label": "Cells",
+    "metrics_plan_a": {
+      "total_planned_semantic_units": 30,
+      "zho_renderable_units": 2,
+      "esl_zayed_supported_units": 0,
+      "fingerspelled_units": 23,
+      "unsupported_or_review_units": 5,
+      "unnecessary_function_word_units": 0,
+      "candidate_selections_rejected_by_verification": 2,
+      "provenance_complete_units": 25
+    },
+    "metrics_plan_b": {
+      "total_planned_semantic_units": 26,
+      "zho_renderable_units": 3,
+      "esl_zayed_supported_units": 1,
+      "fingerspelled_units": 19,
+      "unsupported_or_review_units": 3,
+      "unnecessary_function_word_units": 0,
+      "candidate_selections_rejected_by_verification": 0,
+      "provenance_complete_units": 23
+    }
+  },
+  "photosynthesis": {
+    "label": "Photosynthesis",
+    "metrics_plan_a": {
+      "total_planned_semantic_units": 11,
+      "zho_renderable_units": 0,
+      "esl_zayed_supported_units": 0,
+      "fingerspelled_units": 9,
+      "unsupported_or_review_units": 2,
+      "unnecessary_function_word_units": 0,
+      "candidate_selections_rejected_by_verification": 0,
+      "provenance_complete_units": 9
+    },
+    "metrics_plan_b": {
+      "total_planned_semantic_units": 11,
+      "zho_renderable_units": 1,
+      "esl_zayed_supported_units": 1,
+      "fingerspelled_units": 8,
+      "unsupported_or_review_units": 1,
+      "unnecessary_function_word_units": 0,
+      "candidate_selections_rejected_by_verification": 0,
+      "provenance_complete_units": 10
+    }
+  }
+}

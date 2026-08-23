@@ -1,0 +1,1729 @@
+{
+  "method": "Bounded lexical-token-overlap re-classification of the coarse 112-item variant_matches bucket (all 112 inspected — small enough to fully re-check, not a sample), plus a structural sanity sample of 20/128 exact_matches, plus content_type recovery for all 152 new_lexical items via cross-reference against the full 93-video corpus's own content_type field (deterministic join on english_meaning_from_video, not re-annotated by hand). MiniLM was not needed for this pass since plain token overlap already separates genuine candidate-evidence variants from coarse substring false positives with clear, auditable reasons attached to every record (see cleaning_reason).",
+  "variant_matches_original_count": 112,
+  "variant_matches_cleaned_counts": {
+    "ESL_ZAYED_ONLY": 82,
+    "ZHO_PLAUSIBLE_VARIANT": 21,
+    "MULTI_CONCEPT": 9
+  },
+  "variant_matches_cleaned": [
+    {
+      "english": "Salaam Alaikum",
+      "arabic": "السلام عليكم",
+      "catalog_en_match": "laa",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Salaam Alaikum' and catalog match 'laa' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Last name",
+      "arabic": "اسم العائلة",
+      "catalog_en_match": "name",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['name']"
+    },
+    {
+      "english": "Sick",
+      "arabic": "مريض",
+      "catalog_en_match": "sick leave",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['sick']"
+    },
+    {
+      "english": "Tired",
+      "arabic": "تعبان",
+      "catalog_en_match": "red",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Tired' and catalog match 'red' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Weak",
+      "arabic": "ضعيف",
+      "catalog_en_match": "weak skinny",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['weak']"
+    },
+    {
+      "english": "Cook",
+      "arabic": "طبخ",
+      "catalog_en_match": "cooking",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Cook' and catalog match 'cooking' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Eat",
+      "arabic": "أكل",
+      "catalog_en_match": "repeat",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Eat' and catalog match 'repeat' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "My book",
+      "arabic": "كتابي",
+      "catalog_en_match": "book",
+      "cleaned_classification": "MULTI_CONCEPT",
+      "cleaning_reason": "possessive-pronoun + noun phrase; catalog match is on the head noun only, pronoun has no separate ZHO evidence here"
+    },
+    {
+      "english": "Your book",
+      "arabic": "كتابك",
+      "catalog_en_match": "book",
+      "cleaned_classification": "MULTI_CONCEPT",
+      "cleaning_reason": "possessive-pronoun + noun phrase; catalog match is on the head noun only, pronoun has no separate ZHO evidence here"
+    },
+    {
+      "english": "His book",
+      "arabic": "كتابه",
+      "catalog_en_match": "book",
+      "cleaned_classification": "MULTI_CONCEPT",
+      "cleaning_reason": "possessive-pronoun + noun phrase; catalog match is on the head noun only, pronoun has no separate ZHO evidence here"
+    },
+    {
+      "english": "Her book",
+      "arabic": "كتابها",
+      "catalog_en_match": "book",
+      "cleaned_classification": "MULTI_CONCEPT",
+      "cleaning_reason": "possessive-pronoun + noun phrase; catalog match is on the head noun only, pronoun has no separate ZHO evidence here"
+    },
+    {
+      "english": "Our book",
+      "arabic": "كتابنا",
+      "catalog_en_match": "book",
+      "cleaned_classification": "MULTI_CONCEPT",
+      "cleaning_reason": "possessive-pronoun + noun phrase; catalog match is on the head noun only, pronoun has no separate ZHO evidence here"
+    },
+    {
+      "english": "Your book",
+      "arabic": "كتابكم",
+      "catalog_en_match": "book",
+      "cleaned_classification": "MULTI_CONCEPT",
+      "cleaning_reason": "possessive-pronoun + noun phrase; catalog match is on the head noun only, pronoun has no separate ZHO evidence here"
+    },
+    {
+      "english": "Their book",
+      "arabic": "كتابهم",
+      "catalog_en_match": "book",
+      "cleaned_classification": "MULTI_CONCEPT",
+      "cleaning_reason": "possessive-pronoun + noun phrase; catalog match is on the head noun only, pronoun has no separate ZHO evidence here"
+    },
+    {
+      "english": "My name is Zayed",
+      "arabic": "اسمي زايد",
+      "catalog_en_match": "name",
+      "cleaned_classification": "MULTI_CONCEPT",
+      "cleaning_reason": "possessive-pronoun + noun phrase; catalog match is on the head noun only, pronoun has no separate ZHO evidence here"
+    },
+    {
+      "english": "My sign name is like this: Zayed",
+      "arabic": "يرمز لي بلغة الإشارة هكذا: زايد",
+      "catalog_en_match": "name",
+      "cleaned_classification": "MULTI_CONCEPT",
+      "cleaning_reason": "possessive-pronoun + noun phrase; catalog match is on the head noun only, pronoun has no separate ZHO evidence here"
+    },
+    {
+      "english": "Us learn Emirati Sign Language",
+      "arabic": "تعلم معنا لغة الإشارة الإماراتية",
+      "catalog_en_match": "earn",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Us learn Emirati Sign Language' and catalog match 'earn' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Eid Al-Adha Mubarak",
+      "arabic": "عيد الأضحى المبارك",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['al']"
+    },
+    {
+      "english": "Leave",
+      "arabic": "إجازة",
+      "catalog_en_match": "sick leave",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['leave']"
+    },
+    {
+      "english": "Clear",
+      "arabic": "واضح",
+      "catalog_en_match": "clearance",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Clear' and catalog match 'clearance' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Bored",
+      "arabic": "ملل",
+      "catalog_en_match": "red",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Bored' and catalog match 'red' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Forgive",
+      "arabic": "سامح",
+      "catalog_en_match": "forgives",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Forgive' and catalog match 'forgives' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Example",
+      "arabic": "مثال",
+      "catalog_en_match": "exam",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Example' and catalog match 'exam' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Used to",
+      "arabic": "متعود",
+      "catalog_en_match": "used",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['used']"
+    },
+    {
+      "english": "Incense",
+      "arabic": "بخور",
+      "catalog_en_match": "frankincense",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Incense' and catalog match 'frankincense' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Oud wood",
+      "arabic": "عود",
+      "catalog_en_match": "wood",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['wood']"
+    },
+    {
+      "english": "Joke",
+      "arabic": "امزح",
+      "catalog_en_match": "jokey",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Joke' and catalog match 'jokey' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Laugh",
+      "arabic": "ضحك",
+      "catalog_en_match": "laughs",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Laugh' and catalog match 'laughs' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Closed",
+      "arabic": "مغلق",
+      "catalog_en_match": "close",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Closed' and catalog match 'close' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Stop",
+      "arabic": "توقف",
+      "catalog_en_match": "top",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Stop' and catalog match 'top' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Apart",
+      "arabic": "منفصل",
+      "catalog_en_match": "apartment",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Apart' and catalog match 'apartment' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "You",
+      "arabic": "أنت",
+      "catalog_en_match": "youth and sports welfare",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'You' and catalog match 'youth and sports welfare' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "She",
+      "arabic": "هي",
+      "catalog_en_match": "eyelashes",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'She' and catalog match 'eyelashes' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "You",
+      "arabic": "أنتم",
+      "catalog_en_match": "youth and sports welfare",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'You' and catalog match 'youth and sports welfare' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Again",
+      "arabic": "مرة ثانية",
+      "catalog_en_match": "insurance against others",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Again' and catalog match 'insurance against others' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Wake",
+      "arabic": "قوم",
+      "catalog_en_match": "wakes up",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Wake' and catalog match 'wakes up' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Anger",
+      "arabic": "غضب",
+      "catalog_en_match": "hanger",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Anger' and catalog match 'hanger' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Scary",
+      "arabic": "مخيف",
+      "catalog_en_match": "car",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Scary' and catalog match 'car' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Win",
+      "arabic": "فوز",
+      "catalog_en_match": "twins",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Win' and catalog match 'twins' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Award",
+      "arabic": "جائزة",
+      "catalog_en_match": "war",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Award' and catalog match 'war' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Lie",
+      "arabic": "كذب",
+      "catalog_en_match": "lieutenant",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Lie' and catalog match 'lieutenant' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Sure",
+      "arabic": "أكيد",
+      "catalog_en_match": "sureed",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Sure' and catalog match 'sureed' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Brother",
+      "arabic": "أخي",
+      "catalog_en_match": "lactation brother",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['brother']"
+    },
+    {
+      "english": "Male / Boy",
+      "arabic": "ذكر / ولد",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Male / Boy' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Female / Girl",
+      "arabic": "أنثى / بنت",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Female / Girl' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Water",
+      "arabic": "ماء",
+      "catalog_en_match": "waterfall",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Water' and catalog match 'waterfall' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Tea",
+      "arabic": "شاي",
+      "catalog_en_match": "steals",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Tea' and catalog match 'steals' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Green Tea",
+      "arabic": "شاي أخضر",
+      "catalog_en_match": "green",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['green']"
+    },
+    {
+      "english": "Chocolate",
+      "arabic": "حلاوه",
+      "catalog_en_match": "late",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Chocolate' and catalog match 'late' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Fasting",
+      "arabic": "صائم",
+      "catalog_en_match": "fast",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Fasting' and catalog match 'fast' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Lose",
+      "arabic": "ضاع",
+      "catalog_en_match": "loses",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Lose' and catalog match 'loses' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Erase",
+      "arabic": "مسح",
+      "catalog_en_match": "blackboard eraser",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Erase' and catalog match 'blackboard eraser' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Help",
+      "arabic": "مساعدة",
+      "catalog_en_match": "helps",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Help' and catalog match 'helps' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Visit",
+      "arabic": "زيارة",
+      "catalog_en_match": "visits",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Visit' and catalog match 'visits' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Ship",
+      "arabic": "سفينة",
+      "catalog_en_match": "league championship",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Ship' and catalog match 'league championship' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Train",
+      "arabic": "قطار",
+      "catalog_en_match": "rain",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Train' and catalog match 'rain' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Normal",
+      "arabic": "عادي",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Normal' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Sale",
+      "arabic": "بيع",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Sale' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Color",
+      "arabic": "لون",
+      "catalog_en_match": "colored lenses",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Color' and catalog match 'colored lenses' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Sit",
+      "arabic": "جلس",
+      "catalog_en_match": "visits",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Sit' and catalog match 'visits' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Accept",
+      "arabic": "موافق",
+      "catalog_en_match": "acceptable",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Accept' and catalog match 'acceptable' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Yes",
+      "arabic": "نعم",
+      "catalog_en_match": "yesterday",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Yes' and catalog match 'yesterday' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Training",
+      "arabic": "تدريب",
+      "catalog_en_match": "rain",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Training' and catalog match 'rain' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Develop",
+      "arabic": "تطوير",
+      "catalog_en_match": "ministry of community development",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Develop' and catalog match 'ministry of community development' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Courts",
+      "arabic": "محاكم",
+      "catalog_en_match": "court",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Courts' and catalog match 'court' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Police",
+      "arabic": "شرطة",
+      "catalog_en_match": "police academy",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['police']"
+    },
+    {
+      "english": "Hospital",
+      "arabic": "مستشفي",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Hospital' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Send",
+      "arabic": "إرسال",
+      "catalog_en_match": "end",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Send' and catalog match 'end' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "File",
+      "arabic": "ملف",
+      "catalog_en_match": "file no",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['file']"
+    },
+    {
+      "english": "Tell",
+      "arabic": "قول",
+      "catalog_en_match": "intelligent",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Tell' and catalog match 'intelligent' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Talk",
+      "arabic": "تكلم",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Talk' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Interview",
+      "arabic": "مقابلة",
+      "catalog_en_match": "interviewer",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Interview' and catalog match 'interviewer' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Small",
+      "arabic": "صغير",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Small' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Animal",
+      "arabic": "حيوان",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Animal' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Asr / Sunset",
+      "arabic": "العصر",
+      "catalog_en_match": "sun",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Asr / Sunset' and catalog match 'sun' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Isha / Midnight",
+      "arabic": "العشاء",
+      "catalog_en_match": "night",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Isha / Midnight' and catalog match 'night' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Adhkaar / Remembring Allah",
+      "arabic": "الأذكار / ذكر الله",
+      "catalog_en_match": "ring",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Adhkaar / Remembring Allah' and catalog match 'ring' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Understand",
+      "arabic": "أفهم",
+      "catalog_en_match": "under",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Understand' and catalog match 'under' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Don't understand",
+      "arabic": "لا أفهم",
+      "catalog_en_match": "under",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Don't understand' and catalog match 'under' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Learn",
+      "arabic": "تعلم",
+      "catalog_en_match": "earn",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Learn' and catalog match 'earn' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Teach",
+      "arabic": "علم",
+      "catalog_en_match": "teacher",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Teach' and catalog match 'teacher' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "5 minutes",
+      "arabic": "دقائق 5",
+      "catalog_en_match": "minute",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between '5 minutes' and catalog match 'minute' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "10 minutes",
+      "arabic": "دقائق 10",
+      "catalog_en_match": "minute",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between '10 minutes' and catalog match 'minute' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Half hour",
+      "arabic": "نصف ساعة",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Half hour' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Allah save you",
+      "arabic": "الله يحفظه",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Allah save you' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Insha'Allah",
+      "arabic": "إن شاءالله",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Insha'Allah' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Masha'Allah",
+      "arabic": "ما شاءالله",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Masha'Allah' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Everything",
+      "arabic": "كل شيء",
+      "catalog_en_match": "thin",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Everything' and catalog match 'thin' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Anything",
+      "arabic": "أي شيء",
+      "catalog_en_match": "thin",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Anything' and catalog match 'thin' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Nothing",
+      "arabic": "لا شيء",
+      "catalog_en_match": "thin",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Nothing' and catalog match 'thin' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Married",
+      "arabic": "متزوج",
+      "catalog_en_match": "unmarried",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Married' and catalog match 'unmarried' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Son / daughter",
+      "arabic": "ابن / ابنة",
+      "catalog_en_match": "daughter",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['daughter']"
+    },
+    {
+      "english": "In the name of Allah",
+      "arabic": "بسم الله",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'In the name of Allah' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Glory be to Allah",
+      "arabic": "سبحان الله",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Glory be to Allah' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Praise be to Allah",
+      "arabic": "الحمدلله",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Praise be to Allah' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Allah is the Greatest",
+      "arabic": "الله أكبر",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Allah is the Greatest' and catalog match 'al' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Number",
+      "arabic": "رقم",
+      "catalog_en_match": "city number in citizenship",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['number']"
+    },
+    {
+      "english": "Phone Number",
+      "arabic": "رقم الهاتف",
+      "catalog_en_match": "one",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Phone Number' and catalog match 'one' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Fail",
+      "arabic": "فشل",
+      "catalog_en_match": "failed",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Fail' and catalog match 'failed' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Bath",
+      "arabic": "استحمام",
+      "catalog_en_match": "bat",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Bath' and catalog match 'bat' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "When",
+      "arabic": "متى",
+      "catalog_en_match": "hen",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'When' and catalog match 'hen' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Home",
+      "arabic": "منزل",
+      "catalog_en_match": "home lawn",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['home']"
+    },
+    {
+      "english": "Hotel",
+      "arabic": "فندق",
+      "catalog_en_match": "hot",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Hotel' and catalog match 'hot' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Passport",
+      "arabic": "جواز سفر",
+      "catalog_en_match": "port",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Passport' and catalog match 'port' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Family Book",
+      "arabic": "خلاصة قيد",
+      "catalog_en_match": "family",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['family']"
+    },
+    {
+      "english": "ID Card",
+      "arabic": "بطاقة الهوية",
+      "catalog_en_match": "emirates id card 02",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['card', 'id']"
+    },
+    {
+      "english": "Abu Dhabi",
+      "arabic": "أبوظبي",
+      "catalog_en_match": "abu dhabi media company",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['abu', 'dhabi']"
+    },
+    {
+      "english": "Sharjah",
+      "arabic": "الشارقة",
+      "catalog_en_match": "university city sharjah",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['sharjah']"
+    },
+    {
+      "english": "Umm Al Qaiwain",
+      "arabic": "أم القيوين",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['al']"
+    },
+    {
+      "english": "Ras Al Khaimah",
+      "arabic": "رأس الخيمة",
+      "catalog_en_match": "al",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['al']"
+    },
+    {
+      "english": "Fujairah",
+      "arabic": "الفجيرة",
+      "catalog_en_match": "air",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "cleaning_reason": "no real token overlap between 'Fujairah' and catalog match 'air' — coarse substring false positive, treat as ESL-only observation, NOT a ZHO variant"
+    },
+    {
+      "english": "Good Morning",
+      "arabic": "صباح الخير",
+      "catalog_en_match": "good",
+      "cleaned_classification": "ZHO_PLAUSIBLE_VARIANT",
+      "cleaning_reason": "genuine token overlap: ['good']"
+    }
+  ],
+  "exact_matches_sample_checked": 20,
+  "exact_matches_sample_all_have_zho_ids": true,
+  "exact_matches_sample_bad": [],
+  "new_lexical_original_count": 152,
+  "new_lexical_type_breakdown": {
+    "LETTER": 31,
+    "NUMBER": 8,
+    "WORD_PHRASE_SENTENCE (ESL_ZAYED_ONLY candidate evidence)": 113,
+    "UNCERTAIN (not found in full corpus content_type join)": 0
+  },
+  "new_lexical_classified": [
+    {
+      "english": "Date of Birth",
+      "arabic": "تاريخ الميلاد",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Address",
+      "arabic": "عنوان",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Strong",
+      "arabic": "قوي",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Rice",
+      "arabic": "أرز",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Chicken",
+      "arabic": "دجاج",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Meat",
+      "arabic": "لحم",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "1",
+      "arabic": "١",
+      "cleaned_classification": "NUMBER",
+      "source_content_type": "NUMBER"
+    },
+    {
+      "english": "2",
+      "arabic": "٢",
+      "cleaned_classification": "NUMBER",
+      "source_content_type": "NUMBER"
+    },
+    {
+      "english": "4",
+      "arabic": "٤",
+      "cleaned_classification": "NUMBER",
+      "source_content_type": "NUMBER"
+    },
+    {
+      "english": "5",
+      "arabic": "٥",
+      "cleaned_classification": "NUMBER",
+      "source_content_type": "NUMBER"
+    },
+    {
+      "english": "6",
+      "arabic": "٦",
+      "cleaned_classification": "NUMBER",
+      "source_content_type": "NUMBER"
+    },
+    {
+      "english": "7",
+      "arabic": "٧",
+      "cleaned_classification": "NUMBER",
+      "source_content_type": "NUMBER"
+    },
+    {
+      "english": "8",
+      "arabic": "٨",
+      "cleaned_classification": "NUMBER",
+      "source_content_type": "NUMBER"
+    },
+    {
+      "english": "10",
+      "arabic": "١٠",
+      "cleaned_classification": "NUMBER",
+      "source_content_type": "NUMBER"
+    },
+    {
+      "english": "A",
+      "arabic": "A",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "B",
+      "arabic": "B",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "C",
+      "arabic": "C",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "D",
+      "arabic": "D",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "E",
+      "arabic": "E",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "F",
+      "arabic": "F",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "G",
+      "arabic": "G",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "H",
+      "arabic": "H",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "I",
+      "arabic": "I",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "J",
+      "arabic": "J",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "K",
+      "arabic": "K",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "L",
+      "arabic": "L",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "M",
+      "arabic": "M",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "N",
+      "arabic": "N",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "O",
+      "arabic": "O",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "P",
+      "arabic": "P",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "Q",
+      "arabic": "Q",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "R",
+      "arabic": "R",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "S",
+      "arabic": "S",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "T",
+      "arabic": "T",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "U",
+      "arabic": "U",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "V",
+      "arabic": "V",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "W",
+      "arabic": "W",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "X",
+      "arabic": "X",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "Y",
+      "arabic": "Y",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "Z",
+      "arabic": "Z",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "ا",
+      "arabic": "ا",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "ه",
+      "arabic": "ه",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "ة",
+      "arabic": "ة",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "ال",
+      "arabic": "ال",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "Hello",
+      "arabic": "مرحبا",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "I'm Deaf",
+      "arabic": "أنا أصم",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "SENTENCE"
+    },
+    {
+      "english": "Read",
+      "arabic": "قراءة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Write",
+      "arabic": "كتابة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Absence",
+      "arabic": "غياب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Polite",
+      "arabic": "مؤدب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Forget",
+      "arabic": "نسى",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Active",
+      "arabic": "نشيط",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Same",
+      "arabic": "نفسه",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Past",
+      "arabic": "الماضي",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Future",
+      "arabic": "المستقبل",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Present",
+      "arabic": "المضارع",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Adult",
+      "arabic": "شاب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Child",
+      "arabic": "طفل",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Quiet",
+      "arabic": "أهدأ",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Motivate",
+      "arabic": "تحفيز",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Open",
+      "arabic": "فتح",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Get out",
+      "arabic": "اطلع برع",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Together",
+      "arabic": "معا",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "I",
+      "arabic": "أنا",
+      "cleaned_classification": "LETTER",
+      "source_content_type": "LETTER"
+    },
+    {
+      "english": "He",
+      "arabic": "هو",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "It",
+      "arabic": "هو",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "We",
+      "arabic": "نحن",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "They",
+      "arabic": "هم",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Must",
+      "arabic": "لازم",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Not yet",
+      "arabic": "إلى الأن",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Finish",
+      "arabic": "خلاص",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Never",
+      "arabic": "أبدا",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Eid Mubarak",
+      "arabic": "مبارك عليكم العيد",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Sleepy",
+      "arabic": "نعسان",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Sleep",
+      "arabic": "نوم",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Applause -Deaf",
+      "arabic": "تصفيق -الصم",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Congratulations",
+      "arabic": "مبروك / تهننة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Believe",
+      "arabic": "صدق",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Grandparent",
+      "arabic": "جد / جدة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Coffee",
+      "arabic": "قهوة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Tea Milk",
+      "arabic": "شاي حليب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Cake",
+      "arabic": "كيك",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Ramadan Mubarak",
+      "arabic": "مبارك عليكم الشهر",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Increase",
+      "arabic": "زيادة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Loss",
+      "arabic": "خسارة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Shopping",
+      "arabic": "التسوق",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Video",
+      "arabic": "فيديو",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Road",
+      "arabic": "طريق",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Flight",
+      "arabic": "طيران",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Best",
+      "arabic": "أفضل",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Respect",
+      "arabic": "احترام",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Permission",
+      "arabic": "إذن",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Reservation",
+      "arabic": "حجز",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Exchange",
+      "arabic": "تبادل",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Pay",
+      "arabic": "دفع",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Free",
+      "arabic": "مجانا",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Discount",
+      "arabic": "خصم",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Sorry",
+      "arabic": "آسف",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Expensive",
+      "arabic": "غالي",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Buy",
+      "arabic": "اشتري",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Danger",
+      "arabic": "خطر",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Problem",
+      "arabic": "مشكلة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Boy",
+      "arabic": "ولد",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Girl",
+      "arabic": "بنت",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Thank you",
+      "arabic": "شكرا",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "You are welcome",
+      "arabic": "عفواً",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Ride",
+      "arabic": "ركب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Go",
+      "arabic": "اذهب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Month",
+      "arabic": "شهر",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Hurry",
+      "arabic": "أسرع",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Reject",
+      "arabic": "رفض",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Arrange",
+      "arabic": "رتب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Cooperate",
+      "arabic": "تعاون",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Government",
+      "arabic": "حكومة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Bank",
+      "arabic": "بنك",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Save",
+      "arabic": "حفظ",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Many",
+      "arabic": "كثير",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Few",
+      "arabic": "قليل",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Bad",
+      "arabic": "سيىء",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Nice",
+      "arabic": "لطيف",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Human",
+      "arabic": "إنسان",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Nature",
+      "arabic": "طبيعة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Fajr",
+      "arabic": "الفجر",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Dhuhr",
+      "arabic": "الظهر",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Masghrib",
+      "arabic": "المغرب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Athan",
+      "arabic": "الأذان",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Prayer",
+      "arabic": "الصلاة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Quran",
+      "arabic": "القرآن الكريم",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Know",
+      "arabic": "أعرف",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Don't know",
+      "arabic": "لا أعرف",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Responsible",
+      "arabic": "مسؤول",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Service",
+      "arabic": "خدمة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Enjoy",
+      "arabic": "استمتع",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Upset",
+      "arabic": "متضايق",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Angry",
+      "arabic": "غاضب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Surprise",
+      "arabic": "مفاجأة",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Strange",
+      "arabic": "غريب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Wondrous",
+      "arabic": "عجيب",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Different",
+      "arabic": "مختلف",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Ready",
+      "arabic": "جاهز",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Children",
+      "arabic": "الأطفال",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Mobile number",
+      "arabic": "رقم المتحرك",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Post",
+      "arabic": "بريد",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "After",
+      "arabic": "بعد",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Now",
+      "arabic": "الآن",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Mistake",
+      "arabic": "غلط",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Wash hands",
+      "arabic": "غسل اليدين",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "PHRASE"
+    },
+    {
+      "english": "Tomorrow",
+      "arabic": "غدا",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Busy",
+      "arabic": "مشغول",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Conference",
+      "arabic": "مؤتمر",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Dubai",
+      "arabic": "دبي",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    },
+    {
+      "english": "Ajman",
+      "arabic": "عجمان",
+      "cleaned_classification": "ESL_ZAYED_ONLY",
+      "source_content_type": "WORD"
+    }
+  ],
+  "headline_corrected_summary": {
+    "ZHO_EXACT": 128,
+    "ZHO_PLAUSIBLE_VARIANT (candidate evidence only, NOT verified)": 21,
+    "MULTI_CONCEPT (possessive/inflected, head-noun-only overlap)": 9,
+    "ESL_ZAYED_ONLY_from_variant_bucket (false positives corrected out of the old 112)": 82,
+    "ESL_ZAYED_ONLY_from_new_lexical (WORD/PHRASE/SENTENCE)": 113,
+    "LETTER (from new_lexical, separated out)": 31,
+    "NUMBER (from new_lexical, separated out)": 8,
+    "UNCERTAIN": 0
+  }
+}
