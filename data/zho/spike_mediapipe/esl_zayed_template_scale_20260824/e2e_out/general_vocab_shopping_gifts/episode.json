@@ -1,0 +1,12 @@
+{
+  "source_id": "sha256:7f89698de5e061a1466319ea564e10a8bb213ef5d9494ca4c3d4aa40fc8eb588",
+  "source_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/content/test_f_general_vocab_shopping_gifts.md",
+  "duration_plan_summary": {
+    "requested_duration_s": 45,
+    "estimated_duration_s": 0.0,
+    "units_included": 0,
+    "units_dropped": 0,
+    "any_single_unit_exceeds_target": false
+  },
+  "units": []
+}
