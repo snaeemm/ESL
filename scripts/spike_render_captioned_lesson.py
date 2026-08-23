@@ -327,16 +327,54 @@ def render_segment(stem, english, arabic, data, scale_w, out_dir=OUT_DIR):
     return out_path, total, fps
 
 
+def _probe_wh(path):
+    cap = cv2.VideoCapture(path)
+    w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    cap.release()
+    return w, h
+
+
 def chain_with_xfade(rendered, final_out_path=DEFAULT_FINAL_OUT_PATH):
     """Builds a single ffmpeg filter_complex chaining sequential xfade
     transitions across all segments - each transition overlaps the tail
-    of one clip with the head of the next rather than hard-cutting."""
+    of one clip with the head of the next rather than hard-cutting.
+
+    render_segment() draws each segment's procedural avatar onto a canvas
+    sized to match that segment's own SOURCE clip resolution (norm_dir/),
+    so segments detected from a downloaded ZHO sign clip and segments
+    detected from the (differently-sized) fingerspelling alphabet clips
+    can legitimately come out at different pixel dimensions - `xfade`
+    requires every input to match exactly. Rather than touching detection/
+    scale/anchor/motion logic (which operates in each segment's own native
+    pixel space) or the source clips themselves, every rendered segment is
+    normalized here, at the output/stitching boundary only: scaled down
+    to fit a shared target canvas while preserving aspect ratio, then
+    letterboxed (padded) to fill it exactly - never stretched/distorted.
+    Target canvas = the largest width/height actually seen across this
+    lesson's rendered segments, so the higher-resolution (typically real
+    ZHO sign) segments are never downscaled and the lower-resolution
+    (fingerspelling) segments are only padded, not blown up and blurred."""
     inputs = []
     for path, _, _ in rendered:
         inputs += ["-i", path]
 
+    dims = [_probe_wh(path) for path, _, _ in rendered]
+    target_w = max(w for w, h in dims)
+    target_h = max(h for w, h in dims)
+
     filter_parts = []
-    prev_label = "0:v"
+    for idx in range(len(rendered)):
+        w, h = dims[idx]
+        if (w, h) == (target_w, target_h):
+            filter_parts.append(f"[{idx}:v]setsar=1[n{idx}]")
+        else:
+            filter_parts.append(
+                f"[{idx}:v]scale={target_w}:{target_h}:force_original_aspect_ratio=decrease,"
+                f"pad={target_w}:{target_h}:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1[n{idx}]"
+            )
+
+    prev_label = "n0"
     cum_duration = rendered[0][1] / rendered[0][2]
     for idx in range(1, len(rendered)):
         path, nframes, fps = rendered[idx]
@@ -344,7 +382,7 @@ def chain_with_xfade(rendered, final_out_path=DEFAULT_FINAL_OUT_PATH):
         offset = cum_duration - XFADE_DUR
         out_label = f"v{idx}"
         filter_parts.append(
-            f"[{prev_label}][{idx}:v]xfade=transition=fade:duration={XFADE_DUR}:offset={offset:.3f}[{out_label}]"
+            f"[{prev_label}][n{idx}]xfade=transition=fade:duration={XFADE_DUR}:offset={offset:.3f}[{out_label}]"
         )
         prev_label = out_label
         cum_duration = offset + dur
