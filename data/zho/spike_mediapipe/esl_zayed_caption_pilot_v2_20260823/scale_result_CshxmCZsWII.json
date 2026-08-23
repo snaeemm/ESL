@@ -1,0 +1,49 @@
+{
+  "video_id": "CshxmCZsWII",
+  "n_expected_items": 5,
+  "n_matched_items": 5,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "سعيد",
+      "english_meaning_from_video": "Happy",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "استمتع",
+      "english_meaning_from_video": "Enjoy",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "متضايق",
+      "english_meaning_from_video": "Upset",
+      "content_type": "WORD",
+      "caption_start_s": 5.5,
+      "caption_end_s": 7.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "حزين",
+      "english_meaning_from_video": "Sad",
+      "content_type": "WORD",
+      "caption_start_s": 8.0,
+      "caption_end_s": 10.5
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "غاضب",
+      "english_meaning_from_video": "Angry",
+      "content_type": "WORD",
+      "caption_start_s": 11.0,
+      "caption_end_s": 12.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

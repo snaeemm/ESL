@@ -1,0 +1,33 @@
+{
+  "video_id": "JBmOqaU1K3M",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "جديد",
+      "english_meaning_from_video": "New",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "قديم",
+      "english_meaning_from_video": "Old",
+      "content_type": "WORD",
+      "caption_start_s": 2.0,
+      "caption_end_s": 3.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "مستعمل",
+      "english_meaning_from_video": "Used",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 8.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

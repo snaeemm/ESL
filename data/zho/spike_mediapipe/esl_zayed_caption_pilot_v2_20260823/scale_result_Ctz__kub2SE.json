@@ -1,0 +1,73 @@
+{
+  "video_id": "Ctz__kub2SE",
+  "n_expected_items": 8,
+  "n_matched_items": 1,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "كتاب",
+      "english_meaning_from_video": "Book",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 28.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "كتابي",
+      "english_meaning_from_video": "My book",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "كتابك",
+      "english_meaning_from_video": "Your book",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "كتابه",
+      "english_meaning_from_video": "His book",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "كتابها",
+      "english_meaning_from_video": "Her book",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "كتابنا",
+      "english_meaning_from_video": "Our book",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 6,
+      "arabic_caption": "كتابكم",
+      "english_meaning_from_video": "Your book",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 7,
+      "arabic_caption": "كتابهم",
+      "english_meaning_from_video": "Their book",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 1/8"
+}

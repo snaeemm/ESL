@@ -1,0 +1,41 @@
+{
+  "video_id": "2BXGTXG9Rmw",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "أعزب",
+      "english_meaning_from_video": "Single",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "متزوج",
+      "english_meaning_from_video": "Married",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 5.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "ابن / ابنة",
+      "english_meaning_from_video": "Son / daughter",
+      "content_type": "PHRASE",
+      "caption_start_s": 5.5,
+      "caption_end_s": 7.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "الأطفال",
+      "english_meaning_from_video": "Children",
+      "content_type": "WORD",
+      "caption_start_s": 7.5,
+      "caption_end_s": 10.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

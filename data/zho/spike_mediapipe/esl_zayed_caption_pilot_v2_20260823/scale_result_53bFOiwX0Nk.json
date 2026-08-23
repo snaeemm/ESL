@@ -1,0 +1,41 @@
+{
+  "video_id": "53bFOiwX0Nk",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "الأذان",
+      "english_meaning_from_video": "Athan",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "الصلاة",
+      "english_meaning_from_video": "Prayer",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 5.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "القرآن الكريم",
+      "english_meaning_from_video": "Quran",
+      "content_type": "WORD",
+      "caption_start_s": 5.5,
+      "caption_end_s": 8.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "الأذكار / ذكر الله",
+      "english_meaning_from_video": "Adhkaar / Remembring Allah",
+      "content_type": "PHRASE",
+      "caption_start_s": 8.5,
+      "caption_end_s": 11.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}
