@@ -1,0 +1,33 @@
+{
+  "video_id": "rixKL8_tCBs",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "لذيذ",
+      "english_meaning_from_video": "Delicious",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "كيك",
+      "english_meaning_from_video": "Cake",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 5.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "حلاوه",
+      "english_meaning_from_video": "Chocolate",
+      "content_type": "WORD",
+      "caption_start_s": 5.5,
+      "caption_end_s": 7.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

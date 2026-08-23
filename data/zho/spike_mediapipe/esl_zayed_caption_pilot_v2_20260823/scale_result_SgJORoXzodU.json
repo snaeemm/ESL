@@ -1,0 +1,41 @@
+{
+  "video_id": "SgJORoXzodU",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "مريض",
+      "english_meaning_from_video": "Sick",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "تعبان",
+      "english_meaning_from_video": "Tired",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "ألم",
+      "english_meaning_from_video": "Pain",
+      "content_type": "WORD",
+      "caption_start_s": 4.5,
+      "caption_end_s": 6.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "صحة",
+      "english_meaning_from_video": "Health",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 9.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

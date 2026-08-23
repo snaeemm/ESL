@@ -1,0 +1,41 @@
+{
+  "video_id": "jtFsC8Pr8B8",
+  "n_expected_items": 4,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "اسم",
+      "english_meaning_from_video": "Name",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 7.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "اسم العائلة",
+      "english_meaning_from_video": "Last name",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "تاريخ الميلاد",
+      "english_meaning_from_video": "Date of Birth",
+      "content_type": "PHRASE",
+      "caption_start_s": 8.0,
+      "caption_end_s": 9.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "عنوان",
+      "english_meaning_from_video": "Address",
+      "content_type": "WORD",
+      "caption_start_s": 10.0,
+      "caption_end_s": 12.0
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 3/4"
+}

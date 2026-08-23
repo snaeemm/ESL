@@ -1,0 +1,41 @@
+{
+  "video_id": "5T8eTgLlcSk",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "زيادة",
+      "english_meaning_from_video": "Increase",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "خسارة",
+      "english_meaning_from_video": "Loss",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 5.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "ضاع",
+      "english_meaning_from_video": "Lose",
+      "content_type": "WORD",
+      "caption_start_s": 5.5,
+      "caption_end_s": 7.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "مسح",
+      "english_meaning_from_video": "Erase",
+      "content_type": "WORD",
+      "caption_start_s": 8.0,
+      "caption_end_s": 10.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

@@ -1,0 +1,194 @@
+{
+  "AUTO_ACCEPT": [
+    {
+      "video_id": "049mPZSA8cw",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 1,
+      "n_matched": 1
+    },
+    {
+      "video_id": "3nw8KzlD9Wc",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 4,
+      "n_matched": 4
+    },
+    {
+      "video_id": "5T8eTgLlcSk",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 4,
+      "n_matched": 4
+    },
+    {
+      "video_id": "ATUm_5o1kfk",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 1,
+      "n_matched": 1
+    },
+    {
+      "video_id": "DJqUtzA2OgE",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 3,
+      "n_matched": 3
+    },
+    {
+      "video_id": "L7nvtVP9MjM",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 3,
+      "n_matched": 3
+    },
+    {
+      "video_id": "LoAv917IOkk",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 3,
+      "n_matched": 3
+    },
+    {
+      "video_id": "N7wdswNuoaE",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 1,
+      "n_matched": 1
+    },
+    {
+      "video_id": "SgJORoXzodU",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 4,
+      "n_matched": 4
+    },
+    {
+      "video_id": "TNakuMNO2dg",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 5,
+      "n_matched": 5
+    },
+    {
+      "video_id": "VdLROmKaslQ",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 4,
+      "n_matched": 4
+    },
+    {
+      "video_id": "WaV-HnYyNyU",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 2,
+      "n_matched": 2
+    },
+    {
+      "video_id": "XVtU5dtnkQU",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 3,
+      "n_matched": 3
+    },
+    {
+      "video_id": "_5jEsuIvX0c",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 2,
+      "n_matched": 2
+    },
+    {
+      "video_id": "b2V3hhPsYIw",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 4,
+      "n_matched": 4
+    },
+    {
+      "video_id": "eUMGQBgdCWM",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 4,
+      "n_matched": 4
+    },
+    {
+      "video_id": "gJ22f_IYH2o",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 3,
+      "n_matched": 3
+    },
+    {
+      "video_id": "i-sFV78fMuU",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 4,
+      "n_matched": 4
+    },
+    {
+      "video_id": "rixKL8_tCBs",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 3,
+      "n_matched": 3
+    },
+    {
+      "video_id": "w6lrhk1zWDc",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 4,
+      "n_matched": 4
+    },
+    {
+      "video_id": "wEbKqqsVcRQ",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 5,
+      "n_matched": 5
+    },
+    {
+      "video_id": "eO7a6k2kHWs",
+      "reason": "full count, monotonic, non-overlapping, no dup",
+      "n_expected": 3,
+      "n_matched": 3
+    }
+  ],
+  "REVIEW_REQUIRED": [
+    {
+      "video_id": "8xZ0L-7D8_Y",
+      "reason": "partial match 4/5",
+      "n_expected": 5,
+      "n_matched": 4
+    },
+    {
+      "video_id": "jtFsC8Pr8B8",
+      "reason": "partial match 3/4",
+      "n_expected": 4,
+      "n_matched": 3
+    },
+    {
+      "video_id": "vkt9JcQ6JEU",
+      "reason": "partial match 1/8",
+      "n_expected": 8,
+      "n_matched": 1
+    },
+    {
+      "video_id": "xkH-_VvoeUI",
+      "reason": "partial match 7/30",
+      "n_expected": 30,
+      "n_matched": 7
+    }
+  ],
+  "REJECT": [
+    {
+      "video_id": "696dGt5Zfv0",
+      "reason": "no items matched at all",
+      "n_expected": 4,
+      "n_matched": 0
+    },
+    {
+      "video_id": "GFeVTaXSqMM",
+      "reason": "no items matched at all",
+      "n_expected": 9,
+      "n_matched": 0
+    },
+    {
+      "video_id": "JKa05rm22EQ",
+      "reason": "no items matched at all",
+      "n_expected": 1,
+      "n_matched": 0
+    },
+    {
+      "video_id": "ZXL9QyXbI40",
+      "reason": "no items matched at all",
+      "n_expected": 1,
+      "n_matched": 0
+    },
+    {
+      "video_id": "q4oTNPUsjOo",
+      "reason": "no items matched at all",
+      "n_expected": 5,
+      "n_matched": 0
+    }
+  ]
+}

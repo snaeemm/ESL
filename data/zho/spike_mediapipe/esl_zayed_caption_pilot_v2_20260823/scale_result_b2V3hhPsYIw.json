@@ -1,0 +1,41 @@
+{
+  "video_id": "b2V3hhPsYIw",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "نشيط",
+      "english_meaning_from_video": "Active",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "نفسه",
+      "english_meaning_from_video": "Same",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 5.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "مثال",
+      "english_meaning_from_video": "Example",
+      "content_type": "WORD",
+      "caption_start_s": 6.0,
+      "caption_end_s": 8.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "متعود",
+      "english_meaning_from_video": "Used to",
+      "content_type": "WORD",
+      "caption_start_s": 9.0,
+      "caption_end_s": 11.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

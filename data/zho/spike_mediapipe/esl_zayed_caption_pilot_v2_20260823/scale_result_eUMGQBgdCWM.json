@@ -1,0 +1,41 @@
+{
+  "video_id": "eUMGQBgdCWM",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "العمر",
+      "english_meaning_from_video": "Age",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "كبير السن",
+      "english_meaning_from_video": "Old",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 6.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "شاب",
+      "english_meaning_from_video": "Adult",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 9.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "طفل",
+      "english_meaning_from_video": "Child",
+      "content_type": "WORD",
+      "caption_start_s": 9.5,
+      "caption_end_s": 12.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

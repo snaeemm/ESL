@@ -1,0 +1,41 @@
+{
+  "video_id": "VdLROmKaslQ",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "ذكي",
+      "english_meaning_from_video": "Clever",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "غبي",
+      "english_meaning_from_video": "Stupid",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "نسى",
+      "english_meaning_from_video": "Forget",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 7.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "سامح",
+      "english_meaning_from_video": "Forgive",
+      "content_type": "WORD",
+      "caption_start_s": 7.5,
+      "caption_end_s": 10.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}
