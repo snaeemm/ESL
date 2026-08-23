@@ -1,0 +1,63 @@
+{
+  "video_id": "I6wFoSV9F08",
+  "n_expected_items": 7,
+  "n_matched_items": 7,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "السبت",
+      "english_meaning_from_video": "Saturday",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "الأحد",
+      "english_meaning_from_video": "Sunday",
+      "content_type": "WORD",
+      "caption_start_s": 2.0,
+      "caption_end_s": 3.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "الإثنين",
+      "english_meaning_from_video": "Monday",
+      "content_type": "WORD",
+      "caption_start_s": 4.0,
+      "caption_end_s": 6.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "الثلاثاء",
+      "english_meaning_from_video": "Tuesday",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 8.0
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "الأربعاء",
+      "english_meaning_from_video": "Wednesday",
+      "content_type": "WORD",
+      "caption_start_s": 8.5,
+      "caption_end_s": 9.5
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "الخميس",
+      "english_meaning_from_video": "Thursday",
+      "content_type": "WORD",
+      "caption_start_s": 10.0,
+      "caption_end_s": 11.5
+    },
+    {
+      "item_index_in_video": 6,
+      "arabic_caption": "الجمعة",
+      "english_meaning_from_video": "Friday",
+      "content_type": "WORD",
+      "caption_start_s": 12.0,
+      "caption_end_s": 14.0
+    }
+  ]
+}

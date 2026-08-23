@@ -54,3 +54,11 @@ data/zho/spike_mediapipe/trim_cache.json
 # evidence that IS kept as source)
 data/zho/catalog_embeddings.json
 data/zho/catalog_embeddings_*.npz
+
+# ESL Zayed OCR pilot: raw downloaded videos and bulk extracted frames
+# never committed (licensing + repo-size), only derived JSON/scripts kept
+data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/videos/
+data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/frames/
+data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/ocr_frames/
+data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/scale_frames/
+data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/__pycache__/

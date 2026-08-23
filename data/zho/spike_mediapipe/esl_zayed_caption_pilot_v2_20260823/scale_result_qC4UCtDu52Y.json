@@ -1,0 +1,55 @@
+{
+  "video_id": "qC4UCtDu52Y",
+  "n_expected_items": 6,
+  "n_matched_items": 6,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "طبخ",
+      "english_meaning_from_video": "Cook",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 3.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "أكل",
+      "english_meaning_from_video": "Eat",
+      "content_type": "WORD",
+      "caption_start_s": 3.5,
+      "caption_end_s": 5.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "أرز",
+      "english_meaning_from_video": "Rice",
+      "content_type": "WORD",
+      "caption_start_s": 6.0,
+      "caption_end_s": 7.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "دجاج",
+      "english_meaning_from_video": "Chicken",
+      "content_type": "WORD",
+      "caption_start_s": 8.0,
+      "caption_end_s": 9.5
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "لحم",
+      "english_meaning_from_video": "Meat",
+      "content_type": "WORD",
+      "caption_start_s": 10.0,
+      "caption_end_s": 12.0
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "سمك",
+      "english_meaning_from_video": "Fish",
+      "content_type": "WORD",
+      "caption_start_s": 12.5,
+      "caption_end_s": 14.5
+    }
+  ]
+}
