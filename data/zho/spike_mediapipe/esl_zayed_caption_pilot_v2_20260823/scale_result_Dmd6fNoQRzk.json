@@ -1,0 +1,41 @@
+{
+  "video_id": "Dmd6fNoQRzk",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "موافق",
+      "english_meaning_from_video": "Accept",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "رفض",
+      "english_meaning_from_video": "Reject",
+      "content_type": "WORD",
+      "caption_start_s": 2.0,
+      "caption_end_s": 3.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "نعم",
+      "english_meaning_from_video": "Yes",
+      "content_type": "WORD",
+      "caption_start_s": 4.0,
+      "caption_end_s": 6.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "لا",
+      "english_meaning_from_video": "No",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 8.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

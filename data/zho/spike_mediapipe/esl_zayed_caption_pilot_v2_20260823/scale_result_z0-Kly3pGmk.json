@@ -1,0 +1,33 @@
+{
+  "video_id": "z0-Kly3pGmk",
+  "n_expected_items": 3,
+  "n_matched_items": 2,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "قبل",
+      "english_meaning_from_video": "Before",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "بعد",
+      "english_meaning_from_video": "After",
+      "content_type": "WORD",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "الآن",
+      "english_meaning_from_video": "Now",
+      "content_type": "WORD",
+      "caption_start_s": 4.0,
+      "caption_end_s": 4.0
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 2/3"
+}

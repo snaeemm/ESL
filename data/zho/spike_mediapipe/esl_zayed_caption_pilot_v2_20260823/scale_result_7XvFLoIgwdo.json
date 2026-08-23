@@ -1,0 +1,17 @@
+{
+  "video_id": "7XvFLoIgwdo",
+  "n_expected_items": 1,
+  "n_matched_items": 1,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "صباح الخير",
+      "english_meaning_from_video": "Good Morning",
+      "content_type": "PHRASE",
+      "caption_start_s": 1.0,
+      "caption_end_s": 4.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

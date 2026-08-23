@@ -1,0 +1,41 @@
+{
+  "video_id": "eUYITGCWUWg",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "سؤال",
+      "english_meaning_from_video": "Question",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "قول",
+      "english_meaning_from_video": "Tell",
+      "content_type": "WORD",
+      "caption_start_s": 4.0,
+      "caption_end_s": 6.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "تكلم",
+      "english_meaning_from_video": "Talk",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 9.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "مقابلة",
+      "english_meaning_from_video": "Interview",
+      "content_type": "WORD",
+      "caption_start_s": 9.5,
+      "caption_end_s": 11.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

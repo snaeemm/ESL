@@ -1,0 +1,41 @@
+{
+  "video_id": "lVUzCMTkkCs",
+  "n_expected_items": 4,
+  "n_matched_items": 2,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "رقم",
+      "english_meaning_from_video": "Number",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 8.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "رقم المتحرك",
+      "english_meaning_from_video": "Mobile number",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "رقم الهاتف",
+      "english_meaning_from_video": "Phone Number",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "بريد",
+      "english_meaning_from_video": "Post",
+      "content_type": "WORD",
+      "caption_start_s": 8.5,
+      "caption_end_s": 11.0
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 2/4"
+}

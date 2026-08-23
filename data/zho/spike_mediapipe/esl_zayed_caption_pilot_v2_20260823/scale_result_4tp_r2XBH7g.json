@@ -1,0 +1,17 @@
+{
+  "video_id": "4tp_r2XBH7g",
+  "n_expected_items": 1,
+  "n_matched_items": 1,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "عيد الأضحى المبارك",
+      "english_meaning_from_video": "Eid Al-Adha Mubarak",
+      "content_type": "PHRASE",
+      "caption_start_s": 0.0,
+      "caption_end_s": 7.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

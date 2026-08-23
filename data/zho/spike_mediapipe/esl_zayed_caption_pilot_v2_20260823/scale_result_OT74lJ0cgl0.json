@@ -1,0 +1,33 @@
+{
+  "video_id": "OT74lJ0cgl0",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "عمل",
+      "english_meaning_from_video": "Work",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "مشغول",
+      "english_meaning_from_video": "Busy",
+      "content_type": "WORD",
+      "caption_start_s": 2.0,
+      "caption_end_s": 4.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "مؤتمر",
+      "english_meaning_from_video": "Conference",
+      "content_type": "WORD",
+      "caption_start_s": 7.0,
+      "caption_end_s": 9.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

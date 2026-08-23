@@ -9,23 +9,23 @@
       "english_meaning_from_video": "I",
       "content_type": "WORD",
       "caption_start_s": 0.0,
-      "caption_end_s": 2.0
+      "caption_end_s": 4.0
     },
     {
       "item_index_in_video": 1,
       "arabic_caption": "أنت",
       "english_meaning_from_video": "You",
       "content_type": "WORD",
-      "caption_start_s": 2.5,
-      "caption_end_s": 5.0
+      "caption_start_s": 5.0,
+      "caption_end_s": 10.0
     },
     {
       "item_index_in_video": 2,
       "arabic_caption": "هو",
       "english_meaning_from_video": "He",
       "content_type": "WORD",
-      "caption_start_s": 5.5,
-      "caption_end_s": 14.5
+      "caption_start_s": 11.0,
+      "caption_end_s": 29.0
     },
     {
       "item_index_in_video": 3,
@@ -48,24 +48,24 @@
       "arabic_caption": "نحن",
       "english_meaning_from_video": "We",
       "content_type": "WORD",
-      "caption_start_s": 15.0,
-      "caption_end_s": 17.5
+      "caption_start_s": 30.0,
+      "caption_end_s": 35.0
     },
     {
       "item_index_in_video": 6,
       "arabic_caption": "أنتم",
       "english_meaning_from_video": "You",
       "content_type": "WORD",
-      "caption_start_s": 18.0,
-      "caption_end_s": 20.5
+      "caption_start_s": 36.0,
+      "caption_end_s": 41.0
     },
     {
       "item_index_in_video": 7,
       "arabic_caption": "هم",
       "english_meaning_from_video": "They",
       "content_type": "WORD",
-      "caption_start_s": 21.0,
-      "caption_end_s": 24.5
+      "caption_start_s": 42.0,
+      "caption_end_s": 49.0
     }
   ],
   "gate_verdict": "REVIEW_REQUIRED",

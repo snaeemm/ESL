@@ -1,0 +1,33 @@
+{
+  "video_id": "EQAWOu-yB_g",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "الله يحفظه",
+      "english_meaning_from_video": "Allah save you",
+      "content_type": "PHRASE",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "إن شاءالله",
+      "english_meaning_from_video": "Insha'Allah",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "ما شاءالله",
+      "english_meaning_from_video": "Masha'Allah",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 7.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

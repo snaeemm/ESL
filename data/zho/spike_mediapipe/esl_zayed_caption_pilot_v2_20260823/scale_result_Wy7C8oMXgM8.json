@@ -1,0 +1,33 @@
+{
+  "video_id": "Wy7C8oMXgM8",
+  "n_expected_items": 3,
+  "n_matched_items": 2,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "تعلم",
+      "english_meaning_from_video": "Learn",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "علم",
+      "english_meaning_from_video": "Teach",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 8.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "معلم",
+      "english_meaning_from_video": "Teacher",
+      "content_type": "WORD",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 2/3"
+}

@@ -1,0 +1,41 @@
+{
+  "video_id": "NVZ5ohU_0lk",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "جلس",
+      "english_meaning_from_video": "Sit",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "ركب",
+      "english_meaning_from_video": "Ride",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 5.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "اذهب",
+      "english_meaning_from_video": "Go",
+      "content_type": "WORD",
+      "caption_start_s": 5.5,
+      "caption_end_s": 7.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "يرجع",
+      "english_meaning_from_video": "Back",
+      "content_type": "WORD",
+      "caption_start_s": 7.5,
+      "caption_end_s": 9.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

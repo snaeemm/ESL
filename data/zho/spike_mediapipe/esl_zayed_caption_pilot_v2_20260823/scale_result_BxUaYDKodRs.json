@@ -1,0 +1,41 @@
+{
+  "video_id": "BxUaYDKodRs",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "آسف",
+      "english_meaning_from_video": "Sorry",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "عادي",
+      "english_meaning_from_video": "Normal",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "خلاص",
+      "english_meaning_from_video": "Finish",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 7.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "نهاية",
+      "english_meaning_from_video": "End",
+      "content_type": "WORD",
+      "caption_start_s": 7.5,
+      "caption_end_s": 10.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}
