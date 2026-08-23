@@ -1,0 +1,25 @@
+{
+  "path": "696dGt5Zfv0.mp4",
+  "duration_s": 14.02,
+  "fps": 29.97,
+  "resolution": "640x360",
+  "caption_band_used": "top",
+  "band_energy": {
+    "top": 11.726,
+    "bottom": 11.504
+  },
+  "n_frames_sampled": 69,
+  "step_s": 0.2,
+  "diff_threshold": 12.0,
+  "n_candidate_segments": 2,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 10.8
+    },
+    {
+      "start_s": 10.8,
+      "end_s": 14.02
+    }
+  ]
+}

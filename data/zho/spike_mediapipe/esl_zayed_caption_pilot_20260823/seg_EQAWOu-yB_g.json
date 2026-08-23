@@ -1,0 +1,25 @@
+{
+  "path": "EQAWOu-yB_g.mp4",
+  "duration_s": 9.52,
+  "fps": 29.97,
+  "resolution": "640x360",
+  "caption_band_used": "top",
+  "band_energy": {
+    "top": 14.405,
+    "bottom": 12.385
+  },
+  "n_frames_sampled": 47,
+  "step_s": 0.2,
+  "diff_threshold": 12.0,
+  "n_candidate_segments": 2,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 7.4
+    },
+    {
+      "start_s": 7.4,
+      "end_s": 9.52
+    }
+  ]
+}

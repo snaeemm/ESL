@@ -1,0 +1,25 @@
+{
+  "path": "vkt9JcQ6JEU.mp4",
+  "duration_s": 15.28,
+  "fps": 29.97,
+  "resolution": "854x480",
+  "caption_band_used": "upper_right_small",
+  "band_energy": {
+    "top": null,
+    "bottom": null
+  },
+  "n_frames_sampled": 76,
+  "step_s": 0.2,
+  "diff_threshold": 12.0,
+  "n_candidate_segments": 2,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 12.6
+    },
+    {
+      "start_s": 12.6,
+      "end_s": 15.28
+    }
+  ]
+}
