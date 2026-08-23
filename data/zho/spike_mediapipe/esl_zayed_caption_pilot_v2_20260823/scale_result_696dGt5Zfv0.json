@@ -1,0 +1,41 @@
+{
+  "video_id": "696dGt5Zfv0",
+  "n_expected_items": 4,
+  "n_matched_items": 0,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "مرحبا",
+      "english_meaning_from_video": "Hello",
+      "content_type": "WORD",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "أنا أصم",
+      "english_meaning_from_video": "I'm Deaf",
+      "content_type": "SENTENCE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "اسمي زايد",
+      "english_meaning_from_video": "My name is Zayed",
+      "content_type": "SENTENCE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "يرمز لي بلغة الإشارة هكذا: زايد",
+      "english_meaning_from_video": "My sign name is like this: Zayed",
+      "content_type": "SENTENCE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REJECT",
+  "gate_reason": "no items matched at all"
+}

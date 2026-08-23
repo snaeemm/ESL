@@ -1,0 +1,49 @@
+{
+  "video_id": "wEbKqqsVcRQ",
+  "n_expected_items": 5,
+  "n_matched_items": 5,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "تصفيق -الصم",
+      "english_meaning_from_video": "Applause -Deaf",
+      "content_type": "PHRASE",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "مبروك / تهننة",
+      "english_meaning_from_video": "Congratulations",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 5.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "فوز",
+      "english_meaning_from_video": "Win",
+      "content_type": "WORD",
+      "caption_start_s": 6.0,
+      "caption_end_s": 8.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "كأس",
+      "english_meaning_from_video": "Cup",
+      "content_type": "WORD",
+      "caption_start_s": 8.5,
+      "caption_end_s": 11.0
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "جائزة",
+      "english_meaning_from_video": "Award",
+      "content_type": "WORD",
+      "caption_start_s": 11.5,
+      "caption_end_s": 13.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

@@ -1,0 +1,81 @@
+{
+  "video_id": "GFeVTaXSqMM",
+  "n_expected_items": 9,
+  "n_matched_items": 0,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "11",
+      "english_meaning_from_video": "11",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "12",
+      "english_meaning_from_video": "12",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "13",
+      "english_meaning_from_video": "13",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "14",
+      "english_meaning_from_video": "14",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "15",
+      "english_meaning_from_video": "15",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "16",
+      "english_meaning_from_video": "16",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 6,
+      "arabic_caption": "17",
+      "english_meaning_from_video": "17",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 7,
+      "arabic_caption": "18",
+      "english_meaning_from_video": "18",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 8,
+      "arabic_caption": "19",
+      "english_meaning_from_video": "19",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REJECT",
+  "gate_reason": "no items matched at all"
+}

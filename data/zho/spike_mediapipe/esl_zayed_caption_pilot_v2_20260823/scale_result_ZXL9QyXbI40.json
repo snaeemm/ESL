@@ -1,0 +1,17 @@
+{
+  "video_id": "ZXL9QyXbI40",
+  "n_expected_items": 1,
+  "n_matched_items": 0,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "تعلم معنا لغة الإشارة الإماراتية",
+      "english_meaning_from_video": "Us learn Emirati Sign Language",
+      "content_type": "SENTENCE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REJECT",
+  "gate_reason": "no items matched at all"
+}

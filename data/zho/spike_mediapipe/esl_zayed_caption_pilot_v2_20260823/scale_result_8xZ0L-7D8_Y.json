@@ -1,0 +1,49 @@
+{
+  "video_id": "8xZ0L-7D8_Y",
+  "n_expected_items": 5,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "كريم",
+      "english_meaning_from_video": "Generous",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "بخيل",
+      "english_meaning_from_video": "Stingy",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "كذب",
+      "english_meaning_from_video": "Lie",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 9.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "صدق",
+      "english_meaning_from_video": "Believe",
+      "content_type": "WORD",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "أكيد",
+      "english_meaning_from_video": "Sure",
+      "content_type": "WORD",
+      "caption_start_s": 10.0,
+      "caption_end_s": 12.5
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 4/5"
+}
