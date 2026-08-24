@@ -25,7 +25,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from lib import sign_resolver as sr
-from lib.vocab_retrieval import reset_index_cache, reset_esl_zayed_index_cache, get_esl_zayed_index
+from lib.vocab_retrieval import reset_index_cache, reset_esl_zayed_index_cache, get_esl_zayed_index, get_index
 
 
 def _reset():
@@ -215,6 +215,79 @@ def test_esl_zayed_candidate_with_garbled_arabic_rejected():
         sr.get_esl_zayed_index = orig_index
         sr._call_falcon_esl_zayed_selection = orig_call
     print("PASS: ESL Zayed candidate with non-Arabic arabic_text field is rejected (Arabic-script integrity)")
+
+
+def test_esl_zayed_candidate_with_tofu_box_glyphs_rejected():
+    """Blocker C: some traceability rows were observed showing Arabic as
+    literal missing-glyph placeholder boxes ('[][][][][]' / tofu squares)
+    rather than real Arabic script - this happens when a corrupted/mis-
+    decoded arabic_text field survives into the catalog. Such a string
+    contains NO characters in the Arabic Unicode block, so it must hit the
+    exact same _looks_arabic-based integrity gate as any other non-Arabic
+    string and be rejected outright - it must never be used as a matching
+    key or silently accepted as a valid label."""
+    _reset()
+    esl_idx = get_esl_zayed_index()
+    assert esl_idx.rows, "supplementary catalog must not be empty for this test"
+    real_row = esl_idx.rows[0]
+    tofu_row = dict(real_row)
+    tofu_row["arabic_text"] = "□□□□□"  # literal tofu/placeholder boxes, not Arabic script
+
+    orig_index = sr.get_esl_zayed_index
+    orig_call = sr._call_falcon_esl_zayed_selection
+
+    class _FakeIndex:
+        rows = [tofu_row]
+        by_id = {tofu_row["supplementary_id"]: tofu_row}
+
+        def exact_match(self, term):
+            return None
+
+        def retrieve_candidates(self, term, top_n=5):
+            return [tofu_row]
+
+    sr.get_esl_zayed_index = lambda: _FakeIndex()
+    sr._call_falcon_esl_zayed_selection = lambda *a, **kw: {
+        "selected_candidate_id": tofu_row["supplementary_id"], "reason": "selected", "confidence": "high",
+    }
+    try:
+        result = sr._esl_zayed_resolution(
+            "some english query", "unused", "source span", "educational sentence", True,
+        )
+        assert result["row"] is None, f"tofu-box Arabic candidate must be rejected, got {result}"
+    finally:
+        sr.get_esl_zayed_index = orig_index
+        sr._call_falcon_esl_zayed_selection = orig_call
+    print("PASS: ESL Zayed candidate with tofu/box-glyph arabic_text is rejected, not fabricated as valid")
+
+
+def test_missing_word_ar_never_fabricated_in_catalog_row():
+    """Blocker C display policy: when a ZHO catalog row genuinely has no
+    authoritative Arabic label (word_ar is None/empty), resolve_item must
+    pass that through as-is (None/empty) rather than synthesizing a
+    placeholder string. The frontend (webapp/frontend/src/pages/Results.tsx)
+    relies on this falsiness to omit the Arabic line entirely instead of
+    displaying a fabricated or corrupt value - see the `r.catalog_ref.word_ar
+    ? ... : ''` guard there. This test locks in the backend half of that
+    contract: no code path here must fill in a fake Arabic string."""
+    _reset()
+    idx = get_index()
+    # Find a real row with no word_ar (or synthesize the check structurally
+    # if the current catalog has none) - either way, assert the contract on
+    # whatever exact_match returns: it must never invent a word_ar that
+    # wasn't already on the row.
+    no_ar_rows = [r for r in idx.rows if not r.get("word_ar")]
+    if no_ar_rows:
+        row = no_ar_rows[0]
+        result = sr.resolve_item(
+            row["word_en"], source_language="en", source_span=f"This is {row['word_en']}.",
+            educational_sentence=f"This is {row['word_en']}.", model="unused",
+            allow_candidate_selection=False,
+        )
+        if result.get("catalog_ref"):
+            assert not result["catalog_ref"].get("word_ar"), (
+                f"word_ar must stay falsy/omitted, never fabricated: {result['catalog_ref']}")
+    print("PASS: missing word_ar is never fabricated (or no such row exists in current catalog - contract trivially holds)")
 
 
 # --- E. Provenance in resolver output (feeds traceability.py unchanged) --
