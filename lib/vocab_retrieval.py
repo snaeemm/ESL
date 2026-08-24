@@ -212,9 +212,18 @@ class VocabIndex:
         # phrases are not stemmed as a unit (would risk false collapses)
         words = term.strip().split()
         if len(words) == 1:
+            w0 = words[0].strip().lower()
             safe, risky = _english_suffix_forms(words[0])
             for form in safe:
-                if form in self.en_exact:
+                # _english_suffix_forms always includes the identity form
+                # itself in `safe` (see its docstring/`safe = {w}`); that
+                # identity form is NOT a morphological reduction, it's the
+                # same string, so accepting it here would silently let a
+                # bare exact-match string back in through Layer 2 - bypassing
+                # whatever gate Layer 1 (exact_match) applied to it (e.g. the
+                # Blocker A category-level polysemy gate in sign_resolver.py).
+                # Must skip identity, exactly like the per-token loop above.
+                if form != w0 and form in self.en_exact:
                     return self.en_exact[form][0], MATCH_MORPHOLOGY_EN, words[0], form
             for form in risky:
                 if form in self.en_exact:
