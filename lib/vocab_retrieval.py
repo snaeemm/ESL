@@ -57,6 +57,26 @@ MODIFIER_WORDS_EN = {
     "not", "never", "no",
 }
 
+# Arabic mirror of MODIFIER_WORDS_EN above (quantity/intensity/negation
+# words), so the SAME information-loss protection ("ONE BROTHER"->"One"
+# dropping the semantic head) applies to Arabic-source queries, not just
+# English ones. Previously classify_information_loss() in
+# lib/sign_resolver.py only tokenized item_text with an English-only regex
+# ([A-Za-z']+), so ANY pure-Arabic query produced zero tokens and hit its
+# "if not tokens: return LOSS_AMBIGUOUS" branch before this modifier check
+# was ever reached - meaning Falcon candidate-selected verification could
+# never succeed for a pure-Arabic query at all, regardless of how correct
+# the match was. This list, plus _tokenize_ar reuse in
+# classify_information_loss, closes that gap the same conservative way the
+# English side already works: normalized (see _normalize_ar) forms only,
+# not a stemmed/broad list - values here are single, unambiguous words.
+MODIFIER_WORDS_AR = {
+    "واحد", "واحدة", "اثنان", "اثنين", "ثلاثة", "اربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة", "عشرة",
+    "بعض", "كثير", "قليل", "عدة", "كل", "جميع",
+    "جدا", "جدًا", "كثيرا", "كثيرًا", "قليلا", "قليلاً",
+    "لا", "لم", "ليس", "ما", "ابدا", "ابدًا",
+}
+
 _STOPWORDS_EN = {
     "a", "an", "the", "of", "is", "are", "was", "were", "be", "to", "and",
     "or", "in", "on", "at", "for", "with", "very", "every", "all", "many",
