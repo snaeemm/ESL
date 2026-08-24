@@ -320,6 +320,125 @@ def test_school_starts_two_item_plan_not_flagged():
     print("PASS: a genuine two-concept plan is not flagged as information loss")
 
 
+# --- Arabic->English gloss bridge (corrupted-ZHO-Arabic-label investigation) --
+
+def test_arabic_query_reaches_english_labeled_zho_row_via_gloss_bridge():
+    """Investigation finding: ZHO's Mother/Father/Sister rows all share
+    the SAME corrupted word_ar value ('باب الأسرة', unrelated to any of
+    the three) while their word_en label is correct. Direct Arabic-token
+    retrieval can therefore never surface Mother as a candidate for a
+    correct Arabic query like 'أمى' ('my mother') - not a normalization
+    problem (see test below), a genuine retrieval gap. The gloss bridge
+    (lib/terminology.py's gloss_arabic_to_english(), wired into
+    lib/sign_resolver.py's _deterministic_lexical_resolution) must let
+    such a query still reach the row via its correct ENGLISH label + ZHO
+    id, WITHOUT ever fabricating a corrected Arabic label - the catalog's
+    word_ar stays untouched, only the retrieval PATH changes."""
+    _reset()
+    idx = sr.get_index()
+    mother_row = None
+    for r in idx.rows:
+        if r.get("word_en") == "Mother":
+            mother_row = r
+            break
+    assert mother_row is not None, "fixture assumption broke: catalog must contain a 'Mother' row"
+    # Confirms (does not fabricate/fix) the corruption claim itself.
+    assert mother_row.get("word_ar") not in ("أم", "أمي", "أمى", "والدة"), (
+        f"expected Mother's word_ar to be the known-corrupted value, got {mother_row.get('word_ar')!r} - "
+        f"if this ever gets fixed upstream this test's premise no longer applies")
+    assert idx.exact_match("أمى") == (None, None), "fixture assumption broke: direct Arabic exact match must fail"
+    assert idx.clitic_match("أمى") == (None, None, None, None)
+    assert idx.retrieve_candidates("أمى") == [], (
+        "fixture assumption broke: Arabic-token retrieval must find nothing before the bridge can be tested")
+
+    from lib import terminology
+    orig_gloss = terminology.gloss_arabic_to_english
+    orig_select = sr._call_falcon_candidate_selection
+    terminology.gloss_arabic_to_english = lambda *a, **kw: {"gloss": "Mother", "status": "OK", "reason": "test stub"}
+    sr._call_falcon_candidate_selection = lambda item_text, source_span, educational_sentence, candidates, model: {
+        "selected_candidate_id": mother_row["id"], "reason": "test stub - matches Mother", "confidence": "high",
+    }
+    try:
+        result = sr.resolve_item(
+            "أمى", source_language="ar", source_span="أمى معلمة، وأبي طبيب.",
+            educational_sentence="أمى معلمة، وأبي طبيب.", model="unused",
+        )
+        assert result["status"] == sr.STATUS_VERIFIED, result
+        assert result["render_source"] == "ZHO", result
+        assert result["catalog_ref"]["id"] == mother_row["id"], result
+        # The corrupted Arabic label is never touched/fabricated - it is
+        # returned exactly as stored, for the caller/UI to handle per the
+        # display policy (never invent a corrected label).
+        assert result["catalog_ref"]["word_ar"] == mother_row["word_ar"], result
+        assert "gloss bridge" in result["match_reason"], result
+    finally:
+        terminology.gloss_arabic_to_english = orig_gloss
+        sr._call_falcon_candidate_selection = orig_select
+    print("PASS: Arabic query with no direct Arabic-token candidates reaches Mother via English gloss bridge + stable ZHO id")
+
+
+def test_gloss_bridge_never_fires_when_arabic_retrieval_already_found_something():
+    """The bridge is a fallback for EMPTY Arabic-side retrieval only -
+    must never run (or override) when Arabic-token retrieval already
+    found candidates, even a wrong one, so it cannot be used to smuggle
+    in an extra candidate alongside a legitimate retrieval result."""
+    _reset()
+    from lib import terminology
+    calls = {"n": 0}
+    orig_gloss = terminology.gloss_arabic_to_english
+
+    def _counting_gloss(*a, **kw):
+        calls["n"] += 1
+        return {"gloss": "Mother", "status": "OK", "reason": "test stub"}
+    terminology.gloss_arabic_to_english = _counting_gloss
+    try:
+        # "أمي" collides at the token-retrieval layer with the real
+        # (false-friend) ZHO row word_ar="أمي - غير متعلم" ("Uneducated"),
+        # so retrieve_candidates() is non-empty and the bridge must not run.
+        idx = sr.get_index()
+        assert idx.retrieve_candidates("أمي") != [], (
+            "fixture assumption broke: 'أمي' must collide with a real catalog row at the retrieval layer")
+        sr.resolve_item(
+            "أمي", source_language="ar", source_span="أمي معلمة.",
+            educational_sentence="أمي معلمة.", model="unused", allow_candidate_selection=False,
+        )
+        assert calls["n"] == 0, "gloss bridge must not be called when Arabic-side retrieval already found candidates"
+    finally:
+        terminology.gloss_arabic_to_english = orig_gloss
+    print("PASS: gloss bridge never fires when Arabic-token retrieval already found candidates (even a false friend)")
+
+
+def test_arabic_modifier_query_via_gloss_bridge_stays_ambiguous_not_falsely_verified():
+    """Cross-language safety: an Arabic query WITH a detected modifier
+    (e.g. 'أب واحد' = 'one father') that reaches the gloss bridge and
+    gets a same-headword English candidate selected must NOT be silently
+    treated as a full, safe match - lexical content/modifier overlap is
+    structurally impossible to verify across scripts, so this must stay
+    AMBIGUOUS and fall through to fingerspelling/review rather than
+    risk the exact 'ONE BROTHER'->'One'-class silent information loss
+    this whole safeguard exists to prevent, just from the other language
+    direction."""
+    _reset()
+    idx = sr.get_index()
+    father_row = None
+    for r in idx.rows:
+        if r.get("word_en") == "Father" and r.get("category") == "Family":
+            father_row = r
+            break
+    assert father_row is not None, "fixture assumption broke: catalog must contain a 'Father' row"
+
+    # Directly exercises classify_information_loss's cross-language branch
+    # (avoids depending on retrieve_candidates() staying empty for this
+    # exact query forever - e.g. the catalog's Numbers category already
+    # has an Arabic entry for "واحد"/one, which would otherwise make this
+    # a retrieval-collision test instead of an information-loss test).
+    loss = sr.classify_information_loss("أب واحد", father_row["word_en"])
+    assert loss == sr.LOSS_AMBIGUOUS, (
+        f"'one father' (has a detected Arabic modifier) selecting plain 'Father' across scripts must stay "
+        f"AMBIGUOUS, not be silently trusted as FULL, got {loss}")
+    print("PASS: Arabic query with a modifier does not falsely verify via the gloss bridge (stays AMBIGUOUS)")
+
+
 def run_all():
     tests = [v for k, v in list(globals().items()) if k.startswith("test_") and callable(v)]
     for t in tests:

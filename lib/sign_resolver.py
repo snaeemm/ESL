@@ -34,7 +34,7 @@ from lib.fingerspell import fingerspell
 from lib.terminology import resolve_terminology
 from lib.vocab_retrieval import (
     get_index, get_esl_zayed_index, MATCH_CANDIDATE_SELECTED, MATCH_MORPHOLOGY_CANDIDATE, MATCH_EXACT_EN,
-    MODIFIER_WORDS_EN,
+    MODIFIER_WORDS_EN, MODIFIER_WORDS_AR, _tokenize_ar,
 )
 
 # Blocker A (semantic false match, e.g. temporal "before" -> spatial أمام):
@@ -245,16 +245,38 @@ def classify_information_loss(item_text: str, selected_word_en: str) -> str:
     represents the head but drops a modifier - e.g. "VERY HOT" -> "Hot" -
     keeps the core meaning and is CORE_WITH_MODIFIER_LOSS (acceptable,
     but flagged distinctly from FULL so headline coverage metrics stay
-    conservative)."""
-    tokens = [t.lower() for t in _WORD_RE.findall(item_text or "")]
+    conservative).
+
+    Script-aware (fix, see MODIFIER_WORDS_AR's docstring in
+    lib/vocab_retrieval.py): item_text is tokenized with the Arabic
+    tokenizer when it's Arabic script, English regex otherwise - an
+    Arabic item_text used to always fall through the English-only
+    tokenizer as zero tokens and hit an automatic LOSS_AMBIGUOUS before
+    the modifier logic ever ran, regardless of match quality. This
+    affects EVERY Arabic-source candidate-selected match, not just
+    cross-language (gloss-bridge) ones."""
+    is_arabic_item = _looks_arabic(item_text or "")
+    if is_arabic_item:
+        tokens = _tokenize_ar(item_text or "")
+        modifier_set = MODIFIER_WORDS_AR
+    else:
+        tokens = [t.lower() for t in _WORD_RE.findall(item_text or "")]
+        modifier_set = MODIFIER_WORDS_EN
     if not tokens:
         return LOSS_AMBIGUOUS
-    content = [t for t in tokens if t not in MODIFIER_WORDS_EN]
-    modifiers = [t for t in tokens if t in MODIFIER_WORDS_EN]
+    content = [t for t in tokens if t not in modifier_set]
+    modifiers = [t for t in tokens if t in modifier_set]
     sel = (selected_word_en or "").strip().lower()
     sel_tokens = set(_WORD_RE.findall(sel))
 
     if not modifiers:
+        # No quantity/intensity/negation modifier detected in the query -
+        # nothing to check for silent modifier-vs-head substitution, so
+        # trust the (already deterministically verified, Falcon-selected-
+        # from-a-bounded-candidate-set) match as a full representation.
+        # This is the SAME trust boundary the English path already uses
+        # for a single-content-word query - it does not newly weaken
+        # anything, it just makes that boundary reachable for Arabic too.
         return LOSS_FULL
 
     if not content:
@@ -267,6 +289,21 @@ def classify_information_loss(item_text: str, selected_word_en: str) -> str:
 
     if any(m in sel_tokens or m == sel for m in modifiers):
         return LOSS_ESSENTIAL_INFORMATION_LOSS
+
+    if is_arabic_item:
+        # Cross-language case: an Arabic query with a detected modifier
+        # (e.g. "أخ واحد" one-brother) selected an ENGLISH candidate label
+        # - sel_tokens can never lexically overlap Arabic content/modifier
+        # tokens (different scripts), so the FULL/ESSENTIAL_LOSS checks
+        # above are structurally unable to fire either way. Rather than
+        # silently trusting it (which would let a real modifier-drop like
+        # "one brother"->"Brother" through unchecked) or blocking it
+        # outright (which would defeat the whole point of the gloss
+        # bridge), stay conservative and equally cautious as the existing
+        # English-side "can't tell" case: AMBIGUOUS, same as the fallback
+        # below - forces this specific case to review/fingerspell instead
+        # of a false accept.
+        return LOSS_AMBIGUOUS
 
     return LOSS_AMBIGUOUS
 
@@ -450,11 +487,39 @@ def _deterministic_lexical_resolution(item_text: str, model: str, source_span: s
         except Exception:
             pass  # optional path - never blocks resolution if the extra isn't installed
 
+    # Arabic->English gloss bridge (candidate discovery only, never
+    # authoritative - see lib/terminology.py's gloss_arabic_to_english()
+    # docstring for the full rationale). Some ZHO catalog rows have known-
+    # corrupted word_ar metadata (e.g. Mother/Father/Sister all sharing
+    # the identical wrong value "باب الأسرة") while their word_en label
+    # is correct - retrieve_candidates() above only searches Arabic-side
+    # tokens for an Arabic query, so such a row can NEVER surface as a
+    # candidate for the correct Arabic query, through no fault of the
+    # query itself. Only fires when Arabic-side retrieval found nothing
+    # (never replaces it) and allow_candidate_selection is on (it needs a
+    # model call, same gate as Falcon selection below). The gloss is used
+    # ONLY to search catalog English tokens for candidates - it never
+    # becomes the rendered term, never touches Arabic metadata, and the
+    # resulting candidate(s) still go through the exact same Falcon
+    # contextual selection + Layer 6 verification + information-loss gate
+    # as any other candidate below.
+    gloss_bridge_trace = None
+    if not candidates and allow_candidate_selection and _looks_arabic(item_text):
+        from lib.terminology import gloss_arabic_to_english
+        gloss = gloss_arabic_to_english(item_text, source_span, educational_sentence, model)
+        gloss_bridge_trace = gloss
+        if gloss.get("status") == "OK" and gloss.get("gloss"):
+            for c in idx.retrieve_candidates(gloss["gloss"], top_n=5):
+                if c["id"] not in candidate_ids_seen:
+                    candidate_ids_seen.add(c["id"])
+                    candidates.append(c)
+
     if not candidates:
-        return {"row": None, "method": None, "candidates": [], "match_reason": "no lexical (or embedding, if enabled) candidates found"}
+        return {"row": None, "method": None, "candidates": [], "gloss_bridge_trace": gloss_bridge_trace,
+                "match_reason": "no lexical (or embedding, if enabled) candidates found"}
 
     if not allow_candidate_selection:
-        return {"row": None, "method": None, "candidates": candidates,
+        return {"row": None, "method": None, "candidates": candidates, "gloss_bridge_trace": gloss_bridge_trace,
                 "match_reason": f"{len(candidates)} lexical candidates found but Falcon selection unavailable/disabled"}
 
     selection = _call_falcon_candidate_selection(item_text, source_span, educational_sentence, candidates, model)
@@ -483,9 +548,11 @@ def _deterministic_lexical_resolution(item_text: str, model: str, source_span: s
                             f"Falcon selected candidate '{verified_row.get('word_en')}' from {len(candidates)} retrieved candidates")
             return {
                 "row": verified_row, "method": match_method, "candidates": candidates,
-                "falcon_selection": selection, "information_loss": loss,
+                "falcon_selection": selection, "information_loss": loss, "gloss_bridge_trace": gloss_bridge_trace,
                 "match_reason": (f"{source_desc} (id={selected_id}); reason: {selection.get('reason', '')}; "
-                                  f"verified id is in candidate set, has video, information_loss={loss}"),
+                                  f"verified id is in candidate set, has video, information_loss={loss}"
+                                  + (f"; found via Arabic->English gloss bridge (gloss='{gloss_bridge_trace['gloss']}') "
+                                     f"since direct Arabic-token retrieval found nothing" if gloss_bridge_trace and gloss_bridge_trace.get("status") == "OK" else "")),
             }
         return {"row": None, "method": None, "candidates": candidates, "falcon_selection": selection,
                 "match_reason": f"Falcon selected id={selected_id} but it failed deterministic verification (missing catalog row or video) - rejected"}

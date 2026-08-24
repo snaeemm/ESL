@@ -68,6 +68,60 @@ def _sanity_check_arabic_term(raw: str) -> tuple:
     return text, "OK", "single clean Arabic term"
 
 
+_LATIN_RANGE = re.compile(r"[A-Za-z]")
+_LATIN_OR_SPACE_ONLY = re.compile(r"^[A-Za-z\s\-]+$")
+
+ENGLISH_GLOSS_SYSTEM_PROMPT = """You are a bilingual glossary assistant. You will be given a short Arabic
+educational-lesson word or phrase (with its sentence context) and must respond with ONLY its single most
+natural short ENGLISH gloss (1-3 words) — the plain English concept it names, e.g. "Mother" for "أمي" or
+"Photosynthesis" for "التمثيل الضوئي".
+
+This is glossary lookup, NOT literary translation — pick the single most common English name for the
+concept, not a paraphrase or definition. Respond with ONLY the English gloss in Latin script, nothing
+else — no Arabic, no commentary, no punctuation beyond spaces/hyphens.
+"""
+
+
+def gloss_arabic_to_english(item_text: str, source_span: str, educational_sentence: str, model: str) -> dict:
+    """Bounded, CANDIDATE-DISCOVERY-ONLY bridge (never authoritative):
+    produces a short English gloss for an Arabic semantic-plan item, so
+    lib/sign_resolver.py can additionally search the ZHO/ESL Zayed
+    catalogs' ENGLISH word_en/english_meaning side for candidates when
+    Arabic-side token-overlap retrieval finds nothing. This exists
+    because some ZHO catalog rows have known-corrupted word_ar metadata
+    (e.g. Mother/Father/Sister all sharing the same wrong value
+    "باب الأسرة") while their word_en label is correct - an Arabic query
+    for the SAME concept could otherwise never surface that row as a
+    candidate at all, through no fault of the query.
+
+    Whatever this returns is still just ONE MORE CANDIDATE for Falcon's
+    existing context-constrained selection + deterministic verification +
+    information-loss gate (lib/sign_resolver.py Layers 5-6) - it never
+    itself authorizes a sign, and it never touches or fabricates any
+    catalog Arabic label. Returns {gloss, status, reason}; status is
+    "OK" only for a clean single Latin-script term."""
+    prompt_input = {
+        "source_span": source_span,
+        "educational_sentence": educational_sentence,
+        "arabic_item": item_text,
+    }
+    prompt = f"{ENGLISH_GLOSS_SYSTEM_PROMPT}\n\nINPUT:\n{json.dumps(prompt_input, ensure_ascii=False)}\n\nEnglish gloss:"
+    try:
+        raw = _call_ollama_raw(prompt, model)
+    except UnderstandError as e:
+        return {"gloss": None, "status": "REVIEW_REQUIRED", "reason": f"local model call failed: {e}"}
+
+    raw = re.sub(r"<think>.*?</think>", "", raw, flags=re.DOTALL).strip()
+    text = raw.strip().strip('"').strip()
+    if not text or len(text.split("\n")) > 1 or len(text) > 40:
+        return {"gloss": None, "status": "REVIEW_REQUIRED", "reason": "output looks like commentary/multi-line, not a single gloss"}
+    if _ARABIC_RANGE.search(text):
+        return {"gloss": None, "status": "REVIEW_REQUIRED", "reason": "output contains Arabic script, not a clean English gloss"}
+    if not _LATIN_OR_SPACE_ONLY.match(text):
+        return {"gloss": None, "status": "REVIEW_REQUIRED", "reason": "output contains non-Latin, non-whitespace characters"}
+    return {"gloss": text, "status": "OK", "reason": "single clean English gloss"}
+
+
 def resolve_terminology(item_text: str, source_language: str, source_span: str,
                          educational_sentence: str, model: str) -> dict:
     """item_text: one semantic_sign_plan entry (English or Arabic already,
