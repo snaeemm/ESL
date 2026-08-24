@@ -86,11 +86,24 @@ def plan_episode_duration(units: list, target_duration_s: float) -> dict:
                                             f"beyond target {target_duration_s:.0f}s"})
 
     all_units = selected + dropped
+
+    # Honest shortfall reporting only - no content generation. Threshold:
+    # more than 15% short of the requested duration (and at least 1s in
+    # absolute terms, to avoid flagging trivial rounding gaps on very
+    # short targets) is treated as a "meaningful" shortfall worth
+    # surfacing to the reviewer/panel, since it means real grounded
+    # source material ran out, not just normal clip-boundary rounding.
+    shortfall_reason = None
+    shortfall_s = target_duration_s - running_total
+    if target_duration_s > 0 and shortfall_s > 1.0 and shortfall_s > 0.15 * target_duration_s:
+        shortfall_reason = "insufficient grounded source material to safely reach requested duration"
+
     return {
         "requested_duration_s": target_duration_s,
         "estimated_duration_s": round(running_total, 2),
         "units_included": len(selected),
         "units_dropped": len(dropped),
         "any_single_unit_exceeds_target": any(u["duration_exceeds_target"] for u in selected),
+        "shortfall_reason": shortfall_reason,
         "units": all_units,  # selected first (in order), then dropped — order preserved within each group
     }

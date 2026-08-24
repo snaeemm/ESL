@@ -1,0 +1,1843 @@
+{
+  "model_used": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "part2_lexical_retrieval_zho_and_esl": [
+    {
+      "query": "father",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "5aae07f0-e199-4408-9d7a-dd067aab45c2",
+          "word_en": "Father",
+          "word_ar": "باب الأسرة",
+          "similarity": 0.7516,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "a312afc0-ef78-4ade-9aae-a6c5cbbc63d4",
+          "word_en": "Son",
+          "word_ar": "ابن",
+          "similarity": 0.706,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "aff5d38f-7c82-4b80-ae58-e10e9b4f3e54",
+          "word_en": "Uncle",
+          "word_ar": "عم",
+          "similarity": 0.6256,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Father",
+          "arabic_caption": "والد / بابا",
+          "similarity": 0.8758,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Uncle",
+          "arabic_caption": "خال",
+          "similarity": 0.682,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Uncle",
+          "arabic_caption": "عم",
+          "similarity": 0.6567,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "mother",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "5ffb35c4-cbdb-4b96-a96f-0f327e579e15",
+          "word_en": "Mother",
+          "word_ar": "باب الأسرة",
+          "similarity": 0.7463,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "c049940b-322c-4ea9-a734-83ffd77218db",
+          "word_en": "Daughter",
+          "word_ar": "ابنة",
+          "similarity": 0.6534,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "ecdad782-a2ed-468c-98a5-ebf2a5321ac6",
+          "word_en": "Aunt",
+          "word_ar": "عمة",
+          "similarity": 0.601,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Mother",
+          "arabic_caption": "والدة / ماما",
+          "similarity": 0.8966,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "eUMGQBgdCWM",
+          "english_meaning": "Child",
+          "arabic_caption": "طفل",
+          "similarity": 0.6235,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "2BXGTXG9Rmw",
+          "english_meaning": "Children",
+          "arabic_caption": "الأطفال",
+          "similarity": 0.5717,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "sister",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "c3ed9923-53d2-4f4e-a300-30de5d0e662b",
+          "word_en": "Sister",
+          "word_ar": "باب الأسرة",
+          "similarity": 0.7077,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "f3c5730d-7224-4813-9f29-14195dff8e19",
+          "word_en": "Aunt",
+          "word_ar": "خالة",
+          "similarity": 0.6399,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "19511411-db2f-409f-936e-f28728c1d5bd",
+          "word_en": "Sibling",
+          "word_ar": "نسيب",
+          "similarity": 0.6319,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Sister",
+          "arabic_caption": "أخت",
+          "similarity": 0.9555,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Brother",
+          "arabic_caption": "أخي",
+          "similarity": 0.5883,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "nSht-ChppNI",
+          "english_meaning": "She",
+          "arabic_caption": "هي",
+          "similarity": 0.5562,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "brother",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "19511411-db2f-409f-936e-f28728c1d5bd",
+          "word_en": "Sibling",
+          "word_ar": "نسيب",
+          "similarity": 0.72,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "a312afc0-ef78-4ade-9aae-a6c5cbbc63d4",
+          "word_en": "Son",
+          "word_ar": "ابن",
+          "similarity": 0.655,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "aff5d38f-7c82-4b80-ae58-e10e9b4f3e54",
+          "word_en": "Uncle",
+          "word_ar": "عم",
+          "similarity": 0.6441,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Brother",
+          "arabic_caption": "أخي",
+          "similarity": 0.9313,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Uncle",
+          "arabic_caption": "خال",
+          "similarity": 0.7291,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Uncle",
+          "arabic_caption": "عم",
+          "similarity": 0.7202,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "school",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "2499aa36-8999-46df-b950-963d38e85700",
+          "word_en": "School",
+          "word_ar": "مدرسة",
+          "similarity": 0.8229,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "02289b5b-69ff-4390-af28-04fe8360e8bd",
+          "word_en": "Education",
+          "word_ar": "تعليم",
+          "similarity": 0.7235,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "ad2bb1bf-7b7d-4fcf-a1de-a4b1cae9c977",
+          "word_en": "Class",
+          "word_ar": "صف دراسي",
+          "similarity": 0.7095,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "IrBOvrjEoU8",
+          "english_meaning": "School",
+          "arabic_caption": "مدرسة",
+          "similarity": 0.9114,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "IrBOvrjEoU8",
+          "english_meaning": "University",
+          "arabic_caption": "جامعة",
+          "similarity": 0.6999,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "IrBOvrjEoU8",
+          "english_meaning": "College",
+          "arabic_caption": "كلية",
+          "similarity": 0.6832,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "teacher",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "d88fb82a-69e1-475b-b651-4a6add2bfee1",
+          "word_en": "Teacher",
+          "word_ar": "معلم",
+          "similarity": 0.8437,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "1d33d82f-9862-45b7-85f8-b0ff66aa363b",
+          "word_en": "Book",
+          "word_ar": "كتاب",
+          "similarity": 0.6887,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "0d393386-d541-438f-a174-504440640b8f",
+          "word_en": "Course",
+          "word_ar": "مساق - مادة",
+          "similarity": 0.6767,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "Wy7C8oMXgM8",
+          "english_meaning": "Teacher",
+          "arabic_caption": "معلم",
+          "similarity": 0.9312,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "Wy7C8oMXgM8",
+          "english_meaning": "Teach",
+          "arabic_caption": "علم",
+          "similarity": 0.7807,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "IrBOvrjEoU8",
+          "english_meaning": "School",
+          "arabic_caption": "مدرسة",
+          "similarity": 0.6934,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "book",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "1d33d82f-9862-45b7-85f8-b0ff66aa363b",
+          "word_en": "Book",
+          "word_ar": "كتاب",
+          "similarity": 0.7178,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "a14ea3d8-d64e-47a9-a7ec-2d98a131edf9",
+          "word_en": "Library",
+          "word_ar": "مكتبة",
+          "similarity": 0.5337,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "819145ae-3253-4afc-8e33-f4072ba59809",
+          "word_en": "College",
+          "word_ar": "كلية",
+          "similarity": 0.4737,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "DJqUtzA2OgE",
+          "english_meaning": "Book",
+          "arabic_caption": "كتاب",
+          "similarity": 0.9048,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "Ctz__kub2SE",
+          "english_meaning": "Book",
+          "arabic_caption": "كتاب",
+          "similarity": 0.9048,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "DJqUtzA2OgE",
+          "english_meaning": "Read",
+          "arabic_caption": "قراءة",
+          "similarity": 0.5673,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "sun",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "fe6f2235-9b9f-4566-9501-f0748043c219",
+          "word_en": "Sun",
+          "word_ar": "شمس",
+          "similarity": 0.7556,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "75241951-1467-44c6-8c3a-1606ca63134d",
+          "word_en": "Sunset",
+          "word_ar": "الغـروب",
+          "similarity": 0.6736,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "00be195d-11b1-4433-ac6a-c61e4dbfd0ef",
+          "word_en": "Solar Eclipse",
+          "word_ar": "كسوف الشمس",
+          "similarity": 0.6154,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "sOpBSg-ZbVo",
+          "english_meaning": "Fajr",
+          "arabic_caption": "الفجر",
+          "similarity": 0.6746,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "SUKPmgaXrXY",
+          "english_meaning": "Light",
+          "arabic_caption": "خفيف",
+          "similarity": 0.54,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "oIOd4Zoavbk",
+          "english_meaning": "Day",
+          "arabic_caption": "يوم",
+          "similarity": 0.5228,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "hot",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "be18e85a-b714-4b5a-9ad7-9cfe9cc0d442",
+          "word_en": "Hot",
+          "word_ar": "حار",
+          "similarity": 0.7511,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "7070645a-c885-4c36-b01e-fc0beef2b858",
+          "word_en": "Heater",
+          "word_ar": "مدفئة",
+          "similarity": 0.5678,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "d21d387c-28d6-4858-abaa-cac7e7bc6d94",
+          "word_en": "Thermometer",
+          "word_ar": "ميزان الحراره",
+          "similarity": 0.5164,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "rixKL8_tCBs",
+          "english_meaning": "Delicious",
+          "arabic_caption": "لذيذ",
+          "similarity": 0.5177,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "0FStizpMYYA",
+          "english_meaning": "Beautiful",
+          "arabic_caption": "جميل",
+          "similarity": 0.5059,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "0FStizpMYYA",
+          "english_meaning": "Nice",
+          "arabic_caption": "لطيف",
+          "similarity": 0.4507,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "cold",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "ddef0707-f3da-4249-9d48-51a6b49eef5f",
+          "word_en": "Cold",
+          "word_ar": "برد",
+          "similarity": 0.8453,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "a72b8278-3c69-47be-8c0b-d53f789a702d",
+          "word_en": "Running Cold",
+          "word_ar": "زكام",
+          "similarity": 0.7873,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "cb5b724e-0e45-4ddf-b29d-0b60081071eb",
+          "word_en": "Winter",
+          "word_ar": "الشتــاء",
+          "similarity": 0.5946,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "SgJORoXzodU",
+          "english_meaning": "Sick",
+          "arabic_caption": "مريض",
+          "similarity": 0.47,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "sOpBSg-ZbVo",
+          "english_meaning": "Fajr",
+          "arabic_caption": "الفجر",
+          "similarity": 0.4291,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "Dmd6fNoQRzk",
+          "english_meaning": "No",
+          "arabic_caption": "لا",
+          "similarity": 0.3745,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "winter",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "ddef0707-f3da-4249-9d48-51a6b49eef5f",
+          "word_en": "Cold",
+          "word_ar": "برد",
+          "similarity": 0.7409,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "cb5b724e-0e45-4ddf-b29d-0b60081071eb",
+          "word_en": "Winter",
+          "word_ar": "الشتــاء",
+          "similarity": 0.7118,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "a72b8278-3c69-47be-8c0b-d53f789a702d",
+          "word_en": "Running Cold",
+          "word_ar": "زكام",
+          "similarity": 0.6113,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "oIOd4Zoavbk",
+          "english_meaning": "Year",
+          "arabic_caption": "سنة",
+          "similarity": 0.4945,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "sOpBSg-ZbVo",
+          "english_meaning": "Fajr",
+          "arabic_caption": "الفجر",
+          "similarity": 0.4884,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "3nw8KzlD9Wc",
+          "english_meaning": "Wake",
+          "arabic_caption": "قوم",
+          "similarity": 0.39,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "summer",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "d836e7e5-0a44-48e4-a882-38a127c22d07",
+          "word_en": "Summer",
+          "word_ar": "الصـيف",
+          "similarity": 0.6774,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "18fe4ff8-6687-4200-9f67-5c4b177c9533",
+          "word_en": "Spring",
+          "word_ar": "الربــيع",
+          "similarity": 0.536,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "31d7fc58-4e7c-4b76-a4fd-9c2b72050aa3",
+          "word_en": "Day",
+          "word_ar": "نهار",
+          "similarity": 0.5241,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "oIOd4Zoavbk",
+          "english_meaning": "Month",
+          "arabic_caption": "شهر",
+          "similarity": 0.5901,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "oIOd4Zoavbk",
+          "english_meaning": "Date",
+          "arabic_caption": "تاريخ",
+          "similarity": 0.4962,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "I6wFoSV9F08",
+          "english_meaning": "Friday",
+          "arabic_caption": "الجمعة",
+          "similarity": 0.4815,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "happy",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "532d04a3-8d55-4687-ac7f-d551e5580c87",
+          "word_en": "Happly",
+          "word_ar": "سعيد",
+          "similarity": 0.7703,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "4aa8d387-7345-4f18-9840-f86ccdaf08ca",
+          "word_en": "Fine",
+          "word_ar": "بخير",
+          "similarity": 0.59,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "c65d5598-a980-4b22-a7af-018985d468c3",
+          "word_en": "Celebrate",
+          "word_ar": "يحتفل",
+          "similarity": 0.5876,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "CshxmCZsWII",
+          "english_meaning": "Happy",
+          "arabic_caption": "سعيد",
+          "similarity": 0.9679,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "0FStizpMYYA",
+          "english_meaning": "Nice",
+          "arabic_caption": "لطيف",
+          "similarity": 0.7075,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "CshxmCZsWII",
+          "english_meaning": "Enjoy",
+          "arabic_caption": "استمتع",
+          "similarity": 0.6991,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "eat",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "ac2a9460-fe13-4448-ae14-32d8691db623",
+          "word_en": "Hungry",
+          "word_ar": "جائع",
+          "similarity": 0.6206,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "c790673d-7ccb-4f1e-99aa-bdcd113cf042",
+          "word_en": "Tasty",
+          "word_ar": "لذيذ",
+          "similarity": 0.6168,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "809f177f-f73c-45e5-b2ce-5b6d7f9508a0",
+          "word_en": "Laqeemat",
+          "word_ar": "لقيمات",
+          "similarity": 0.5491,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "qC4UCtDu52Y",
+          "english_meaning": "Eat",
+          "arabic_caption": "أكل",
+          "similarity": 0.9151,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "rixKL8_tCBs",
+          "english_meaning": "Delicious",
+          "arabic_caption": "لذيذ",
+          "similarity": 0.6434,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "rixKL8_tCBs",
+          "english_meaning": "Chocolate",
+          "arabic_caption": "حلاوه",
+          "similarity": 0.477,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "walk",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "f510e6d3-b4d2-4300-8028-7d3cc226b49e",
+          "word_en": "Walk",
+          "word_ar": "يمشي",
+          "similarity": 0.7175,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "ef711d62-3f3e-4739-808b-5fc6d209c10b",
+          "word_en": "Travels",
+          "word_ar": "يسافر",
+          "similarity": 0.5197,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "d4362b3a-9856-41da-8b8a-2f95457d93c7",
+          "word_en": "carry",
+          "word_ar": "يحمل",
+          "similarity": 0.4838,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "NVZ5ohU_0lk",
+          "english_meaning": "Go",
+          "arabic_caption": "اذهب",
+          "similarity": 0.5783,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "LoAv917IOkk",
+          "english_meaning": "Leave",
+          "arabic_caption": "إجازة",
+          "similarity": 0.5356,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "SUKPmgaXrXY",
+          "english_meaning": "Hurry",
+          "arabic_caption": "أسرع",
+          "similarity": 0.5338,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "sick",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "3b20b07e-95f6-4ac7-82d0-5af17f12f590",
+          "word_en": "Sick Leave",
+          "word_ar": "إجازه مرضية",
+          "similarity": 0.7161,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "5a196e21-a211-4a9e-ace4-2a3acab31423",
+          "word_en": "Fever",
+          "word_ar": "حمى",
+          "similarity": 0.6654,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "f7a4537a-ca38-46fb-8c37-c3caeee19987",
+          "word_en": "Cough",
+          "word_ar": "سعال",
+          "similarity": 0.642,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "SgJORoXzodU",
+          "english_meaning": "Sick",
+          "arabic_caption": "مريض",
+          "similarity": 0.9593,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "0FStizpMYYA",
+          "english_meaning": "Dirty",
+          "arabic_caption": "وسخ",
+          "similarity": 0.5772,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "u-PDWKM1Vto",
+          "english_meaning": "Bad",
+          "arabic_caption": "سيىء",
+          "similarity": 0.5633,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "tired",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "2ea9e7f7-0404-450f-8e32-97db11b8ef3d",
+          "word_en": "Fatigue",
+          "word_ar": "تعب",
+          "similarity": 0.7492,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "2d85d0c1-a1f2-416a-9c62-20370169a7da",
+          "word_en": "Evening",
+          "word_ar": "مساء",
+          "similarity": 0.5236,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "ba20af63-ac14-4722-b4ff-66d9defe0058",
+          "word_en": "Morning",
+          "word_ar": "صباح",
+          "similarity": 0.5197,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "SgJORoXzodU",
+          "english_meaning": "Tired",
+          "arabic_caption": "تعبان",
+          "similarity": 0.9515,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "3nw8KzlD9Wc",
+          "english_meaning": "Sleepy",
+          "arabic_caption": "نعسان",
+          "similarity": 0.8493,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "3nw8KzlD9Wc",
+          "english_meaning": "Sleep",
+          "arabic_caption": "نوم",
+          "similarity": 0.7371,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "family",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "c022191d-63b3-4397-b758-f2edb22bf50f",
+          "word_en": "Family",
+          "word_ar": "أسرة",
+          "similarity": 0.8428,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "a312afc0-ef78-4ade-9aae-a6c5cbbc63d4",
+          "word_en": "Son",
+          "word_ar": "ابن",
+          "similarity": 0.7581,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "5ffb35c4-cbdb-4b96-a96f-0f327e579e15",
+          "word_en": "Mother",
+          "word_ar": "باب الأسرة",
+          "similarity": 0.7556,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Mother",
+          "arabic_caption": "والدة / ماما",
+          "similarity": 0.6551,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "1_3U7-Z4kCM",
+          "english_meaning": "Grandparent",
+          "arabic_caption": "جد / جدة",
+          "similarity": 0.6434,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "2BXGTXG9Rmw",
+          "english_meaning": "Children",
+          "arabic_caption": "الأطفال",
+          "similarity": 0.6025,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "home",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "50046d0c-0eee-4403-a4c3-2634984b04f9",
+          "word_en": "House",
+          "word_ar": "بيت",
+          "similarity": 0.6678,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "9ce84728-27ef-4e47-aca2-062d9b8b8da5",
+          "word_en": "House Ownership",
+          "word_ar": "ملكية البيت",
+          "similarity": 0.6421,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "fe40bf0e-ec65-4de7-b051-2dedfa21c978",
+          "word_en": "Guest House",
+          "word_ar": "بيت شعبي",
+          "similarity": 0.6392,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "zL1u-2XiIRg",
+          "english_meaning": "Home",
+          "arabic_caption": "منزل",
+          "similarity": 0.9469,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "zL1u-2XiIRg",
+          "english_meaning": "Apartment",
+          "arabic_caption": "شقة",
+          "similarity": 0.6185,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "gJ22f_IYH2o",
+          "english_meaning": "Oud wood",
+          "arabic_caption": "عود",
+          "similarity": 0.4822,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    },
+    {
+      "query": "morning",
+      "zho_top3": [
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "ba20af63-ac14-4722-b4ff-66d9defe0058",
+          "word_en": "Morning",
+          "word_ar": "صباح",
+          "similarity": 0.7516,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "704de0cd-c777-4781-9748-8ccf127dda10",
+          "word_en": "Sunrise",
+          "word_ar": "الشروق",
+          "similarity": 0.5741,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "record_id": "31d7fc58-4e7c-4b76-a4fd-9c2b72050aa3",
+          "word_en": "Day",
+          "word_ar": "نهار",
+          "similarity": 0.5648,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ],
+      "esl_zayed_top3": [
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "sOpBSg-ZbVo",
+          "english_meaning": "Fajr",
+          "arabic_caption": "الفجر",
+          "similarity": 0.8282,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "3nw8KzlD9Wc",
+          "english_meaning": "Sleepy",
+          "arabic_caption": "نعسان",
+          "similarity": 0.6136,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        },
+        {
+          "source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "youtube_video_id": "BOxqB6pyTLI",
+          "english_meaning": "Today",
+          "arabic_caption": "اليوم",
+          "similarity": 0.6071,
+          "retrieval_reason": "MiniLM cosine similarity, top-k"
+        }
+      ]
+    }
+  ],
+  "part3_sentence_phrase_sanity_test": {
+    "n_test_meanings": 16,
+    "n_scored_positive_controls": 15,
+    "recall_at_1": 0.2,
+    "recall_at_5": 0.333,
+    "per_case": [
+      {
+        "meaning": "greeting someone",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "You are welcome",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.7266
+          },
+          {
+            "english_meaning": "Good Morning",
+            "video_id": "7XvFLoIgwdo",
+            "content_type": "PHRASE",
+            "similarity": 0.5553
+          },
+          {
+            "english_meaning": "Thank you",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.5158
+          },
+          {
+            "english_meaning": "How are you",
+            "video_id": "XVtU5dtnkQU",
+            "content_type": "PHRASE",
+            "similarity": 0.4489
+          },
+          {
+            "english_meaning": "My sign name is like this: Zayed",
+            "video_id": "696dGt5Zfv0",
+            "content_type": "SENTENCE",
+            "similarity": 0.4433
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": true
+      },
+      {
+        "meaning": "asking someone's name",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Last name",
+            "video_id": "jtFsC8Pr8B8",
+            "content_type": "PHRASE",
+            "similarity": 0.6102
+          },
+          {
+            "english_meaning": "My name is Zayed",
+            "video_id": "696dGt5Zfv0",
+            "content_type": "SENTENCE",
+            "similarity": 0.5006
+          },
+          {
+            "english_meaning": "My sign name is like this: Zayed",
+            "video_id": "696dGt5Zfv0",
+            "content_type": "SENTENCE",
+            "similarity": 0.4699
+          },
+          {
+            "english_meaning": "Phone Number",
+            "video_id": "lVUzCMTkkCs",
+            "content_type": "PHRASE",
+            "similarity": 0.4246
+          },
+          {
+            "english_meaning": "Don't know",
+            "video_id": "Xub8WDYcuRU",
+            "content_type": "PHRASE",
+            "similarity": 0.4197
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": true
+      },
+      {
+        "meaning": "family member relationship",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Family Book",
+            "video_id": "3lXM-arvR8k",
+            "content_type": "PHRASE",
+            "similarity": 0.7362
+          },
+          {
+            "english_meaning": "Last name",
+            "video_id": "jtFsC8Pr8B8",
+            "content_type": "PHRASE",
+            "similarity": 0.5345
+          },
+          {
+            "english_meaning": "Son / daughter",
+            "video_id": "2BXGTXG9Rmw",
+            "content_type": "PHRASE",
+            "similarity": 0.533
+          },
+          {
+            "english_meaning": "Our book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.3539
+          },
+          {
+            "english_meaning": "Their book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.3294
+          }
+        ],
+        "top1_relevant": true,
+        "top5_relevant": true
+      },
+      {
+        "meaning": "expressing thanks",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Thank you",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.7465
+          },
+          {
+            "english_meaning": "You are welcome",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.6966
+          },
+          {
+            "english_meaning": "Praise be to Allah",
+            "video_id": "XJ1AfSk4fFQ",
+            "content_type": "PHRASE",
+            "similarity": 0.4726
+          },
+          {
+            "english_meaning": "Applause -Deaf",
+            "video_id": "wEbKqqsVcRQ",
+            "content_type": "PHRASE",
+            "similarity": 0.4398
+          },
+          {
+            "english_meaning": "Good Morning",
+            "video_id": "7XvFLoIgwdo",
+            "content_type": "PHRASE",
+            "similarity": 0.4348
+          }
+        ],
+        "top1_relevant": true,
+        "top5_relevant": true
+      },
+      {
+        "meaning": "saying goodbye",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Get out",
+            "video_id": "kNB08TACfr0",
+            "content_type": "PHRASE",
+            "similarity": 0.5077
+          },
+          {
+            "english_meaning": "Again",
+            "video_id": "U3HogKgJboU",
+            "content_type": "PHRASE",
+            "similarity": 0.4959
+          },
+          {
+            "english_meaning": "You are welcome",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.4476
+          },
+          {
+            "english_meaning": "Last name",
+            "video_id": "jtFsC8Pr8B8",
+            "content_type": "PHRASE",
+            "similarity": 0.4145
+          },
+          {
+            "english_meaning": "(no English gloss given - Sheikh Zayed tribute prayer)",
+            "video_id": "7C5G2I-Hi34",
+            "content_type": "SENTENCE",
+            "similarity": 0.3723
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "talking about feeling sick",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Don't understand",
+            "video_id": "Xub8WDYcuRU",
+            "content_type": "PHRASE",
+            "similarity": 0.3284
+          },
+          {
+            "english_meaning": "How are you",
+            "video_id": "XVtU5dtnkQU",
+            "content_type": "PHRASE",
+            "similarity": 0.3194
+          },
+          {
+            "english_meaning": "Wash hands",
+            "video_id": "LnyexQFMGjc",
+            "content_type": "PHRASE",
+            "similarity": 0.2955
+          },
+          {
+            "english_meaning": "My book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.2887
+          },
+          {
+            "english_meaning": "Our book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.2771
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "asking for help",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Phone Number",
+            "video_id": "lVUzCMTkkCs",
+            "content_type": "PHRASE",
+            "similarity": 0.3265
+          },
+          {
+            "english_meaning": "How are you",
+            "video_id": "XVtU5dtnkQU",
+            "content_type": "PHRASE",
+            "similarity": 0.291
+          },
+          {
+            "english_meaning": "Get out",
+            "video_id": "kNB08TACfr0",
+            "content_type": "PHRASE",
+            "similarity": 0.2909
+          },
+          {
+            "english_meaning": "Don't know",
+            "video_id": "Xub8WDYcuRU",
+            "content_type": "PHRASE",
+            "similarity": 0.278
+          },
+          {
+            "english_meaning": "My name is Zayed",
+            "video_id": "696dGt5Zfv0",
+            "content_type": "SENTENCE",
+            "similarity": 0.2726
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "talking about school subjects",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Our book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.4442
+          },
+          {
+            "english_meaning": "Your book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.4268
+          },
+          {
+            "english_meaning": "Your book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.426
+          },
+          {
+            "english_meaning": "My book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.4095
+          },
+          {
+            "english_meaning": "Their book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.3798
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "describing the weather",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Asr / Sunset",
+            "video_id": "sOpBSg-ZbVo",
+            "content_type": "PHRASE",
+            "similarity": 0.4586
+          },
+          {
+            "english_meaning": "How are you",
+            "video_id": "XVtU5dtnkQU",
+            "content_type": "PHRASE",
+            "similarity": 0.3242
+          },
+          {
+            "english_meaning": "Your book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.3209
+          },
+          {
+            "english_meaning": "My book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.3207
+          },
+          {
+            "english_meaning": "Your book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.3205
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "counting or numbers in a sentence",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Phone Number",
+            "video_id": "lVUzCMTkkCs",
+            "content_type": "PHRASE",
+            "similarity": 0.3396
+          },
+          {
+            "english_meaning": "Mobile number",
+            "video_id": "lVUzCMTkkCs",
+            "content_type": "PHRASE",
+            "similarity": 0.3234
+          },
+          {
+            "english_meaning": "Our book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.2954
+          },
+          {
+            "english_meaning": "Son / daughter",
+            "video_id": "2BXGTXG9Rmw",
+            "content_type": "PHRASE",
+            "similarity": 0.2937
+          },
+          {
+            "english_meaning": "Again",
+            "video_id": "U3HogKgJboU",
+            "content_type": "PHRASE",
+            "similarity": 0.2917
+          }
+        ],
+        "top1_relevant": true,
+        "top5_relevant": true
+      },
+      {
+        "meaning": "talking about eating a meal",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Isha / Midnight",
+            "video_id": "sOpBSg-ZbVo",
+            "content_type": "PHRASE",
+            "similarity": 0.4883
+          },
+          {
+            "english_meaning": "Tea Milk",
+            "video_id": "Rc51NXuyIag",
+            "content_type": "PHRASE",
+            "similarity": 0.2736
+          },
+          {
+            "english_meaning": "Wash hands",
+            "video_id": "LnyexQFMGjc",
+            "content_type": "PHRASE",
+            "similarity": 0.2674
+          },
+          {
+            "english_meaning": "Don't understand",
+            "video_id": "Xub8WDYcuRU",
+            "content_type": "PHRASE",
+            "similarity": 0.2636
+          },
+          {
+            "english_meaning": "Our book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.2611
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "apologizing",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "You are welcome",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.3986
+          },
+          {
+            "english_meaning": "Thank you",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.3528
+          },
+          {
+            "english_meaning": "(no English gloss given - Sheikh Zayed tribute prayer)",
+            "video_id": "7C5G2I-Hi34",
+            "content_type": "SENTENCE",
+            "similarity": 0.325
+          },
+          {
+            "english_meaning": "Applause -Deaf",
+            "video_id": "wEbKqqsVcRQ",
+            "content_type": "PHRASE",
+            "similarity": 0.3133
+          },
+          {
+            "english_meaning": "Again",
+            "video_id": "U3HogKgJboU",
+            "content_type": "PHRASE",
+            "similarity": 0.2956
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "asking where something is",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "Don't know",
+            "video_id": "Xub8WDYcuRU",
+            "content_type": "PHRASE",
+            "similarity": 0.4259
+          },
+          {
+            "english_meaning": "How are you",
+            "video_id": "XVtU5dtnkQU",
+            "content_type": "PHRASE",
+            "similarity": 0.3732
+          },
+          {
+            "english_meaning": "Phone Number",
+            "video_id": "lVUzCMTkkCs",
+            "content_type": "PHRASE",
+            "similarity": 0.3511
+          },
+          {
+            "english_meaning": "Don't understand",
+            "video_id": "Xub8WDYcuRU",
+            "content_type": "PHRASE",
+            "similarity": 0.3151
+          },
+          {
+            "english_meaning": "Not yet",
+            "video_id": "U3HogKgJboU",
+            "content_type": "PHRASE",
+            "similarity": 0.2824
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "wishing someone well/congratulations",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "You are welcome",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.6205
+          },
+          {
+            "english_meaning": "Thank you",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.5526
+          },
+          {
+            "english_meaning": "Good Morning",
+            "video_id": "7XvFLoIgwdo",
+            "content_type": "PHRASE",
+            "similarity": 0.4375
+          },
+          {
+            "english_meaning": "How are you",
+            "video_id": "XVtU5dtnkQU",
+            "content_type": "PHRASE",
+            "similarity": 0.4308
+          },
+          {
+            "english_meaning": "Praise be to Allah",
+            "video_id": "XJ1AfSk4fFQ",
+            "content_type": "PHRASE",
+            "similarity": 0.422
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "introducing yourself",
+        "has_expected_evidence_in_corpus": true,
+        "top5": [
+          {
+            "english_meaning": "You are welcome",
+            "video_id": "zrzhSf34u5A",
+            "content_type": "PHRASE",
+            "similarity": 0.5383
+          },
+          {
+            "english_meaning": "Your book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.537
+          },
+          {
+            "english_meaning": "Your book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.5333
+          },
+          {
+            "english_meaning": "How are you",
+            "video_id": "XVtU5dtnkQU",
+            "content_type": "PHRASE",
+            "similarity": 0.4908
+          },
+          {
+            "english_meaning": "My book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.4626
+          }
+        ],
+        "top1_relevant": false,
+        "top5_relevant": false
+      },
+      {
+        "meaning": "talking about photosynthesis",
+        "has_expected_evidence_in_corpus": false,
+        "top5": [
+          {
+            "english_meaning": "Our book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.249
+          },
+          {
+            "english_meaning": "Their book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.2205
+          },
+          {
+            "english_meaning": "His book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.2189
+          },
+          {
+            "english_meaning": "My book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.214
+          },
+          {
+            "english_meaning": "Her book",
+            "video_id": "Ctz__kub2SE",
+            "content_type": "PHRASE",
+            "similarity": 0.2123
+          }
+        ],
+        "top1_relevant": "N/A (negative control)",
+        "top5_relevant": "N/A (negative control)"
+      }
+    ]
+  },
+  "part3_verdict": "NOT_USEFUL",
+  "n_phrase_sentence_dialogue_records_in_corpus": 52
+}

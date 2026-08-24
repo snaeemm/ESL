@@ -14,7 +14,7 @@ import re
 
 from lib.episode_builder import _call_ollama_raw, _parse_json_array
 from lib.understand import UnderstandError
-from lib.vocab_retrieval import get_index, _tokenize_en
+from lib.vocab_retrieval import get_index, _tokenize_en, _tokenize_ar
 
 _ARABIC_CHAR_RE = re.compile(r"[؀-ۿ]")
 
@@ -59,7 +59,21 @@ Example (English input "The membrane controls what enters and leaves the cell.")
 
 Rules:
 - 3 to 7 items per sentence. Do not pad or invent content not implied by the sentence.
-- Do not include grammatical function words (the, a, of, that) as separate items.
+- Do not include grammatical function words (the, a, of, that) as separate items. More generally:
+  each item must name an independent, meaning-bearing educational concept (a thing, action, quality,
+  or relationship someone could picture, define, or point to on its own) - never a spoken-language
+  connective, particle, or grammatical marker whose only job is to glue other words together
+  syntactically. Apply this test to EVERY item regardless of language or part of speech: "if I removed
+  every other item, would this item alone still refer to a concept a viewer could picture and that the
+  lesson is actually about?" If the answer is no - it only exists to link, mark case/direction, negate,
+  or grammatically connect neighboring words - leave it out; its grammatical role will be implied by
+  the ordering and choice of the surrounding items, not stated as its own item. This applies equally to
+  English words (the, a, of, that, to, and) and to their equivalents and function-word/clitic
+  counterparts in any other language you are outputting in (definite articles, conjunctions,
+  prepositions, direction/case particles, etc.) - the test is about the WORD'S ROLE in the sentence, not
+  a fixed list of words to avoid.
+- Do not confuse a short word with a function word: a short verb, quality, or concrete noun (e.g. "GO",
+  "HOT", "SUN") is still meaning-bearing and must be kept if the sentence depends on it.
 - If you are not confident a faithful semantic breakdown is possible for this sentence, output
   an empty array [] instead of guessing.
 
@@ -77,12 +91,14 @@ def _vocabulary_hints(sentence: str, key_terms: list, top_n: int = 15) -> list:
     fine: the catalog index itself is process-cached in vocab_retrieval."""
     idx = get_index()
     query = sentence + " " + " ".join(key_terms or [])
-    q_tokens = set(_tokenize_en(query))
+    is_arabic = _looks_arabic(sentence)
+    q_tokens = set(_tokenize_ar(query)) if is_arabic else set(_tokenize_en(query))
     if not q_tokens:
         return []
     scored = []
     for r in idx.rows:
-        overlap = len(q_tokens & idx.en_tokens_by_row.get(r["id"], set()))
+        tokens_by_row = idx.ar_tokens_by_row if is_arabic else idx.en_tokens_by_row
+        overlap = len(q_tokens & tokens_by_row.get(r["id"], set()))
         if overlap > 0:
             scored.append((overlap, r))
     scored.sort(key=lambda x: -x[0])

@@ -35,6 +35,25 @@ from spike_cartoon_avatar import (  # noqa: E402
     draw_body, draw_face_features, draw_hand, HandTrack, BG, PL,
 )
 
+# AFTER (richer) renderer integration: reuses the experiment modules under
+# experiments/motion_fidelity/ unmodified, wiring their outputs into this
+# canonical production render path. Only draw_body / chain_with_xfade stay
+# on the original v1 code path - avatar base appearance and the mixed-
+# resolution stitch are unchanged.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                 "experiments", "motion_fidelity"))
+from hand_features import palm_orientation  # noqa: E402
+from face_features_v2 import (  # noqa: E402
+    face_features_v2, compute_brow_calibration, compute_mouth_calibration,
+    compute_mouth_contour_calibration, compute_eye_contour_calibration,
+)
+from head_pose import estimate_head_pose  # noqa: E402
+from render_v2 import draw_hand_v3, draw_face_features_v2  # noqa: E402
+from one_euro_filter import one_euro_smooth_series  # noqa: E402
+from extract_and_render_long import (  # noqa: E402
+    _denoise_hand_series, _smooth_face_v2,
+)
+
 ROOT = "/Users/shaz/MOI-Arabic-Sign-Language"
 NORM_DIR = f"{ROOT}/data/zho/spike_mediapipe/lesson/norm"
 OUT_DIR = f"{ROOT}/data/zho/spike_mediapipe/lesson/captioned"
@@ -134,6 +153,12 @@ def detect_segment(stem, norm_dir=NORM_DIR):
 
     pose_px_list, left_pts, right_pts, face_metrics_list = [], [], [], []
     left_z, right_z = [], []
+    # Raw (x,y,z) per hand landmark, and raw face landmarks - needed by the
+    # AFTER renderer (palm_orientation, estimate_head_pose, face_features_v2)
+    # which all require data beyond what face_metrics()/x,y-only hand points
+    # carry. Collected alongside the existing v1 channels, which are left
+    # untouched.
+    left_xyz, right_xyz, face_lm_list = [], [], []
     # pose_z_list / hand_z_export: collected purely for the motion-data
     # export below. left_z/right_z above are the pre-existing halo inputs
     # (raw, unsmoothed, read by render_segment) and are untouched; these
@@ -154,6 +179,11 @@ def detect_segment(stem, norm_dir=NORM_DIR):
                              if r.left_hand_landmarks else None)
             right_pts.append([(lm.x * w, lm.y * h) for lm in r.right_hand_landmarks.landmark]
                               if r.right_hand_landmarks else None)
+            left_xyz.append([(lm.x * w, lm.y * h, lm.z) for lm in r.left_hand_landmarks.landmark]
+                             if r.left_hand_landmarks else None)
+            right_xyz.append([(lm.x * w, lm.y * h, lm.z) for lm in r.right_hand_landmarks.landmark]
+                              if r.right_hand_landmarks else None)
+            face_lm_list.append(list(r.face_landmarks.landmark) if r.face_landmarks else None)
             # z: depth relative to the wrist (more negative = closer to
             # camera), used only for the hand halo - not smoothed since it
             # only drives a coarse "how forward is the hand" halo size.
@@ -180,11 +210,34 @@ def detect_segment(stem, norm_dir=NORM_DIR):
 
     # Stronger smoothing than the earlier single-clip renderer (0.25 -> 0.18)
     # - more history weight, less raw-frame noise passed through, directly
-    # addressing the reported shakiness.
+    # addressing the reported shakiness. Pose and face v1 stay on the
+    # existing fixed-alpha EMA (matching experiments/motion_fidelity's own
+    # extract_and_render_long.py, which also keeps pose/face_v1 on
+    # prod_smooth and reserves one_euro for hands only).
     pose_px_list = smooth_series(pose_px_list, alpha=0.18)
-    left_pts = smooth_series(left_pts, alpha=0.22)
-    right_pts = smooth_series(right_pts, alpha=0.22)
     face_metrics_list = smooth_series(face_metrics_list, alpha=0.18)
+
+    # Hands: denoise short spurious blip detections first (same order as
+    # extract_and_render_long.py - denoising before smoothing prevents the
+    # smoother from treating a blip as a real short run), then replace the
+    # fixed-alpha EMA with the adaptive One-Euro filter on the raw (x,y,z)
+    # series - this is the AFTER renderer's hand channel, used both for
+    # (x,y) point drawing and for z (palm-orientation / depth shading).
+    left_xyz = _denoise_hand_series(left_xyz)
+    right_xyz = _denoise_hand_series(right_xyz)
+    left_xyz = one_euro_smooth_series(left_xyz, fps)
+    right_xyz = one_euro_smooth_series(right_xyz, fps)
+    left_pts = [[(x, y) for x, y, z in pts] if pts is not None else None for pts in left_xyz]
+    right_pts = [[(x, y) for x, y, z in pts] if pts is not None else None for pts in right_xyz]
+    left_z = [[z for x, y, z in pts] if pts is not None else None for pts in left_xyz]
+    right_z = [[z for x, y, z in pts] if pts is not None else None for pts in right_xyz]
+
+    # Face v2 (independent L/R brow/eye/mouth + raw landmarks for head pose):
+    # computed per-frame from the raw landmarks, then EMA-smoothed the same
+    # way extract_and_render_long.py's _smooth_face_v2 does (recursively,
+    # blink/eye-state kept as a discrete current-frame value, not smeared).
+    face_v2_raw = [face_features_v2(lm, w, h) if lm is not None else None for lm in face_lm_list]
+    face_v2_list = _smooth_face_v2(face_v2_raw, alpha=0.18)
 
     # z export channels, smoothed with the same alphas as their x/y
     # counterparts above - export only, never read by the renderer.
@@ -194,7 +247,9 @@ def detect_segment(stem, norm_dir=NORM_DIR):
 
     return {"w": w, "h": h, "fps": fps, "pose": pose_px_list, "left": left_pts,
             "right": right_pts, "face": face_metrics_list, "left_z": left_z, "right_z": right_z,
-            "pose_z": pose_z_list, "left_z_export": left_z_export, "right_z_export": right_z_export}
+            "pose_z": pose_z_list, "left_z_export": left_z_export, "right_z_export": right_z_export,
+            "left_xyz": left_xyz, "right_xyz": right_xyz,
+            "face_lm": face_lm_list, "face_v2": face_v2_list}
 
 
 def segment_anchor(pose_px_list):
@@ -285,12 +340,16 @@ def export_lesson_motion_json(path, detected, segments):
           file=sys.stderr)
 
 
-def render_segment(stem, english, arabic, data, scale_w, out_dir=OUT_DIR):
+def render_segment(stem, english, arabic, data, scale_w, out_dir=OUT_DIR,
+                    brow_calibration=None, mouth_calibration=None,
+                    mouth_contour_calibration=None, eye_contour_calibration=None):
     os.makedirs(out_dir, exist_ok=True)
     out_path = f"{out_dir}/{stem}.mp4"
     w, h, fps = data["w"], data["h"], data["fps"]
     pose_px_list, left_pts, right_pts, face_metrics_list = data["pose"], data["left"], data["right"], data["face"]
     left_z, right_z = data["left_z"], data["right_z"]
+    left_xyz, right_xyz = data["left_xyz"], data["right_xyz"]
+    face_lm_list, face_v2_list = data["face_lm"], data["face_v2"]
     total = len(pose_px_list)
 
     def make_future_lookup(pts_list):
@@ -313,13 +372,25 @@ def render_segment(stem, english, arabic, data, scale_w, out_dir=OUT_DIR):
         canvas = np.full((h, w, 3), BG, dtype=np.uint8)
         if pose_px_list[i] is not None:
             face_c, face_r = draw_body(canvas, pose_px_list[i], w, h, scale_w=scale_w)
-            draw_face_features(canvas, face_c, face_r, face_metrics_list[i])
+            # AFTER renderer: draw_face_features_v2 needs raw face landmarks
+            # (for head-pose roll) alongside the v2 metrics; fall back to the
+            # v1 renderer for any frame with no face detection at all (same
+            # gating extract_and_render_long.py uses).
+            if face_lm_list[i] is not None:
+                head_pose = estimate_head_pose(face_lm_list[i], w, h)
+                draw_face_features_v2(canvas, face_c, face_r, face_metrics_list[i], face_v2_list[i],
+                                       head_pose, brow_calibration, mouth_calibration,
+                                       mouth_contour_calibration, eye_contour_calibration)
+            else:
+                draw_face_features(canvas, face_c, face_r, face_metrics_list[i])
         l_pts, l_alpha = left_track.get(i, left_pts[i], left_future)
         r_pts, r_alpha = right_track.get(i, right_pts[i], right_future)
         if l_pts:
-            draw_hand(canvas, l_pts, l_alpha, zs=left_z[i])
+            nz = palm_orientation(left_xyz[i], handedness="left")["normal"][2] if left_xyz[i] else None
+            draw_hand_v3(canvas, l_pts, l_alpha, left_z[i], nz)
         if r_pts:
-            draw_hand(canvas, r_pts, r_alpha, zs=right_z[i])
+            nz = palm_orientation(right_xyz[i], handedness="right")["normal"][2] if right_xyz[i] else None
+            draw_hand_v3(canvas, r_pts, r_alpha, right_z[i], nz)
         draw_caption(canvas, w, h, english, arabic)
         out.write(canvas)
     out.release()
@@ -362,16 +433,26 @@ def chain_with_xfade(rendered, final_out_path=DEFAULT_FINAL_OUT_PATH):
     dims = [_probe_wh(path) for path, _, _ in rendered]
     target_w = max(w for w, h in dims)
     target_h = max(h for w, h in dims)
+    # xfade requires every input to share one timebase too, not just one
+    # resolution - render_segment() writes each segment at its own SOURCE
+    # clip's native fps (cv2 CAP_PROP_FPS), so a ZHO clip (e.g. 25fps) next
+    # to a differently-sourced clip (e.g. an ESL Zayed download at 30fps)
+    # hits "input link main timebase does not match ... xfade timebase"
+    # and ffmpeg drops the whole filter graph. Normalized here at the same
+    # stitching boundary as the resolution fix above, not in detection/
+    # render_segment (which must stay in each segment's own native fps for
+    # correct motion timing).
+    target_fps = max(fps for _, _, fps in rendered)
 
     filter_parts = []
     for idx in range(len(rendered)):
         w, h = dims[idx]
         if (w, h) == (target_w, target_h):
-            filter_parts.append(f"[{idx}:v]setsar=1[n{idx}]")
+            filter_parts.append(f"[{idx}:v]fps={target_fps},setsar=1[n{idx}]")
         else:
             filter_parts.append(
                 f"[{idx}:v]scale={target_w}:{target_h}:force_original_aspect_ratio=decrease,"
-                f"pad={target_w}:{target_h}:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1[n{idx}]"
+                f"pad={target_w}:{target_h}:(ow-iw)/2:(oh-ih)/2:color=black,fps={target_fps},setsar=1[n{idx}]"
             )
 
     prev_label = "n0"
@@ -457,10 +538,32 @@ def render_lesson(segments=None, norm_dir=NORM_DIR, out_dir=OUT_DIR,
 
     export_lesson_motion_json(motion_json_path, detected, segments)
 
+    # Face v2 calibration (brow/mouth-corner/mouth-contour/eye-contour),
+    # pooled across ALL lesson segments before rendering starts - same
+    # global-pool pattern as global_scale_w/target anchor above, and the
+    # same pattern experiments/motion_fidelity/extract_and_render_long.py
+    # actually uses (one calibration computed over its whole 9-clip pool,
+    # not recomputed separately per clip): a per-segment-only calibration
+    # would be unstable for the fingerspelling segments, which are only a
+    # couple of seconds each.
+    all_v2 = []
+    for stem, eng, ar in segments:
+        all_v2 += [v2 for v2 in detected[stem]["face_v2"] if v2 is not None]
+    brow_calibration = compute_brow_calibration(all_v2)
+    mouth_calibration = compute_mouth_calibration(all_v2)
+    mouth_contour_calibration = compute_mouth_contour_calibration(all_v2)
+    eye_contour_calibration = compute_eye_contour_calibration(all_v2)
+    print(f"Face v2 calibration pooled from {len(all_v2)} frames "
+          f"(brow={brow_calibration is not None}, mouth={mouth_calibration is not None})", file=sys.stderr)
+
     print("=== Pass 2: rendering with shared scale + position ===", file=sys.stderr)
     rendered = []
     for stem, eng, ar in segments:
-        path, nframes, fps = render_segment(stem, eng, ar, detected[stem], global_scale_w, out_dir=out_dir)
+        path, nframes, fps = render_segment(
+            stem, eng, ar, detected[stem], global_scale_w, out_dir=out_dir,
+            brow_calibration=brow_calibration, mouth_calibration=mouth_calibration,
+            mouth_contour_calibration=mouth_contour_calibration,
+            eye_contour_calibration=eye_contour_calibration)
         rendered.append((path, nframes, fps))
     return chain_with_xfade(rendered, final_out_path=final_out_path)
 

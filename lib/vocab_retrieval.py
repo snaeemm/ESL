@@ -41,6 +41,7 @@ MATCH_EXACT_AR = "EXACT_AR"
 MATCH_MORPHOLOGY_EN = "MORPHOLOGY_EN"
 MATCH_MORPHOLOGY_AR = "MORPHOLOGY_AR"
 MATCH_ALIAS = "ALIAS"
+MATCH_CLITIC_AR = "CLITIC_AR"
 MATCH_CANDIDATE_SELECTED = "CANDIDATE_SELECTED"
 MATCH_MORPHOLOGY_CANDIDATE = "MORPHOLOGY_CANDIDATE"
 
@@ -122,6 +123,28 @@ def _tokenize_en(text: str) -> list:
 
 def _tokenize_ar(text: str) -> list:
     return [t for t in re.findall(r"[؀-ۿ]+", _normalize_ar(text))]
+
+
+# Clitics that may be conservatively stripped from the QUERY side only
+# (definite article + single-letter conjunctions/prepositions). Never
+# applied to catalog word_ar values, which are already bare lexical
+# forms. Order matters: try the two-letter combos (conjunction/prep +
+# "ال") before the bare single-letter clitic, so "والشمس" strips to
+# "شمس" in one step rather than stopping at "الشمس".
+_AR_CLITIC_PREFIXES = ("وال", "فال", "بال", "كال", "لل", "ال", "و", "ف", "ب", "ل", "ك")
+
+
+def _strip_ar_clitics(word: str) -> list:
+    """Returns candidate stripped forms of a normalized Arabic word, most
+    aggressive first, WITHOUT deciding whether any of them is valid. Not
+    a stemmer: only ever removes a single leading clitic. Caller must
+    verify each candidate actually resolves against the catalog before
+    using it (see VocabIndex.clitic_match) — this function only proposes."""
+    candidates = []
+    for prefix in _AR_CLITIC_PREFIXES:
+        if word.startswith(prefix) and len(word) - len(prefix) >= 2:
+            candidates.append(word[len(prefix):])
+    return candidates
 
 
 class VocabIndex:
@@ -208,6 +231,23 @@ class VocabIndex:
             lang, catalog_id = self.aliases[key_ar][0]
             return self.by_id[catalog_id], MATCH_ALIAS
         return None, None
+
+    # -- Layer 2b: conservative Arabic clitic stripping (verify-before-use) --
+    def clitic_match(self, term: str):
+        """Strips at most one leading clitic (definite article and/or a
+        single conjunction/preposition letter) from the QUERY term only,
+        and returns a match ONLY if the resulting stripped form is an
+        actual exact hit against catalog word_ar (never touches
+        catalog values, never a blind substitution - see
+        _strip_ar_clitics's docstring). Returns (row, method,
+        original_term, stripped_form) or (None, None, None, None)."""
+        normalized = _normalize_ar(term)
+        if not normalized:
+            return None, None, None, None
+        for stripped in _strip_ar_clitics(normalized):
+            if stripped in self.ar_exact:
+                return self.ar_exact[stripped][0], MATCH_CLITIC_AR, term, stripped
+        return None, None, None, None
 
     # -- Layer 4: candidate retrieval (NOT a match) -----------------------
     def retrieve_candidates(self, term: str, top_n: int = 5) -> list:

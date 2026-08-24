@@ -123,5 +123,75 @@
     "start_s": 0.36,
     "end_s": 2.84,
     "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/sheen_97e18b50.mp4"
+  },
+  "38420a44-06d8-4552-b4e8-5c5f79687d30": {
+    "start_s": 0.2,
+    "end_s": 2.24,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/tua_38420a44.mp4"
+  },
+  "4c5971c5-4871-48a5-8452-6428f829692e": {
+    "start_s": 0.12,
+    "end_s": 2.32,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/qaaf_4c5971c5.mp4"
+  },
+  "c022191d-63b3-4397-b758-f2edb22bf50f": {
+    "start_s": 0.0,
+    "end_s": 2.8,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Family/family_c022191d.mp4"
+  },
+  "5aae07f0-e199-4408-9d7a-dd067aab45c2": {
+    "start_s": 0.32,
+    "end_s": 2.36,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Family/father_5aae07f0.mp4"
+  },
+  "5ffb35c4-cbdb-4b96-a96f-0f327e579e15": {
+    "start_s": 0.0,
+    "end_s": 2.32,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Family/mother_5ffb35c4.mp4"
+  },
+  "c3ed9923-53d2-4f4e-a300-30de5d0e662b": {
+    "start_s": 0.0,
+    "end_s": 3.2,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Family/sister_c3ed9923.mp4"
+  },
+  "9116db67-cde3-4b39-bd03-f76caf73c0ea": {
+    "start_s": 0.08,
+    "end_s": 4.08,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Professions and Jobs/doctor_9116db67.mp4"
+  },
+  "155bc851-2bc2-4a9f-bb17-4fbdd9380f19": {
+    "start_s": 0.36,
+    "end_s": 2.4,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/zaal_155bc851.mp4"
+  },
+  "4c670667-4737-4386-a09c-442bd046d42b": {
+    "start_s": 0.32,
+    "end_s": 2.68,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/haa_4c670667.mp4"
+  },
+  "2499aa36-8999-46df-b950-963d38e85700": {
+    "start_s": 0.16,
+    "end_s": 3.04,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/school_2499aa36.mp4"
+  },
+  "d88fb82a-69e1-475b-b651-4a6add2bfee1": {
+    "start_s": 0.16,
+    "end_s": 2.96,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/teacher_d88fb82a.mp4"
+  },
+  "ba20af63-ac14-4722-b4ff-66d9defe0058": {
+    "start_s": 0.12,
+    "end_s": 2.08,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Health/morning_ba20af63.mp4"
+  },
+  "fe6f2235-9b9f-4566-9501-f0748043c219": {
+    "start_s": 0.44,
+    "end_s": 2.6,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Environment/sun_fe6f2235.mp4"
+  },
+  "07d2c108-f363-40a5-af91-3531772ef6da": {
+    "start_s": 0.48,
+    "end_s": 3.48,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Health/bacteria_07d2c108.mp4"
   }
 }
