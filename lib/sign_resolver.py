@@ -368,6 +368,17 @@ a category header value that leaked into the wrong field), NOT a trustworthy tra
 judge the match using word_en, category, and context ONLY - never use the absence of a shown Arabic label, or any
 assumption about what the "real" Arabic label might be, as a reason to reject or accept the candidate.
 
+Some candidates have an "ambiguity_warning" field. This means the candidate's word_en is an English word that is
+COMMONLY POLYSEMOUS - it has the meaning shown by this catalog entry's category (e.g. a purely SPATIAL/physical
+sense like "in front of") AND ALSO one or more OTHER common senses in everyday English (e.g. a TEMPORAL/logical-
+connective sense) that this specific catalog entry does NOT represent. For these candidates specifically: before
+selecting, explicitly check which sense the semantic_item is actually used in, using the source_span and
+educational_sentence. A high-confidence surface match ("the word looks the same") is NOT sufficient justification
+by itself - you must be able to state, in your reason, why THIS SPECIFIC SENSE (matching the category shown, e.g.
+spatial) is the one meant here, not just that the words are the same string. If the context uses the word in a
+DIFFERENT sense than the category shown (e.g. "before school starts" is temporal, not the spatial "in front of"),
+you MUST answer NONE for that candidate, even though the string matches exactly.
+
 Choose the candidate whose meaning is genuinely equivalent to the semantic item IN THIS CONTEXT - not merely a
 word that looks similar. If none of the candidates are a legitimate match, you MUST answer NONE. Do not force a
 match. A wrong sign is worse than no sign.
@@ -415,6 +426,21 @@ def _call_falcon_candidate_selection(item_text: str, source_span: str,
             entry["word_ar_status"] = "SUSPECT_SOURCE_CORRUPTION"
         else:
             entry["word_ar"] = c.get("word_ar")
+        if c.get("category") in AMBIGUOUS_POLYSEMY_CATEGORIES_EN:
+            # Real, live-observed gap (not hypothetical): the category-
+            # level gate correctly routes these through Falcon confirmation
+            # instead of auto-accepting, but a plain "does this look like a
+            # match" prompt can still rubber-stamp a same-string-different-
+            # sense collision (e.g. temporal "before"/"before school
+            # starts" incorrectly confirmed against the spatial "Before"/
+            # أمام entry). Force explicit sense-disambiguation reasoning
+            # for exactly these candidates - see the system prompt's
+            # "ambiguity_warning" handling above.
+            entry["ambiguity_warning"] = (
+                f"'{c.get('word_en')}' is catalog category '{c.get('category')}' (a SPATIAL/directional sign set) "
+                f"but this English word commonly also has OTHER senses (e.g. temporal/logical) that this specific "
+                f"entry does NOT represent - verify the sense actually used in context before selecting."
+            )
         candidate_payload.append(entry)
     prompt_input = {
         "source_span": source_span,
