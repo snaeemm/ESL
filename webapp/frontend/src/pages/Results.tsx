@@ -142,7 +142,7 @@ export default function Results() {
                 {(u.sign_resolution || []).map((r: any, i: number) => (
                   <div key={i} style={{ border: '1px solid var(--border)', borderRadius: 4, padding: '8px 10px', minWidth: 140 }}>
                     <div style={{ fontWeight: 600, fontSize: '0.85rem' }}>{r.term}</div>
-                    <StatusChip status={r.status} t={t} />
+                    <StatusChip status={r.status} t={t} provenance={r.supplementary_ref ? 'ESL_ZAYED' : r.catalog_ref ? 'ZHO' : undefined} />
                     {r.status === 'VERIFIED_SIGN' && r.catalog_ref && (
                       <p className="hint" style={{ margin: '4px 0 0' }}>
                         ZHO (institutional): {r.catalog_ref.word_en}{r.catalog_ref.word_ar ? ` — ${r.catalog_ref.word_ar}` : ''} ({r.catalog_ref.category})
@@ -187,7 +187,7 @@ export default function Results() {
               <p className="source-span-quote">"{u.source_span}"</p>
               {(u.sign_resolution || []).filter((r: any) => r.review_required).map((r: any, i: number) => (
                 <div key={i} style={{ marginTop: 6 }}>
-                  <StatusChip status={r.status} t={t} /> <strong>{r.term}</strong>
+                  <StatusChip status={r.status} t={t} provenance={r.supplementary_ref ? 'ESL_ZAYED' : r.catalog_ref ? 'ZHO' : undefined} /> <strong>{r.term}</strong>
                   <p className="hint">{r.match_reason}</p>
                 </div>
               ))}
@@ -214,7 +214,7 @@ export default function Results() {
                 {filteredTrace.slice(0, 60).map((row: any, i: number) => (
                   <tr key={i}>
                     <td>{row.segment_stem}</td>
-                    <td><StatusChip status={row.sign_decision.status} t={t} /></td>
+                    <td><StatusChip status={row.sign_decision.status} t={t} provenance={row.render_source} /></td>
                     <td>
                       {row.render_source === 'ZHO' && <span title="Institutional UAE sign reference">ZHO</span>}
                       {row.render_source === 'ESL_ZAYED' && <span title="Observed Emirati educational source — supplementary, unverified">ESL Zayed (supplementary)</span>}
