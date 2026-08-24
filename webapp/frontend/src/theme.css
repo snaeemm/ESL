@@ -284,6 +284,10 @@ textarea:focus, input:focus, select:focus, button:focus-visible, a:focus-visible
 
 .status-chip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 3px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; }
 .status-chip.verified { background: var(--status-ok-bg); color: var(--status-ok-fg); }
+/* Blocker D: ESL Zayed (supplementary/observed, unverified) signs must be
+   visually distinct from ZHO's institutional "verified" badge, not the
+   same green chip with only fine-print text explaining the difference. */
+.status-chip.supplementary { background: var(--accent-tint); color: #6a4f16; border: 1px solid var(--accent); }
 .status-chip.fingerspell { background: var(--accent-tint); color: #8a6420; }
 .status-chip.review { background: var(--status-warn-bg); color: var(--status-warn-fg); }
 .status-chip.unsupported { background: var(--status-error-bg); color: var(--status-error-fg); }
