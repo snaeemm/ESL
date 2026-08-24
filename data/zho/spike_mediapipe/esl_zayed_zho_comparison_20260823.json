@@ -1,0 +1,2095 @@
+{
+  "summary": {
+    "ZHO_VARIANT_OR_MORPHOLOGY": 112,
+    "ZHO_EXACT": 128,
+    "ESL_ZAYED_NEW_LEXICAL": 152
+  },
+  "exact_matches": [
+    {
+      "english": "How are you",
+      "arabic": "كيف حالك",
+      "zho_ids": [
+        "6ebcbc47-e2a4-43ca-987b-35faa9fda9d8"
+      ]
+    },
+    {
+      "english": "Fine",
+      "arabic": "بخير",
+      "zho_ids": [
+        "4aa8d387-7345-4f18-9840-f86ccdaf08ca"
+      ]
+    },
+    {
+      "english": "Name",
+      "arabic": "اسم",
+      "zho_ids": [
+        "b99d349b-4960-4c2b-9195-91ca89411fb4"
+      ]
+    },
+    {
+      "english": "Saturday",
+      "arabic": "السبت",
+      "zho_ids": [
+        "96071615-e9f5-416c-91a6-3b2c44748b1b"
+      ]
+    },
+    {
+      "english": "Sunday",
+      "arabic": "الأحد",
+      "zho_ids": [
+        "5b6c3f2e-9f52-4108-9ba8-1a53fcc33c67"
+      ]
+    },
+    {
+      "english": "Monday",
+      "arabic": "الإثنين",
+      "zho_ids": [
+        "2f9436aa-c5bc-4c44-b722-9f8e82b48c49"
+      ]
+    },
+    {
+      "english": "Tuesday",
+      "arabic": "الثلاثاء",
+      "zho_ids": [
+        "d2e85702-edb4-4ea2-9e61-2f8b56119e8b"
+      ]
+    },
+    {
+      "english": "Wednesday",
+      "arabic": "الأربعاء",
+      "zho_ids": [
+        "e157e7d6-675b-457d-9b03-a031445f5949"
+      ]
+    },
+    {
+      "english": "Thursday",
+      "arabic": "الخميس",
+      "zho_ids": [
+        "7fef6374-b8a3-42d5-b9dd-d94624f50998"
+      ]
+    },
+    {
+      "english": "Friday",
+      "arabic": "الجمعة",
+      "zho_ids": [
+        "86091c41-cc80-4c31-8e33-cc80a069cff1"
+      ]
+    },
+    {
+      "english": "Pain",
+      "arabic": "ألم",
+      "zho_ids": [
+        "508e443c-3413-41ac-9b14-0f7508b6fb20"
+      ]
+    },
+    {
+      "english": "Health",
+      "arabic": "صحة",
+      "zho_ids": [
+        "45573c88-4f59-411b-b62f-d4c986377f86"
+      ]
+    },
+    {
+      "english": "Difficult",
+      "arabic": "صعب",
+      "zho_ids": [
+        "abd40727-b79c-40e3-8228-ecf7a904044c"
+      ]
+    },
+    {
+      "english": "Easy",
+      "arabic": "سهل",
+      "zho_ids": [
+        "abfc28e2-5f4b-4802-a516-15b4da568fcd"
+      ]
+    },
+    {
+      "english": "Fish",
+      "arabic": "سمك",
+      "zho_ids": [
+        "230e342f-16d6-4297-bb0f-8ac615a662c2"
+      ]
+    },
+    {
+      "english": "Book",
+      "arabic": "كتاب",
+      "zho_ids": [
+        "1d33d82f-9862-45b7-85f8-b0ff66aa363b"
+      ]
+    },
+    {
+      "english": "ب",
+      "arabic": "ب",
+      "zho_ids": [
+        "9cecc2c2-4c3e-4662-a5ee-712f3e722d55"
+      ]
+    },
+    {
+      "english": "ت",
+      "arabic": "ت",
+      "zho_ids": [
+        "17fd4d03-5c19-4f4d-bdbf-8c4a47461e3a"
+      ]
+    },
+    {
+      "english": "ث",
+      "arabic": "ث",
+      "zho_ids": [
+        "e898c1fe-45ff-496c-9bed-ab2205755c58"
+      ]
+    },
+    {
+      "english": "ج",
+      "arabic": "ج",
+      "zho_ids": [
+        "d2892800-5447-43cb-be9c-1fa1501c4b4b"
+      ]
+    },
+    {
+      "english": "ح",
+      "arabic": "ح",
+      "zho_ids": [
+        "c1a43a99-8305-40ae-a3a1-652c44a898ed"
+      ]
+    },
+    {
+      "english": "خ",
+      "arabic": "خ",
+      "zho_ids": [
+        "1eaeef62-c96d-4c6b-a095-26ef14fb7fc2"
+      ]
+    },
+    {
+      "english": "د",
+      "arabic": "د",
+      "zho_ids": [
+        "b997e9cc-e112-4635-9a15-f7c912b8eae8"
+      ]
+    },
+    {
+      "english": "ذ",
+      "arabic": "ذ",
+      "zho_ids": [
+        "155bc851-2bc2-4a9f-bb17-4fbdd9380f19"
+      ]
+    },
+    {
+      "english": "ر",
+      "arabic": "ر",
+      "zho_ids": [
+        "56ca7677-fd0f-4207-89ed-99432d6cca11"
+      ]
+    },
+    {
+      "english": "ز",
+      "arabic": "ز",
+      "zho_ids": [
+        "fedc781a-0df0-4ca7-8424-288c564d1696"
+      ]
+    },
+    {
+      "english": "س",
+      "arabic": "س",
+      "zho_ids": [
+        "3fba6afb-34b1-4456-a708-366b64210e66"
+      ]
+    },
+    {
+      "english": "ش",
+      "arabic": "ش",
+      "zho_ids": [
+        "97e18b50-06a5-4340-859d-9515105f59ba"
+      ]
+    },
+    {
+      "english": "ص",
+      "arabic": "ص",
+      "zho_ids": [
+        "3c17f53c-4b3f-4d78-a4b5-8b25cc0ac424"
+      ]
+    },
+    {
+      "english": "ض",
+      "arabic": "ض",
+      "zho_ids": [
+        "3778f0ca-74cb-43e5-8df4-71c0dd118692"
+      ]
+    },
+    {
+      "english": "ط",
+      "arabic": "ط",
+      "zho_ids": [
+        "38420a44-06d8-4552-b4e8-5c5f79687d30"
+      ]
+    },
+    {
+      "english": "ظ",
+      "arabic": "ظ",
+      "zho_ids": [
+        "b8e231d4-1d9e-4359-8806-a592fa7d0cb2"
+      ]
+    },
+    {
+      "english": "ع",
+      "arabic": "ع",
+      "zho_ids": [
+        "4777f0f0-cd48-4e1b-95f8-eefce9fd9345"
+      ]
+    },
+    {
+      "english": "غ",
+      "arabic": "غ",
+      "zho_ids": [
+        "d2e43581-2b29-4773-aef7-9c4d901d0c7a"
+      ]
+    },
+    {
+      "english": "ف",
+      "arabic": "ف",
+      "zho_ids": [
+        "c4889597-92f3-463e-bd39-a4e3c176848d"
+      ]
+    },
+    {
+      "english": "ق",
+      "arabic": "ق",
+      "zho_ids": [
+        "4c5971c5-4871-48a5-8452-6428f829692e"
+      ]
+    },
+    {
+      "english": "ك",
+      "arabic": "ك",
+      "zho_ids": [
+        "7e07c42b-f9c6-4f8d-b030-8c0524d7215b"
+      ]
+    },
+    {
+      "english": "ل",
+      "arabic": "ل",
+      "zho_ids": [
+        "aa2d0805-1856-476a-a65a-45e9ebbfdfb8"
+      ]
+    },
+    {
+      "english": "م",
+      "arabic": "م",
+      "zho_ids": [
+        "e6e69718-53a0-4b51-90c0-8b5f7961cc6e"
+      ]
+    },
+    {
+      "english": "و",
+      "arabic": "و",
+      "zho_ids": [
+        "9fdb14bb-9d70-4512-bd09-7b08fbba6fd4"
+      ]
+    },
+    {
+      "english": "ي",
+      "arabic": "ي",
+      "zho_ids": [
+        "dbe4bc5c-2cb7-42d7-8767-765da721114b"
+      ]
+    },
+    {
+      "english": "أ",
+      "arabic": "أ",
+      "zho_ids": [
+        "eb6b778b-8816-4cb4-8e82-b71e24b705a0"
+      ]
+    },
+    {
+      "english": "Late",
+      "arabic": "تأخير",
+      "zho_ids": [
+        "5d372b21-4cb8-4637-970b-c4b1e7c5615c"
+      ]
+    },
+    {
+      "english": "Here",
+      "arabic": "هنا",
+      "zho_ids": [
+        "452b686f-c7e4-4e4f-aaee-90057eb76518"
+      ]
+    },
+    {
+      "english": "Patience",
+      "arabic": "صبر",
+      "zho_ids": [
+        "1e2bf259-da79-4891-9383-dadc861b7d38"
+      ]
+    },
+    {
+      "english": "Clever",
+      "arabic": "ذكي",
+      "zho_ids": [
+        "7de37cc8-1e3a-4efe-be64-b267f8007a7e"
+      ]
+    },
+    {
+      "english": "Stupid",
+      "arabic": "غبي",
+      "zho_ids": [
+        "7d8fe284-9bf8-487c-862f-13d0e483347c"
+      ]
+    },
+    {
+      "english": "Age",
+      "arabic": "العمر",
+      "zho_ids": [
+        "26c00e7d-e19b-4091-869b-042bacc51ab5"
+      ]
+    },
+    {
+      "english": "Old",
+      "arabic": "كبير السن",
+      "zho_ids": [
+        "9b3d00df-5a7b-4e47-ad43-827075437bfb"
+      ]
+    },
+    {
+      "english": "Perfume",
+      "arabic": "عطر",
+      "zho_ids": [
+        "d095aa66-6758-4818-9504-8f679eaf9e77",
+        "7e68667f-ff66-4cba-a7b3-20b5bf84c665"
+      ]
+    },
+    {
+      "english": "Wait",
+      "arabic": "لحظه",
+      "zho_ids": [
+        "f406cbc8-ff26-4689-9f20-2a7ea8034cda"
+      ]
+    },
+    {
+      "english": "11",
+      "arabic": "11",
+      "zho_ids": [
+        "a026f282-1d0c-4109-bf9d-de03d3c419a6"
+      ]
+    },
+    {
+      "english": "12",
+      "arabic": "12",
+      "zho_ids": [
+        "5082d5df-95a7-49e8-a6ef-c5a2815938d6"
+      ]
+    },
+    {
+      "english": "13",
+      "arabic": "13",
+      "zho_ids": [
+        "bcab2912-c66c-44fe-9fd6-141605be871e",
+        "76045de1-b0b8-44a3-b826-eb0ad5a622a0"
+      ]
+    },
+    {
+      "english": "14",
+      "arabic": "14",
+      "zho_ids": [
+        "06cf4145-3a16-4111-97b5-862f52665ff2",
+        "05c5d44f-0705-4fff-8a0d-756bcc3c5667"
+      ]
+    },
+    {
+      "english": "15",
+      "arabic": "15",
+      "zho_ids": [
+        "d9020054-823f-4519-a41b-cafe79ae8da5",
+        "e710ca74-5650-4a0b-8fb6-00f31500f67b"
+      ]
+    },
+    {
+      "english": "16",
+      "arabic": "16",
+      "zho_ids": [
+        "32e13ce1-8d51-4a96-b929-2a1b8d3ff0df",
+        "ea7dda50-f4f1-47bc-adae-bb9fa8b59565"
+      ]
+    },
+    {
+      "english": "17",
+      "arabic": "17",
+      "zho_ids": [
+        "0cca2c08-3167-4df0-98a2-7d90111f1516",
+        "32d581cc-ab22-4b0c-aec8-9beea760ddd1"
+      ]
+    },
+    {
+      "english": "18",
+      "arabic": "18",
+      "zho_ids": [
+        "96c6e33d-4a7b-4e91-baff-3e949f29f937",
+        "d96b3596-a625-46aa-b3ad-7efe26389881"
+      ]
+    },
+    {
+      "english": "19",
+      "arabic": "19",
+      "zho_ids": [
+        "040e2cc5-67be-46be-b0f4-9008f087f470",
+        "5ce286e1-d750-40f3-958d-1fdb756bcd3c"
+      ]
+    },
+    {
+      "english": "50",
+      "arabic": "٥٠",
+      "zho_ids": [
+        "b275e170-a8a0-429a-a900-787ac9d57ac4"
+      ]
+    },
+    {
+      "english": "100",
+      "arabic": "١٠٠",
+      "zho_ids": [
+        "3bdeb2ef-bd7a-4adc-8b9a-b25160b55bbe",
+        "f5ffb475-1aef-455a-b3b2-53a0d7e53b15"
+      ]
+    },
+    {
+      "english": "200",
+      "arabic": "٢٠٠",
+      "zho_ids": [
+        "dacca220-bcd4-49f1-96fd-607a0dce7524",
+        "8e23e989-cf0b-4b2c-9e27-bce75f9435aa"
+      ]
+    },
+    {
+      "english": "500",
+      "arabic": "٥٠٠",
+      "zho_ids": [
+        "2887f183-aed3-4f8d-9cee-52fd31b0721b",
+        "b17aba9e-71e2-426e-84cd-5c96ec5fca5a"
+      ]
+    },
+    {
+      "english": "1000",
+      "arabic": "١٠٠٠",
+      "zho_ids": [
+        "bf9a82e2-ea4e-4d5a-bcc4-fa5ab58d5f09"
+      ]
+    },
+    {
+      "english": "Health",
+      "arabic": "عافية",
+      "zho_ids": [
+        "45573c88-4f59-411b-b62f-d4c986377f86"
+      ]
+    },
+    {
+      "english": "Worry",
+      "arabic": "قلق",
+      "zho_ids": [
+        "4dfa3a87-c757-447d-ac90-a8b18483da0f"
+      ]
+    },
+    {
+      "english": "Afraid",
+      "arabic": "خائف",
+      "zho_ids": [
+        "de8036c1-8ad9-433a-99a6-97f1a4603ea9"
+      ]
+    },
+    {
+      "english": "Cry",
+      "arabic": "ابكي",
+      "zho_ids": [
+        "e3bd93a1-4d13-4ade-a528-ed128949f998"
+      ]
+    },
+    {
+      "english": "Shy",
+      "arabic": "استحي",
+      "zho_ids": [
+        "ad1db91f-83ba-4f8c-840e-bdfcc6577199"
+      ]
+    },
+    {
+      "english": "Cup",
+      "arabic": "كأس",
+      "zho_ids": [
+        "780a920c-dc30-4492-b9ac-47f3e0576c52"
+      ]
+    },
+    {
+      "english": "Generous",
+      "arabic": "كريم",
+      "zho_ids": [
+        "43780d22-8c23-4ea1-9830-914ade193596"
+      ]
+    },
+    {
+      "english": "Stingy",
+      "arabic": "بخيل",
+      "zho_ids": [
+        "903fdd76-147a-4f37-87b0-aeadde7af3a9"
+      ]
+    },
+    {
+      "english": "Father",
+      "arabic": "والد / بابا",
+      "zho_ids": [
+        "5aae07f0-e199-4408-9d7a-dd067aab45c2"
+      ]
+    },
+    {
+      "english": "Mother",
+      "arabic": "والدة / ماما",
+      "zho_ids": [
+        "5ffb35c4-cbdb-4b96-a96f-0f327e579e15"
+      ]
+    },
+    {
+      "english": "Sister",
+      "arabic": "أخت",
+      "zho_ids": [
+        "c3ed9923-53d2-4f4e-a300-30de5d0e662b"
+      ]
+    },
+    {
+      "english": "Uncle",
+      "arabic": "عم",
+      "zho_ids": [
+        "aff5d38f-7c82-4b80-ae58-e10e9b4f3e54"
+      ]
+    },
+    {
+      "english": "Uncle",
+      "arabic": "خال",
+      "zho_ids": [
+        "aff5d38f-7c82-4b80-ae58-e10e9b4f3e54"
+      ]
+    },
+    {
+      "english": "Drink",
+      "arabic": "شراب",
+      "zho_ids": [
+        "232e1a8d-b84a-44c1-9398-9c5ad85ae6d8",
+        "289bc7c7-b287-42c3-9da3-79f14cc125ff"
+      ]
+    },
+    {
+      "english": "Delicious",
+      "arabic": "لذيذ",
+      "zho_ids": [
+        "c790673d-7ccb-4f1e-99aa-bdcd113cf042"
+      ]
+    },
+    {
+      "english": "Photograph",
+      "arabic": "تصوير",
+      "zho_ids": [
+        "71ce76c2-424f-4550-b1d1-a71b6485e558"
+      ]
+    },
+    {
+      "english": "Driver",
+      "arabic": "سائق",
+      "zho_ids": [
+        "e08a31ad-3519-4100-8432-2ae70e404e22"
+      ]
+    },
+    {
+      "english": "End",
+      "arabic": "نهاية",
+      "zho_ids": [
+        "7581ae79-60f0-4f16-8001-ca408b852b81"
+      ]
+    },
+    {
+      "english": "Black",
+      "arabic": "أسود",
+      "zho_ids": [
+        "8ed7357a-04bf-4e23-8514-3b605bb9e114"
+      ]
+    },
+    {
+      "english": "White",
+      "arabic": "أبيض",
+      "zho_ids": [
+        "81921506-7f45-419f-9be0-f79070a8b95c"
+      ]
+    },
+    {
+      "english": "Green",
+      "arabic": "أخضر",
+      "zho_ids": [
+        "80595c82-8d66-4747-8b3a-3ad6d11a9ad4"
+      ]
+    },
+    {
+      "english": "Important",
+      "arabic": "مهم",
+      "zho_ids": [
+        "c76c221e-d91a-4417-ac3d-577c09a6a0ae"
+      ]
+    },
+    {
+      "english": "Be careful",
+      "arabic": "انتبه",
+      "zho_ids": [
+        "aeecddad-9cae-43de-aa52-00503ee1f066"
+      ]
+    },
+    {
+      "english": "Back",
+      "arabic": "يرجع",
+      "zho_ids": [
+        "d93da316-aeaa-4717-80d7-93597d2d6975"
+      ]
+    },
+    {
+      "english": "Date",
+      "arabic": "تاريخ",
+      "zho_ids": [
+        "c27c3a65-b5c6-4c00-934d-0b694ad95b0e",
+        "4f0a0454-c970-410c-955f-386d84d75f35"
+      ]
+    },
+    {
+      "english": "Day",
+      "arabic": "يوم",
+      "zho_ids": [
+        "ac5f36a9-2605-4646-bba0-e6de388e1596",
+        "1594a98d-0b3f-4361-9acf-d34f30166c3f",
+        "31d7fc58-4e7c-4b76-a4fd-9c2b72050aa3"
+      ]
+    },
+    {
+      "english": "Year",
+      "arabic": "سنة",
+      "zho_ids": [
+        "5ee6c4aa-76b9-4439-90b3-9d32b463a7f4"
+      ]
+    },
+    {
+      "english": "Light",
+      "arabic": "خفيف",
+      "zho_ids": [
+        "4baa718f-cd33-4e4b-a759-873d960afcb0"
+      ]
+    },
+    {
+      "english": "Slow",
+      "arabic": "بطيء",
+      "zho_ids": [
+        "9710ff8f-4fbd-48e6-aa95-2d90986b2714"
+      ]
+    },
+    {
+      "english": "No",
+      "arabic": "لا",
+      "zho_ids": [
+        "c2a94500-ad70-4b46-ae9b-0200699dfef4"
+      ]
+    },
+    {
+      "english": "Question",
+      "arabic": "سؤال",
+      "zho_ids": [
+        "e2b68c69-6010-44b1-ac33-4b612c550381"
+      ]
+    },
+    {
+      "english": "Excellent",
+      "arabic": "ممتاز",
+      "zho_ids": [
+        "0413e989-7b90-462b-bef0-1c7114978998"
+      ]
+    },
+    {
+      "english": "Good",
+      "arabic": "جيد",
+      "zho_ids": [
+        "a595f092-2453-49c1-93e1-971a3fee5a49"
+      ]
+    },
+    {
+      "english": "Dirty",
+      "arabic": "وسخ",
+      "zho_ids": [
+        "62a39ddd-d18e-4c75-9e3e-678c1ceaac59"
+      ]
+    },
+    {
+      "english": "Beautiful",
+      "arabic": "جميل",
+      "zho_ids": [
+        "91e7c768-5dfa-4eb3-be21-06a5ed138449"
+      ]
+    },
+    {
+      "english": "Ugly",
+      "arabic": "قبيح",
+      "zho_ids": [
+        "fcfa62fa-db1c-478d-b880-891e2445faca"
+      ]
+    },
+    {
+      "english": "Teacher",
+      "arabic": "معلم",
+      "zho_ids": [
+        "d88fb82a-69e1-475b-b651-4a6add2bfee1",
+        "43a2ab87-8fd9-44f1-8f77-81aa261b45ca"
+      ]
+    },
+    {
+      "english": "Time",
+      "arabic": "الساعة",
+      "zho_ids": [
+        "b60f0e39-2baf-41bc-80d4-4aa72cdcf8fc"
+      ]
+    },
+    {
+      "english": "Waiting",
+      "arabic": "انتظار",
+      "zho_ids": [
+        "f406cbc8-ff26-4689-9f20-2a7ea8034cda"
+      ]
+    },
+    {
+      "english": "Manager",
+      "arabic": "مدير",
+      "zho_ids": [
+        "6b0fd504-6034-4a49-b2c3-29efb6c5ad6a"
+      ]
+    },
+    {
+      "english": "Employee",
+      "arabic": "موظف",
+      "zho_ids": [
+        "b4eaf4db-2602-4b86-91c5-c96d8c98f450"
+      ]
+    },
+    {
+      "english": "Happy",
+      "arabic": "سعيد",
+      "zho_ids": [
+        "532d04a3-8d55-4687-ac7f-d551e5580c87"
+      ]
+    },
+    {
+      "english": "Sad",
+      "arabic": "حزين",
+      "zho_ids": [
+        "4f8c94f2-fab4-4318-ac87-557671f96c53"
+      ]
+    },
+    {
+      "english": "Single",
+      "arabic": "أعزب",
+      "zho_ids": [
+        "7d7dbd86-45c3-4106-a7bb-3b809287d33b"
+      ]
+    },
+    {
+      "english": "Before",
+      "arabic": "قبل",
+      "zho_ids": [
+        "ac41e3fb-5912-440d-ac63-64dc69f79add"
+      ]
+    },
+    {
+      "english": "Right",
+      "arabic": "صحيح",
+      "zho_ids": [
+        "77d9ac96-d2f1-4d80-b122-f48d8b97a9e1",
+        "db7254f5-393c-4ee5-bba2-ec2ae24122be"
+      ]
+    },
+    {
+      "english": "Successful",
+      "arabic": "ناجح",
+      "zho_ids": [
+        "077812b1-0ab2-4394-babc-75d40832483b"
+      ]
+    },
+    {
+      "english": "Restroom",
+      "arabic": "حمام",
+      "zho_ids": [
+        "d7307bfc-69e3-4881-8a3a-4b88c7f63fec",
+        "d514c04e-4636-4d98-914c-e71c93826145"
+      ]
+    },
+    {
+      "english": "Clean",
+      "arabic": "نظيف",
+      "zho_ids": [
+        "c4574ee7-b610-4045-954f-26351477542a"
+      ]
+    },
+    {
+      "english": "Near",
+      "arabic": "قريب",
+      "zho_ids": [
+        "9bfa086e-30c0-4a46-93d9-d0432a13e9b0"
+      ]
+    },
+    {
+      "english": "Far",
+      "arabic": "بعيد",
+      "zho_ids": [
+        "4c8cfe96-cc76-4f1a-abc1-eeb29ef3e4d7"
+      ]
+    },
+    {
+      "english": "Long",
+      "arabic": "طويل",
+      "zho_ids": [
+        "870864a9-c689-456c-9dd7-2d0a6009b9a7"
+      ]
+    },
+    {
+      "english": "Short",
+      "arabic": "قصير",
+      "zho_ids": [
+        "94e2b9cf-a27c-4602-a228-2fdfa37c3ddf"
+      ]
+    },
+    {
+      "english": "Today",
+      "arabic": "اليوم",
+      "zho_ids": [
+        "ac5f36a9-2605-4646-bba0-e6de388e1596"
+      ]
+    },
+    {
+      "english": "Yesterday",
+      "arabic": "أمس",
+      "zho_ids": [
+        "8e466a0d-df28-402f-a06e-17bcf39a9bc7"
+      ]
+    },
+    {
+      "english": "New",
+      "arabic": "جديد",
+      "zho_ids": [
+        "3607aa50-a00e-4abf-a2ca-707a506830c5"
+      ]
+    },
+    {
+      "english": "Old",
+      "arabic": "قديم",
+      "zho_ids": [
+        "9b3d00df-5a7b-4e47-ad43-827075437bfb"
+      ]
+    },
+    {
+      "english": "Used",
+      "arabic": "مستعمل",
+      "zho_ids": [
+        "b22f5608-f569-4d1c-ad1b-48965d44665e"
+      ]
+    },
+    {
+      "english": "Apartment",
+      "arabic": "شقة",
+      "zho_ids": [
+        "649df1b1-7444-4f3f-99d5-37cb7cf8b104"
+      ]
+    },
+    {
+      "english": "Work",
+      "arabic": "عمل",
+      "zho_ids": [
+        "59cf6b0b-c65d-4828-a0eb-bd2f39fbb706"
+      ]
+    },
+    {
+      "english": "School",
+      "arabic": "مدرسة",
+      "zho_ids": [
+        "2499aa36-8999-46df-b950-963d38e85700"
+      ]
+    },
+    {
+      "english": "College",
+      "arabic": "كلية",
+      "zho_ids": [
+        "819145ae-3253-4afc-8e33-f4072ba59809"
+      ]
+    },
+    {
+      "english": "University",
+      "arabic": "جامعة",
+      "zho_ids": [
+        "3a9f7901-fe09-4080-9a6e-528f6bdd56ef"
+      ]
+    }
+  ],
+  "variant_matches": [
+    {
+      "english": "Salaam Alaikum",
+      "arabic": "السلام عليكم",
+      "catalog_en_match": "laa"
+    },
+    {
+      "english": "Last name",
+      "arabic": "اسم العائلة",
+      "catalog_en_match": "name"
+    },
+    {
+      "english": "Sick",
+      "arabic": "مريض",
+      "catalog_en_match": "sick leave"
+    },
+    {
+      "english": "Tired",
+      "arabic": "تعبان",
+      "catalog_en_match": "red"
+    },
+    {
+      "english": "Weak",
+      "arabic": "ضعيف",
+      "catalog_en_match": "weak skinny"
+    },
+    {
+      "english": "Cook",
+      "arabic": "طبخ",
+      "catalog_en_match": "cooking"
+    },
+    {
+      "english": "Eat",
+      "arabic": "أكل",
+      "catalog_en_match": "repeat"
+    },
+    {
+      "english": "My book",
+      "arabic": "كتابي",
+      "catalog_en_match": "book"
+    },
+    {
+      "english": "Your book",
+      "arabic": "كتابك",
+      "catalog_en_match": "book"
+    },
+    {
+      "english": "His book",
+      "arabic": "كتابه",
+      "catalog_en_match": "book"
+    },
+    {
+      "english": "Her book",
+      "arabic": "كتابها",
+      "catalog_en_match": "book"
+    },
+    {
+      "english": "Our book",
+      "arabic": "كتابنا",
+      "catalog_en_match": "book"
+    },
+    {
+      "english": "Your book",
+      "arabic": "كتابكم",
+      "catalog_en_match": "book"
+    },
+    {
+      "english": "Their book",
+      "arabic": "كتابهم",
+      "catalog_en_match": "book"
+    },
+    {
+      "english": "My name is Zayed",
+      "arabic": "اسمي زايد",
+      "catalog_en_match": "name"
+    },
+    {
+      "english": "My sign name is like this: Zayed",
+      "arabic": "يرمز لي بلغة الإشارة هكذا: زايد",
+      "catalog_en_match": "name"
+    },
+    {
+      "english": "Us learn Emirati Sign Language",
+      "arabic": "تعلم معنا لغة الإشارة الإماراتية",
+      "catalog_en_match": "earn"
+    },
+    {
+      "english": "Eid Al-Adha Mubarak",
+      "arabic": "عيد الأضحى المبارك",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Leave",
+      "arabic": "إجازة",
+      "catalog_en_match": "sick leave"
+    },
+    {
+      "english": "Clear",
+      "arabic": "واضح",
+      "catalog_en_match": "clearance"
+    },
+    {
+      "english": "Bored",
+      "arabic": "ملل",
+      "catalog_en_match": "red"
+    },
+    {
+      "english": "Forgive",
+      "arabic": "سامح",
+      "catalog_en_match": "forgives"
+    },
+    {
+      "english": "Example",
+      "arabic": "مثال",
+      "catalog_en_match": "exam"
+    },
+    {
+      "english": "Used to",
+      "arabic": "متعود",
+      "catalog_en_match": "used"
+    },
+    {
+      "english": "Incense",
+      "arabic": "بخور",
+      "catalog_en_match": "frankincense"
+    },
+    {
+      "english": "Oud wood",
+      "arabic": "عود",
+      "catalog_en_match": "wood"
+    },
+    {
+      "english": "Joke",
+      "arabic": "امزح",
+      "catalog_en_match": "jokey"
+    },
+    {
+      "english": "Laugh",
+      "arabic": "ضحك",
+      "catalog_en_match": "laughs"
+    },
+    {
+      "english": "Closed",
+      "arabic": "مغلق",
+      "catalog_en_match": "close"
+    },
+    {
+      "english": "Stop",
+      "arabic": "توقف",
+      "catalog_en_match": "top"
+    },
+    {
+      "english": "Apart",
+      "arabic": "منفصل",
+      "catalog_en_match": "apartment"
+    },
+    {
+      "english": "You",
+      "arabic": "أنت",
+      "catalog_en_match": "youth and sports welfare"
+    },
+    {
+      "english": "She",
+      "arabic": "هي",
+      "catalog_en_match": "eyelashes"
+    },
+    {
+      "english": "You",
+      "arabic": "أنتم",
+      "catalog_en_match": "youth and sports welfare"
+    },
+    {
+      "english": "Again",
+      "arabic": "مرة ثانية",
+      "catalog_en_match": "insurance against others"
+    },
+    {
+      "english": "Wake",
+      "arabic": "قوم",
+      "catalog_en_match": "wakes up"
+    },
+    {
+      "english": "Anger",
+      "arabic": "غضب",
+      "catalog_en_match": "hanger"
+    },
+    {
+      "english": "Scary",
+      "arabic": "مخيف",
+      "catalog_en_match": "car"
+    },
+    {
+      "english": "Win",
+      "arabic": "فوز",
+      "catalog_en_match": "twins"
+    },
+    {
+      "english": "Award",
+      "arabic": "جائزة",
+      "catalog_en_match": "war"
+    },
+    {
+      "english": "Lie",
+      "arabic": "كذب",
+      "catalog_en_match": "lieutenant"
+    },
+    {
+      "english": "Sure",
+      "arabic": "أكيد",
+      "catalog_en_match": "sureed"
+    },
+    {
+      "english": "Brother",
+      "arabic": "أخي",
+      "catalog_en_match": "lactation brother"
+    },
+    {
+      "english": "Male / Boy",
+      "arabic": "ذكر / ولد",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Female / Girl",
+      "arabic": "أنثى / بنت",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Water",
+      "arabic": "ماء",
+      "catalog_en_match": "waterfall"
+    },
+    {
+      "english": "Tea",
+      "arabic": "شاي",
+      "catalog_en_match": "steals"
+    },
+    {
+      "english": "Green Tea",
+      "arabic": "شاي أخضر",
+      "catalog_en_match": "green"
+    },
+    {
+      "english": "Chocolate",
+      "arabic": "حلاوه",
+      "catalog_en_match": "late"
+    },
+    {
+      "english": "Fasting",
+      "arabic": "صائم",
+      "catalog_en_match": "fast"
+    },
+    {
+      "english": "Lose",
+      "arabic": "ضاع",
+      "catalog_en_match": "loses"
+    },
+    {
+      "english": "Erase",
+      "arabic": "مسح",
+      "catalog_en_match": "blackboard eraser"
+    },
+    {
+      "english": "Help",
+      "arabic": "مساعدة",
+      "catalog_en_match": "helps"
+    },
+    {
+      "english": "Visit",
+      "arabic": "زيارة",
+      "catalog_en_match": "visits"
+    },
+    {
+      "english": "Ship",
+      "arabic": "سفينة",
+      "catalog_en_match": "league championship"
+    },
+    {
+      "english": "Train",
+      "arabic": "قطار",
+      "catalog_en_match": "rain"
+    },
+    {
+      "english": "Normal",
+      "arabic": "عادي",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Sale",
+      "arabic": "بيع",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Color",
+      "arabic": "لون",
+      "catalog_en_match": "colored lenses"
+    },
+    {
+      "english": "Sit",
+      "arabic": "جلس",
+      "catalog_en_match": "visits"
+    },
+    {
+      "english": "Accept",
+      "arabic": "موافق",
+      "catalog_en_match": "acceptable"
+    },
+    {
+      "english": "Yes",
+      "arabic": "نعم",
+      "catalog_en_match": "yesterday"
+    },
+    {
+      "english": "Training",
+      "arabic": "تدريب",
+      "catalog_en_match": "rain"
+    },
+    {
+      "english": "Develop",
+      "arabic": "تطوير",
+      "catalog_en_match": "ministry of community development"
+    },
+    {
+      "english": "Courts",
+      "arabic": "محاكم",
+      "catalog_en_match": "court"
+    },
+    {
+      "english": "Police",
+      "arabic": "شرطة",
+      "catalog_en_match": "police academy"
+    },
+    {
+      "english": "Hospital",
+      "arabic": "مستشفي",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Send",
+      "arabic": "إرسال",
+      "catalog_en_match": "end"
+    },
+    {
+      "english": "File",
+      "arabic": "ملف",
+      "catalog_en_match": "file no"
+    },
+    {
+      "english": "Tell",
+      "arabic": "قول",
+      "catalog_en_match": "intelligent"
+    },
+    {
+      "english": "Talk",
+      "arabic": "تكلم",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Interview",
+      "arabic": "مقابلة",
+      "catalog_en_match": "interviewer"
+    },
+    {
+      "english": "Small",
+      "arabic": "صغير",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Animal",
+      "arabic": "حيوان",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Asr / Sunset",
+      "arabic": "العصر",
+      "catalog_en_match": "sun"
+    },
+    {
+      "english": "Isha / Midnight",
+      "arabic": "العشاء",
+      "catalog_en_match": "night"
+    },
+    {
+      "english": "Adhkaar / Remembring Allah",
+      "arabic": "الأذكار / ذكر الله",
+      "catalog_en_match": "ring"
+    },
+    {
+      "english": "Understand",
+      "arabic": "أفهم",
+      "catalog_en_match": "under"
+    },
+    {
+      "english": "Don't understand",
+      "arabic": "لا أفهم",
+      "catalog_en_match": "under"
+    },
+    {
+      "english": "Learn",
+      "arabic": "تعلم",
+      "catalog_en_match": "earn"
+    },
+    {
+      "english": "Teach",
+      "arabic": "علم",
+      "catalog_en_match": "teacher"
+    },
+    {
+      "english": "5 minutes",
+      "arabic": "دقائق 5",
+      "catalog_en_match": "minute"
+    },
+    {
+      "english": "10 minutes",
+      "arabic": "دقائق 10",
+      "catalog_en_match": "minute"
+    },
+    {
+      "english": "Half hour",
+      "arabic": "نصف ساعة",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Allah save you",
+      "arabic": "الله يحفظه",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Insha'Allah",
+      "arabic": "إن شاءالله",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Masha'Allah",
+      "arabic": "ما شاءالله",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Everything",
+      "arabic": "كل شيء",
+      "catalog_en_match": "thin"
+    },
+    {
+      "english": "Anything",
+      "arabic": "أي شيء",
+      "catalog_en_match": "thin"
+    },
+    {
+      "english": "Nothing",
+      "arabic": "لا شيء",
+      "catalog_en_match": "thin"
+    },
+    {
+      "english": "Married",
+      "arabic": "متزوج",
+      "catalog_en_match": "unmarried"
+    },
+    {
+      "english": "Son / daughter",
+      "arabic": "ابن / ابنة",
+      "catalog_en_match": "daughter"
+    },
+    {
+      "english": "In the name of Allah",
+      "arabic": "بسم الله",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Glory be to Allah",
+      "arabic": "سبحان الله",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Praise be to Allah",
+      "arabic": "الحمدلله",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Allah is the Greatest",
+      "arabic": "الله أكبر",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Number",
+      "arabic": "رقم",
+      "catalog_en_match": "city number in citizenship"
+    },
+    {
+      "english": "Phone Number",
+      "arabic": "رقم الهاتف",
+      "catalog_en_match": "one"
+    },
+    {
+      "english": "Fail",
+      "arabic": "فشل",
+      "catalog_en_match": "failed"
+    },
+    {
+      "english": "Bath",
+      "arabic": "استحمام",
+      "catalog_en_match": "bat"
+    },
+    {
+      "english": "When",
+      "arabic": "متى",
+      "catalog_en_match": "hen"
+    },
+    {
+      "english": "Home",
+      "arabic": "منزل",
+      "catalog_en_match": "home lawn"
+    },
+    {
+      "english": "Hotel",
+      "arabic": "فندق",
+      "catalog_en_match": "hot"
+    },
+    {
+      "english": "Passport",
+      "arabic": "جواز سفر",
+      "catalog_en_match": "port"
+    },
+    {
+      "english": "Family Book",
+      "arabic": "خلاصة قيد",
+      "catalog_en_match": "family"
+    },
+    {
+      "english": "ID Card",
+      "arabic": "بطاقة الهوية",
+      "catalog_en_match": "emirates id card 02"
+    },
+    {
+      "english": "Abu Dhabi",
+      "arabic": "أبوظبي",
+      "catalog_en_match": "abu dhabi media company"
+    },
+    {
+      "english": "Sharjah",
+      "arabic": "الشارقة",
+      "catalog_en_match": "university city sharjah"
+    },
+    {
+      "english": "Umm Al Qaiwain",
+      "arabic": "أم القيوين",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Ras Al Khaimah",
+      "arabic": "رأس الخيمة",
+      "catalog_en_match": "al"
+    },
+    {
+      "english": "Fujairah",
+      "arabic": "الفجيرة",
+      "catalog_en_match": "air"
+    },
+    {
+      "english": "Good Morning",
+      "arabic": "صباح الخير",
+      "catalog_en_match": "good"
+    }
+  ],
+  "new_lexical": [
+    {
+      "english": "Date of Birth",
+      "arabic": "تاريخ الميلاد"
+    },
+    {
+      "english": "Address",
+      "arabic": "عنوان"
+    },
+    {
+      "english": "Strong",
+      "arabic": "قوي"
+    },
+    {
+      "english": "Rice",
+      "arabic": "أرز"
+    },
+    {
+      "english": "Chicken",
+      "arabic": "دجاج"
+    },
+    {
+      "english": "Meat",
+      "arabic": "لحم"
+    },
+    {
+      "english": "1",
+      "arabic": "١"
+    },
+    {
+      "english": "2",
+      "arabic": "٢"
+    },
+    {
+      "english": "4",
+      "arabic": "٤"
+    },
+    {
+      "english": "5",
+      "arabic": "٥"
+    },
+    {
+      "english": "6",
+      "arabic": "٦"
+    },
+    {
+      "english": "7",
+      "arabic": "٧"
+    },
+    {
+      "english": "8",
+      "arabic": "٨"
+    },
+    {
+      "english": "10",
+      "arabic": "١٠"
+    },
+    {
+      "english": "A",
+      "arabic": "A"
+    },
+    {
+      "english": "B",
+      "arabic": "B"
+    },
+    {
+      "english": "C",
+      "arabic": "C"
+    },
+    {
+      "english": "D",
+      "arabic": "D"
+    },
+    {
+      "english": "E",
+      "arabic": "E"
+    },
+    {
+      "english": "F",
+      "arabic": "F"
+    },
+    {
+      "english": "G",
+      "arabic": "G"
+    },
+    {
+      "english": "H",
+      "arabic": "H"
+    },
+    {
+      "english": "I",
+      "arabic": "I"
+    },
+    {
+      "english": "J",
+      "arabic": "J"
+    },
+    {
+      "english": "K",
+      "arabic": "K"
+    },
+    {
+      "english": "L",
+      "arabic": "L"
+    },
+    {
+      "english": "M",
+      "arabic": "M"
+    },
+    {
+      "english": "N",
+      "arabic": "N"
+    },
+    {
+      "english": "O",
+      "arabic": "O"
+    },
+    {
+      "english": "P",
+      "arabic": "P"
+    },
+    {
+      "english": "Q",
+      "arabic": "Q"
+    },
+    {
+      "english": "R",
+      "arabic": "R"
+    },
+    {
+      "english": "S",
+      "arabic": "S"
+    },
+    {
+      "english": "T",
+      "arabic": "T"
+    },
+    {
+      "english": "U",
+      "arabic": "U"
+    },
+    {
+      "english": "V",
+      "arabic": "V"
+    },
+    {
+      "english": "W",
+      "arabic": "W"
+    },
+    {
+      "english": "X",
+      "arabic": "X"
+    },
+    {
+      "english": "Y",
+      "arabic": "Y"
+    },
+    {
+      "english": "Z",
+      "arabic": "Z"
+    },
+    {
+      "english": "ا",
+      "arabic": "ا"
+    },
+    {
+      "english": "ه",
+      "arabic": "ه"
+    },
+    {
+      "english": "ة",
+      "arabic": "ة"
+    },
+    {
+      "english": "ال",
+      "arabic": "ال"
+    },
+    {
+      "english": "Hello",
+      "arabic": "مرحبا"
+    },
+    {
+      "english": "I'm Deaf",
+      "arabic": "أنا أصم"
+    },
+    {
+      "english": "Read",
+      "arabic": "قراءة"
+    },
+    {
+      "english": "Write",
+      "arabic": "كتابة"
+    },
+    {
+      "english": "Absence",
+      "arabic": "غياب"
+    },
+    {
+      "english": "Polite",
+      "arabic": "مؤدب"
+    },
+    {
+      "english": "Forget",
+      "arabic": "نسى"
+    },
+    {
+      "english": "Active",
+      "arabic": "نشيط"
+    },
+    {
+      "english": "Same",
+      "arabic": "نفسه"
+    },
+    {
+      "english": "Past",
+      "arabic": "الماضي"
+    },
+    {
+      "english": "Future",
+      "arabic": "المستقبل"
+    },
+    {
+      "english": "Present",
+      "arabic": "المضارع"
+    },
+    {
+      "english": "Adult",
+      "arabic": "شاب"
+    },
+    {
+      "english": "Child",
+      "arabic": "طفل"
+    },
+    {
+      "english": "Quiet",
+      "arabic": "أهدأ"
+    },
+    {
+      "english": "Motivate",
+      "arabic": "تحفيز"
+    },
+    {
+      "english": "Open",
+      "arabic": "فتح"
+    },
+    {
+      "english": "Get out",
+      "arabic": "اطلع برع"
+    },
+    {
+      "english": "Together",
+      "arabic": "معا"
+    },
+    {
+      "english": "I",
+      "arabic": "أنا"
+    },
+    {
+      "english": "He",
+      "arabic": "هو"
+    },
+    {
+      "english": "It",
+      "arabic": "هو"
+    },
+    {
+      "english": "We",
+      "arabic": "نحن"
+    },
+    {
+      "english": "They",
+      "arabic": "هم"
+    },
+    {
+      "english": "Must",
+      "arabic": "لازم"
+    },
+    {
+      "english": "Not yet",
+      "arabic": "إلى الأن"
+    },
+    {
+      "english": "Finish",
+      "arabic": "خلاص"
+    },
+    {
+      "english": "Never",
+      "arabic": "أبدا"
+    },
+    {
+      "english": "Eid Mubarak",
+      "arabic": "مبارك عليكم العيد"
+    },
+    {
+      "english": "Sleepy",
+      "arabic": "نعسان"
+    },
+    {
+      "english": "Sleep",
+      "arabic": "نوم"
+    },
+    {
+      "english": "Applause -Deaf",
+      "arabic": "تصفيق -الصم"
+    },
+    {
+      "english": "Congratulations",
+      "arabic": "مبروك / تهننة"
+    },
+    {
+      "english": "Believe",
+      "arabic": "صدق"
+    },
+    {
+      "english": "Grandparent",
+      "arabic": "جد / جدة"
+    },
+    {
+      "english": "Coffee",
+      "arabic": "قهوة"
+    },
+    {
+      "english": "Tea Milk",
+      "arabic": "شاي حليب"
+    },
+    {
+      "english": "Cake",
+      "arabic": "كيك"
+    },
+    {
+      "english": "Ramadan Mubarak",
+      "arabic": "مبارك عليكم الشهر"
+    },
+    {
+      "english": "Increase",
+      "arabic": "زيادة"
+    },
+    {
+      "english": "Loss",
+      "arabic": "خسارة"
+    },
+    {
+      "english": "Shopping",
+      "arabic": "التسوق"
+    },
+    {
+      "english": "Video",
+      "arabic": "فيديو"
+    },
+    {
+      "english": "Road",
+      "arabic": "طريق"
+    },
+    {
+      "english": "Flight",
+      "arabic": "طيران"
+    },
+    {
+      "english": "Best",
+      "arabic": "أفضل"
+    },
+    {
+      "english": "Respect",
+      "arabic": "احترام"
+    },
+    {
+      "english": "Permission",
+      "arabic": "إذن"
+    },
+    {
+      "english": "Reservation",
+      "arabic": "حجز"
+    },
+    {
+      "english": "Exchange",
+      "arabic": "تبادل"
+    },
+    {
+      "english": "Pay",
+      "arabic": "دفع"
+    },
+    {
+      "english": "Free",
+      "arabic": "مجانا"
+    },
+    {
+      "english": "Discount",
+      "arabic": "خصم"
+    },
+    {
+      "english": "Sorry",
+      "arabic": "آسف"
+    },
+    {
+      "english": "Expensive",
+      "arabic": "غالي"
+    },
+    {
+      "english": "Buy",
+      "arabic": "اشتري"
+    },
+    {
+      "english": "Danger",
+      "arabic": "خطر"
+    },
+    {
+      "english": "Problem",
+      "arabic": "مشكلة"
+    },
+    {
+      "english": "Boy",
+      "arabic": "ولد"
+    },
+    {
+      "english": "Girl",
+      "arabic": "بنت"
+    },
+    {
+      "english": "Thank you",
+      "arabic": "شكرا"
+    },
+    {
+      "english": "You are welcome",
+      "arabic": "عفواً"
+    },
+    {
+      "english": "Ride",
+      "arabic": "ركب"
+    },
+    {
+      "english": "Go",
+      "arabic": "اذهب"
+    },
+    {
+      "english": "Month",
+      "arabic": "شهر"
+    },
+    {
+      "english": "Hurry",
+      "arabic": "أسرع"
+    },
+    {
+      "english": "Reject",
+      "arabic": "رفض"
+    },
+    {
+      "english": "Arrange",
+      "arabic": "رتب"
+    },
+    {
+      "english": "Cooperate",
+      "arabic": "تعاون"
+    },
+    {
+      "english": "Government",
+      "arabic": "حكومة"
+    },
+    {
+      "english": "Bank",
+      "arabic": "بنك"
+    },
+    {
+      "english": "Save",
+      "arabic": "حفظ"
+    },
+    {
+      "english": "Many",
+      "arabic": "كثير"
+    },
+    {
+      "english": "Few",
+      "arabic": "قليل"
+    },
+    {
+      "english": "Bad",
+      "arabic": "سيىء"
+    },
+    {
+      "english": "Nice",
+      "arabic": "لطيف"
+    },
+    {
+      "english": "Human",
+      "arabic": "إنسان"
+    },
+    {
+      "english": "Nature",
+      "arabic": "طبيعة"
+    },
+    {
+      "english": "Fajr",
+      "arabic": "الفجر"
+    },
+    {
+      "english": "Dhuhr",
+      "arabic": "الظهر"
+    },
+    {
+      "english": "Masghrib",
+      "arabic": "المغرب"
+    },
+    {
+      "english": "Athan",
+      "arabic": "الأذان"
+    },
+    {
+      "english": "Prayer",
+      "arabic": "الصلاة"
+    },
+    {
+      "english": "Quran",
+      "arabic": "القرآن الكريم"
+    },
+    {
+      "english": "Know",
+      "arabic": "أعرف"
+    },
+    {
+      "english": "Don't know",
+      "arabic": "لا أعرف"
+    },
+    {
+      "english": "Responsible",
+      "arabic": "مسؤول"
+    },
+    {
+      "english": "Service",
+      "arabic": "خدمة"
+    },
+    {
+      "english": "Enjoy",
+      "arabic": "استمتع"
+    },
+    {
+      "english": "Upset",
+      "arabic": "متضايق"
+    },
+    {
+      "english": "Angry",
+      "arabic": "غاضب"
+    },
+    {
+      "english": "Surprise",
+      "arabic": "مفاجأة"
+    },
+    {
+      "english": "Strange",
+      "arabic": "غريب"
+    },
+    {
+      "english": "Wondrous",
+      "arabic": "عجيب"
+    },
+    {
+      "english": "Different",
+      "arabic": "مختلف"
+    },
+    {
+      "english": "Ready",
+      "arabic": "جاهز"
+    },
+    {
+      "english": "Children",
+      "arabic": "الأطفال"
+    },
+    {
+      "english": "Mobile number",
+      "arabic": "رقم المتحرك"
+    },
+    {
+      "english": "Post",
+      "arabic": "بريد"
+    },
+    {
+      "english": "After",
+      "arabic": "بعد"
+    },
+    {
+      "english": "Now",
+      "arabic": "الآن"
+    },
+    {
+      "english": "Mistake",
+      "arabic": "غلط"
+    },
+    {
+      "english": "Wash hands",
+      "arabic": "غسل اليدين"
+    },
+    {
+      "english": "Tomorrow",
+      "arabic": "غدا"
+    },
+    {
+      "english": "Busy",
+      "arabic": "مشغول"
+    },
+    {
+      "english": "Conference",
+      "arabic": "مؤتمر"
+    },
+    {
+      "english": "Dubai",
+      "arabic": "دبي"
+    },
+    {
+      "english": "Ajman",
+      "arabic": "عجمان"
+    }
+  ]
+}

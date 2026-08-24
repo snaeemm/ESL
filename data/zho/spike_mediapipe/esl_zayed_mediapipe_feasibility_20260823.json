@@ -1,0 +1,52 @@
+[
+  {
+    "path": "clip1_salaam.mp4",
+    "resolution": "1280x720",
+    "fps": 29.97,
+    "total_frames": 90,
+    "pose_pct": 97.8,
+    "left_hand_pct": 0.0,
+    "right_hand_pct": 52.2,
+    "face_pct": 97.8
+  },
+  {
+    "path": "clip2_difficult.mp4",
+    "resolution": "1280x720",
+    "fps": 29.97,
+    "total_frames": 90,
+    "pose_pct": 100.0,
+    "left_hand_pct": 37.8,
+    "right_hand_pct": 35.6,
+    "face_pct": 100.0
+  },
+  {
+    "path": "clip3_herbook.mp4",
+    "resolution": "640x480",
+    "fps": 29.97,
+    "total_frames": 90,
+    "pose_pct": 100.0,
+    "left_hand_pct": 33.3,
+    "right_hand_pct": 47.8,
+    "face_pct": 100.0
+  },
+  {
+    "path": "clip4_cook.mp4",
+    "resolution": "854x480",
+    "fps": 29.97,
+    "total_frames": 90,
+    "pose_pct": 100.0,
+    "left_hand_pct": 70.0,
+    "right_hand_pct": 62.2,
+    "face_pct": 100.0
+  },
+  {
+    "path": "clip5_number.mp4",
+    "resolution": "854x480",
+    "fps": 29.97,
+    "total_frames": 90,
+    "pose_pct": 100.0,
+    "left_hand_pct": 0.0,
+    "right_hand_pct": 78.9,
+    "face_pct": 100.0
+  }
+]

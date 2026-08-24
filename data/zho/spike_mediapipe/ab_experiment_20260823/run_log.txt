@@ -1,0 +1,39 @@
+Uninstalled 1 package in 67ms
+Installed 1 package in 17ms
+
+=== Running case: English Family/School ===
+  Plan A done in 34.7s, 1 units
+  Plan B done in 29.8s
+  Wrote /Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/ab_experiment_20260823/case_english_family_school_20260823.json
+  Plan A metrics: {'total_planned_semantic_units': 8, 'zho_renderable_units': 6, 'esl_zayed_supported_units': 0, 'fingerspelled_units': 2, 'unsupported_or_review_units': 0, 'unnecessary_function_word_units': 0, 'candidate_selections_rejected_by_verification': 1, 'provenance_complete_units': 8}
+  Plan B metrics: {'total_planned_semantic_units': 7, 'zho_renderable_units': 2, 'esl_zayed_supported_units': 4, 'fingerspelled_units': 0, 'unsupported_or_review_units': 1, 'unnecessary_function_word_units': 0, 'candidate_selections_rejected_by_verification': 0, 'provenance_complete_units': 6}
+
+=== Running case: Arabic/MSA Family/School ===
+  Plan A done in 53.7s, 2 units
+  Plan B done in 60.1s
+  Wrote /Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/ab_experiment_20260823/case_arabic_family_school_20260823.json
+  Plan A metrics: {'total_planned_semantic_units': 15, 'zho_renderable_units': 3, 'esl_zayed_supported_units': 0, 'fingerspelled_units': 10, 'unsupported_or_review_units': 2, 'unnecessary_function_word_units': 0, 'candidate_selections_rejected_by_verification': 2, 'provenance_complete_units': 13}
+  Plan B metrics: {'total_planned_semantic_units': 15, 'zho_renderable_units': 3, 'esl_zayed_supported_units': 1, 'fingerspelled_units': 7, 'unsupported_or_review_units': 4, 'unnecessary_function_word_units': 0, 'candidate_selections_rejected_by_verification': 0, 'provenance_complete_units': 11}
+
+=== Running case: Emirati/dialectal development test ===
+  Plan A done in 50.9s, 4 units
+  Plan B done in 29.8s
+  Wrote /Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/ab_experiment_20260823/case_emirati_dialect_20260823.json
+  Plan A metrics: {'total_planned_semantic_units': 12, 'zho_renderable_units': 2, 'esl_zayed_supported_units': 0, 'fingerspelled_units': 10, 'unsupported_or_review_units': 0, 'unnecessary_function_word_units': 3, 'candidate_selections_rejected_by_verification': 3, 'provenance_complete_units': 12}
+  Plan B metrics: {'total_planned_semantic_units': 11, 'zho_renderable_units': 3, 'esl_zayed_supported_units': 3, 'fingerspelled_units': 5, 'unsupported_or_review_units': 0, 'unnecessary_function_word_units': 2, 'candidate_selections_rejected_by_verification': 0, 'provenance_complete_units': 11}
+
+=== Running case: Cells ===
+  Plan A done in 631.7s, 5 units
+  Plan B done in 105.2s
+  Wrote /Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/ab_experiment_20260823/case_cells_20260823.json
+  Plan A metrics: {'total_planned_semantic_units': 30, 'zho_renderable_units': 2, 'esl_zayed_supported_units': 0, 'fingerspelled_units': 23, 'unsupported_or_review_units': 5, 'unnecessary_function_word_units': 0, 'candidate_selections_rejected_by_verification': 2, 'provenance_complete_units': 25}
+  Plan B metrics: {'total_planned_semantic_units': 26, 'zho_renderable_units': 3, 'esl_zayed_supported_units': 1, 'fingerspelled_units': 19, 'unsupported_or_review_units': 3, 'unnecessary_function_word_units': 0, 'candidate_selections_rejected_by_verification': 0, 'provenance_complete_units': 23}
+
+=== Running case: Photosynthesis ===
+  Plan A done in 55.6s, 2 units
+  Plan B done in 38.8s
+  Wrote /Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/ab_experiment_20260823/case_photosynthesis_20260823.json
+  Plan A metrics: {'total_planned_semantic_units': 11, 'zho_renderable_units': 0, 'esl_zayed_supported_units': 0, 'fingerspelled_units': 9, 'unsupported_or_review_units': 2, 'unnecessary_function_word_units': 0, 'candidate_selections_rejected_by_verification': 0, 'provenance_complete_units': 9}
+  Plan B metrics: {'total_planned_semantic_units': 11, 'zho_renderable_units': 1, 'esl_zayed_supported_units': 1, 'fingerspelled_units': 8, 'unsupported_or_review_units': 1, 'unnecessary_function_word_units': 0, 'candidate_selections_rejected_by_verification': 0, 'provenance_complete_units': 10}
+
+Wrote summary: /Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/ab_experiment_20260823/ab_experiment_summary_20260823.json

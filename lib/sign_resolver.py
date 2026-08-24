@@ -214,6 +214,15 @@ def _deterministic_lexical_resolution(item_text: str, model: str, source_span: s
         return {"row": row, "method": method, "information_loss": LOSS_FULL,
                 "match_reason": f"curated alias match: query='{item_text}' -> catalog word_en='{row.get('word_en')}' (data/zho/aliases.json)"}
 
+    row, method, original_term, stripped_form = idx.clitic_match(item_text)
+    if row:
+        loss = classify_information_loss(item_text, row.get("word_en"))
+        if loss != LOSS_ESSENTIAL_INFORMATION_LOSS:
+            return {"row": row, "method": method, "information_loss": loss,
+                    "match_reason": (f"Arabic clitic-stripped match: query='{original_term}' -> stripped form "
+                                      f"'{stripped_form}' == catalog word_ar='{row.get('word_ar')}' (verified exact "
+                                      f"hit against catalog before use; original unstripped query preserved above)")}
+
     candidates = idx.retrieve_candidates(item_text, top_n=5)
     candidate_ids_seen = {c["id"] for c in candidates}
     if morphology_candidate is not None and morphology_candidate["id"] not in candidate_ids_seen:
