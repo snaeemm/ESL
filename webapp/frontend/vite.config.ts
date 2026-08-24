@@ -9,7 +9,12 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8010',
+        // Must match the port the backend is actually started on - see
+        // README.md's "Backend startup" (`uvicorn app.main:app --port 8000`).
+        // This previously pointed at 8010, a stale/mismatched dev port that
+        // would silently 404 every API call on a fresh `npm run dev` +
+        // README-documented backend start.
+        target: 'http://127.0.0.1:8000',
         changeOrigin: true,
       },
     },
