@@ -1,0 +1,33 @@
+{
+  "video_id": "eO7a6k2kHWs",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "الماضي",
+      "english_meaning_from_video": "Past",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 3.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "المستقبل",
+      "english_meaning_from_video": "Future",
+      "content_type": "WORD",
+      "caption_start_s": 3.5,
+      "caption_end_s": 6.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "المضارع",
+      "english_meaning_from_video": "Present",
+      "content_type": "WORD",
+      "caption_start_s": 7.0,
+      "caption_end_s": 9.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

@@ -1,0 +1,25 @@
+{
+  "video_id": "_5jEsuIvX0c",
+  "n_expected_items": 2,
+  "n_matched_items": 2,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "تصوير",
+      "english_meaning_from_video": "Photograph",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "فيديو",
+      "english_meaning_from_video": "Video",
+      "content_type": "WORD",
+      "caption_start_s": 2.0,
+      "caption_end_s": 4.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

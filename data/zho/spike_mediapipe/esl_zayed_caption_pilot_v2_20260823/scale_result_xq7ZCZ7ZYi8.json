@@ -1,0 +1,49 @@
+{
+  "video_id": "xq7ZCZ7ZYi8",
+  "n_expected_items": 5,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "الساعة",
+      "english_meaning_from_video": "Time",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "انتظار",
+      "english_meaning_from_video": "Waiting",
+      "content_type": "WORD",
+      "caption_start_s": 2.0,
+      "caption_end_s": 4.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "دقائق 5",
+      "english_meaning_from_video": "5 minutes",
+      "content_type": "NUMBER",
+      "caption_start_s": 4.5,
+      "caption_end_s": 8.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "دقائق 10",
+      "english_meaning_from_video": "10 minutes",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "نصف ساعة",
+      "english_meaning_from_video": "Half hour",
+      "content_type": "NUMBER",
+      "caption_start_s": 8.5,
+      "caption_end_s": 10.5
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 4/5"
+}

@@ -1,0 +1,10 @@
+videos/
+fp_frames/
+scale_frames/
+ocr_frames/
+__pycache__/
+e2e_out/*/*.mp4
+e2e_out/*/clips/
+*.mp4
+remaining.txt
+vids35.txt

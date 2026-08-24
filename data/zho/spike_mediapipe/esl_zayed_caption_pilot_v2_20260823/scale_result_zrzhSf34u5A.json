@@ -1,0 +1,41 @@
+{
+  "video_id": "zrzhSf34u5A",
+  "n_expected_items": 4,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "ولد",
+      "english_meaning_from_video": "Boy",
+      "content_type": "WORD",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "بنت",
+      "english_meaning_from_video": "Girl",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "شكرا",
+      "english_meaning_from_video": "Thank you",
+      "content_type": "PHRASE",
+      "caption_start_s": 5.0,
+      "caption_end_s": 6.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "عفواً",
+      "english_meaning_from_video": "You are welcome",
+      "content_type": "PHRASE",
+      "caption_start_s": 7.0,
+      "caption_end_s": 8.5
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 3/4"
+}

@@ -1,0 +1,1759 @@
+{
+  "source_id": "sha256:d0b80ffbb5b8fd918d18bf2e652f38e6c845ba820dbbffed064bde76b5f4ef44",
+  "source_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/content/test_d_emirati.md",
+  "duration_plan_summary": {
+    "requested_duration_s": 45,
+    "estimated_duration_s": 12.82,
+    "units_included": 2,
+    "units_dropped": 2,
+    "any_single_unit_exceeds_target": false
+  },
+  "units": [
+    {
+      "unit_id": "u00",
+      "concept": "مدرس",
+      "source_span": "يبه دكتور وأمي معلمة بالمدرسة.",
+      "source_span_verified": true,
+      "educational_sentence": "دكتور هو مدرس.",
+      "educational_sentence_grounded": true,
+      "key_terms": [
+        "دكتور"
+      ],
+      "review_required": false,
+      "semantic_sign_plan": [
+        "دكتور",
+        "هو",
+        "معلم"
+      ],
+      "semantic_plan_status": "OK",
+      "vocabulary_hints_used": [],
+      "sign_resolution": [
+        {
+          "term": "دكتور",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "دكتور",
+            "arabic_term": "دكتور",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "دكتور",
+            "letters": [
+              "daal",
+              "kaaf",
+              "taa",
+              "wow",
+              "raa"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "د",
+                "name_ar": "daal",
+                "word_en": "Daal",
+                "catalog_id": "b997e9cc-e112-4635-9a15-f7c912b8eae8",
+                "catalog_row": {
+                  "id": "b997e9cc-e112-4635-9a15-f7c912b8eae8",
+                  "word_en": "Daal",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Daal_4853",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Daal_4853",
+                  "video_url": "https://player.vimeo.com/external/267406773.sd.mp4?s=7fe9987a7f523adbbc505e2e2f4eb132c0ec0d91&profile_id=164",
+                  "vimeo_id": "267406773",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_08_Daal",
+                  "has_video": true,
+                  "word_ar": "د",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ك",
+                "name_ar": "kaaf",
+                "word_en": "Kaaf",
+                "catalog_id": "7e07c42b-f9c6-4f8d-b030-8c0524d7215b",
+                "catalog_row": {
+                  "id": "7e07c42b-f9c6-4f8d-b030-8c0524d7215b",
+                  "word_en": "Kaaf",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Kaaf_4867",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Kaaf_4867",
+                  "video_url": "https://player.vimeo.com/external/267428825.sd.mp4?s=be3a5e0c12d0b3862b41e90da2a50ff17c284009&profile_id=164",
+                  "vimeo_id": "267428825",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_22_Kaaf",
+                  "has_video": true,
+                  "word_ar": "ك",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ت",
+                "name_ar": "taa",
+                "word_en": "Taa",
+                "catalog_id": "17fd4d03-5c19-4f4d-bdbf-8c4a47461e3a",
+                "catalog_row": {
+                  "id": "17fd4d03-5c19-4f4d-bdbf-8c4a47461e3a",
+                  "word_en": "Taa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Taa_4848",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Taa_4848",
+                  "video_url": "https://player.vimeo.com/external/267404107.sd.mp4?s=aa829d49b5cb73686bc0d2eb633fa5cf04686272&profile_id=164",
+                  "vimeo_id": "267404107",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_03_Taa",
+                  "has_video": true,
+                  "word_ar": "ت",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "و",
+                "name_ar": "wow",
+                "word_en": "Wow",
+                "catalog_id": "9fdb14bb-9d70-4512-bd09-7b08fbba6fd4",
+                "catalog_row": {
+                  "id": "9fdb14bb-9d70-4512-bd09-7b08fbba6fd4",
+                  "word_en": "Wow",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Wow_4872",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Wow_4872",
+                  "video_url": "https://player.vimeo.com/external/267432388.sd.mp4?s=50c48da50650a9c87d21d026a899a3a9ebd3e824&profile_id=164",
+                  "vimeo_id": "267432388",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_27_Wow",
+                  "has_video": true,
+                  "word_ar": "و",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ر",
+                "name_ar": "raa",
+                "word_en": "Raa",
+                "catalog_id": "56ca7677-fd0f-4207-89ed-99432d6cca11",
+                "catalog_row": {
+                  "id": "56ca7677-fd0f-4207-89ed-99432d6cca11",
+                  "word_en": "Raa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Raa_4855",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Raa_4855",
+                  "video_url": "https://player.vimeo.com/external/267407945.sd.mp4?s=6c583a9fc839af72c343dab99a0cf17b986241d7&profile_id=164",
+                  "vimeo_id": "267407945",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_10_Raa",
+                  "has_video": true,
+                  "word_ar": "ر",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'دكتور' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'دكتور' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "هو",
+          "status": "VERIFIED_SIGN",
+          "catalog_ref": null,
+          "supplementary_ref": {
+            "supplementary_id": "ESL_ZAYED_0027",
+            "source": "ESL_ZAYED",
+            "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+            "arabic_text": "هو",
+            "english_meaning": "He",
+            "youtube_video_id": "nSht-ChppNI",
+            "source_url": "https://www.youtube.com/watch?v=nSht-ChppNI",
+            "segment_start_s": 5.5,
+            "segment_end_s": 14.5,
+            "content_type": "WORD",
+            "confidence": "MEDIUM",
+            "matched_zho_ids": [],
+            "notes": "OCR caption-identity alignment (ocr_caption_identity_automated); caption interval used directly as segment (no MediaPipe dead-time trim applied this session)",
+            "signer_note": "male, black agal headband, green background",
+            "verification_status": "SUPPLEMENTARY_UNVERIFIED"
+          },
+          "match_method": "ESL_ZAYED_EXACT",
+          "fallback_type": null,
+          "information_loss": "FULL",
+          "match_reason": "ESL Zayed exact WORD-level match: query='هو' == supplementary english_meaning/arabic_text='He' / 'هو' (source_authority=OBSERVED_EMIRATI_EDUCATIONAL_SOURCE, not institutional ZHO)",
+          "retrieval_trace": {
+            "candidates": [],
+            "esl_zayed_trace": {
+              "information_loss": "FULL"
+            }
+          },
+          "review_required": false,
+          "render_source": "ESL_ZAYED",
+          "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
+          "supporting_sources": []
+        },
+        {
+          "term": "معلم",
+          "status": "VERIFIED_SIGN",
+          "catalog_ref": {
+            "id": "d88fb82a-69e1-475b-b651-4a6add2bfee1",
+            "word_en": "Teacher",
+            "category": "Education",
+            "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Education/Teacher_4009",
+            "item_url": "/en/Data/Sign-Category-Items/Education/Teacher_4009",
+            "video_url": "https://player.vimeo.com/external/267551649.sd.mp4?s=d147cc74057499b94e46bb16a5663521b6120b16&profile_id=164",
+            "vimeo_id": "267551649",
+            "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Education_52_Teacher",
+            "has_video": true,
+            "word_ar": "معلم",
+            "schema_version": 2,
+            "category_en": "Education",
+            "category_ar": null,
+            "source": "ZHO",
+            "source_locale_en": "en",
+            "source_locale_ar": "ar-AE",
+            "aliases_en": [],
+            "aliases_ar": []
+          },
+          "match_method": "EXACT_AR",
+          "fallback_type": null,
+          "information_loss": "FULL",
+          "match_reason": "exact bilingual match: query='معلم' == catalog word_en/word_ar='Teacher' / 'معلم'",
+          "retrieval_trace": {
+            "information_loss": "FULL"
+          },
+          "review_required": false,
+          "render_source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "supporting_sources": []
+        }
+      ],
+      "estimated_duration_s": 12.82,
+      "duration_exceeds_target": false,
+      "included_in_episode": true
+    },
+    {
+      "unit_id": "u03",
+      "concept": "جو الصيف",
+      "source_span": "وحار وايد بالصيف.",
+      "source_span_verified": true,
+      "educational_sentence": "",
+      "educational_sentence_grounded": false,
+      "key_terms": [
+        "حار",
+        "الصيف",
+        "وايد"
+      ],
+      "review_required": true,
+      "semantic_sign_plan": [],
+      "semantic_plan_status": "REVIEW_REQUIRED",
+      "semantic_plan_reason": "no educational_sentence available to plan from",
+      "sign_resolution": [],
+      "estimated_duration_s": 0.0,
+      "duration_exceeds_target": false,
+      "included_in_episode": true
+    },
+    {
+      "unit_id": "u01",
+      "concept": "معلمة",
+      "source_span": "يبه دكتور وأمي معلمة بالمدرسة.",
+      "source_span_verified": true,
+      "educational_sentence": "أمي هي معلمة في المدرسة.",
+      "educational_sentence_grounded": true,
+      "key_terms": [
+        "أمي"
+      ],
+      "review_required": false,
+      "semantic_sign_plan": [
+        "أم",
+        "هي",
+        "معلمة",
+        "في",
+        "المدرسة"
+      ],
+      "semantic_plan_status": "OK",
+      "vocabulary_hints_used": [],
+      "sign_resolution": [
+        {
+          "term": "أم",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "أم",
+            "arabic_term": "أم",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "أم",
+            "letters": [
+              "alif",
+              "meem"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "ا",
+                "name_ar": "alif",
+                "word_en": "Alif",
+                "catalog_id": "eb6b778b-8816-4cb4-8e82-b71e24b705a0",
+                "catalog_row": {
+                  "id": "eb6b778b-8816-4cb4-8e82-b71e24b705a0",
+                  "word_en": "Alif",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Alif_4846",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Alif_4846",
+                  "video_url": "https://player.vimeo.com/external/267402511.sd.mp4?s=ecf840fa5827512b96b8b43c7f57efafabd359b7&profile_id=164",
+                  "vimeo_id": "267402511",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_01_Alif",
+                  "has_video": true,
+                  "word_ar": "أ",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "م",
+                "name_ar": "meem",
+                "word_en": "Meem",
+                "catalog_id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                "catalog_row": {
+                  "id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                  "word_en": "Meem",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Meem_4869",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Meem_4869",
+                  "video_url": "https://player.vimeo.com/external/267429699.sd.mp4?s=3de5f440ad574cda1f219af42b73afd5dc9d1dd3&profile_id=164",
+                  "vimeo_id": "267429699",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_24_Meem",
+                  "has_video": true,
+                  "word_ar": "م",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'أم' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'أم' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "هي",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "هي",
+            "arabic_term": "هي",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "هي",
+            "letters": [
+              "haa",
+              "yaa"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "ه",
+                "name_ar": "haa",
+                "word_en": "Haa",
+                "catalog_id": "4c670667-4737-4386-a09c-442bd046d42b",
+                "catalog_row": {
+                  "id": "4c670667-4737-4386-a09c-442bd046d42b",
+                  "word_en": "Haa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Haa_4871",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Haa_4871",
+                  "video_url": "https://player.vimeo.com/external/267431368.sd.mp4?s=f7bcf8d8893dff53dcd62aecdc246c75f0dbaaa2&profile_id=164",
+                  "vimeo_id": "267431368",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_26_Haa",
+                  "has_video": true,
+                  "word_ar": "هـ",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ي",
+                "name_ar": "yaa",
+                "word_en": "Yaa",
+                "catalog_id": "dbe4bc5c-2cb7-42d7-8767-765da721114b",
+                "catalog_row": {
+                  "id": "dbe4bc5c-2cb7-42d7-8767-765da721114b",
+                  "word_en": "Yaa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Yaa_4873",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Yaa_4873",
+                  "video_url": "https://player.vimeo.com/external/267433455.sd.mp4?s=1dcb099a01961c33900b872610ed1884752ad4f5&profile_id=164",
+                  "vimeo_id": "267433455",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_28_Yaa",
+                  "has_video": true,
+                  "word_ar": "ي",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'هي' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'هي' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "معلمة",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "معلمة",
+            "arabic_term": "معلمة",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "معلمة",
+            "letters": [
+              "meem",
+              "aeen",
+              "laam",
+              "meem",
+              "taa_marbuta"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "م",
+                "name_ar": "meem",
+                "word_en": "Meem",
+                "catalog_id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                "catalog_row": {
+                  "id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                  "word_en": "Meem",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Meem_4869",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Meem_4869",
+                  "video_url": "https://player.vimeo.com/external/267429699.sd.mp4?s=3de5f440ad574cda1f219af42b73afd5dc9d1dd3&profile_id=164",
+                  "vimeo_id": "267429699",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_24_Meem",
+                  "has_video": true,
+                  "word_ar": "م",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ع",
+                "name_ar": "aeen",
+                "word_en": "Aeen",
+                "catalog_id": "4777f0f0-cd48-4e1b-95f8-eefce9fd9345",
+                "catalog_row": {
+                  "id": "4777f0f0-cd48-4e1b-95f8-eefce9fd9345",
+                  "word_en": "Aeen",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Aeen_4863",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Aeen_4863",
+                  "video_url": "https://player.vimeo.com/external/267414639.sd.mp4?s=decaf51ef3359470ca8306607bd595c73365eadb&profile_id=164",
+                  "vimeo_id": "267414639",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_18_Aeen",
+                  "has_video": true,
+                  "word_ar": "ع",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ل",
+                "name_ar": "laam",
+                "word_en": "Laam",
+                "catalog_id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                "catalog_row": {
+                  "id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                  "word_en": "Laam",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Laam_4868",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Laam_4868",
+                  "video_url": "https://player.vimeo.com/external/267429280.sd.mp4?s=0fc12b1c67acce13096edba1923cc6571fedd8cc&profile_id=164",
+                  "vimeo_id": "267429280",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_23_Laam",
+                  "has_video": true,
+                  "word_ar": "ل",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "م",
+                "name_ar": "meem",
+                "word_en": "Meem",
+                "catalog_id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                "catalog_row": {
+                  "id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                  "word_en": "Meem",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Meem_4869",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Meem_4869",
+                  "video_url": "https://player.vimeo.com/external/267429699.sd.mp4?s=3de5f440ad574cda1f219af42b73afd5dc9d1dd3&profile_id=164",
+                  "vimeo_id": "267429699",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_24_Meem",
+                  "has_video": true,
+                  "word_ar": "م",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ة",
+                "name_ar": "taa_marbuta",
+                "word_en": "Taa",
+                "catalog_id": "4c82e730-b6dc-4c57-b761-d73337fadfad",
+                "catalog_row": {
+                  "id": "4c82e730-b6dc-4c57-b761-d73337fadfad",
+                  "word_en": "Taa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Taa_4874",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Taa_4874",
+                  "video_url": "https://player.vimeo.com/external/267434077.sd.mp4?s=ae1cb8086f80952f3fa5f03a3cd387d4e0eb4e66&profile_id=164",
+                  "vimeo_id": "267434077",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_29_Taa",
+                  "has_video": true,
+                  "word_ar": "تاء مربوطة",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'معلمة' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'معلمة' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "في",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "في",
+            "arabic_term": "في",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "في",
+            "letters": [
+              "faa",
+              "yaa"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "ف",
+                "name_ar": "faa",
+                "word_en": "Faa",
+                "catalog_id": "c4889597-92f3-463e-bd39-a4e3c176848d",
+                "catalog_row": {
+                  "id": "c4889597-92f3-463e-bd39-a4e3c176848d",
+                  "word_en": "Faa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Faa_4865",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Faa_4865",
+                  "video_url": "https://player.vimeo.com/external/267426839.sd.mp4?s=33133ac23c32907f5403c6ca9860c4c60b59bf3f&profile_id=164",
+                  "vimeo_id": "267426839",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_20_Faa",
+                  "has_video": true,
+                  "word_ar": "ف",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ي",
+                "name_ar": "yaa",
+                "word_en": "Yaa",
+                "catalog_id": "dbe4bc5c-2cb7-42d7-8767-765da721114b",
+                "catalog_row": {
+                  "id": "dbe4bc5c-2cb7-42d7-8767-765da721114b",
+                  "word_en": "Yaa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Yaa_4873",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Yaa_4873",
+                  "video_url": "https://player.vimeo.com/external/267433455.sd.mp4?s=1dcb099a01961c33900b872610ed1884752ad4f5&profile_id=164",
+                  "vimeo_id": "267433455",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_28_Yaa",
+                  "has_video": true,
+                  "word_ar": "ي",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": [
+              {
+                "id": "9c89be8e-137f-4240-8fe3-828a737dcd6c",
+                "word_en": "City Number In Citizenship",
+                "category": "Official Documents",
+                "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Official Documents/City Number In Citizenship_4272",
+                "item_url": "/en/Data/Sign-Category-Items/Official-Documents/City-Number-In-Citizenship_4272",
+                "video_url": "https://player.vimeo.com/external/267532971.sd.mp4?s=2e5fa0fc128f31c007a017dfb3d53adc70433e2b&profile_id=164",
+                "vimeo_id": "267532971",
+                "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Official_Doc_20_City_Number_In_Citizenship",
+                "has_video": true,
+                "word_ar": "رقم البلدة في الخلاصة",
+                "schema_version": 2,
+                "category_en": "Official Documents",
+                "category_ar": null,
+                "source": "ZHO",
+                "source_locale_en": "en",
+                "source_locale_ar": "ar-AE",
+                "aliases_en": [],
+                "aliases_ar": []
+              }
+            ],
+            "falcon_selection": {
+              "selected_candidate_id": null,
+              "reason": "None of the candidates match the semantic item 'في' in the context of indicating location or state, as they relate to official documents.",
+              "confidence": "high"
+            }
+          },
+          "match_reason": "no verified lexical sign for 'في' (Falcon reviewed 1 candidates and answered NONE: None of the candidates match the semantic item 'في' in the context of indicating location or state, as they relate to official documents.); fingerspelled Arabic term 'في' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "المدرسة",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "المدرسة",
+            "arabic_term": "المدرسة",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "المدرسة",
+            "letters": [
+              "alif",
+              "laam",
+              "meem",
+              "daal",
+              "raa",
+              "seen",
+              "taa_marbuta"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "ا",
+                "name_ar": "alif",
+                "word_en": "Alif",
+                "catalog_id": "eb6b778b-8816-4cb4-8e82-b71e24b705a0",
+                "catalog_row": {
+                  "id": "eb6b778b-8816-4cb4-8e82-b71e24b705a0",
+                  "word_en": "Alif",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Alif_4846",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Alif_4846",
+                  "video_url": "https://player.vimeo.com/external/267402511.sd.mp4?s=ecf840fa5827512b96b8b43c7f57efafabd359b7&profile_id=164",
+                  "vimeo_id": "267402511",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_01_Alif",
+                  "has_video": true,
+                  "word_ar": "أ",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ل",
+                "name_ar": "laam",
+                "word_en": "Laam",
+                "catalog_id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                "catalog_row": {
+                  "id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                  "word_en": "Laam",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Laam_4868",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Laam_4868",
+                  "video_url": "https://player.vimeo.com/external/267429280.sd.mp4?s=0fc12b1c67acce13096edba1923cc6571fedd8cc&profile_id=164",
+                  "vimeo_id": "267429280",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_23_Laam",
+                  "has_video": true,
+                  "word_ar": "ل",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "م",
+                "name_ar": "meem",
+                "word_en": "Meem",
+                "catalog_id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                "catalog_row": {
+                  "id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                  "word_en": "Meem",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Meem_4869",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Meem_4869",
+                  "video_url": "https://player.vimeo.com/external/267429699.sd.mp4?s=3de5f440ad574cda1f219af42b73afd5dc9d1dd3&profile_id=164",
+                  "vimeo_id": "267429699",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_24_Meem",
+                  "has_video": true,
+                  "word_ar": "م",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "د",
+                "name_ar": "daal",
+                "word_en": "Daal",
+                "catalog_id": "b997e9cc-e112-4635-9a15-f7c912b8eae8",
+                "catalog_row": {
+                  "id": "b997e9cc-e112-4635-9a15-f7c912b8eae8",
+                  "word_en": "Daal",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Daal_4853",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Daal_4853",
+                  "video_url": "https://player.vimeo.com/external/267406773.sd.mp4?s=7fe9987a7f523adbbc505e2e2f4eb132c0ec0d91&profile_id=164",
+                  "vimeo_id": "267406773",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_08_Daal",
+                  "has_video": true,
+                  "word_ar": "د",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ر",
+                "name_ar": "raa",
+                "word_en": "Raa",
+                "catalog_id": "56ca7677-fd0f-4207-89ed-99432d6cca11",
+                "catalog_row": {
+                  "id": "56ca7677-fd0f-4207-89ed-99432d6cca11",
+                  "word_en": "Raa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Raa_4855",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Raa_4855",
+                  "video_url": "https://player.vimeo.com/external/267407945.sd.mp4?s=6c583a9fc839af72c343dab99a0cf17b986241d7&profile_id=164",
+                  "vimeo_id": "267407945",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_10_Raa",
+                  "has_video": true,
+                  "word_ar": "ر",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "س",
+                "name_ar": "seen",
+                "word_en": "Seen",
+                "catalog_id": "3fba6afb-34b1-4456-a708-366b64210e66",
+                "catalog_row": {
+                  "id": "3fba6afb-34b1-4456-a708-366b64210e66",
+                  "word_en": "Seen",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Seen_4857",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Seen_4857",
+                  "video_url": "https://player.vimeo.com/external/267409457.sd.mp4?s=6f7d45e8c17059005398cd22bce61d9b9f451ddf&profile_id=164",
+                  "vimeo_id": "267409457",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_12_Seen",
+                  "has_video": true,
+                  "word_ar": "س",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ة",
+                "name_ar": "taa_marbuta",
+                "word_en": "Taa",
+                "catalog_id": "4c82e730-b6dc-4c57-b761-d73337fadfad",
+                "catalog_row": {
+                  "id": "4c82e730-b6dc-4c57-b761-d73337fadfad",
+                  "word_en": "Taa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Taa_4874",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Taa_4874",
+                  "video_url": "https://player.vimeo.com/external/267434077.sd.mp4?s=ae1cb8086f80952f3fa5f03a3cd387d4e0eb4e66&profile_id=164",
+                  "vimeo_id": "267434077",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_29_Taa",
+                  "has_video": true,
+                  "word_ar": "تاء مربوطة",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'المدرسة' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'المدرسة' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        }
+      ],
+      "estimated_duration_s": 38.14,
+      "duration_exceeds_target": false,
+      "included_in_episode": false,
+      "drop_reason": "would extend episode to 51.0s, beyond target 45s"
+    },
+    {
+      "unit_id": "u02",
+      "concept": "ذهاب للمدرسة",
+      "source_span": "احنا نروح المدرسة كل يوم الصبح.",
+      "source_span_verified": true,
+      "educational_sentence": "نحن نذهب للمدرسة كل صباح.",
+      "educational_sentence_grounded": true,
+      "key_terms": [
+        "نروح",
+        "الصلب"
+      ],
+      "review_required": false,
+      "semantic_sign_plan": [
+        "نعيش",
+        "نفعل",
+        "ذهاب",
+        "للسَّماء",
+        "كل",
+        "صباح"
+      ],
+      "semantic_plan_status": "OK",
+      "vocabulary_hints_used": [],
+      "sign_resolution": [
+        {
+          "term": "نعيش",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "نعيش",
+            "arabic_term": "نعيش",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "نعيش",
+            "letters": [
+              "noon",
+              "aeen",
+              "yaa",
+              "sheen"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "ن",
+                "name_ar": "noon",
+                "word_en": "Noon",
+                "catalog_id": "26f6fa6d-f706-4875-b80a-ef00025d14c5",
+                "catalog_row": {
+                  "id": "26f6fa6d-f706-4875-b80a-ef00025d14c5",
+                  "word_en": "Noon",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Noon_4870",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Noon_4870",
+                  "video_url": "https://player.vimeo.com/external/267430951.sd.mp4?s=332883c279fccf9ec054e9d0c4989c267e10e13b&profile_id=164",
+                  "vimeo_id": "267430951",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_25_Noon",
+                  "has_video": true,
+                  "word_ar": "ن",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ع",
+                "name_ar": "aeen",
+                "word_en": "Aeen",
+                "catalog_id": "4777f0f0-cd48-4e1b-95f8-eefce9fd9345",
+                "catalog_row": {
+                  "id": "4777f0f0-cd48-4e1b-95f8-eefce9fd9345",
+                  "word_en": "Aeen",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Aeen_4863",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Aeen_4863",
+                  "video_url": "https://player.vimeo.com/external/267414639.sd.mp4?s=decaf51ef3359470ca8306607bd595c73365eadb&profile_id=164",
+                  "vimeo_id": "267414639",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_18_Aeen",
+                  "has_video": true,
+                  "word_ar": "ع",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ي",
+                "name_ar": "yaa",
+                "word_en": "Yaa",
+                "catalog_id": "dbe4bc5c-2cb7-42d7-8767-765da721114b",
+                "catalog_row": {
+                  "id": "dbe4bc5c-2cb7-42d7-8767-765da721114b",
+                  "word_en": "Yaa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Yaa_4873",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Yaa_4873",
+                  "video_url": "https://player.vimeo.com/external/267433455.sd.mp4?s=1dcb099a01961c33900b872610ed1884752ad4f5&profile_id=164",
+                  "vimeo_id": "267433455",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_28_Yaa",
+                  "has_video": true,
+                  "word_ar": "ي",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ش",
+                "name_ar": "sheen",
+                "word_en": "Sheen",
+                "catalog_id": "97e18b50-06a5-4340-859d-9515105f59ba",
+                "catalog_row": {
+                  "id": "97e18b50-06a5-4340-859d-9515105f59ba",
+                  "word_en": "Sheen",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Sheen_4858",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Sheen_4858",
+                  "video_url": "https://player.vimeo.com/external/267410091.sd.mp4?s=18a9f1261e8d38ff59c55172fb689df06a064254&profile_id=164",
+                  "vimeo_id": "267410091",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_13_Sheen",
+                  "has_video": true,
+                  "word_ar": "ش",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'نعيش' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'نعيش' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "نفعل",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "نفعل",
+            "arabic_term": "نفعل",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "نفعل",
+            "letters": [
+              "noon",
+              "faa",
+              "aeen",
+              "laam"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "ن",
+                "name_ar": "noon",
+                "word_en": "Noon",
+                "catalog_id": "26f6fa6d-f706-4875-b80a-ef00025d14c5",
+                "catalog_row": {
+                  "id": "26f6fa6d-f706-4875-b80a-ef00025d14c5",
+                  "word_en": "Noon",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Noon_4870",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Noon_4870",
+                  "video_url": "https://player.vimeo.com/external/267430951.sd.mp4?s=332883c279fccf9ec054e9d0c4989c267e10e13b&profile_id=164",
+                  "vimeo_id": "267430951",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_25_Noon",
+                  "has_video": true,
+                  "word_ar": "ن",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ف",
+                "name_ar": "faa",
+                "word_en": "Faa",
+                "catalog_id": "c4889597-92f3-463e-bd39-a4e3c176848d",
+                "catalog_row": {
+                  "id": "c4889597-92f3-463e-bd39-a4e3c176848d",
+                  "word_en": "Faa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Faa_4865",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Faa_4865",
+                  "video_url": "https://player.vimeo.com/external/267426839.sd.mp4?s=33133ac23c32907f5403c6ca9860c4c60b59bf3f&profile_id=164",
+                  "vimeo_id": "267426839",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_20_Faa",
+                  "has_video": true,
+                  "word_ar": "ف",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ع",
+                "name_ar": "aeen",
+                "word_en": "Aeen",
+                "catalog_id": "4777f0f0-cd48-4e1b-95f8-eefce9fd9345",
+                "catalog_row": {
+                  "id": "4777f0f0-cd48-4e1b-95f8-eefce9fd9345",
+                  "word_en": "Aeen",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Aeen_4863",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Aeen_4863",
+                  "video_url": "https://player.vimeo.com/external/267414639.sd.mp4?s=decaf51ef3359470ca8306607bd595c73365eadb&profile_id=164",
+                  "vimeo_id": "267414639",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_18_Aeen",
+                  "has_video": true,
+                  "word_ar": "ع",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ل",
+                "name_ar": "laam",
+                "word_en": "Laam",
+                "catalog_id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                "catalog_row": {
+                  "id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                  "word_en": "Laam",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Laam_4868",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Laam_4868",
+                  "video_url": "https://player.vimeo.com/external/267429280.sd.mp4?s=0fc12b1c67acce13096edba1923cc6571fedd8cc&profile_id=164",
+                  "vimeo_id": "267429280",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_23_Laam",
+                  "has_video": true,
+                  "word_ar": "ل",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'نفعل' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'نفعل' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "ذهاب",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "ذهاب",
+            "arabic_term": "ذهاب",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "ذهاب",
+            "letters": [
+              "zaal",
+              "haa",
+              "alif",
+              "baa"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "ذ",
+                "name_ar": "zaal",
+                "word_en": "Zaal",
+                "catalog_id": "155bc851-2bc2-4a9f-bb17-4fbdd9380f19",
+                "catalog_row": {
+                  "id": "155bc851-2bc2-4a9f-bb17-4fbdd9380f19",
+                  "word_en": "Zaal",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Zaal_4854",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Zaal_4854",
+                  "video_url": "https://player.vimeo.com/external/267407351.sd.mp4?s=9d7f163850d39b71c701aade69682ef3c540d2c6&profile_id=164",
+                  "vimeo_id": "267407351",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_09_Zaal",
+                  "has_video": true,
+                  "word_ar": "ذ",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ه",
+                "name_ar": "haa",
+                "word_en": "Haa",
+                "catalog_id": "4c670667-4737-4386-a09c-442bd046d42b",
+                "catalog_row": {
+                  "id": "4c670667-4737-4386-a09c-442bd046d42b",
+                  "word_en": "Haa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Haa_4871",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Haa_4871",
+                  "video_url": "https://player.vimeo.com/external/267431368.sd.mp4?s=f7bcf8d8893dff53dcd62aecdc246c75f0dbaaa2&profile_id=164",
+                  "vimeo_id": "267431368",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_26_Haa",
+                  "has_video": true,
+                  "word_ar": "هـ",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ا",
+                "name_ar": "alif",
+                "word_en": "Alif",
+                "catalog_id": "eb6b778b-8816-4cb4-8e82-b71e24b705a0",
+                "catalog_row": {
+                  "id": "eb6b778b-8816-4cb4-8e82-b71e24b705a0",
+                  "word_en": "Alif",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Alif_4846",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Alif_4846",
+                  "video_url": "https://player.vimeo.com/external/267402511.sd.mp4?s=ecf840fa5827512b96b8b43c7f57efafabd359b7&profile_id=164",
+                  "vimeo_id": "267402511",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_01_Alif",
+                  "has_video": true,
+                  "word_ar": "أ",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ب",
+                "name_ar": "baa",
+                "word_en": "Baa",
+                "catalog_id": "9cecc2c2-4c3e-4662-a5ee-712f3e722d55",
+                "catalog_row": {
+                  "id": "9cecc2c2-4c3e-4662-a5ee-712f3e722d55",
+                  "word_en": "Baa",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Baa_4847",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Baa_4847",
+                  "video_url": "https://player.vimeo.com/external/267403351.sd.mp4?s=6c39cbed228e670296fee72076978e98ae83a02e&profile_id=164",
+                  "vimeo_id": "267403351",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_02_Baa",
+                  "has_video": true,
+                  "word_ar": "ب",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'ذهاب' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'ذهاب' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "للسَّماء",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "للسَّماء",
+            "arabic_term": "للسَّماء",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "للسَّماء",
+            "letters": [
+              "laam",
+              "laam",
+              "seen",
+              "meem",
+              "alif",
+              "hamza_nabira"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "ل",
+                "name_ar": "laam",
+                "word_en": "Laam",
+                "catalog_id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                "catalog_row": {
+                  "id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                  "word_en": "Laam",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Laam_4868",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Laam_4868",
+                  "video_url": "https://player.vimeo.com/external/267429280.sd.mp4?s=0fc12b1c67acce13096edba1923cc6571fedd8cc&profile_id=164",
+                  "vimeo_id": "267429280",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_23_Laam",
+                  "has_video": true,
+                  "word_ar": "ل",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ل",
+                "name_ar": "laam",
+                "word_en": "Laam",
+                "catalog_id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                "catalog_row": {
+                  "id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                  "word_en": "Laam",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Laam_4868",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Laam_4868",
+                  "video_url": "https://player.vimeo.com/external/267429280.sd.mp4?s=0fc12b1c67acce13096edba1923cc6571fedd8cc&profile_id=164",
+                  "vimeo_id": "267429280",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_23_Laam",
+                  "has_video": true,
+                  "word_ar": "ل",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "س",
+                "name_ar": "seen",
+                "word_en": "Seen",
+                "catalog_id": "3fba6afb-34b1-4456-a708-366b64210e66",
+                "catalog_row": {
+                  "id": "3fba6afb-34b1-4456-a708-366b64210e66",
+                  "word_en": "Seen",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Seen_4857",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Seen_4857",
+                  "video_url": "https://player.vimeo.com/external/267409457.sd.mp4?s=6f7d45e8c17059005398cd22bce61d9b9f451ddf&profile_id=164",
+                  "vimeo_id": "267409457",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_12_Seen",
+                  "has_video": true,
+                  "word_ar": "س",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "م",
+                "name_ar": "meem",
+                "word_en": "Meem",
+                "catalog_id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                "catalog_row": {
+                  "id": "e6e69718-53a0-4b51-90c0-8b5f7961cc6e",
+                  "word_en": "Meem",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Meem_4869",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Meem_4869",
+                  "video_url": "https://player.vimeo.com/external/267429699.sd.mp4?s=3de5f440ad574cda1f219af42b73afd5dc9d1dd3&profile_id=164",
+                  "vimeo_id": "267429699",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_24_Meem",
+                  "has_video": true,
+                  "word_ar": "م",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ا",
+                "name_ar": "alif",
+                "word_en": "Alif",
+                "catalog_id": "eb6b778b-8816-4cb4-8e82-b71e24b705a0",
+                "catalog_row": {
+                  "id": "eb6b778b-8816-4cb4-8e82-b71e24b705a0",
+                  "word_en": "Alif",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Alif_4846",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Alif_4846",
+                  "video_url": "https://player.vimeo.com/external/267402511.sd.mp4?s=ecf840fa5827512b96b8b43c7f57efafabd359b7&profile_id=164",
+                  "vimeo_id": "267402511",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_01_Alif",
+                  "has_video": true,
+                  "word_ar": "أ",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ء",
+                "name_ar": "hamza_nabira",
+                "word_en": "Hamza Nabira",
+                "catalog_id": "52b967f4-7185-4c17-bc3a-8db821582e52",
+                "catalog_row": {
+                  "id": "52b967f4-7185-4c17-bc3a-8db821582e52",
+                  "word_en": "Hamza Nabira",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Hamza Nabira_4876",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Hamza-Nabira_4876",
+                  "video_url": "https://player.vimeo.com/external/267435857.sd.mp4?s=a972275755370d5d4b5943c86eae95fe0748b1e4&profile_id=164",
+                  "vimeo_id": "267435857",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_31_Hamza_Nabira",
+                  "has_video": true,
+                  "word_ar": "ئــ ( همزه على السطر)",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'للسَّماء' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'للسَّماء' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "كل",
+          "status": "FINGERSPELL_CANDIDATE",
+          "catalog_ref": null,
+          "match_method": null,
+          "fallback_type": "FINGERSPELL",
+          "terminology": {
+            "source_term": "كل",
+            "arabic_term": "كل",
+            "model": null,
+            "translation_status": "NOT_NEEDED",
+            "translation_reason": "source item already in Arabic; preserved as-is"
+          },
+          "fingerspell": {
+            "arabic_word": "كل",
+            "letters": [
+              "kaaf",
+              "laam"
+            ],
+            "catalog_refs": [
+              {
+                "letter": "ك",
+                "name_ar": "kaaf",
+                "word_en": "Kaaf",
+                "catalog_id": "7e07c42b-f9c6-4f8d-b030-8c0524d7215b",
+                "catalog_row": {
+                  "id": "7e07c42b-f9c6-4f8d-b030-8c0524d7215b",
+                  "word_en": "Kaaf",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Kaaf_4867",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Kaaf_4867",
+                  "video_url": "https://player.vimeo.com/external/267428825.sd.mp4?s=be3a5e0c12d0b3862b41e90da2a50ff17c284009&profile_id=164",
+                  "vimeo_id": "267428825",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_22_Kaaf",
+                  "has_video": true,
+                  "word_ar": "ك",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              },
+              {
+                "letter": "ل",
+                "name_ar": "laam",
+                "word_en": "Laam",
+                "catalog_id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                "catalog_row": {
+                  "id": "aa2d0805-1856-476a-a65a-45e9ebbfdfb8",
+                  "word_en": "Laam",
+                  "category": "Alphabets",
+                  "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Alphabets/Laam_4868",
+                  "item_url": "/en/Data/Sign-Category-Items/Alphabets/Laam_4868",
+                  "video_url": "https://player.vimeo.com/external/267429280.sd.mp4?s=0fc12b1c67acce13096edba1923cc6571fedd8cc&profile_id=164",
+                  "vimeo_id": "267429280",
+                  "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Alphabets_23_Laam",
+                  "has_video": true,
+                  "word_ar": "ل",
+                  "schema_version": 2,
+                  "category_en": "Alphabets",
+                  "category_ar": null,
+                  "source": "ZHO",
+                  "source_locale_en": "en",
+                  "source_locale_ar": "ar-AE",
+                  "aliases_en": [],
+                  "aliases_ar": []
+                }
+              }
+            ],
+            "fully_resolved": true,
+            "unresolved_letters": []
+          },
+          "retrieval_trace": {
+            "candidates": []
+          },
+          "match_reason": "no verified lexical sign for 'كل' (no lexical (or embedding, if enabled) candidates found); fingerspelled Arabic term 'كل' — all letters resolved against data/zho/arabic_alphabet_map.json",
+          "review_required": false,
+          "render_source": "FINGERSPELL",
+          "source_authority": "NONE",
+          "gap_reason": "NO_SUPPORTED_LEXICAL_SIGN",
+          "supporting_sources": []
+        },
+        {
+          "term": "صباح",
+          "status": "VERIFIED_SIGN",
+          "catalog_ref": {
+            "id": "ba20af63-ac14-4722-b4ff-66d9defe0058",
+            "word_en": "Morning",
+            "category": "Health",
+            "item_path": "/sitecore/content/ZHO/ZHO/Data/Sign Category Items/Health/Morning_5295",
+            "item_url": "/en/Data/Sign-Category-Items/Health/Morning_5295",
+            "video_url": "https://player.vimeo.com/external/267546298.sd.mp4?s=39b366f336273e3e4c7bb035e1fc1e77657dfb96&profile%20id=164",
+            "vimeo_id": "267546298",
+            "thumb_path": "/-/media//Project/ZHO/ZHO/SignLanguage/en/Health_78_Morning",
+            "has_video": true,
+            "word_ar": "صباح",
+            "schema_version": 2,
+            "category_en": "Health",
+            "category_ar": null,
+            "source": "ZHO",
+            "source_locale_en": "en",
+            "source_locale_ar": "ar-AE",
+            "aliases_en": [],
+            "aliases_ar": []
+          },
+          "match_method": "EXACT_AR",
+          "fallback_type": null,
+          "information_loss": "FULL",
+          "match_reason": "exact bilingual match: query='صباح' == catalog word_en/word_ar='Morning' / 'صباح'",
+          "retrieval_trace": {
+            "information_loss": "FULL"
+          },
+          "review_required": false,
+          "render_source": "ZHO",
+          "source_authority": "INSTITUTIONAL_UAE_REFERENCE",
+          "supporting_sources": []
+        }
+      ],
+      "estimated_duration_s": 44.47,
+      "duration_exceeds_target": false,
+      "included_in_episode": false,
+      "drop_reason": "would extend episode to 57.3s, beyond target 45s"
+    }
+  ]
+}

@@ -55,8 +55,9 @@ def validate_episode(units: list, source_text: str) -> dict:
             if r["status"] == STATUS_VERIFIED:
                 checks["sign_provenance"]["verified_signs"] += 1
                 ref = r.get("catalog_ref") or {}
-                if not ref.get("id"):
-                    blocking.append(f"{u.get('unit_id')}: VERIFIED_SIGN '{r['term']}' has no catalog_ref id")
+                supp_ref = r.get("supplementary_ref") or {}
+                if not ref.get("id") and not supp_ref.get("supplementary_id"):
+                    blocking.append(f"{u.get('unit_id')}: VERIFIED_SIGN '{r['term']}' has no catalog_ref id or supplementary_ref id")
             elif r["status"] == STATUS_FINGERSPELL:
                 checks["sign_provenance"]["fingerspelled"] += 1
                 any_fallback = True

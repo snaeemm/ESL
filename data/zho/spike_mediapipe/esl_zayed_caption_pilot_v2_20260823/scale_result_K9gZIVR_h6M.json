@@ -1,0 +1,57 @@
+{
+  "video_id": "K9gZIVR_h6M",
+  "n_expected_items": 6,
+  "n_matched_items": 6,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "قلق",
+      "english_meaning_from_video": "Worry",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 5.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "خائف",
+      "english_meaning_from_video": "Afraid",
+      "content_type": "WORD",
+      "caption_start_s": 6.0,
+      "caption_end_s": 10.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "ابكي",
+      "english_meaning_from_video": "Cry",
+      "content_type": "WORD",
+      "caption_start_s": 11.0,
+      "caption_end_s": 14.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "غضب",
+      "english_meaning_from_video": "Anger",
+      "content_type": "WORD",
+      "caption_start_s": 15.0,
+      "caption_end_s": 19.0
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "استحي",
+      "english_meaning_from_video": "Shy",
+      "content_type": "WORD",
+      "caption_start_s": 20.0,
+      "caption_end_s": 24.0
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "مخيف",
+      "english_meaning_from_video": "Scary",
+      "content_type": "WORD",
+      "caption_start_s": 25.0,
+      "caption_end_s": 29.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

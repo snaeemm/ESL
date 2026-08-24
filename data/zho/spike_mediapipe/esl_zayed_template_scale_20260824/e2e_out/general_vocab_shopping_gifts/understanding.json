@@ -1,0 +1,61 @@
+{
+  "model": "hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M",
+  "raw_response": "[\n    {\n        \"concept\": \"Community Helping\",\n        \"key_terms\": [\"helpful\", \"active\", \"community\"],\n        \"source_span\": \"being helpful and active in the community is something we are taught from a young age.\"\n    },\n    {\n        \"concept\": \"Family Bonding\",\n        \"key_terms\": [\"family\", \"shopping\", \"birthday celebration\"],\n        \"source_span\": \"My brother bought chocolate and cake for a birthday celebration.\"\n    },\n    {\n        \"concept\": \"Cultural Appreciation\",\n        \"key_terms\": [\"perfume\", \"oud shop\", \"incense\", \"oud wood\"],\n        \"source_span\": \"My sister wanted to visit the perfume and oud shop, because she loves the smell of incense and oud wood.\"\n    },\n    {\n        \"concept\": \"Gratitude and Rewards\",\n        \"key_terms\": [\"photograph\", \"gift\", \"award\"],\n        \"source_span\": \"my father gave everyone a small gift as an award for a fun day out.\"\n    }\n]",
+  "json_parsed_successfully": true,
+  "num_concepts_extracted": 4,
+  "concepts": [
+    {
+      "concept": "Community Helping",
+      "key_terms": [
+        "helpful",
+        "active",
+        "community"
+      ],
+      "source_span": "being helpful and active in the community is something we are taught from a young age.",
+      "source_span_verified": true,
+      "review_required": false
+    },
+    {
+      "concept": "Family Bonding",
+      "key_terms": [
+        "family",
+        "shopping",
+        "birthday celebration"
+      ],
+      "source_span": "My brother bought chocolate and cake for a birthday celebration.",
+      "source_span_verified": true,
+      "review_required": false
+    },
+    {
+      "concept": "Cultural Appreciation",
+      "key_terms": [
+        "perfume",
+        "oud shop",
+        "incense",
+        "oud wood"
+      ],
+      "source_span": "My sister wanted to visit the perfume and oud shop, because she loves the smell of incense and oud wood.",
+      "source_span_verified": true,
+      "review_required": false
+    },
+    {
+      "concept": "Gratitude and Rewards",
+      "key_terms": [
+        "photograph",
+        "gift",
+        "award"
+      ],
+      "source_span": "my father gave everyone a small gift as an award for a fun day out.",
+      "source_span_verified": true,
+      "review_required": false
+    }
+  ],
+  "structured_output_trace": {
+    "initial_parse_success": true,
+    "initial_extraction_used": false,
+    "initial_schema_valid": true,
+    "repair_retry_attempted": false,
+    "repair_retry_parse_success": null,
+    "final_parse_status": "OK"
+  }
+}

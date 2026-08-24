@@ -1,0 +1,41 @@
+{
+  "video_id": "eDO_5u9BL_U",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "مفاجأة",
+      "english_meaning_from_video": "Surprise",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "غريب",
+      "english_meaning_from_video": "Strange",
+      "content_type": "WORD",
+      "caption_start_s": 2.0,
+      "caption_end_s": 4.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "عجيب",
+      "english_meaning_from_video": "Wondrous",
+      "content_type": "WORD",
+      "caption_start_s": 4.5,
+      "caption_end_s": 7.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "مختلف",
+      "english_meaning_from_video": "Different",
+      "content_type": "WORD",
+      "caption_start_s": 7.5,
+      "caption_end_s": 9.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

@@ -1,0 +1,153 @@
+{
+  "path": "2l1WqXUZfC8.mp4",
+  "duration_s": 58.89,
+  "fps": 29.97,
+  "resolution": "640x360",
+  "caption_band_used": "bottom",
+  "band_energy": {
+    "top": 6.038,
+    "bottom": 7.032
+  },
+  "n_frames_sampled": 294,
+  "step_s": 0.2,
+  "diff_threshold": 12.0,
+  "n_candidate_segments": 34,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 2.0
+    },
+    {
+      "start_s": 2.0,
+      "end_s": 4.4
+    },
+    {
+      "start_s": 4.4,
+      "end_s": 10.0
+    },
+    {
+      "start_s": 10.0,
+      "end_s": 15.8
+    },
+    {
+      "start_s": 15.8,
+      "end_s": 16.6
+    },
+    {
+      "start_s": 16.6,
+      "end_s": 17.6
+    },
+    {
+      "start_s": 17.6,
+      "end_s": 18.8
+    },
+    {
+      "start_s": 18.8,
+      "end_s": 19.8
+    },
+    {
+      "start_s": 19.8,
+      "end_s": 21.8
+    },
+    {
+      "start_s": 21.8,
+      "end_s": 22.8
+    },
+    {
+      "start_s": 22.8,
+      "end_s": 23.4
+    },
+    {
+      "start_s": 23.4,
+      "end_s": 26.6
+    },
+    {
+      "start_s": 26.6,
+      "end_s": 27.6
+    },
+    {
+      "start_s": 27.6,
+      "end_s": 30.8
+    },
+    {
+      "start_s": 30.8,
+      "end_s": 32.0
+    },
+    {
+      "start_s": 32.0,
+      "end_s": 34.2
+    },
+    {
+      "start_s": 34.2,
+      "end_s": 35.0
+    },
+    {
+      "start_s": 35.0,
+      "end_s": 36.2
+    },
+    {
+      "start_s": 36.2,
+      "end_s": 37.0
+    },
+    {
+      "start_s": 37.0,
+      "end_s": 38.2
+    },
+    {
+      "start_s": 38.2,
+      "end_s": 38.8
+    },
+    {
+      "start_s": 38.8,
+      "end_s": 40.0
+    },
+    {
+      "start_s": 40.0,
+      "end_s": 42.2
+    },
+    {
+      "start_s": 42.2,
+      "end_s": 44.4
+    },
+    {
+      "start_s": 44.4,
+      "end_s": 45.2
+    },
+    {
+      "start_s": 45.2,
+      "end_s": 46.2
+    },
+    {
+      "start_s": 46.2,
+      "end_s": 47.2
+    },
+    {
+      "start_s": 47.2,
+      "end_s": 48.2
+    },
+    {
+      "start_s": 48.2,
+      "end_s": 50.2
+    },
+    {
+      "start_s": 50.2,
+      "end_s": 51.0
+    },
+    {
+      "start_s": 51.0,
+      "end_s": 52.2
+    },
+    {
+      "start_s": 52.2,
+      "end_s": 55.2
+    },
+    {
+      "start_s": 55.2,
+      "end_s": 56.8
+    },
+    {
+      "start_s": 56.8,
+      "end_s": 58.89
+    }
+  ]
+}

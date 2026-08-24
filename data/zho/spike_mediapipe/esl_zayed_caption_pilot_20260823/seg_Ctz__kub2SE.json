@@ -1,0 +1,41 @@
+{
+  "path": "Ctz__kub2SE.mp4",
+  "duration_s": 28.37,
+  "fps": 29.97,
+  "resolution": "640x480",
+  "caption_band_used": "bottom",
+  "band_energy": {
+    "top": 0.592,
+    "bottom": 3.822
+  },
+  "n_frames_sampled": 141,
+  "step_s": 0.2,
+  "diff_threshold": 12.0,
+  "n_candidate_segments": 6,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 2.4
+    },
+    {
+      "start_s": 2.4,
+      "end_s": 3.8
+    },
+    {
+      "start_s": 3.8,
+      "end_s": 5.4
+    },
+    {
+      "start_s": 5.4,
+      "end_s": 21.0
+    },
+    {
+      "start_s": 21.0,
+      "end_s": 24.8
+    },
+    {
+      "start_s": 24.8,
+      "end_s": 28.37
+    }
+  ]
+}

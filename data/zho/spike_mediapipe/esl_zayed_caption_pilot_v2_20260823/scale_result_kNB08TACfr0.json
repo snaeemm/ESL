@@ -1,0 +1,57 @@
+{
+  "video_id": "kNB08TACfr0",
+  "n_expected_items": 6,
+  "n_matched_items": 6,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "مغلق",
+      "english_meaning_from_video": "Closed",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 4.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "فتح",
+      "english_meaning_from_video": "Open",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 8.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "توقف",
+      "english_meaning_from_video": "Stop",
+      "content_type": "WORD",
+      "caption_start_s": 9.0,
+      "caption_end_s": 13.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "اطلع برع",
+      "english_meaning_from_video": "Get out",
+      "content_type": "PHRASE",
+      "caption_start_s": 14.0,
+      "caption_end_s": 18.0
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "منفصل",
+      "english_meaning_from_video": "Apart",
+      "content_type": "WORD",
+      "caption_start_s": 19.0,
+      "caption_end_s": 23.0
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "معا",
+      "english_meaning_from_video": "Together",
+      "content_type": "WORD",
+      "caption_start_s": 24.0,
+      "caption_end_s": 29.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

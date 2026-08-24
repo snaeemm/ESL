@@ -1,0 +1,29 @@
+{
+  "path": "jtFsC8Pr8B8.mp4",
+  "duration_s": 14.95,
+  "fps": 29.97,
+  "resolution": "640x360",
+  "caption_band_used": "top",
+  "band_energy": {
+    "top": 11.48,
+    "bottom": 11.45
+  },
+  "n_frames_sampled": 74,
+  "step_s": 0.2,
+  "diff_threshold": 12.0,
+  "n_candidate_segments": 3,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 2.0
+    },
+    {
+      "start_s": 2.0,
+      "end_s": 12.8
+    },
+    {
+      "start_s": 12.8,
+      "end_s": 14.95
+    }
+  ]
+}

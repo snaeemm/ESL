@@ -1,0 +1,33 @@
+{
+  "video_id": "gJ22f_IYH2o",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "عطر",
+      "english_meaning_from_video": "Perfume",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "بخور",
+      "english_meaning_from_video": "Incense",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 5.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "عود",
+      "english_meaning_from_video": "Oud wood",
+      "content_type": "WORD",
+      "caption_start_s": 5.5,
+      "caption_end_s": 8.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

@@ -1,0 +1,49 @@
+{
+  "video_id": "q4oTNPUsjOo",
+  "n_expected_items": 5,
+  "n_matched_items": 0,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "٥٠",
+      "english_meaning_from_video": "50",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "١٠٠",
+      "english_meaning_from_video": "100",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "٢٠٠",
+      "english_meaning_from_video": "200",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "٥٠٠",
+      "english_meaning_from_video": "500",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "١٠٠٠",
+      "english_meaning_from_video": "1000",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REJECT",
+  "gate_reason": "no items matched at all"
+}

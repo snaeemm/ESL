@@ -1,0 +1,41 @@
+{
+  "video_id": "Xub8WDYcuRU",
+  "n_expected_items": 4,
+  "n_matched_items": 2,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "أعرف",
+      "english_meaning_from_video": "Know",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "لا أعرف",
+      "english_meaning_from_video": "Don't know",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "أفهم",
+      "english_meaning_from_video": "Understand",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 9.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "لا أفهم",
+      "english_meaning_from_video": "Don't understand",
+      "content_type": "PHRASE",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 2/4"
+}

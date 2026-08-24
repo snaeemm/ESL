@@ -1,0 +1,33 @@
+{
+  "video_id": "u-PDWKM1Vto",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "ممتاز",
+      "english_meaning_from_video": "Excellent",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "جيد",
+      "english_meaning_from_video": "Good",
+      "content_type": "WORD",
+      "caption_start_s": 2.0,
+      "caption_end_s": 4.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "سيىء",
+      "english_meaning_from_video": "Bad",
+      "content_type": "WORD",
+      "caption_start_s": 4.5,
+      "caption_end_s": 6.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

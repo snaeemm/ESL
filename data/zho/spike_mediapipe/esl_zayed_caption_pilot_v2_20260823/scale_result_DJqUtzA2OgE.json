@@ -1,0 +1,33 @@
+{
+  "video_id": "DJqUtzA2OgE",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "قراءة",
+      "english_meaning_from_video": "Read",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "كتابة",
+      "english_meaning_from_video": "Write",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 6.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "كتاب",
+      "english_meaning_from_video": "Book",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 9.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

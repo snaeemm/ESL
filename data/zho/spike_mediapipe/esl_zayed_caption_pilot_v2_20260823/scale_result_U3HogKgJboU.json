@@ -1,0 +1,57 @@
+{
+  "video_id": "U3HogKgJboU",
+  "n_expected_items": 6,
+  "n_matched_items": 6,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "لحظه",
+      "english_meaning_from_video": "Wait",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 4.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "لازم",
+      "english_meaning_from_video": "Must",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 9.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "مرة ثانية",
+      "english_meaning_from_video": "Again",
+      "content_type": "PHRASE",
+      "caption_start_s": 10.0,
+      "caption_end_s": 14.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "إلى الأن",
+      "english_meaning_from_video": "Not yet",
+      "content_type": "PHRASE",
+      "caption_start_s": 15.0,
+      "caption_end_s": 19.0
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "خلاص",
+      "english_meaning_from_video": "Finish",
+      "content_type": "WORD",
+      "caption_start_s": 20.0,
+      "caption_end_s": 23.0
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "أبدا",
+      "english_meaning_from_video": "Never",
+      "content_type": "WORD",
+      "caption_start_s": 24.0,
+      "caption_end_s": 28.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}
