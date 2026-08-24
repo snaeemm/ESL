@@ -41,6 +41,24 @@ NORM_CACHE_DIR = os.path.join(ROOT, "data", "zho", "spike_mediapipe", "norm_cach
 ESL_ZAYED_RAW_DIR = os.path.join(ROOT, "data", "zho", "spike_mediapipe", "esl_zayed_raw")
 ESL_ZAYED_NORM_DIR = os.path.join(ROOT, "data", "zho", "spike_mediapipe", "esl_zayed_clips")
 
+# Blocker E (caption-boundary dead time): the OCR caption-alignment pilot
+# already produced PER-ITEM card timestamps (caption_start_s/caption_end_s)
+# for many ESL Zayed source videos, tighter than the coarser
+# segment_start_s/segment_end_s baked into the main supplementary catalog
+# (e.g. some catalog rows span an entire multi-item source video because
+# their materialization pass didn't do fine per-word alignment - see
+# ESL_ZAYED_0016's own notes field: "Full duration sampled at 4 timestamps
+# ... single teaching item confirmed"). Reusing this EXISTING alignment
+# data (not generating new dataset processing) lets the caption-card
+# boundary itself cap the trim window, closing the gap hand-presence-only
+# trimming can't: a signer's hands staying active across a caption
+# transition (e.g. into the NEXT word's card) no longer survives into the
+# clip, because the window is capped at this item's own caption_end_s
+# before hand-detection is even run.
+ESL_ZAYED_OCR_ALIGNMENT_DIR = os.path.join(
+    ROOT, "data", "zho", "spike_mediapipe", "esl_zayed_caption_pilot_v2_20260823")
+_OCR_CAPTION_BUFFER_S = 0.5  # small pad so we don't clip the sign itself flush against the card edge
+
 
 class ClipPrepError(RuntimeError):
     pass
@@ -90,6 +108,35 @@ def _compute_trim_window(clip_path: str, catalog_id: str) -> tuple:
     cache[catalog_id] = {"start_s": start_s, "end_s": end_s, "clip_path": clip_path}
     _save_trim_cache(cache)
     return start_s, end_s
+
+
+def _lookup_ocr_caption_window(youtube_video_id: str, english_meaning: str, arabic_text: str) -> tuple:
+    """Looks up this item's own caption-card window from the existing OCR
+    alignment pilot data (data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/
+    scale_result_<video_id>.json), matched by english_meaning or
+    arabic_text. Returns (caption_start_s, caption_end_s) with a small
+    buffer applied, or None if no alignment file exists for this video or
+    no item matches - callers must treat None as "no tighter bound
+    available", never as an error (this is a refinement, not a
+    requirement - the catalog's own segment_start_s/segment_end_s remains
+    the fail-closed source of truth when this lookup can't help)."""
+    path = os.path.join(ESL_ZAYED_OCR_ALIGNMENT_DIR, f"scale_result_{youtube_video_id}.json")
+    if not os.path.isfile(path):
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return None
+    for item in data.get("items", []):
+        item_en = (item.get("english_meaning_from_video") or "").strip().lower()
+        item_ar = (item.get("arabic_caption") or "").strip()
+        if (english_meaning and item_en == english_meaning.strip().lower()) or (arabic_text and item_ar == arabic_text.strip()):
+            c_start, c_end = item.get("caption_start_s"), item.get("caption_end_s")
+            if c_start is None or c_end is None or c_end <= c_start:
+                return None
+            return max(0.0, c_start - _OCR_CAPTION_BUFFER_S), c_end + _OCR_CAPTION_BUFFER_S
+    return None
 
 
 def _run_active_window_detector(clip_path: str) -> tuple:
@@ -223,6 +270,7 @@ def prepare_esl_zayed_clip(supplementary_ref: dict) -> dict:
     norm_path = os.path.join(ESL_ZAYED_NORM_DIR, f"{supplementary_id}.mp4")
     caption_verified_window = [start_s, end_s]
     dead_time_trim_applied = False
+    caption_boundary_capped = False
 
     if os.path.exists(norm_path) and os.path.getsize(norm_path) > 0:
         # Already materialized (and, if a refinement pass has run before,
@@ -232,15 +280,40 @@ def prepare_esl_zayed_clip(supplementary_ref: dict) -> dict:
         if cached:
             caption_verified_window = [cached["caption_start_s"], cached["caption_end_s"]]
             dead_time_trim_applied = cached.get("dead_time_trim_applied", False)
+            caption_boundary_capped = cached.get("caption_boundary_capped", False)
     else:
-        _ffmpeg_trim(raw_path, norm_path, start_s, end_s)
+        # Caption-boundary cap: if the OCR alignment pilot has a tighter,
+        # per-item card window for this exact video+word (see
+        # _lookup_ocr_caption_window's docstring above), intersect it with
+        # the catalog's own segment_start_s/segment_end_s BEFORE trimming.
+        # This is a cap, never an expansion - max()/min() below can only
+        # narrow [start_s, end_s], so it stays inside the catalog's own
+        # caption-verified interval even when the OCR window is imprecise.
+        # This is what closes the gap hand-presence-only trimming can't:
+        # a signer's hands staying active across a caption-card transition
+        # (e.g. drifting into the NEXT word's card) is now excluded by the
+        # card boundary itself, before hand-detection even runs.
+        ocr_window = _lookup_ocr_caption_window(
+            youtube_video_id, supplementary_ref.get("english_meaning"), supplementary_ref.get("arabic_text"))
+        trim_start, trim_end = start_s, end_s
+        if ocr_window is not None:
+            ocr_start, ocr_end = ocr_window
+            capped_start = max(start_s, ocr_start)
+            capped_end = min(end_s, ocr_end)
+            if capped_end > capped_start:
+                trim_start, trim_end = capped_start, capped_end
+                caption_boundary_capped = (trim_start, trim_end) != (start_s, end_s)
+
+        _ffmpeg_trim(raw_path, norm_path, trim_start, trim_end)
         if not os.path.exists(norm_path) or os.path.getsize(norm_path) == 0:
             raise ClipPrepError(f"ESL Zayed trim produced no output for {supplementary_id} (source={youtube_video_id})")
 
         # Dead-time refinement: run the SAME detector ZHO uses, against the
-        # already caption-trimmed clip. Any window it returns is relative to
-        # that clip (0..duration), so re-applying it can only shrink the
-        # window - it can never move the boundary outside [start_s, end_s].
+        # already caption-trimmed (and now possibly caption-boundary-capped)
+        # clip. Any window it returns is relative to that clip (0..duration),
+        # so re-applying it can only shrink the window further - it can
+        # never move the boundary outside [trim_start, trim_end], which is
+        # itself already inside [start_s, end_s].
         refined = _run_active_window_detector(norm_path)
         if refined is not None:
             r_start, r_end = refined
@@ -254,7 +327,8 @@ def prepare_esl_zayed_clip(supplementary_ref: dict) -> dict:
         cache = _load_trim_cache()
         cache[f"ESL_ZAYED::{supplementary_id}"] = {
             "caption_start_s": start_s, "caption_end_s": end_s,
-            "dead_time_trim_applied": dead_time_trim_applied, "clip_path": norm_path,
+            "dead_time_trim_applied": dead_time_trim_applied,
+            "caption_boundary_capped": caption_boundary_capped, "clip_path": norm_path,
         }
         _save_trim_cache(cache)
 
@@ -268,4 +342,5 @@ def prepare_esl_zayed_clip(supplementary_ref: dict) -> dict:
         "norm_clip_path": norm_path,
         "trim_window_s": caption_verified_window,
         "dead_time_trim_applied": dead_time_trim_applied,
+        "caption_boundary_capped": caption_boundary_capped,
     }

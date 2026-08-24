@@ -215,10 +215,32 @@
     "dead_time_trim_applied": false,
     "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0001.mp4"
   },
+  "a5305ac2-3431-4636-933e-a1a01eaca34a": {
+    "start_s": 0.76,
+    "end_s": 3.32,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Measurement Units/early_a5305ac2.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0202": {
+    "caption_start_s": 6.5,
+    "caption_end_s": 8.5,
+    "dead_time_trim_applied": true,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0202.mp4"
+  },
   "ESL_ZAYED::ESL_ZAYED_0016": {
     "caption_start_s": 1.0,
     "caption_end_s": 13.0,
     "dead_time_trim_applied": true,
+    "caption_boundary_capped": true,
     "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0016.mp4"
+  },
+  "870864a9-c689-456c-9dd7-2d0a6009b9a7": {
+    "start_s": 0.64,
+    "end_s": 3.16,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/long_870864a9.mp4"
+  },
+  "b0d8b2c2-b61d-4517-8048-53e24d879f42": {
+    "start_s": 0.28,
+    "end_s": 2.44,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/worried_b0d8b2c2.mp4"
   }
 }
