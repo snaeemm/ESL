@@ -22,8 +22,44 @@ import arabic_reshaper
 from bidi.algorithm import get_display
 from PIL import Image, ImageDraw, ImageFont
 
-ARABIC_FONT = ImageFont.truetype("/System/Library/Fonts/SFArabic.ttf", 30)
-LATIN_FONT = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 26)
+# Portable font resolution (portability fix): the previous version
+# hardcoded macOS-only absolute paths (/System/Library/Fonts/...), which
+# would crash immediately on any Linux/Windows host (e.g. CI, another
+# developer's machine). Try a prioritized list of common install
+# locations per platform, each verified with os.path.isfile before use,
+# and fall back to Pillow's built-in default font (always available, no
+# file dependency) rather than hardcoding one more absolute path - this
+# keeps captions rendering (in *some* readable font) even on a host with
+# none of the named fonts installed, instead of hard-crashing the render
+# stage entirely.
+_ARABIC_FONT_CANDIDATES = [
+    "/System/Library/Fonts/SFArabic.ttf",            # macOS
+    "/System/Library/Fonts/Supplemental/GeezaPro.ttc",  # macOS (older)
+    "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Regular.ttf",  # Linux (Noto)
+    "/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf",   # Linux (Noto)
+    "/usr/share/fonts/opentype/noto/NotoNaskhArabic-Regular.otf",  # Linux (Noto, opentype)
+    "C:/Windows/Fonts/tahoma.ttf",                    # Windows (has Arabic glyphs)
+]
+_LATIN_FONT_CANDIDATES = [
+    "/System/Library/Fonts/Helvetica.ttc",            # macOS
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",  # Linux (near-universal)
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",  # Linux
+    "C:/Windows/Fonts/arial.ttf",                     # Windows
+]
+
+
+def _load_font(candidates, size):
+    for path in candidates:
+        if os.path.isfile(path):
+            try:
+                return ImageFont.truetype(path, size)
+            except OSError:
+                continue
+    return ImageFont.load_default(size=size)  # always available, never crashes the render stage
+
+
+ARABIC_FONT = _load_font(_ARABIC_FONT_CANDIDATES, 30)
+LATIN_FONT = _load_font(_LATIN_FONT_CANDIDATES, 26)
 
 
 def shape_arabic(text):
