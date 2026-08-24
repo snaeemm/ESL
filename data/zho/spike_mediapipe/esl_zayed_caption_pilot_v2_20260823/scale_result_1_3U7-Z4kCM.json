@@ -1,0 +1,65 @@
+{
+  "video_id": "1_3U7-Z4kCM",
+  "n_expected_items": 7,
+  "n_matched_items": 6,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "جد / جدة",
+      "english_meaning_from_video": "Grandparent",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 3.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "والد / بابا",
+      "english_meaning_from_video": "Father",
+      "content_type": "WORD",
+      "caption_start_s": 4.0,
+      "caption_end_s": 7.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "والدة / ماما",
+      "english_meaning_from_video": "Mother",
+      "content_type": "WORD",
+      "caption_start_s": 8.0,
+      "caption_end_s": 12.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "أخي",
+      "english_meaning_from_video": "Brother",
+      "content_type": "WORD",
+      "caption_start_s": 13.0,
+      "caption_end_s": 16.0
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "أخت",
+      "english_meaning_from_video": "Sister",
+      "content_type": "WORD",
+      "caption_start_s": 17.0,
+      "caption_end_s": 20.0
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "عم",
+      "english_meaning_from_video": "Uncle",
+      "content_type": "WORD",
+      "caption_start_s": 21.0,
+      "caption_end_s": 29.0
+    },
+    {
+      "item_index_in_video": 6,
+      "arabic_caption": "خال",
+      "english_meaning_from_video": "Uncle",
+      "content_type": "WORD",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 6/7"
+}

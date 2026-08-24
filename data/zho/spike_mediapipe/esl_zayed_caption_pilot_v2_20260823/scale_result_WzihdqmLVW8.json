@@ -1,0 +1,41 @@
+{
+  "video_id": "WzihdqmLVW8",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "كل شيء",
+      "english_meaning_from_video": "Everything",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "أي شيء",
+      "english_meaning_from_video": "Anything",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "لا شيء",
+      "english_meaning_from_video": "Nothing",
+      "content_type": "WORD",
+      "caption_start_s": 4.5,
+      "caption_end_s": 6.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "جاهز",
+      "english_meaning_from_video": "Ready",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 8.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

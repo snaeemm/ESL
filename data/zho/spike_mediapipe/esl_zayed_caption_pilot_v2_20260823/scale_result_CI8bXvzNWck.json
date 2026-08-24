@@ -1,0 +1,33 @@
+{
+  "video_id": "CI8bXvzNWck",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "إرسال",
+      "english_meaning_from_video": "Send",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "ملف",
+      "english_meaning_from_video": "File",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 5.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "حفظ",
+      "english_meaning_from_video": "Save",
+      "content_type": "WORD",
+      "caption_start_s": 5.5,
+      "caption_end_s": 8.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

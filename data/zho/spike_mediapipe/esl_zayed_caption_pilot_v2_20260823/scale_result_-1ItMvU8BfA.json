@@ -1,0 +1,41 @@
+{
+  "video_id": "-1ItMvU8BfA",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "لون",
+      "english_meaning_from_video": "Color",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "أسود",
+      "english_meaning_from_video": "Black",
+      "content_type": "WORD",
+      "caption_start_s": 4.0,
+      "caption_end_s": 6.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "أبيض",
+      "english_meaning_from_video": "White",
+      "content_type": "WORD",
+      "caption_start_s": 6.5,
+      "caption_end_s": 8.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "أخضر",
+      "english_meaning_from_video": "Green",
+      "content_type": "WORD",
+      "caption_start_s": 8.5,
+      "caption_end_s": 10.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

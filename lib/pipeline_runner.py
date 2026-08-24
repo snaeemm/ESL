@@ -29,7 +29,9 @@ from lib.sign_plan import build_sign_plans
 from lib.sign_resolver import resolve_units
 from lib.duration_planner import plan_episode_duration
 from lib.validator import validate_episode, write_review_markdown, can_render, STATUS_BLOCKED
-from lib.clip_prep import prepare_clip, ClipPrepError
+from lib.clip_prep import prepare_clip, prepare_esl_zayed_clip, ClipPrepError
+from lib.terminology import resolve_terminology
+from lib.fingerspell import fingerspell
 from lib.traceability import build_traceability, write_traceability_json, write_traceability_markdown
 
 STAGES = ["ENVIRONMENT_CHECK", "SOURCE", "UNDERSTAND", "STRUCTURE", "SIGN_PLAN",
@@ -200,32 +202,29 @@ def run(source_path: str, output_dir: str, source_language: str = "auto",
     yield _event("CLIP_PREP", "running", "Preparing sign clips (downloading + auto-trimming, cached)...", t0=t0)
     motion_dir = os.path.join(output_dir, "motion", "norm")
     os.makedirs(motion_dir, exist_ok=True)
-    segments, seg_trace, clip_prep_failures = [], [], []
-    seg_idx = 0
-    for u in included_units:
-        for r_idx, r in enumerate(u.get("sign_resolution", [])):
-            catalog_refs = []
-            if r["status"] == "VERIFIED_SIGN" and r.get("catalog_ref"):
-                catalog_refs = [(r["catalog_ref"], r["term"])]
-            elif r["status"] == "FINGERSPELL_CANDIDATE" and r.get("fingerspell"):
-                catalog_refs = [(cr["catalog_row"], cr["name_ar"]) for cr in r["fingerspell"]["catalog_refs"] if cr.get("catalog_row")]
-            else:
-                continue
-            for cref, label in catalog_refs:
-                stem = f"{seg_idx:03d}_{label}"
-                try:
-                    prep = prepare_clip(cref)
-                except ClipPrepError as e:
-                    clip_prep_failures.append({"term": r["term"], "catalog_id": cref.get("id") or cref.get("catalog_id"), "error": str(e)})
-                    continue
-                dest = os.path.join(motion_dir, f"{stem}.mp4")
-                shutil.copyfile(prep["norm_clip_path"], dest)
-                segments.append((stem, r["term"], r.get("terminology", {}).get("arabic_term") or r["term"]))
-                seg_trace.append({"stem": stem, "unit_id": u["unit_id"], "resolution_index": r_idx})
-                seg_idx += 1
+    segments, seg_trace, clip_prep_failures, unresolved_authorized_items = prepare_clips_for_units(
+        included_units, motion_dir, model=model, source_language=manifest["source_language"])
     timed("CLIP_PREP")
-    yield _event("CLIP_PREP", "done", f"{len(segments)} clip segments prepared ({len(clip_prep_failures)} failures).",
-                  {"num_segments": len(segments), "num_failures": len(clip_prep_failures), "failures": clip_prep_failures}, t0=t0)
+    yield _event("CLIP_PREP", "done",
+                  f"{len(segments)} clip segments prepared ({len(clip_prep_failures)} failures, "
+                  f"{len(unresolved_authorized_items)} authorized items unresolved).",
+                  {"num_segments": len(segments), "num_failures": len(clip_prep_failures), "failures": clip_prep_failures,
+                   "unresolved_authorized_items": unresolved_authorized_items}, t0=t0)
+
+    if unresolved_authorized_items:
+        # Fail closed (brief step 3, option B): an authorized semantic
+        # decision that produced neither a real clip nor a fingerspell
+        # fallback must never be allowed to silently vanish from the final
+        # video while validation.json still claims it was rendered. Stop
+        # before RENDER rather than assembling an incomplete episode.
+        yield _event("CLIP_PREP", "blocked",
+                      f"{len(unresolved_authorized_items)} authorized semantic item(s) could not be materialized "
+                      f"into any clip (ESL Zayed source unavailable and no fingerspell fallback) — refusing to "
+                      f"render an incomplete video.",
+                      {"unresolved_authorized_items": unresolved_authorized_items}, t0=t0)
+        raise PipelineBlocked(
+            f"{len(unresolved_authorized_items)} authorized semantic item(s) could not be materialized into clips"
+        )
 
     if not segments:
         yield _event("CLIP_PREP", "blocked", "No clips could be prepared for rendering.", {}, t0=t0)
@@ -265,3 +264,132 @@ def run(source_path: str, output_dir: str, source_language: str = "auto",
         json.dump(stage_timings, f, indent=2)
 
     yield _event("DONE", "done", "Pipeline complete.", {"stage_timings": stage_timings}, t0=t0)
+
+
+def prepare_clips_for_units(included_units, motion_dir, model, source_language):
+    """Materializes a real clip file (in motion_dir) for every authorized
+    semantic sign decision (VERIFIED_SIGN — either ZHO catalog_ref or
+    ESL_ZAYED supplementary_ref — or FINGERSPELL_CANDIDATE) across all
+    included units. Returns (segments, seg_trace, clip_prep_failures,
+    unresolved_authorized_items) — see run()'s CLIP_PREP stage for how
+    these are consumed and reconciled. Standalone/importable so it can be
+    exercised directly in tests without running the full pipeline
+    (Ollama/ffmpeg/network not required when clip_prep is monkeypatched).
+
+    Reconciliation: every authorized semantic decision (VERIFIED_SIGN,
+    whether rendered via ZHO catalog_ref or ESL_ZAYED supplementary_ref,
+    or FINGERSPELL_CANDIDATE) must end up either in `segments` (a real
+    prepared clip) or in `unresolved_authorized_items` below (an explicit,
+    surfaced failure) — never silently dropped by falling through an
+    `else: continue` with no record at all. This is what closed the
+    ESL_ZAYED materialization gap: previously an ESL_ZAYED VERIFIED_SIGN
+    item (catalog_ref=None, supplementary_ref={...}) matched neither the
+    ZHO branch (needs catalog_ref) nor the FINGERSPELL branch, and fell
+    into `else: continue` with zero trace of ever having existed."""
+    segments, seg_trace, clip_prep_failures = [], [], []
+    unresolved_authorized_items = []
+    seg_idx = 0
+    for u in included_units:
+        for r_idx, r in enumerate(u.get("sign_resolution", [])):
+            authorized = r["status"] in ("VERIFIED_SIGN", "FINGERSPELL_CANDIDATE")
+            if not authorized:
+                continue
+
+            def _emit_clip(norm_clip_path, label, extra_trace=None):
+                nonlocal seg_idx
+                stem = f"{seg_idx:03d}_{label}"
+                dest = os.path.join(motion_dir, f"{stem}.mp4")
+                shutil.copyfile(norm_clip_path, dest)
+                segments.append((stem, r["term"], r.get("terminology", {}).get("arabic_term") or r["term"]))
+                trace_row = {"stem": stem, "unit_id": u["unit_id"], "resolution_index": r_idx}
+                if extra_trace:
+                    trace_row.update(extra_trace)
+                seg_trace.append(trace_row)
+                seg_idx += 1
+
+            produced = False
+
+            if r["status"] == "VERIFIED_SIGN" and r.get("render_source") == "ESL_ZAYED" and r.get("supplementary_ref"):
+                # ESL Zayed supplementary WORD sign — materialize the exact
+                # source segment (download+trim, cached), then send it
+                # through the SAME downstream MediaPipe/normalize/render/
+                # stitch path as ZHO (motion_dir is source-agnostic; the
+                # RENDER stage below treats every file in it identically).
+                try:
+                    prep = prepare_esl_zayed_clip(r["supplementary_ref"])
+                    _emit_clip(prep["norm_clip_path"], r["term"])
+                    produced = True
+                except ClipPrepError as e:
+                    clip_prep_failures.append({
+                        "term": r["term"], "render_source": "ESL_ZAYED",
+                        "supplementary_id": r["supplementary_ref"].get("supplementary_id"), "error": str(e),
+                    })
+                    # Fail-closed fallback (brief step 3, option A): attempt
+                    # the same Arabic-fingerspelling path FINGERSPELL_CANDIDATE
+                    # items use, since ESL_ZAYED resolution short-circuits
+                    # before fingerspelling is ever attempted for this item
+                    # (lib/sign_resolver.py resolve_item()) and therefore no
+                    # fingerspell data is precomputed on `r` to reuse.
+                    term_info = resolve_terminology(r["term"], source_language, u["source_span"],
+                                                      u.get("educational_sentence", ""), model)
+                    if term_info["translation_status"] in ("OK", "NOT_NEEDED") and term_info["arabic_term"]:
+                        spelled = fingerspell(term_info["arabic_term"])
+                        if spelled["fully_resolved"]:
+                            for cr in spelled["catalog_refs"]:
+                                if not cr.get("catalog_row"):
+                                    continue
+                                try:
+                                    fs_prep = prepare_clip(cr["catalog_row"])
+                                except ClipPrepError as fe:
+                                    clip_prep_failures.append({
+                                        "term": r["term"], "render_source": "FINGERSPELL_FALLBACK",
+                                        "catalog_id": cr["catalog_row"].get("id"), "error": str(fe),
+                                    })
+                                    continue
+                                _emit_clip(fs_prep["norm_clip_path"], cr["name_ar"],
+                                           extra_trace={"fallback_from": "ESL_ZAYED"})
+                                produced = True
+
+            elif r["status"] == "VERIFIED_SIGN" and r.get("catalog_ref"):
+                cref = r["catalog_ref"]
+                try:
+                    prep = prepare_clip(cref)
+                    _emit_clip(prep["norm_clip_path"], r["term"])
+                    produced = True
+                except ClipPrepError as e:
+                    clip_prep_failures.append({"term": r["term"], "catalog_id": cref.get("id") or cref.get("catalog_id"), "error": str(e)})
+
+            elif r["status"] == "FINGERSPELL_CANDIDATE" and r.get("fingerspell"):
+                any_letter = False
+                for cr in r["fingerspell"]["catalog_refs"]:
+                    if not cr.get("catalog_row"):
+                        continue
+                    any_letter = True
+                    try:
+                        prep = prepare_clip(cr["catalog_row"])
+                        _emit_clip(prep["norm_clip_path"], cr["name_ar"])
+                        produced = True
+                    except ClipPrepError as e:
+                        clip_prep_failures.append({"term": r["term"], "catalog_id": cr["catalog_row"].get("id"), "error": str(e)})
+                if not any_letter:
+                    clip_prep_failures.append({"term": r["term"], "render_source": "FINGERSPELL", "error": "no fingerspell catalog rows available"})
+
+            else:
+                # An authorized status (VERIFIED_SIGN / FINGERSPELL_CANDIDATE)
+                # whose resolution shape doesn't match any known render_source
+                # — e.g. a future render_source not yet handled here. Recorded
+                # explicitly rather than silently skipped.
+                clip_prep_failures.append({
+                    "term": r.get("term"), "render_source": r.get("render_source"),
+                    "error": f"authorized status '{r['status']}' has no recognized clip-materialization path "
+                             f"(catalog_ref={r.get('catalog_ref') is not None}, "
+                             f"supplementary_ref={r.get('supplementary_ref') is not None})",
+                })
+
+            if not produced:
+                unresolved_authorized_items.append({
+                    "unit_id": u["unit_id"], "resolution_index": r_idx, "term": r.get("term"),
+                    "status": r.get("status"), "render_source": r.get("render_source"),
+                })
+
+    return segments, seg_trace, clip_prep_failures, unresolved_authorized_items

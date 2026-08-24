@@ -1,0 +1,65 @@
+{
+  "video_id": "GwMOAeE1eP4",
+  "n_expected_items": 7,
+  "n_matched_items": 7,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "أبوظبي",
+      "english_meaning_from_video": "Abu Dhabi",
+      "content_type": "PHRASE",
+      "caption_start_s": 0.0,
+      "caption_end_s": 4.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "دبي",
+      "english_meaning_from_video": "Dubai",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 8.0
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "الشارقة",
+      "english_meaning_from_video": "Sharjah",
+      "content_type": "WORD",
+      "caption_start_s": 9.0,
+      "caption_end_s": 12.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "عجمان",
+      "english_meaning_from_video": "Ajman",
+      "content_type": "WORD",
+      "caption_start_s": 13.0,
+      "caption_end_s": 17.0
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "أم القيوين",
+      "english_meaning_from_video": "Umm Al Qaiwain",
+      "content_type": "PHRASE",
+      "caption_start_s": 18.0,
+      "caption_end_s": 21.0
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "رأس الخيمة",
+      "english_meaning_from_video": "Ras Al Khaimah",
+      "content_type": "PHRASE",
+      "caption_start_s": 22.0,
+      "caption_end_s": 26.0
+    },
+    {
+      "item_index_in_video": 6,
+      "arabic_caption": "الفجيرة",
+      "english_meaning_from_video": "Fujairah",
+      "content_type": "WORD",
+      "caption_start_s": 27.0,
+      "caption_end_s": 31.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

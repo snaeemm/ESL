@@ -1,0 +1,33 @@
+{
+  "video_id": "IrBOvrjEoU8",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "مدرسة",
+      "english_meaning_from_video": "School",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 3.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "كلية",
+      "english_meaning_from_video": "College",
+      "content_type": "WORD",
+      "caption_start_s": 3.5,
+      "caption_end_s": 5.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "جامعة",
+      "english_meaning_from_video": "University",
+      "content_type": "WORD",
+      "caption_start_s": 6.0,
+      "caption_end_s": 8.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

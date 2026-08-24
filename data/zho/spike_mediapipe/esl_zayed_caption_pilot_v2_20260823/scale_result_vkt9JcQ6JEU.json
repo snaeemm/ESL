@@ -1,0 +1,73 @@
+{
+  "video_id": "vkt9JcQ6JEU",
+  "n_expected_items": 8,
+  "n_matched_items": 1,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "١",
+      "english_meaning_from_video": "1",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "٢",
+      "english_meaning_from_video": "2",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "٤",
+      "english_meaning_from_video": "4",
+      "content_type": "NUMBER",
+      "caption_start_s": 12.5,
+      "caption_end_s": 14.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "٥",
+      "english_meaning_from_video": "5",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "٦",
+      "english_meaning_from_video": "6",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "٧",
+      "english_meaning_from_video": "7",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 6,
+      "arabic_caption": "٨",
+      "english_meaning_from_video": "8",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 7,
+      "arabic_caption": "١٠",
+      "english_meaning_from_video": "10",
+      "content_type": "NUMBER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 1/8"
+}

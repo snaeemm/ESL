@@ -1,0 +1,50 @@
+{
+  "overall_status": "REVIEW_REQUIRED",
+  "checks": {
+    "source_grounding": {
+      "total_units": 2,
+      "verified_spans": 2,
+      "failed": []
+    },
+    "sign_provenance": {
+      "verified_signs": 2,
+      "fingerspelled": 1,
+      "unsupported": 0,
+      "review_required": 0
+    },
+    "coverage": {
+      "total_sign_units": 3,
+      "verified_signs": 2,
+      "verified_signs_full": 2,
+      "verified_signs_partial_modifier_loss": 0,
+      "verified_by_match_method": {
+        "ESL_ZAYED_EXACT": 1,
+        "EXACT_AR": 1
+      },
+      "fallback_candidates": 1,
+      "unsupported_units": 0,
+      "review_required_units": 0,
+      "full_verified_lexical_coverage_pct": 66.7,
+      "verified_lexical_sign_coverage_pct": 66.7,
+      "partial_lexical_representation_pct": 0.0,
+      "renderable_coverage_with_fallback_pct": 100.0,
+      "verified_signs_zho": 1,
+      "verified_signs_esl_zayed_supplementary": 1,
+      "institutional_zho_coverage_pct": 33.3,
+      "supplementary_observed_emirati_coverage_pct": 33.3,
+      "combined_known_source_lexical_coverage_pct": 66.7,
+      "_note": "full_verified_lexical_coverage_pct is the conservative headline number - only information_loss=FULL matches (exact/alias/safe-morphology, or a Falcon-selected candidate confirmed to represent the query's full semantic content). verified_lexical_sign_coverage_pct additionally includes CORE_WITH_MODIFIER_LOSS matches (e.g. 'VERY HOT'->'Hot' - core meaning kept, an intensity modifier lost); partial_lexical_representation_pct isolates just that subset so it is never silently folded into a 'full accuracy' claim. ESSENTIAL_INFORMATION_LOSS candidates (e.g. 'ONE BROTHER'->'One' - the semantic head dropped) and AMBIGUOUS candidates are REJECTED before verification and never appear here - they fall through to fingerspelling/review. renderable_coverage_with_fallback_pct counts fingerspelled items as renderable, NOT as validated sign-language accuracy. Fingerspelling is a fallback, not a verified lexical sign — see fallback_type on each resolution. verified_by_match_method distinguishes exact/morphology/alias/candidate-selected matches; CANDIDATE_SELECTED and MORPHOLOGY_CANDIDATE matches were chosen/confirmed by Falcon from deterministically retrieved candidates and passed deterministic verification (including the information-loss gate), but are still LLM-in-the-loop and warrant closer human review than EXACT_EN/EXACT_AR matches — see the recovered-match audit table. institutional_zho_coverage_pct counts ONLY render_source=ZHO matches (the institutional UAE sign reference). supplementary_observed_emirati_coverage_pct counts ONLY render_source=ESL_ZAYED matches (an observed, supplementary, NOT institutionally verified source - verification_status is always SUPPLEMENTARY_UNVERIFIED on every ESL Zayed row). combined_known_source_lexical_coverage_pct is their sum and is deliberately NOT called an 'accuracy' number. verified_signs_zho / verified_signs_esl_zayed_supplementary are the same split as raw counts - ESL Zayed is never folded into ZHO's own headline coverage number."
+    }
+  },
+  "blocking_conditions_hit": [],
+  "review_reasons": [
+    "u03: unit-level review_required flag set"
+  ],
+  "duration_plan": {
+    "requested_duration_s": 45,
+    "estimated_duration_s": 12.82,
+    "units_included": 2,
+    "units_dropped": 2,
+    "any_single_unit_exceeds_target": false
+  }
+}

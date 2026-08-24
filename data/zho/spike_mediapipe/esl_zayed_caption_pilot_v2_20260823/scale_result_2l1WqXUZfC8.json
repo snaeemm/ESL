@@ -1,0 +1,217 @@
+{
+  "video_id": "2l1WqXUZfC8",
+  "n_expected_items": 26,
+  "n_matched_items": 1,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "A",
+      "english_meaning_from_video": "A",
+      "content_type": "LETTER",
+      "caption_start_s": 0.0,
+      "caption_end_s": 58.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "B",
+      "english_meaning_from_video": "B",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "C",
+      "english_meaning_from_video": "C",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "D",
+      "english_meaning_from_video": "D",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "E",
+      "english_meaning_from_video": "E",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "F",
+      "english_meaning_from_video": "F",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 6,
+      "arabic_caption": "G",
+      "english_meaning_from_video": "G",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 7,
+      "arabic_caption": "H",
+      "english_meaning_from_video": "H",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 8,
+      "arabic_caption": "I",
+      "english_meaning_from_video": "I",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 9,
+      "arabic_caption": "J",
+      "english_meaning_from_video": "J",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 10,
+      "arabic_caption": "K",
+      "english_meaning_from_video": "K",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 11,
+      "arabic_caption": "L",
+      "english_meaning_from_video": "L",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 12,
+      "arabic_caption": "M",
+      "english_meaning_from_video": "M",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 13,
+      "arabic_caption": "N",
+      "english_meaning_from_video": "N",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 14,
+      "arabic_caption": "O",
+      "english_meaning_from_video": "O",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 15,
+      "arabic_caption": "P",
+      "english_meaning_from_video": "P",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 16,
+      "arabic_caption": "Q",
+      "english_meaning_from_video": "Q",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 17,
+      "arabic_caption": "R",
+      "english_meaning_from_video": "R",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 18,
+      "arabic_caption": "S",
+      "english_meaning_from_video": "S",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 19,
+      "arabic_caption": "T",
+      "english_meaning_from_video": "T",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 20,
+      "arabic_caption": "U",
+      "english_meaning_from_video": "U",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 21,
+      "arabic_caption": "V",
+      "english_meaning_from_video": "V",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 22,
+      "arabic_caption": "W",
+      "english_meaning_from_video": "W",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 23,
+      "arabic_caption": "X",
+      "english_meaning_from_video": "X",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 24,
+      "arabic_caption": "Y",
+      "english_meaning_from_video": "Y",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 25,
+      "arabic_caption": "Z",
+      "english_meaning_from_video": "Z",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 1/26"
+}

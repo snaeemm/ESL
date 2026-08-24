@@ -1,0 +1,279 @@
+{
+  "video_id": "xkH-_VvoeUI",
+  "n_expected_items": 30,
+  "n_matched_items": 7,
+  "intervals": {
+    "0": [
+      0.0,
+      2.5
+    ],
+    "2": [
+      9.5,
+      10.5
+    ],
+    "3": [
+      11.0,
+      11.0
+    ],
+    "4": [
+      13.0,
+      13.5
+    ],
+    "5": [
+      15.0,
+      15.5
+    ],
+    "22": [
+      22.0,
+      24.0
+    ],
+    "23": [
+      71.5,
+      73.0
+    ]
+  },
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "ا",
+      "english_meaning_from_video": "ا",
+      "content_type": "LETTER",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "ب",
+      "english_meaning_from_video": "ب",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "ت",
+      "english_meaning_from_video": "ت",
+      "content_type": "LETTER",
+      "caption_start_s": 9.5,
+      "caption_end_s": 10.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "ث",
+      "english_meaning_from_video": "ث",
+      "content_type": "LETTER",
+      "caption_start_s": 11.0,
+      "caption_end_s": 11.0
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "ج",
+      "english_meaning_from_video": "ج",
+      "content_type": "LETTER",
+      "caption_start_s": 13.0,
+      "caption_end_s": 13.5
+    },
+    {
+      "item_index_in_video": 5,
+      "arabic_caption": "ح",
+      "english_meaning_from_video": "ح",
+      "content_type": "LETTER",
+      "caption_start_s": 15.0,
+      "caption_end_s": 15.5
+    },
+    {
+      "item_index_in_video": 6,
+      "arabic_caption": "خ",
+      "english_meaning_from_video": "خ",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 7,
+      "arabic_caption": "د",
+      "english_meaning_from_video": "د",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 8,
+      "arabic_caption": "ذ",
+      "english_meaning_from_video": "ذ",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 9,
+      "arabic_caption": "ر",
+      "english_meaning_from_video": "ر",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 10,
+      "arabic_caption": "ز",
+      "english_meaning_from_video": "ز",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 11,
+      "arabic_caption": "س",
+      "english_meaning_from_video": "س",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 12,
+      "arabic_caption": "ش",
+      "english_meaning_from_video": "ش",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 13,
+      "arabic_caption": "ص",
+      "english_meaning_from_video": "ص",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 14,
+      "arabic_caption": "ض",
+      "english_meaning_from_video": "ض",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 15,
+      "arabic_caption": "ط",
+      "english_meaning_from_video": "ط",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 16,
+      "arabic_caption": "ظ",
+      "english_meaning_from_video": "ظ",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 17,
+      "arabic_caption": "ع",
+      "english_meaning_from_video": "ع",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 18,
+      "arabic_caption": "غ",
+      "english_meaning_from_video": "غ",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 19,
+      "arabic_caption": "ف",
+      "english_meaning_from_video": "ف",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 20,
+      "arabic_caption": "ق",
+      "english_meaning_from_video": "ق",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 21,
+      "arabic_caption": "ك",
+      "english_meaning_from_video": "ك",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 22,
+      "arabic_caption": "ل",
+      "english_meaning_from_video": "ل",
+      "content_type": "LETTER",
+      "caption_start_s": 22.0,
+      "caption_end_s": 24.0
+    },
+    {
+      "item_index_in_video": 23,
+      "arabic_caption": "م",
+      "english_meaning_from_video": "م",
+      "content_type": "LETTER",
+      "caption_start_s": 71.5,
+      "caption_end_s": 73.0
+    },
+    {
+      "item_index_in_video": 24,
+      "arabic_caption": "ه",
+      "english_meaning_from_video": "ه",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 25,
+      "arabic_caption": "و",
+      "english_meaning_from_video": "و",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 26,
+      "arabic_caption": "ي",
+      "english_meaning_from_video": "ي",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 27,
+      "arabic_caption": "ة",
+      "english_meaning_from_video": "ة",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 28,
+      "arabic_caption": "أ",
+      "english_meaning_from_video": "أ",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 29,
+      "arabic_caption": "ال",
+      "english_meaning_from_video": "ال",
+      "content_type": "LETTER",
+      "caption_start_s": null,
+      "caption_end_s": null
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 7/30"
+}

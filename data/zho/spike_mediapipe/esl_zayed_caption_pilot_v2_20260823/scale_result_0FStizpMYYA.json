@@ -1,0 +1,41 @@
+{
+  "video_id": "0FStizpMYYA",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "لطيف",
+      "english_meaning_from_video": "Nice",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "وسخ",
+      "english_meaning_from_video": "Dirty",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "جميل",
+      "english_meaning_from_video": "Beautiful",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 7.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "قبيح",
+      "english_meaning_from_video": "Ugly",
+      "content_type": "WORD",
+      "caption_start_s": 8.0,
+      "caption_end_s": 10.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

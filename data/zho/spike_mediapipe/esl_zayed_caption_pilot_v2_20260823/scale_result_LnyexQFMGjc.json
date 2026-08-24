@@ -1,0 +1,41 @@
+{
+  "video_id": "LnyexQFMGjc",
+  "n_expected_items": 4,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "حمام",
+      "english_meaning_from_video": "Restroom",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "استحمام",
+      "english_meaning_from_video": "Bath",
+      "content_type": "WORD",
+      "caption_start_s": null,
+      "caption_end_s": null
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "غسل اليدين",
+      "english_meaning_from_video": "Wash hands",
+      "content_type": "PHRASE",
+      "caption_start_s": 5.0,
+      "caption_end_s": 7.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "نظيف",
+      "english_meaning_from_video": "Clean",
+      "content_type": "WORD",
+      "caption_start_s": 7.5,
+      "caption_end_s": 9.5
+    }
+  ],
+  "gate_verdict": "REVIEW_REQUIRED",
+  "gate_reason": "partial match 3/4"
+}

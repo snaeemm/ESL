@@ -1,0 +1,41 @@
+{
+  "video_id": "ARH8U8S-RfI",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "مهم",
+      "english_meaning_from_video": "Important",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "انتبه",
+      "english_meaning_from_video": "Be careful",
+      "content_type": "WORD",
+      "caption_start_s": 3.0,
+      "caption_end_s": 5.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "خطر",
+      "english_meaning_from_video": "Danger",
+      "content_type": "WORD",
+      "caption_start_s": 6.0,
+      "caption_end_s": 8.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "مشكلة",
+      "english_meaning_from_video": "Problem",
+      "content_type": "WORD",
+      "caption_start_s": 9.0,
+      "caption_end_s": 10.5
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

@@ -1,0 +1,41 @@
+{
+  "video_id": "oIOd4Zoavbk",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "تاريخ",
+      "english_meaning_from_video": "Date",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "يوم",
+      "english_meaning_from_video": "Day",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 3.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "شهر",
+      "english_meaning_from_video": "Month",
+      "content_type": "WORD",
+      "caption_start_s": 4.0,
+      "caption_end_s": 5.5
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "سنة",
+      "english_meaning_from_video": "Year",
+      "content_type": "WORD",
+      "caption_start_s": 6.0,
+      "caption_end_s": 7.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

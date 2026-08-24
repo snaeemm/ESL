@@ -1,0 +1,41 @@
+{
+  "video_id": "w6lrhk1zWDc",
+  "n_expected_items": 4,
+  "n_matched_items": 4,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "قوي",
+      "english_meaning_from_video": "Strong",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "ضعيف",
+      "english_meaning_from_video": "Weak",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "صعب",
+      "english_meaning_from_video": "Difficult",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 7.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "سهل",
+      "english_meaning_from_video": "Easy",
+      "content_type": "WORD",
+      "caption_start_s": 7.5,
+      "caption_end_s": 10.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

@@ -1,0 +1,33 @@
+{
+  "video_id": "SUKPmgaXrXY",
+  "n_expected_items": 3,
+  "n_matched_items": 3,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "خفيف",
+      "english_meaning_from_video": "Light",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 1.5
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "أسرع",
+      "english_meaning_from_video": "Hurry",
+      "content_type": "WORD",
+      "caption_start_s": 4.0,
+      "caption_end_s": 5.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "بطيء",
+      "english_meaning_from_video": "Slow",
+      "content_type": "WORD",
+      "caption_start_s": 6.0,
+      "caption_end_s": 8.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

@@ -1,0 +1,49 @@
+{
+  "video_id": "44aA2rHb-Bc",
+  "n_expected_items": 5,
+  "n_matched_items": 5,
+  "items": [
+    {
+      "item_index_in_video": 0,
+      "arabic_caption": "مدير",
+      "english_meaning_from_video": "Manager",
+      "content_type": "WORD",
+      "caption_start_s": 0.0,
+      "caption_end_s": 2.0
+    },
+    {
+      "item_index_in_video": 1,
+      "arabic_caption": "مسؤول",
+      "english_meaning_from_video": "Responsible",
+      "content_type": "WORD",
+      "caption_start_s": 2.5,
+      "caption_end_s": 4.5
+    },
+    {
+      "item_index_in_video": 2,
+      "arabic_caption": "موظف",
+      "english_meaning_from_video": "Employee",
+      "content_type": "WORD",
+      "caption_start_s": 5.0,
+      "caption_end_s": 7.0
+    },
+    {
+      "item_index_in_video": 3,
+      "arabic_caption": "خدمة",
+      "english_meaning_from_video": "Service",
+      "content_type": "WORD",
+      "caption_start_s": 7.5,
+      "caption_end_s": 9.0
+    },
+    {
+      "item_index_in_video": 4,
+      "arabic_caption": "مساعدة",
+      "english_meaning_from_video": "Help",
+      "content_type": "WORD",
+      "caption_start_s": 9.5,
+      "caption_end_s": 12.0
+    }
+  ],
+  "gate_verdict": "AUTO_ACCEPT",
+  "gate_reason": "full count, monotonic, non-overlapping, no dup"
+}

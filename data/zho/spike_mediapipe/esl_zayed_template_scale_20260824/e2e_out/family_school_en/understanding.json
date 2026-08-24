@@ -1,0 +1,39 @@
+{
+  "model": "hf.co/tiiuae/Falcon-H1-7B-Instruct-GGUF:Q4_K_M",
+  "raw_response": "[{\"concept\":\"Family\",\"key_terms\":[\"father\",\"mother\",\"brother\",\"sister\"],\"source_span\":\"My father is a doctor and my mother is a teacher. I have one brother and one sister.\"},{\"concept\":\"School\",\"key_terms\":[\"school\",\"teacher\",\"book\"],\"source_span\":\"Every morning we walk to school together. At school, my teacher gives us a new book to read.\"}]",
+  "json_parsed_successfully": true,
+  "num_concepts_extracted": 2,
+  "concepts": [
+    {
+      "concept": "Family",
+      "key_terms": [
+        "father",
+        "mother",
+        "brother",
+        "sister"
+      ],
+      "source_span": "My father is a doctor and my mother is a teacher. I have one brother and one sister.",
+      "source_span_verified": true,
+      "review_required": false
+    },
+    {
+      "concept": "School",
+      "key_terms": [
+        "school",
+        "teacher",
+        "book"
+      ],
+      "source_span": "Every morning we walk to school together. At school, my teacher gives us a new book to read.",
+      "source_span_verified": false,
+      "review_required": true
+    }
+  ],
+  "structured_output_trace": {
+    "initial_parse_success": true,
+    "initial_extraction_used": false,
+    "initial_schema_valid": true,
+    "repair_retry_attempted": false,
+    "repair_retry_parse_success": null,
+    "final_parse_status": "OK"
+  }
+}
