@@ -141,7 +141,39 @@ def build_sign_plan(unit: dict, model: str) -> dict:
                 "semantic_plan_reason": "model declined to produce a semantic breakdown (returned empty)",
                 "vocabulary_hints_used": hints}
 
-    return {**unit, "semantic_sign_plan": items, "semantic_plan_status": "OK", "vocabulary_hints_used": hints}
+    # Blocker B guard (information loss, e.g. "school starts" -> only
+    # SCHOOL, silently dropping the predicate START): a single-item plan
+    # is only trustworthy when the source sentence itself is essentially
+    # single-concept. When the sentence's own content-word count (crude,
+    # deterministic, language-aware token count with stopwords already
+    # stripped by _tokenize_en/_tokenize_ar - not a parser, just a
+    # conservative proxy for "there is more than one thing being said
+    # here") suggests multiple independent concepts but the plan
+    # collapsed to just one item, that is exactly the silent-collapse
+    # failure mode this guard exists to catch. We do NOT have evidence
+    # this is an intentional valid ASL/EmSL formulation (no linguistic
+    # planning signal says so), so per the brief we must not let it pass
+    # as silently "OK" - flag it for conservative fallback (review /
+    # restructuring) instead of dropping meaning unnoticed. The item(s)
+    # already produced are kept (never silently discarded), but
+    # possible_information_loss + REVIEW_REQUIRED make sure this unit is
+    # never treated as a complete, information-preserving plan downstream.
+    is_arabic = _looks_arabic(unit["educational_sentence"])
+    content_tokens = set(_tokenize_ar(unit["educational_sentence"])) if is_arabic \
+        else set(_tokenize_en(unit["educational_sentence"]))
+    possible_information_loss = len(items) == 1 and len(content_tokens) >= 2
+    if possible_information_loss:
+        return {**unit, "semantic_sign_plan": items, "semantic_plan_status": "REVIEW_REQUIRED",
+                "semantic_plan_reason": (
+                    f"possible information loss: sentence has {len(content_tokens)} distinct content "
+                    f"words ({sorted(content_tokens)}) but the semantic plan collapsed to a single item "
+                    f"{items!r} - no evidence this single-sign collapse is an intentional valid ASL/EmSL "
+                    f"formulation, so it is flagged for review rather than silently treated as complete"),
+                "possible_information_loss": True,
+                "vocabulary_hints_used": hints}
+
+    return {**unit, "semantic_sign_plan": items, "semantic_plan_status": "OK",
+            "possible_information_loss": False, "vocabulary_hints_used": hints}
 
 
 def build_sign_plans(units: list, model: str) -> list:

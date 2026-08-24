@@ -198,6 +198,128 @@ def test_safe_plural_morphology_still_auto_verifies():
     print(f"PASS: safe plural morphology ('{query}' -> '{expected}') still auto-verifies without Falcon")
 
 
+def test_temporal_before_not_silently_authorized_as_spatial_amam():
+    """Blocker A: English 'BEFORE' used temporally ('before school
+    starts') must NOT auto-verify against the catalog's spatial 'Before'
+    entry (word_ar='أمام', category='Directions and Locations') via bare
+    exact match. With candidate selection disabled (no Falcon available),
+    the result must NOT be STATUS_VERIFIED - it must fall through to the
+    same contextual-confirmation gate as a risky morphology candidate."""
+    _reset()
+    idx = sr.get_index()
+    before_row, method = idx.exact_match("before")
+    assert before_row is not None and method == "EXACT_EN", "fixture assumption broke: catalog must contain exact 'Before'"
+    assert before_row.get("category") == "Directions and Locations", before_row
+    assert before_row.get("word_ar") == "أمام", before_row
+
+    result = sr.resolve_item(
+        "BEFORE", source_language="en", source_span="before school starts",
+        educational_sentence="Wash your hands before school starts.", model="unused",
+        allow_candidate_selection=False,
+    )
+    assert result["status"] != sr.STATUS_VERIFIED, (
+        f"temporal BEFORE must not silently auto-verify to spatial أمام, got {result}")
+    print("PASS: temporal BEFORE is not silently exact-matched to spatial أمام without contextual confirmation")
+
+
+def test_temporal_before_rejected_when_falcon_says_none_in_context():
+    """Blocker A: with Falcon selection enabled, if Falcon (correctly)
+    recognizes 'before' here is temporal and declines the spatial
+    candidate, verification must not force the spatial sign through."""
+    _reset()
+    orig = sr._call_falcon_candidate_selection
+    sr._call_falcon_candidate_selection = lambda *a, **kw: {
+        "selected_candidate_id": None,
+        "reason": "'before' here is temporal (before school starts), not the spatial 'in front of' sign",
+        "confidence": "high",
+    }
+    try:
+        result = sr.resolve_item(
+            "BEFORE", source_language="en", source_span="before school starts",
+            educational_sentence="Wash your hands before school starts.", model="unused",
+        )
+        assert result["status"] != sr.STATUS_VERIFIED, result
+    finally:
+        sr._call_falcon_candidate_selection = orig
+    print("PASS: temporal BEFORE rejected when Falcon declines the spatial candidate in context")
+
+
+def test_spatial_before_still_resolvable_via_falcon_confirmation():
+    """Blocker A fix must not over-correct: a genuinely spatial use of
+    'before' ('stand before the class') should still be able to resolve
+    to the catalog's spatial sign, but only via explicit Falcon
+    confirmation, not a silent bare exact match."""
+    _reset()
+    idx = sr.get_index()
+    before_row, _ = idx.exact_match("before")
+    orig = sr._call_falcon_candidate_selection
+    sr._call_falcon_candidate_selection = lambda *a, **kw: {
+        "selected_candidate_id": before_row["id"], "reason": "spatial: standing in front of the class",
+        "confidence": "high",
+    }
+    try:
+        result = sr.resolve_item(
+            "BEFORE", source_language="en", source_span="stand before the class",
+            educational_sentence="Stand before the class and read your report.", model="unused",
+        )
+        assert result["status"] == sr.STATUS_VERIFIED, result
+        assert result["catalog_ref"]["id"] == before_row["id"], result
+    finally:
+        sr._call_falcon_candidate_selection = orig
+    print("PASS: genuinely spatial BEFORE still resolvable, but only via explicit Falcon confirmation")
+
+
+def test_school_starts_single_item_collapse_flagged_not_silent():
+    """Blocker B: if the semantic-plan model collapses 'School starts
+    early.' into a single item ['SCHOOL'] - silently dropping the
+    predicate START - build_sign_plan must NOT report this as a clean
+    'OK' plan. It must be flagged (possible_information_loss=True,
+    semantic_plan_status=REVIEW_REQUIRED) so resolve_unit's
+    review_required propagates and the collapse can never silently
+    vanish downstream, while the item(s) actually produced are still
+    kept (conservative fallback, not silent deletion)."""
+    _reset()
+    from lib import sign_plan
+    orig = sign_plan._call_ollama_raw
+    sign_plan._call_ollama_raw = lambda *a, **kw: '["SCHOOL"]'
+    try:
+        unit = {"concept": "school routine", "key_terms": ["school", "start"],
+                "source_span": "School starts early in the morning.",
+                "educational_sentence": "School starts early in the morning."}
+        result = sign_plan.build_sign_plan(unit, model="unused")
+        assert result["semantic_sign_plan"] == ["SCHOOL"], result
+        assert result["semantic_plan_status"] == "REVIEW_REQUIRED", (
+            f"single-item collapse of a multi-concept sentence must be flagged, got {result}")
+        assert result.get("possible_information_loss") is True, result
+
+        resolved_unit = sr.resolve_unit({**unit, **result}, "en", "unused", allow_candidate_selection=False)
+        assert resolved_unit["review_required"] is True, (
+            "resolve_unit must propagate the information-loss flag as review_required, not drop it silently")
+    finally:
+        sign_plan._call_ollama_raw = orig
+    print("PASS: 'School starts' single-item collapse is flagged REVIEW_REQUIRED, not silently accepted")
+
+
+def test_school_starts_two_item_plan_not_flagged():
+    """Guard against over-correction: when the plan legitimately captures
+    both concepts (['SCHOOL', 'START']), it must NOT be flagged."""
+    _reset()
+    from lib import sign_plan
+    orig = sign_plan._call_ollama_raw
+    sign_plan._call_ollama_raw = lambda *a, **kw: '["SCHOOL", "START"]'
+    try:
+        unit = {"concept": "school routine", "key_terms": ["school", "start"],
+                "source_span": "School starts early in the morning.",
+                "educational_sentence": "School starts early in the morning."}
+        result = sign_plan.build_sign_plan(unit, model="unused")
+        assert result["semantic_sign_plan"] == ["SCHOOL", "START"], result
+        assert result["semantic_plan_status"] == "OK", result
+        assert result.get("possible_information_loss") is False, result
+    finally:
+        sign_plan._call_ollama_raw = orig
+    print("PASS: a genuine two-concept plan is not flagged as information loss")
+
+
 def run_all():
     tests = [v for k, v in list(globals().items()) if k.startswith("test_") and callable(v)]
     for t in tests:
