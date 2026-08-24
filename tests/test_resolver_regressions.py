@@ -269,6 +269,46 @@ def test_spatial_before_still_resolvable_via_falcon_confirmation():
     print("PASS: genuinely spatial BEFORE still resolvable, but only via explicit Falcon confirmation")
 
 
+def test_ambiguous_category_candidate_carries_explicit_sense_disambiguation_warning():
+    """Live-observed gap (final functional pass, general vocabulary
+    fixture): the category gate correctly routes an ambiguous-category
+    candidate through Falcon confirmation instead of auto-accepting, but
+    a real Falcon call still occasionally rubber-stamped a same-string-
+    different-sense collision ("before school starts" incorrectly
+    confirmed against the spatial أمام entry) without engaging with the
+    ambiguity at all. Fix: _call_falcon_candidate_selection must send an
+    explicit "ambiguity_warning" field for any candidate whose category
+    is in AMBIGUOUS_POLYSEMY_CATEGORIES_EN, forcing sense-disambiguation
+    reasoning rather than a bare surface-match check. This test locks in
+    the deterministic half of that fix (the prompt payload construction);
+    the live re-verification (3/3 real Falcon calls correctly rejecting
+    the spatial candidate for temporal 'before') is reported in the
+    session report, not re-run here to keep this suite offline/fast."""
+    _reset()
+    idx = sr.get_index()
+    before_row, _ = idx.exact_match("before")
+    assert before_row.get("category") in sr.AMBIGUOUS_POLYSEMY_CATEGORIES_EN, before_row
+
+    import lib.episode_builder as episode_builder
+    captured = {}
+    orig_ollama = episode_builder._call_ollama_raw
+
+    def _capture(prompt, model):
+        captured["prompt"] = prompt
+        return '{"selected_candidate_id": null, "reason": "test", "confidence": "low"}'
+    episode_builder._call_ollama_raw = _capture
+    try:
+        sr._call_falcon_candidate_selection(
+            "BEFORE", "eat breakfast before school starts", "A student eats breakfast before school starts.",
+            [before_row], "unused")
+    finally:
+        episode_builder._call_ollama_raw = orig_ollama
+
+    assert "ambiguity_warning" in captured["prompt"], (
+        "an ambiguous-category candidate must carry an explicit sense-disambiguation warning to Falcon")
+    print("PASS: ambiguous-category candidates carry an explicit sense-disambiguation warning in the Falcon prompt")
+
+
 def test_school_starts_single_item_collapse_flagged_not_silent():
     """Blocker B: if the semantic-plan model collapses 'School starts
     early.' into a single item ['SCHOOL'] - silently dropping the
