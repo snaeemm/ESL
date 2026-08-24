@@ -54,7 +54,7 @@ from extract_and_render_long import (  # noqa: E402
     _denoise_hand_series, _smooth_face_v2,
 )
 
-ROOT = "/Users/shaz/MOI-Arabic-Sign-Language"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NORM_DIR = f"{ROOT}/data/zho/spike_mediapipe/lesson/norm"
 OUT_DIR = f"{ROOT}/data/zho/spike_mediapipe/lesson/captioned"
 DEFAULT_FINAL_OUT_PATH = f"{ROOT}/data/zho/spike_mediapipe/lesson/lesson_captioned_xfade.mp4"

@@ -26,7 +26,7 @@ import numpy as np
 mp_holistic = mp.solutions.holistic
 PL = mp_holistic.PoseLandmark
 
-ROOT = "/Users/shaz/MOI-Arabic-Sign-Language"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CLIP = os.environ.get("SPIKE_CLIP", f"{ROOT}/data/zho/spike_mediapipe/trimmed/alif_active.mp4")
 OUT = os.environ.get("SPIKE_OUT", f"{ROOT}/data/zho/spike_mediapipe/trimmed/alif_cartoon.mp4")
 # Optional: path for the exported cleaned-motion JSON (see export_motion_json
