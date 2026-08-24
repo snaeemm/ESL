@@ -94,6 +94,16 @@ export default function Results() {
             </div>
           </div>
         )}
+        {cov && (
+          <div className="metric-card" style={{ minWidth: 220 }}>
+            <div className="metric-value" style={{ fontSize: '0.95rem' }}>
+              {cov.institutional_zho_coverage_pct ?? 0}% / {cov.supplementary_observed_emirati_coverage_pct ?? 0}% / {cov.combined_known_source_lexical_coverage_pct ?? 0}%
+            </div>
+            <div className="metric-label" title="Institutional ZHO coverage / supplementary ESL Zayed (observed, unverified) coverage / combined known-source lexical coverage — kept as three separate numbers, never folded into one 'coverage' figure, so an ESL Zayed sign is never counted as if it were an institutional match.">
+              ZHO / ESL Zayed / combined coverage
+            </div>
+          </div>
+        )}
         <div className="metric-card">
           <div className="metric-value">{cov?.review_required_units ?? 0}</div>
           <div className="metric-label">{t('metric_review')}</div>
