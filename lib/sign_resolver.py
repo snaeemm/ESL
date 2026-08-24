@@ -230,6 +230,27 @@ LOSS_AMBIGUOUS = "AMBIGUOUS"
 
 _WORD_RE = re.compile(r"[A-Za-z']+")
 
+# Closed set of normalized (see _normalize_ar) Arabic kinship roots with a
+# fused 1st-person-singular possessive suffix ("ي" or "ى" - both accepted
+# since alef-maksura/ya spelling variation is common and NOT normalized
+# away elsewhere in this codebase, see _normalize_ar's own docstring).
+# Deliberately closed/small (4 roots x 2 suffix spellings = 8 exact
+# strings) - NOT a general possessive-suffix stripper, which would
+# misfire on the many ordinary Arabic words that end in ي/ى for unrelated
+# reasons (adjectives, verbs, etc.). Bare root forms (بدون ياء) are
+# intentionally excluded - "اب"/"اخ" alone are not reliably "father"/
+# "brother" out of context.
+_KINSHIP_POSSESSIVE_AR = {
+    "امي", "امى",    # "my mother" (ام + ي/ى)
+    "ابي", "ابى",    # "my father" (اب + ي/ى)
+    "اخي", "اخى",    # "my brother" (اخ + ي/ى)
+    "اختي", "اختى",  # "my sister" (اخت + ي/ى)
+}
+
+
+def _is_kinship_possessive_ar(normalized_token: str) -> bool:
+    return normalized_token in _KINSHIP_POSSESSIVE_AR
+
 
 def classify_information_loss(item_text: str, selected_word_en: str) -> str:
     """General multi-token semantic-preservation safeguard (brief §I/§J).
@@ -268,6 +289,25 @@ def classify_information_loss(item_text: str, selected_word_en: str) -> str:
     modifiers = [t for t in tokens if t in modifier_set]
     sel = (selected_word_en or "").strip().lower()
     sel_tokens = set(_WORD_RE.findall(sel))
+
+    if is_arabic_item and len(tokens) == 1 and _is_kinship_possessive_ar(tokens[0]):
+        # Narrow, closed-set exception (NOT a general stemmer): Arabic
+        # kinship terms with a fused first-person possessive suffix
+        # ("أمي"/"أمى"="my mother", "أبي"/"أبى"="my father", "أخي"/"أخى"=
+        # "my brother", "أختي"/"أختى"="my sister") carry "MY" as a bound
+        # morpheme, not a separate token MODIFIER_WORDS_AR can ever catch
+        # - the query is a single Arabic word, so the "no modifiers
+        # detected -> LOSS_FULL" trust boundary above would otherwise
+        # silently treat "my mother" as fully equivalent to a bare
+        # "Mother" sign with no possession indicated, which is not
+        # necessarily true. A ZHO/ESL Zayed bare-kinship-noun sign IS the
+        # correct base concept and IS the best available representation
+        # (there is no possessive-inflected sign in either catalog) - so
+        # this is not rejected - but it is honestly flagged as
+        # CORE_WITH_MODIFIER_LOSS (base concept correct, possession not
+        # separately represented) rather than silently counted as FULL
+        # just to raise the coverage number.
+        return LOSS_CORE_WITH_MODIFIER_LOSS
 
     if not modifiers:
         # No quantity/intensity/negation modifier detected in the query -
@@ -320,7 +360,13 @@ def _looks_arabic(text: str) -> bool:
 CANDIDATE_SELECTION_SYSTEM_PROMPT = """You are helping select a sign-language dictionary entry for one word/phrase
 in a school lesson video. You will be given the educational sentence, the exact source span it came from, the
 specific semantic item that needs a sign, and a short list of CANDIDATE dictionary entries (each with a stable id
-and its official English and Arabic labels).
+and its official English label, category, and Arabic label WHEN TRUSTWORTHY).
+
+Some candidates have "word_ar": null with a "word_ar_status": "SUSPECT_SOURCE_CORRUPTION" note instead of an
+Arabic label - this means the catalog's raw Arabic text for that entry is known to be a data-quality error (e.g.
+a category header value that leaked into the wrong field), NOT a trustworthy translation. For those candidates,
+judge the match using word_en, category, and context ONLY - never use the absence of a shown Arabic label, or any
+assumption about what the "real" Arabic label might be, as a reason to reject or accept the candidate.
 
 Choose the candidate whose meaning is genuinely equivalent to the semantic item IN THIS CONTEXT - not merely a
 word that looks similar. If none of the candidates are a legitimate match, you MUST answer NONE. Do not force a
@@ -354,10 +400,22 @@ def _call_falcon_candidate_selection(item_text: str, source_span: str,
     from lib.episode_builder import _call_ollama_raw
     from lib.understand import UnderstandError
 
-    candidate_payload = [
-        {"id": c["id"], "word_en": c.get("word_en"), "word_ar": c.get("word_ar"), "category": c.get("category")}
-        for c in candidates
-    ]
+    idx_for_integrity = get_index()
+    candidate_payload = []
+    for c in candidates:
+        integrity = idx_for_integrity.word_ar_integrity.get(c.get("id"))
+        entry = {"id": c["id"], "word_en": c.get("word_en"), "category": c.get("category")}
+        if integrity == "SUSPECT_SOURCE_CORRUPTION":
+            # Never show the corrupted Arabic string as if it were the
+            # candidate's real Arabic meaning - this is exactly what
+            # poisoned Falcon's reasoning before this fix (rejecting a
+            # genuinely correct MOTHER candidate because its shown Arabic
+            # label "باب الأسرة" looked semantically unrelated).
+            entry["word_ar"] = None
+            entry["word_ar_status"] = "SUSPECT_SOURCE_CORRUPTION"
+        else:
+            entry["word_ar"] = c.get("word_ar")
+        candidate_payload.append(entry)
     prompt_input = {
         "source_span": source_span,
         "educational_sentence": educational_sentence,
@@ -584,10 +642,18 @@ def resolve_item(item_text: str, source_language: str, source_span: str,
                     "source": "ESL_ZAYED", "source_authority": "OBSERVED_EMIRATI_EDUCATIONAL_SOURCE",
                     "supplementary_id": esl_evidence.get("supplementary_id"),
                 })
+        # Copy (never mutate the shared VocabIndex row object) so the
+        # audit-preserved raw word_ar can be annotated with its integrity
+        # status for downstream display-policy use (frontend/traceability
+        # must not present a SUSPECT_SOURCE_CORRUPTION word_ar as a valid
+        # Arabic lexical translation) without ever altering the raw value
+        # itself or affecting any other caller of the shared index.
+        catalog_ref = dict(lex["row"])
+        catalog_ref["word_ar_integrity"] = get_index().word_ar_integrity.get(catalog_ref.get("id"), "VALID")
         return {
             "term": item_text,
             "status": STATUS_VERIFIED,
-            "catalog_ref": lex["row"],
+            "catalog_ref": catalog_ref,
             "match_method": lex["method"],
             "fallback_type": None,
             "information_loss": lex.get("information_loss", LOSS_FULL),

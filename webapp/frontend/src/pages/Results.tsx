@@ -155,7 +155,11 @@ export default function Results() {
                     <StatusChip status={r.status} t={t} provenance={r.supplementary_ref ? 'ESL_ZAYED' : r.catalog_ref ? 'ZHO' : undefined} />
                     {r.status === 'VERIFIED_SIGN' && r.catalog_ref && (
                       <p className="hint" style={{ margin: '4px 0 0' }}>
-                        ZHO (institutional): {r.catalog_ref.word_en}{r.catalog_ref.word_ar ? ` — ${r.catalog_ref.word_ar}` : ''} ({r.catalog_ref.category})
+                        ZHO (institutional): {r.catalog_ref.word_en}
+                        {r.catalog_ref.word_ar_integrity === 'SUSPECT_SOURCE_CORRUPTION'
+                          ? <span title="This entry's raw Arabic label is flagged as a likely source-data error and is not shown as a translation — the sign itself is still verified via its English concept and stable catalog id."> (Arabic label unavailable — source data flagged)</span>
+                          : (r.catalog_ref.word_ar ? ` — ${r.catalog_ref.word_ar}` : '')}
+                        {' '}({r.catalog_ref.category})
                         {r.information_loss && r.information_loss !== 'FULL' && (
                           <> · <span title="This match preserves the core meaning but not every word (e.g. an intensity modifier was dropped) — see Traceability for detail.">{r.information_loss}</span></>
                         )}

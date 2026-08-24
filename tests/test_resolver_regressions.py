@@ -439,6 +439,106 @@ def test_arabic_modifier_query_via_gloss_bridge_stays_ambiguous_not_falsely_veri
     print("PASS: Arabic query with a modifier does not falsely verify via the gloss bridge (stays AMBIGUOUS)")
 
 
+# --- Metadata-integrity layer (final functional pass, Part A) ------------
+
+def test_mother_father_sister_flagged_suspect_source_corruption():
+    """The evidence-based integrity classifier (_classify_word_ar_integrity
+    in lib/vocab_retrieval.py) must flag Mother/Father/Sister - which share
+    the identical word_ar 'باب الأسرة' despite being three unrelated
+    concepts - as SUSPECT_SOURCE_CORRUPTION, consistently across all three
+    (not just Mother)."""
+    _reset()
+    from lib.vocab_retrieval import INTEGRITY_SUSPECT_SOURCE_CORRUPTION
+    idx = sr.get_index()
+    found = {"Mother": False, "Father": False, "Sister": False}
+    for r in idx.rows:
+        if r.get("word_en") in found and r.get("word_ar") == "باب الأسرة":
+            found[r["word_en"]] = True
+            assert idx.word_ar_integrity.get(r["id"]) == INTEGRITY_SUSPECT_SOURCE_CORRUPTION, (
+                f"{r['word_en']} sharing the corrupted label must be flagged suspect, got "
+                f"{idx.word_ar_integrity.get(r['id'])}")
+    assert all(found.values()), f"fixture assumption broke: expected all three rows present, got {found}"
+    print("PASS: Mother/Father/Sister all consistently flagged SUSPECT_SOURCE_CORRUPTION")
+
+
+def test_suspect_label_not_indexed_as_arabic_lexical_evidence():
+    """A SUSPECT_SOURCE_CORRUPTION word_ar must never be usable as trusted
+    Arabic lexical evidence: it must not be reachable via exact/clitic
+    Arabic match, and its tokens must not contribute to Arabic-side
+    candidate-retrieval scoring (so it cannot falsely 'look like' a match
+    for some unrelated Arabic query that happens to share tokens with the
+    corrupted string) - while the raw catalog row itself, including its
+    unmodified word_ar value, remains fully intact for audit."""
+    _reset()
+    idx = sr.get_index()
+    mother_row = next(r for r in idx.rows if r.get("word_en") == "Mother")
+    assert mother_row["word_ar"] == "باب الأسرة", "raw catalog value must be untouched"
+    assert idx.exact_match("باب الأسرة") == (None, None), (
+        "a suspect word_ar must not be exact-matchable as trustworthy Arabic evidence")
+    assert idx.ar_tokens_by_row.get(mother_row["id"]) == set(), (
+        "a suspect row's Arabic tokens must be excluded from candidate-retrieval scoring")
+    print("PASS: suspect Arabic label is preserved for audit but excluded from trusted lexical matching")
+
+
+def test_falcon_candidate_payload_hides_suspect_arabic_label():
+    """Falcon must never be shown a SUSPECT_SOURCE_CORRUPTION word_ar as
+    if it were the candidate's real Arabic meaning - this is exactly what
+    poisoned candidate selection before this fix (rejecting a genuinely
+    correct MOTHER candidate because 'باب الأسرة' looked unrelated).
+    Instead it must receive word_ar=null plus an explicit status label,
+    while a VALID row's real word_ar is shown normally."""
+    _reset()
+    idx = sr.get_index()
+    mother_row = next(r for r in idx.rows if r.get("word_en") == "Mother")
+    valid_row = next(r for r in idx.rows if r.get("word_ar") and "\\" not in r.get("word_ar", "") and
+                      idx.word_ar_integrity.get(r["id"]) == "VALID")
+
+    captured = {}
+    orig_ollama = None
+    import lib.episode_builder as episode_builder
+    orig_ollama = episode_builder._call_ollama_raw
+
+    def _capture(prompt, model):
+        captured["prompt"] = prompt
+        return '{"selected_candidate_id": null, "reason": "test", "confidence": "low"}'
+    episode_builder._call_ollama_raw = _capture
+    try:
+        sr._call_falcon_candidate_selection(
+            "test item", "test span", "test sentence", [mother_row, valid_row], "unused")
+    finally:
+        episode_builder._call_ollama_raw = orig_ollama
+
+    assert "باب الأسرة" not in captured["prompt"], (
+        "the corrupted Arabic label must never be sent to Falcon as candidate evidence")
+    assert "SUSPECT_SOURCE_CORRUPTION" in captured["prompt"], (
+        "Falcon must be told explicitly that this candidate's Arabic label is not trustworthy")
+    assert valid_row["word_ar"] in captured["prompt"], (
+        "a VALID row's real word_ar must still be shown normally, unaffected by the suspect-row handling")
+    print("PASS: Falcon candidate payload hides the suspect Arabic label and explains why, without affecting valid rows")
+
+
+def test_mother_possessive_kinship_flagged_core_with_modifier_loss_not_full():
+    """'أمى'/'أمي' ('my mother') resolving to a bare 'Mother' sign has its
+    base concept correctly represented but does NOT separately represent
+    the possessive 'my' - classify_information_loss must report this
+    honestly as CORE_WITH_MODIFIER_LOSS, not silently force FULL just to
+    inflate the coverage number (per explicit product requirement)."""
+    _reset()
+    idx = sr.get_index()
+    mother_row = next(r for r in idx.rows if r.get("word_en") == "Mother")
+    for spelling in ("أمى", "أمي"):
+        loss = sr.classify_information_loss(spelling, mother_row["word_en"])
+        assert loss == sr.LOSS_CORE_WITH_MODIFIER_LOSS, (
+            f"{spelling!r} -> 'Mother' must honestly report CORE_WITH_MODIFIER_LOSS (possession not "
+            f"separately represented), not silently FULL, got {loss}")
+    # A closed-set exception, not a general stemmer: an unrelated Arabic
+    # word ending in the same letters must NOT be misclassified.
+    loss_unrelated = sr.classify_information_loss("قصير", "Short")
+    assert loss_unrelated == sr.LOSS_FULL, (
+        f"an ordinary Arabic word must not be misidentified as a kinship possessive, got {loss_unrelated}")
+    print("PASS: kinship-possessive Arabic terms honestly report CORE_WITH_MODIFIER_LOSS; unrelated words unaffected")
+
+
 def run_all():
     tests = [v for k, v in list(globals().items()) if k.startswith("test_") and callable(v)]
     for t in tests:
