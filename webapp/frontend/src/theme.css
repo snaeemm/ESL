@@ -36,7 +36,20 @@
   --radius-pill: 999px;
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04);
 
-  --font-family: "Helvetica Neue", Arial, sans-serif; /* stand-in for Univers Next — see CLAUDE.md */
+  /* stand-in for Univers Next — see CLAUDE.md. Blocker C fix: the
+     original stack ("Helvetica Neue", Arial, sans-serif) has no font
+     listed that is guaranteed to carry Arabic glyphs on every platform
+     — on systems where Arial's Arabic glyph subset isn't installed,
+     Arabic text (catalog word_ar, ESL Zayed arabic_text, fingerspelled
+     terms) fell through to tofu/missing-glyph boxes ("[][][][][]")
+     instead of readable Arabic. Appending widely-available Arabic-
+     capable system fonts before the generic sans-serif fallback fixes
+     this without changing the Latin-text appearance at all (browsers
+     only consult later fonts in the stack for glyphs the earlier ones
+     lack, and none of these fonts are used for Latin body text unless
+     Helvetica Neue/Arial are absent). */
+  --font-family: "Helvetica Neue", Arial, "Segoe UI", "Noto Naskh Arabic", "Noto Sans Arabic",
+    "Geeza Pro", "Arial Unicode MS", sans-serif;
 }
 
 * { box-sizing: border-box; }
