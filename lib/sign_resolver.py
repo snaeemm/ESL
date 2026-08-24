@@ -33,8 +33,21 @@ import re
 from lib.fingerspell import fingerspell
 from lib.terminology import resolve_terminology
 from lib.vocab_retrieval import (
-    get_index, get_esl_zayed_index, MATCH_CANDIDATE_SELECTED, MATCH_MORPHOLOGY_CANDIDATE, MODIFIER_WORDS_EN,
+    get_index, get_esl_zayed_index, MATCH_CANDIDATE_SELECTED, MATCH_MORPHOLOGY_CANDIDATE, MATCH_EXACT_EN,
+    MODIFIER_WORDS_EN,
 )
+
+# Blocker A (semantic false match, e.g. temporal "before" -> spatial أمام):
+# catalog categories whose entries are English words known to be commonly
+# polysemous between the catalog's SPATIAL/DIRECTIONAL sense and other
+# senses (temporal/logical connectives etc.) in ordinary English. An exact
+# word_en hit against a row in one of these categories is not treated as
+# self-evidently correct (LOSS_FULL, no context check) the way other exact
+# matches are - it is instead routed through the same Falcon contextual
+# confirmation + information-loss gate as a retrieval candidate. This is a
+# category-level rule (applies to every row in the category), not a
+# hardcoded single word.
+AMBIGUOUS_POLYSEMY_CATEGORIES_EN = {"Directions and Locations"}
 
 # ESL Zayed supplementary WORD-level candidate source (smallest-safe
 # integration per data/zho/spike_mediapipe/ab_experiment_20260823/FINAL_REPORT.md
@@ -349,9 +362,28 @@ def _deterministic_lexical_resolution(item_text: str, model: str, source_span: s
     idx = get_index()
 
     row, method = idx.exact_match(item_text)
+    exact_category_candidate = None
     if row:
-        return {"row": row, "method": method, "information_loss": LOSS_FULL,
-                "match_reason": f"exact bilingual match: query='{item_text}' == catalog word_en/word_ar='{row.get('word_en')}' / '{row.get('word_ar')}'"}
+        if method == MATCH_EXACT_EN and row.get("category") in AMBIGUOUS_POLYSEMY_CATEGORIES_EN:
+            # Category-level polysemy gate (Blocker A). The catalog's
+            # "Directions and Locations" category (and any other category
+            # in AMBIGUOUS_POLYSEMY_CATEGORIES_EN) holds English spatial
+            # prepositions ("Before", "After", "Over", ...) that are also
+            # extremely common TEMPORAL/logical connectives in English
+            # ("before school starts"). An exact word_en string match
+            # against one of these rows only proves the surface form
+            # matches, not that the SPATIAL sense the catalog row encodes
+            # is the sense meant here - so it must not auto-verify as
+            # LOSS_FULL the way an unambiguous exact match does. Route it
+            # through the same Falcon contextual-confirmation gate as a
+            # risky morphology candidate instead of trusting Layer 1
+            # blindly; this is a general category-level rule (any word in
+            # any row of this category), not a hardcoded single word.
+            exact_category_candidate = dict(row)
+            exact_category_candidate["_exact_category_ambiguous"] = True
+        else:
+            return {"row": row, "method": method, "information_loss": LOSS_FULL,
+                    "match_reason": f"exact bilingual match: query='{item_text}' == catalog word_en/word_ar='{row.get('word_en')}' / '{row.get('word_ar')}'"}
 
     row, method, tok, form = idx.morphology_match(item_text)
     morphology_candidate = None
@@ -392,6 +424,9 @@ def _deterministic_lexical_resolution(item_text: str, model: str, source_span: s
     if morphology_candidate is not None and morphology_candidate["id"] not in candidate_ids_seen:
         candidate_ids_seen.add(morphology_candidate["id"])
         candidates.append(morphology_candidate)
+    if exact_category_candidate is not None and exact_category_candidate["id"] not in candidate_ids_seen:
+        candidate_ids_seen.add(exact_category_candidate["id"])
+        candidates.append(exact_category_candidate)
 
     # Optional Layer 4b (off by default): local multilingual embedding
     # retrieval, benchmarked against plain lexical/token-overlap in
@@ -641,7 +676,10 @@ def resolve_unit(unit: dict, source_language: str, model: str, allow_candidate_s
                      allow_candidate_selection=allow_candidate_selection)
         for item in unit.get("semantic_sign_plan", [])
     ]
-    unit_review_required = unit.get("review_required", False) or any(r["review_required"] for r in resolutions)
+    unit_review_required = (unit.get("review_required", False)
+                             or unit.get("possible_information_loss", False)
+                             or unit.get("semantic_plan_status") == "REVIEW_REQUIRED"
+                             or any(r["review_required"] for r in resolutions))
     return {**unit, "sign_resolution": resolutions, "review_required": unit_review_required}
 
 
