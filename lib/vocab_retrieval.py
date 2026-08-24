@@ -168,6 +168,59 @@ def _strip_ar_clitics(word: str) -> list:
     return candidates
 
 
+INTEGRITY_VALID = "VALID"
+INTEGRITY_MISSING = "MISSING"
+INTEGRITY_SUSPECT_SOURCE_CORRUPTION = "SUSPECT_SOURCE_CORRUPTION"
+
+
+def _classify_word_ar_integrity(rows: list) -> dict:
+    """General, evidence-based Arabic-label integrity classification (not
+    a fix, not a fabricated translation - raw catalog values are never
+    touched). Returns {catalog_id: status}.
+
+    Rule: group rows by their exact word_ar string. Most duplicate word_ar
+    groups in the ZHO catalog are legitimate - multiple catalog rows for
+    the SAME concept (numbered clip variants like "Gorilla"/"Gorilla 2",
+    or repeated entries like "Astronaut"/"Astronaut"/"Astronaut"). A group
+    is only flagged SUSPECT_SOURCE_CORRUPTION when at least one PAIR of
+    rows in it has word_en labels sharing ZERO English word tokens after
+    stripping standalone numbers (e.g. "Mother" vs "Father" vs "Sister"
+    share no token at all - genuinely different concepts wrongly sharing
+    one Arabic string, evidence of a crawl/category-header artifact - vs
+    "Gorilla"/"Gorilla 2" which share the token "gorilla" and are fine).
+    Verified against the current catalog: flags exactly 3 groups
+    (Mother/Father/Sister sharing "باب الأسرة"; a dancing/Concentrate
+    collision; a Worried/Citizen collision) out of 78 total duplicate
+    word_ar groups - the other 75 are same-concept variants, left VALID.
+    Rows with no word_ar at all are MISSING. Everything else is VALID."""
+    import itertools
+
+    def _en_tokens_for_integrity(word_en: str) -> set:
+        w = re.sub(r"\b\d+\b", "", (word_en or "").lower())
+        return set(re.findall(r"[a-z]+", w))
+
+    groups = {}
+    for r in rows:
+        if r.get("word_ar"):
+            groups.setdefault(r["word_ar"], []).append(r)
+
+    status = {}
+    for r in rows:
+        status[r["id"]] = INTEGRITY_MISSING if not r.get("word_ar") else INTEGRITY_VALID
+
+    for word_ar, group_rows in groups.items():
+        if len(group_rows) < 2:
+            continue
+        tok_sets = [_en_tokens_for_integrity(r.get("word_en")) for r in group_rows]
+        conflict = any(
+            not (a & b) for a, b in itertools.combinations(tok_sets, 2) if a and b
+        )
+        if conflict:
+            for r in group_rows:
+                status[r["id"]] = INTEGRITY_SUSPECT_SOURCE_CORRUPTION
+    return status
+
+
 class VocabIndex:
     """Loads catalog.json + aliases.json once and exposes deterministic
     lookup + candidate-retrieval methods. Cheap to build (~1,143 rows);
@@ -178,6 +231,10 @@ class VocabIndex:
             self.rows = json.load(f)
         self.by_id = {r["id"]: r for r in self.rows}
 
+        # Metadata-integrity layer (never mutates raw word_ar - audit trail
+        # preserved). See _classify_word_ar_integrity's docstring.
+        self.word_ar_integrity = _classify_word_ar_integrity(self.rows)
+
         self.en_exact = {}
         self.ar_exact = {}
         self.en_tokens_by_row = {}
@@ -186,9 +243,21 @@ class VocabIndex:
             if r.get("word_en"):
                 self.en_exact.setdefault(r["word_en"].strip().lower(), []).append(r)
                 self.en_tokens_by_row[r["id"]] = set(_tokenize_en(r["word_en"]))
-            if r.get("word_ar"):
+            # A SUSPECT_SOURCE_CORRUPTION word_ar is never indexed as
+            # trustworthy Arabic lexical evidence - it cannot be reached
+            # via exact/clitic Arabic-string matching, and its tokens are
+            # excluded from candidate-retrieval token-overlap scoring, so
+            # it can never falsely "look like" a match for an unrelated
+            # Arabic query sharing incidental tokens with the corrupted
+            # string. The row itself is NOT removed - it can still be
+            # found via word_en (English exact match, or the Arabic->
+            # English gloss bridge), and its raw word_ar is still returned
+            # unchanged in catalog_ref for audit/display-policy purposes.
+            if r.get("word_ar") and self.word_ar_integrity.get(r["id"]) != INTEGRITY_SUSPECT_SOURCE_CORRUPTION:
                 self.ar_exact.setdefault(_normalize_ar(r["word_ar"]), []).append(r)
                 self.ar_tokens_by_row[r["id"]] = set(_tokenize_ar(r["word_ar"]))
+            else:
+                self.ar_tokens_by_row[r["id"]] = set()
 
         self.aliases = {}
         if os.path.exists(aliases_path):
