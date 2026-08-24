@@ -242,5 +242,23 @@
     "start_s": 0.28,
     "end_s": 2.44,
     "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/worried_b0d8b2c2.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0027": {
+    "caption_start_s": 5.5,
+    "caption_end_s": 14.5,
+    "dead_time_trim_applied": true,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0027.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0075": {
+    "caption_start_s": 0.0,
+    "caption_end_s": 2.5,
+    "dead_time_trim_applied": true,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0075.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0046": {
+    "caption_start_s": 3.5,
+    "caption_end_s": 5.5,
+    "dead_time_trim_applied": true,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0046.mp4"
   }
 }
