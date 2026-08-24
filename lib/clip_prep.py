@@ -82,6 +82,22 @@ def _compute_trim_window(clip_path: str, catalog_id: str) -> tuple:
         c = cache[catalog_id]
         return c["start_s"], c["end_s"]
 
+    window = _run_active_window_detector(clip_path)
+    if window is None:
+        raise ClipPrepError(f"spike_find_active_window.py failed/found no hand for {clip_path}")
+    start_s, end_s = window
+
+    cache[catalog_id] = {"start_s": start_s, "end_s": end_s, "clip_path": clip_path}
+    _save_trim_cache(cache)
+    return start_s, end_s
+
+
+def _run_active_window_detector(clip_path: str) -> tuple:
+    """Runs scripts/spike_find_active_window.py (MediaPipe hand-detection
+    dead-time trim) against clip_path and returns (start_s, end_s) relative
+    to clip_path itself, or None if detection failed/found no hand at all
+    (e.g. a short or noisy clip) - callers must treat None as "keep the
+    untrimmed clip", never as an error that drops the item."""
     cmd = [
         "uv", "run", "--python", "3.11",
         "--with", "mediapipe==0.10.14", "--with", "opencv-python", "--with", "numpy",
@@ -89,13 +105,11 @@ def _compute_trim_window(clip_path: str, catalog_id: str) -> tuple:
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        raise ClipPrepError(
-            f"spike_find_active_window.py failed for {clip_path}: {result.stderr.strip()}"
-        )
-    start_s, end_s = (float(x) for x in result.stdout.strip().split())
-
-    cache[catalog_id] = {"start_s": start_s, "end_s": end_s, "clip_path": clip_path}
-    _save_trim_cache(cache)
+        return None
+    try:
+        start_s, end_s = (float(x) for x in result.stdout.strip().split())
+    except (ValueError, IndexError):
+        return None
     return start_s, end_s
 
 
@@ -171,9 +185,26 @@ def _ensure_esl_zayed_downloaded(youtube_video_id: str, source_url: str) -> str:
 def prepare_esl_zayed_clip(supplementary_ref: dict) -> dict:
     """Downloads (if needed, cached by youtube_video_id) the full ESL
     Zayed source video and trims it (cached by supplementary_id) to the
-    catalog record's own segment_start_s/segment_end_s — this is a KNOWN
-    interval from the catalog, unlike ZHO's MediaPipe-detected active
-    window, so no active-window detection subprocess is needed here.
+    catalog record's own segment_start_s/segment_end_s — this is a KNOWN,
+    caption-verified interval from the catalog, unlike ZHO's raw downloaded
+    clip which needs MediaPipe active-window detection just to find where
+    the sign is at all.
+
+    Blocker E fix: that caption-verified interval can still include
+    "dead time" at its edges — the signer entering/leaving frame, an idle
+    hand fragment, a caption transition frame — that ZHO's per-clip
+    MediaPipe dead-time trim (spike_find_active_window.py, via
+    _compute_trim_window/prepare_clip above) already screens out but this
+    path previously skipped entirely (see FINAL_REPORT.md's "no MediaPipe
+    dead-time trim" / "stray hand/finger shape" / "scale-position
+    difference" findings). Fix: reuse the SAME detector, run against the
+    already caption-trimmed clip (not the raw video) so refinement can only
+    ever narrow the window — it is mathematically bounded inside
+    [segment_start_s, segment_end_s] by construction, never outside the
+    caption-verified interval. If detection finds no hand at all (e.g. a
+    very short clip), the caption-verified trim is kept unchanged rather
+    than treating that as an error - conservative, fail-open on refinement
+    only, never fail-open on the clip existing at all.
     Raises ClipPrepError on any failure; callers must not silently
     substitute or omit the item on failure (fail closed)."""
     supplementary_id = supplementary_ref.get("supplementary_id")
@@ -187,11 +218,46 @@ def prepare_esl_zayed_clip(supplementary_ref: dict) -> dict:
             f"ESL Zayed supplementary_ref missing required provenance fields "
             f"(supplementary_id/youtube_video_id/source_url/segment_start_s/segment_end_s): {supplementary_ref!r}"
         )
+    start_s, end_s = float(start_s), float(end_s)
     raw_path = _ensure_esl_zayed_downloaded(youtube_video_id, source_url)
     norm_path = os.path.join(ESL_ZAYED_NORM_DIR, f"{supplementary_id}.mp4")
-    _ffmpeg_trim(raw_path, norm_path, float(start_s), float(end_s))
-    if not os.path.exists(norm_path) or os.path.getsize(norm_path) == 0:
-        raise ClipPrepError(f"ESL Zayed trim produced no output for {supplementary_id} (source={youtube_video_id})")
+    caption_verified_window = [start_s, end_s]
+    dead_time_trim_applied = False
+
+    if os.path.exists(norm_path) and os.path.getsize(norm_path) > 0:
+        # Already materialized (and, if a refinement pass has run before,
+        # already refined) in a prior run - cache hit, nothing to redo.
+        cache = _load_trim_cache()
+        cached = cache.get(f"ESL_ZAYED::{supplementary_id}")
+        if cached:
+            caption_verified_window = [cached["caption_start_s"], cached["caption_end_s"]]
+            dead_time_trim_applied = cached.get("dead_time_trim_applied", False)
+    else:
+        _ffmpeg_trim(raw_path, norm_path, start_s, end_s)
+        if not os.path.exists(norm_path) or os.path.getsize(norm_path) == 0:
+            raise ClipPrepError(f"ESL Zayed trim produced no output for {supplementary_id} (source={youtube_video_id})")
+
+        # Dead-time refinement: run the SAME detector ZHO uses, against the
+        # already caption-trimmed clip. Any window it returns is relative to
+        # that clip (0..duration), so re-applying it can only shrink the
+        # window - it can never move the boundary outside [start_s, end_s].
+        refined = _run_active_window_detector(norm_path)
+        if refined is not None:
+            r_start, r_end = refined
+            if r_end > r_start:
+                refined_path = norm_path + ".refined.mp4"
+                _ffmpeg_trim(norm_path, refined_path, r_start, r_end)
+                if os.path.exists(refined_path) and os.path.getsize(refined_path) > 0:
+                    os.replace(refined_path, norm_path)
+                    dead_time_trim_applied = True
+
+        cache = _load_trim_cache()
+        cache[f"ESL_ZAYED::{supplementary_id}"] = {
+            "caption_start_s": start_s, "caption_end_s": end_s,
+            "dead_time_trim_applied": dead_time_trim_applied, "clip_path": norm_path,
+        }
+        _save_trim_cache(cache)
+
     return {
         "supplementary_id": supplementary_id,
         "youtube_video_id": youtube_video_id,
@@ -200,5 +266,6 @@ def prepare_esl_zayed_clip(supplementary_ref: dict) -> dict:
         "english_meaning": supplementary_ref.get("english_meaning"),
         "raw_clip_path": raw_path,
         "norm_clip_path": norm_path,
-        "trim_window_s": [float(start_s), float(end_s)],
+        "trim_window_s": caption_verified_window,
+        "dead_time_trim_applied": dead_time_trim_applied,
     }
