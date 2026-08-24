@@ -260,5 +260,15 @@
     "caption_end_s": 5.5,
     "dead_time_trim_applied": true,
     "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0046.mp4"
+  },
+  "43a2ab87-8fd9-44f1-8f77-81aa261b45ca": {
+    "start_s": 0.08,
+    "end_s": 3.12,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Professions and Jobs/teacher_43a2ab87.mp4"
+  },
+  "f510e6d3-b4d2-4300-8028-7d3cc226b49e": {
+    "start_s": 0.08,
+    "end_s": 2.4,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Common Verbs/walk_f510e6d3.mp4"
   }
 }
