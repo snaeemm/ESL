@@ -322,6 +322,58 @@ def shift_pts_list(pts_list, dx, dy):
     return out
 
 
+def rescale_and_shift_pose_list(pose_px_list, anchor, target_x, target_y, ratio):
+    """Fix for the mixed-resolution/mixed-framing avatar scale bug: the
+    OLD shift_pose_list() above only ever TRANSLATES a segment's raw
+    detected skeleton - it never rescales the actual bone lengths/span
+    (shoulder-to-shoulder, arm reach, torso height). draw_body() draws
+    the torso/limb SPAN directly from these raw positions (only their
+    stroke THICKNESS is separately sized via scale_w), so a segment whose
+    real-world signer occupies a different fraction of its own native
+    frame (whether from a different source resolution or genuinely
+    closer/wider camera framing - confirmed real via a rendered ESL Zayed
+    clip: same fixed anchor target, but the whole skeleton span was still
+    the clip's own larger raw size, pushing the head/hands past the
+    canvas edges) came out the wrong SIZE entirely, not just
+    mispositioned.
+
+    This scales every landmark's offset from its OWN segment's detected
+    anchor by `ratio` (= this lesson's global target physical scale /
+    this segment's own detected physical scale, both already resolution-
+    normalized by the caller - see render_lesson()), THEN recenters on
+    the global target anchor position - a single geometric operation
+    (scale-around-a-point, then translate) that replaces the old shift-
+    only approach and is what actually normalizes each segment's whole
+    body to the lesson's shared physical scale, not just its stroke
+    thickness or its center point."""
+    ax, ay = anchor
+    out = []
+    for p in pose_px_list:
+        if p is None:
+            out.append(None)
+            continue
+        out.append({
+            k: (target_x + (v[0] - ax) * ratio, target_y + (v[1] - ay) * ratio)
+            for k, v in p.items()
+        })
+    return out
+
+
+def rescale_and_shift_pts_list(pts_list, anchor, target_x, target_y, ratio):
+    """Hand-landmark counterpart of rescale_and_shift_pose_list() above -
+    same scale-around-anchor-then-translate operation, so hands stay
+    correctly sized/positioned relative to the now-correctly-scaled body
+    instead of at their old (wrong) raw scale."""
+    ax, ay = anchor
+    out = []
+    for pts in pts_list:
+        if pts is None:
+            out.append(None)
+            continue
+        out.append([(target_x + (x - ax) * ratio, target_y + (y - ay) * ratio) for x, y in pts])
+    return out
+
+
 _POSE_KEYS = ("l_sh", "r_sh", "l_el", "r_el", "l_wr", "r_wr", "l_hip", "r_hip")
 
 
@@ -535,19 +587,54 @@ def render_lesson(segments=None, norm_dir=NORM_DIR, out_dir=OUT_DIR,
 
     print("=== Pass 1: detecting all segments ===", file=sys.stderr)
     detected = {}
-    all_shoulder_widths = []
+    all_shoulder_widths_norm = []
+    segment_scale_norm = {}
     anchors = {}
+    anchors_norm = {}
     for stem, eng, ar in segments:
         data = detect_segment(stem, norm_dir=norm_dir)
         detected[stem] = data
-        all_shoulder_widths += [abs(p["r_sh"][0] - p["l_sh"][0]) for p in data["pose"] if p is not None]
-        anchors[stem] = segment_anchor(data["pose"])
-        print(f"  detected {stem} ({len(data['pose'])} frames), anchor={anchors[stem]}", file=sys.stderr)
+        # Resolution-invariant scale/anchor fix: render_segment() draws
+        # each segment onto a canvas sized to that segment's OWN source
+        # resolution (data["w"]/data["h"] - see chain_with_xfade's
+        # docstring, this is a deliberate design choice preserved here,
+        # NOT the bug). The bug was pooling/applying RAW absolute-pixel
+        # shoulder widths and anchor positions across segments whose
+        # native resolutions can differ substantially (e.g. a 1280x720
+        # ESL Zayed source clip next to 640x360 ZHO clips - confirmed via
+        # a real rendered lesson: the higher-resolution segment's avatar
+        # came out oversized and cropped past the frame edges, because a
+        # scale/shift computed mostly from smaller-canvas segments was
+        # applied as literal absolute pixels onto a much larger canvas).
+        # Fix: normalize every raw pixel quantity by ITS OWN segment's
+        # frame width/height into a resolution-independent fraction
+        # BEFORE pooling into the one global scale/anchor (same pooled-
+        # median architecture as before, now scale-invariant), then
+        # convert back to each segment's own absolute pixels when
+        # applying it below - never touches detect_segment/render_segment
+        # themselves or the deliberate per-segment native-canvas design.
+        w, h = data["w"], data["h"]
+        this_seg_widths_norm = [abs(p["r_sh"][0] - p["l_sh"][0]) / w for p in data["pose"] if p is not None]
+        all_shoulder_widths_norm += this_seg_widths_norm
+        # Per-segment own normalized scale (median shoulder width as a
+        # fraction of ITS OWN frame width) - needed below to compute how
+        # much to rescale THIS segment's whole skeleton to match the
+        # lesson-wide global target scale, not just how much to shift it.
+        segment_scale_norm[stem] = float(np.median(this_seg_widths_norm)) if this_seg_widths_norm else None
+        a = segment_anchor(data["pose"])
+        anchors[stem] = a
+        anchors_norm[stem] = (a[0] / w, a[1] / h) if a is not None else None
+        print(f"  detected {stem} ({len(data['pose'])} frames), anchor={a}, wh=({w},{h}), "
+              f"own_scale_norm={segment_scale_norm[stem]}", file=sys.stderr)
 
     # One global scale for the whole lesson, not one per segment - fixes
-    # "subject keeps changing size."
-    global_scale_w = float(np.median(all_shoulder_widths)) if all_shoulder_widths else 100.0
-    print(f"Global scale_w = {global_scale_w:.1f} (from {len(all_shoulder_widths)} pooled frames)", file=sys.stderr)
+    # "subject keeps changing size." Now computed in resolution-
+    # independent fractional units (fraction of that segment's own frame
+    # width), so it means the same thing ("this fraction of the frame is
+    # shoulder-width") regardless of any one segment's native resolution.
+    global_scale_w_norm = float(np.median(all_shoulder_widths_norm)) if all_shoulder_widths_norm else 0.15
+    print(f"Global scale_w (fraction of frame width) = {global_scale_w_norm:.4f} "
+          f"(from {len(all_shoulder_widths_norm)} pooled frames)", file=sys.stderr)
 
     # One global target position too, not just scale - each segment's real
     # signer stands wherever they happened to stand in their own source
@@ -555,22 +642,41 @@ def render_lesson(segments=None, norm_dir=NORM_DIR, out_dir=OUT_DIR,
     # up/down at every cut, which also makes the crossfades look like
     # glitchy cuts rather than smooth dissolves (blending two different
     # screen positions never looks like a clean transition, no matter the
-    # fade duration). Target = median of all segments' own anchors.
-    valid_anchors = [a for a in anchors.values() if a is not None]
-    target_x = float(np.median([a[0] for a in valid_anchors]))
-    target_y = float(np.median([a[1] for a in valid_anchors]))
-    print(f"Global target anchor = ({target_x:.1f}, {target_y:.1f})", file=sys.stderr)
+    # fade duration). Target = median of all segments' own anchors, also
+    # in resolution-independent fractional units for the same reason.
+    valid_anchors_norm = [a for a in anchors_norm.values() if a is not None]
+    target_x_norm = float(np.median([a[0] for a in valid_anchors_norm]))
+    target_y_norm = float(np.median([a[1] for a in valid_anchors_norm]))
+    print(f"Global target anchor (fraction of frame) = ({target_x_norm:.4f}, {target_y_norm:.4f})", file=sys.stderr)
 
     for stem, eng, ar in segments:
         a = anchors[stem]
         if a is None:
             continue
-        dx, dy = target_x - a[0], target_y - a[1]
         d = detected[stem]
-        d["pose"] = shift_pose_list(d["pose"], dx, dy)
-        d["left"] = shift_pts_list(d["left"], dx, dy)
-        d["right"] = shift_pts_list(d["right"], dx, dy)
-        print(f"  {stem}: shift=({dx:.1f}, {dy:.1f})", file=sys.stderr)
+        w, h = d["w"], d["h"]
+        # Denormalize back to THIS segment's own absolute pixels before
+        # computing the shift, so a segment at any resolution ends up
+        # with its signer at the same RELATIVE on-screen position as
+        # every other segment, not the same absolute pixel offset.
+        target_x_px, target_y_px = target_x_norm * w, target_y_norm * h
+        # The actual scale fix: rescale this segment's whole skeleton
+        # (not just shift its position) so its physical size, as a
+        # fraction of ITS OWN frame, matches the lesson-wide global
+        # target - this is what a same-string absolute-pixel shift alone
+        # could never do, and is what was missing before (see
+        # rescale_and_shift_pose_list's docstring for the full story).
+        # ratio > 1 means this segment's own signer occupies LESS of
+        # their frame than the lesson target (needs enlarging); ratio < 1
+        # means they occupy MORE (needs shrinking, exactly the ESL Zayed
+        # SCHOOL STARTS/LOSE FOCUS case that was rendering oversized).
+        own_scale = segment_scale_norm.get(stem)
+        ratio = (global_scale_w_norm / own_scale) if own_scale else 1.0
+        d["pose"] = rescale_and_shift_pose_list(d["pose"], a, target_x_px, target_y_px, ratio)
+        d["left"] = rescale_and_shift_pts_list(d["left"], a, target_x_px, target_y_px, ratio)
+        d["right"] = rescale_and_shift_pts_list(d["right"], a, target_x_px, target_y_px, ratio)
+        print(f"  {stem}: own_scale={own_scale}, ratio={ratio:.3f}, target_px=({target_x_px:.1f}, {target_y_px:.1f})",
+              file=sys.stderr)
 
     export_lesson_motion_json(motion_json_path, detected, segments)
 
@@ -595,8 +701,16 @@ def render_lesson(segments=None, norm_dir=NORM_DIR, out_dir=OUT_DIR,
     print("=== Pass 2: rendering with shared scale + position ===", file=sys.stderr)
     rendered = []
     for stem, eng, ar in segments:
+        d = detected[stem]
+        # Denormalize the resolution-independent global scale fraction
+        # back to THIS segment's own absolute pixels - a segment at any
+        # native resolution ends up drawing its avatar at the same
+        # RELATIVE size (fraction of its own frame width) as every other
+        # segment, instead of one fixed absolute-pixel size that only
+        # looks right for segments near the pooled dominant resolution.
+        scale_w_px = global_scale_w_norm * d["w"]
         path, nframes, fps = render_segment(
-            stem, eng, ar, detected[stem], global_scale_w, out_dir=out_dir,
+            stem, eng, ar, d, scale_w_px, out_dir=out_dir,
             brow_calibration=brow_calibration, mouth_calibration=mouth_calibration,
             mouth_contour_calibration=mouth_contour_calibration,
             eye_contour_calibration=eye_contour_calibration)
