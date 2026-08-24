@@ -62,3 +62,10 @@ data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/frames/
 data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/ocr_frames/
 data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/scale_frames/
 data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/__pycache__/
+
+# ESL Zayed clip-prep raw download cache (lib/clip_prep.py's
+# prepare_esl_zayed_clip): full source videos fetched via yt-dlp, cached by
+# youtube_video_id — never committed (licensing + repo-size), same policy as
+# the OCR pilot's raw videos above. Only the small TRIMMED per-word segment
+# under esl_zayed_clips/ is committed as provenance evidence.
+data/zho/spike_mediapipe/esl_zayed_raw/

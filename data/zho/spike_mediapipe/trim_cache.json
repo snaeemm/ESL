@@ -123,5 +123,65 @@
     "start_s": 0.36,
     "end_s": 2.84,
     "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/sheen_97e18b50.mp4"
+  },
+  "c022191d-63b3-4397-b758-f2edb22bf50f": {
+    "start_s": 0.0,
+    "end_s": 2.8,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Family/family_c022191d.mp4"
+  },
+  "5aae07f0-e199-4408-9d7a-dd067aab45c2": {
+    "start_s": 0.32,
+    "end_s": 2.36,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Family/father_5aae07f0.mp4"
+  },
+  "9116db67-cde3-4b39-bd03-f76caf73c0ea": {
+    "start_s": 0.08,
+    "end_s": 4.08,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Professions and Jobs/doctor_9116db67.mp4"
+  },
+  "5ffb35c4-cbdb-4b96-a96f-0f327e579e15": {
+    "start_s": 0.0,
+    "end_s": 2.32,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Family/mother_5ffb35c4.mp4"
+  },
+  "d88fb82a-69e1-475b-b651-4a6add2bfee1": {
+    "start_s": 0.16,
+    "end_s": 2.96,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Education/teacher_d88fb82a.mp4"
+  },
+  "c3ed9923-53d2-4f4e-a300-30de5d0e662b": {
+    "start_s": 0.0,
+    "end_s": 3.2,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Family/sister_c3ed9923.mp4"
+  },
+  "38420a44-06d8-4552-b4e8-5c5f79687d30": {
+    "start_s": 0.2,
+    "end_s": 2.24,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Alphabets/tua_38420a44.mp4"
+  },
+  "155bc851-2bc2-4a9f-bb17-4fbdd9380f19": {
+    "start_s": 0.36,
+    "end_s": 2.4,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Alphabets/zaal_155bc851.mp4"
+  },
+  "97fe13f3-9d7b-4e12-9a44-4ae5617edf66": {
+    "start_s": 0.12,
+    "end_s": 2.72,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Common Verbs/wakes-up_97fe13f3.mp4"
+  },
+  "1d33d82f-9862-45b7-85f8-b0ff66aa363b": {
+    "start_s": 0.56,
+    "end_s": 3.4,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Education/book_1d33d82f.mp4"
+  },
+  "ac41e3fb-5912-440d-ac63-64dc69f79add": {
+    "start_s": 0.16,
+    "end_s": 3.88,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Directions and Locations/before_ac41e3fb.mp4"
+  },
+  "2499aa36-8999-46df-b950-963d38e85700": {
+    "start_s": 0.16,
+    "end_s": 3.04,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Education/school_2499aa36.mp4"
   }
 }

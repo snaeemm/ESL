@@ -29,6 +29,18 @@ CLIPS_DIR = os.path.join(ROOT, "data", "zho", "clips")
 TRIM_CACHE_PATH = os.path.join(ROOT, "data", "zho", "spike_mediapipe", "trim_cache.json")
 NORM_CACHE_DIR = os.path.join(ROOT, "data", "zho", "spike_mediapipe", "norm_cache")
 
+# ESL Zayed supplementary-source clip prep (mirrors the ZHO cache layout
+# above, keyed by supplementary_id / youtube_video_id instead of ZHO
+# catalog id). Raw downloads are cached per SOURCE VIDEO (one YouTube video
+# can back multiple WORD records at different timestamps), the trimmed
+# segment is cached per supplementary_id, matching the "raw download cache
+# + trim cache keyed by id + norm_cache" design used for ZHO. This reuses
+# the exact download+trim approach manually proven in commit bb3895f
+# (yt-dlp fetch of the full source video, then ffmpeg -ss/-to trim to the
+# catalog record's segment_start_s/segment_end_s) rather than reinventing it.
+ESL_ZAYED_RAW_DIR = os.path.join(ROOT, "data", "zho", "spike_mediapipe", "esl_zayed_raw")
+ESL_ZAYED_NORM_DIR = os.path.join(ROOT, "data", "zho", "spike_mediapipe", "esl_zayed_clips")
+
 
 class ClipPrepError(RuntimeError):
     pass
@@ -118,4 +130,75 @@ def prepare_clip(catalog_ref: dict) -> dict:
         "raw_clip_path": raw_path,
         "norm_clip_path": norm_path,
         "trim_window_s": [start_s, end_s],
+    }
+
+
+# --------------------------------------------------------------------------
+# ESL Zayed supplementary-source clip materialization.
+# --------------------------------------------------------------------------
+
+def _esl_zayed_raw_path(youtube_video_id: str) -> str:
+    return os.path.join(ESL_ZAYED_RAW_DIR, f"{youtube_video_id}.mp4")
+
+
+def _ensure_esl_zayed_downloaded(youtube_video_id: str, source_url: str) -> str:
+    """Downloads the full ESL Zayed source video (yt-dlp), cached per
+    youtube_video_id so multiple WORD records backed by the same video are
+    never re-downloaded. Mirrors the ZHO _ensure_downloaded()'s cache-then-
+    fetch shape, reusing the exact yt-dlp approach manually proven in
+    bb3895f rather than a different implementation."""
+    dest = _esl_zayed_raw_path(youtube_video_id)
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+    if os.path.exists(dest) and os.path.getsize(dest) > 0:
+        return dest
+    import shutil as _shutil
+    yt_dlp = _shutil.which("yt-dlp")
+    if not yt_dlp:
+        raise ClipPrepError("yt-dlp is not on PATH (required to download ESL Zayed source video)")
+    cmd = [
+        yt_dlp, "-f", "mp4/best[ext=mp4]/best", "-o", dest,
+        "--no-playlist", "--quiet", "--no-warnings", source_url,
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+    if result.returncode != 0 or not os.path.exists(dest) or os.path.getsize(dest) == 0:
+        raise ClipPrepError(
+            f"yt-dlp failed to download ESL Zayed source video {youtube_video_id} ({source_url}): "
+            f"{result.stderr.strip()[:500]}"
+        )
+    return dest
+
+
+def prepare_esl_zayed_clip(supplementary_ref: dict) -> dict:
+    """Downloads (if needed, cached by youtube_video_id) the full ESL
+    Zayed source video and trims it (cached by supplementary_id) to the
+    catalog record's own segment_start_s/segment_end_s — this is a KNOWN
+    interval from the catalog, unlike ZHO's MediaPipe-detected active
+    window, so no active-window detection subprocess is needed here.
+    Raises ClipPrepError on any failure; callers must not silently
+    substitute or omit the item on failure (fail closed)."""
+    supplementary_id = supplementary_ref.get("supplementary_id")
+    youtube_video_id = supplementary_ref.get("youtube_video_id")
+    source_url = supplementary_ref.get("source_url") or (
+        f"https://www.youtube.com/watch?v={youtube_video_id}" if youtube_video_id else None)
+    start_s = supplementary_ref.get("segment_start_s")
+    end_s = supplementary_ref.get("segment_end_s")
+    if not supplementary_id or not youtube_video_id or not source_url or start_s is None or end_s is None:
+        raise ClipPrepError(
+            f"ESL Zayed supplementary_ref missing required provenance fields "
+            f"(supplementary_id/youtube_video_id/source_url/segment_start_s/segment_end_s): {supplementary_ref!r}"
+        )
+    raw_path = _ensure_esl_zayed_downloaded(youtube_video_id, source_url)
+    norm_path = os.path.join(ESL_ZAYED_NORM_DIR, f"{supplementary_id}.mp4")
+    _ffmpeg_trim(raw_path, norm_path, float(start_s), float(end_s))
+    if not os.path.exists(norm_path) or os.path.getsize(norm_path) == 0:
+        raise ClipPrepError(f"ESL Zayed trim produced no output for {supplementary_id} (source={youtube_video_id})")
+    return {
+        "supplementary_id": supplementary_id,
+        "youtube_video_id": youtube_video_id,
+        "source_url": source_url,
+        "arabic_text": supplementary_ref.get("arabic_text"),
+        "english_meaning": supplementary_ref.get("english_meaning"),
+        "raw_clip_path": raw_path,
+        "norm_clip_path": norm_path,
+        "trim_window_s": [float(start_s), float(end_s)],
     }
