@@ -9,12 +9,13 @@ Writes thumbnails to data/zho/thumbs/<category>/<slug>_<id8>.jpg
 Writes data/zho/download_manifest.json summarizing term match status.
 """
 import json
+import os
 import re
 import sys
 import time
 import urllib.request
 
-ROOT = "/Users/shaz/MOI-Arabic-Sign-Language"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CATALOG = f"{ROOT}/data/zho/catalog.json"
 CLIPS_DIR = f"{ROOT}/data/zho/clips"
 THUMBS_DIR = f"{ROOT}/data/zho/thumbs"

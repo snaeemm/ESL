@@ -16,7 +16,7 @@ import os
 import cv2
 import mediapipe as mp
 
-ROOT = "/Users/shaz/MOI-Arabic-Sign-Language"
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 CLIP = os.path.join(ROOT, "data/zho/spike_mediapipe/trimmed/alif_active.mp4")
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "assets/alif_landmarks.json")

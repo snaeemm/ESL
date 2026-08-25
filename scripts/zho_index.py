@@ -21,6 +21,7 @@ Output: data/zho/catalog.json - one row per dictionary entry with word,
 category, video_url, thumb_url, vimeo_id, source item path/url.
 """
 import json
+import os
 import re
 import sys
 import time
@@ -97,7 +98,8 @@ def parse_result(item: dict) -> dict:
 
 
 def main():
-    out_path = "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/catalog.json"
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    out_path = os.path.join(root, "data/zho/catalog.json")
 
     first = fetch_page(0)
     total = first["Count"]
