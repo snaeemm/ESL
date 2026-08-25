@@ -69,3 +69,18 @@ data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823/__pycache__/
 # the OCR pilot's raw videos above. Only the small TRIMMED per-word segment
 # under esl_zayed_clips/ is committed as provenance evidence.
 data/zho/spike_mediapipe/esl_zayed_raw/
+
+# ESL Zayed trimmed per-word clips: only the handful already tracked (see
+# git history) are kept as deliberate provenance evidence. Bulk trimmed
+# clips generated during later proof/eval runs are reproducible on demand
+# from the supplementary catalog + lib/clip_prep.py's yt-dlp/trim pipeline,
+# so they aren't committed as source (licensing + repo-size, same policy
+# as the raw cache above).
+data/zho/spike_mediapipe/esl_zayed_clips/*.mp4
+!data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0016_sleepy.mp4
+!data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0039.mp4
+!data/zho/spike_mediapipe/esl_zayed_clips/final_mixed_zho_esl_zayed_proof_20260823.mp4
+
+# packaged submission archive (generated output, not source — see
+# submission/SUBMISSION_MANIFEST.md; deliver separately from the repo)
+submission/
