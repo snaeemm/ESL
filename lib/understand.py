@@ -94,6 +94,74 @@ def _parse_json_array(raw: str):
         return None, True
 
 
+# Field-level fallback extraction pattern for _lenient_field_extract()
+# below. Matches "concept" -> "key_terms" -> "source_span" in sequence
+# regardless of what bracket/brace punctuation surrounds them - see that
+# function's docstring for why this is safe to use as a repair step.
+_CONCEPT_FIELDS_RE = re.compile(
+    r'"concept"\s*:\s*"((?:[^"\\]|\\.)*)"'
+    r'\s*,\s*"key_terms"\s*:\s*(\[[^\]]*\])'
+    r'[^"]*?"source_span"\s*:\s*"((?:[^"\\]|\\.)*)"',
+    re.DOTALL,
+)
+
+
+def _json_unescape(s: str) -> str:
+    """Unescape a raw (still-quoted-form) JSON string fragment captured by
+    _CONCEPT_FIELDS_RE - reuses the stdlib decoder rather than hand-rolling
+    escape handling, since it's the only thing that's actually correct for
+    all the JSON escape sequences a model might emit (\\", \\n, \\uXXXX, ...)."""
+    try:
+        return json.loads(f'"{s}"')
+    except json.JSONDecodeError:
+        return s
+
+
+def _lenient_field_extract(raw: str):
+    """Second-tier fallback, tried after strict/bounded parsing fails and
+    before spending a whole extra model call on the LLM repair-retry:
+    reconstructs (concept, key_terms, source_span) triples directly from
+    the raw text via field-order regex, ignoring the surrounding JSON
+    brace/bracket structure entirely.
+
+    Why this is safe despite _parse_json_array's "no repair of content"
+    rule above: it does not invent, translate, or alter any text - it only
+    relocates fields the model ALREADY emitted, in the order the schema
+    always puts them, past punctuation the model got wrong. Two concrete
+    malformations observed from this model on longer multi-concept
+    extractions (both deterministic at temperature 0, i.e. they reproduce
+    identically on retry - a stronger model would not need this fallback):
+    (a) a stray quote inserted between array elements
+    (e.g. `...]},"{"concept":...` instead of `...]},{"concept":...`), and
+    (b) "source_span" emitted as a sibling of the object instead of a
+    member inside it (`{"concept":...,"key_terms":[...]},"source_span":"..."]`
+    instead of keeping all three fields inside one `{...}`). A plain
+    strict-JSON parse rejects both outright, discarding otherwise-good
+    content. Every triple this function reconstructs still goes through
+    the exact same _validate_schema() and verify_source_spans() gates as
+    normal - a source_span this function mis-extracts is exactly as likely
+    to fail the "must be a real exact substring of the source text" check
+    as one from a clean parse, so this cannot smuggle fabricated content
+    past the traceability gate; it can only recover content that was
+    always genuinely in the response but became unparseable purely due to
+    punctuation placement."""
+    items = []
+    for m in _CONCEPT_FIELDS_RE.finditer(raw):
+        concept_raw, key_terms_raw, span_raw = m.groups()
+        try:
+            key_terms = json.loads(key_terms_raw)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(key_terms, list) or not all(isinstance(t, str) for t in key_terms):
+            continue
+        items.append({
+            "concept": _json_unescape(concept_raw),
+            "key_terms": key_terms,
+            "source_span": _json_unescape(span_raw),
+        })
+    return items
+
+
 def _validate_schema(items) -> bool:
     """Deterministic schema check (brief §L step 4): every item must be a
     dict with concept (str), key_terms (list of str), source_span (str).
@@ -151,10 +219,12 @@ def extract_concepts(source_text: str, model: str = DEFAULT_MODEL) -> dict:
 
     Bounded structured-output handling (brief §L): strict parse -> safe
     extraction from surrounding text if needed -> schema validation ->
-    ONE bounded repair/retry re-prompting the model with its own broken
-    output -> deterministic REVIEW/BLOCKED failure (empty concepts) if
-    still invalid. No unbounded retry loop, no silent JSON repair of the
-    model's actual content.
+    lenient field-level reconstruction (_lenient_field_extract, syntax-only
+    - see its docstring for why this doesn't violate the "no content
+    repair" rule) -> ONE bounded repair/retry re-prompting the model with
+    its own broken output -> deterministic REVIEW/BLOCKED failure (empty
+    concepts) if still invalid. No unbounded retry loop, no invention of
+    content not already present in the model's own response.
 
     Returns {"model", "raw_response", "json_parsed_successfully",
     "num_concepts_extracted", "concepts", "structured_output_trace"}
@@ -172,10 +242,22 @@ def extract_concepts(source_text: str, model: str = DEFAULT_MODEL) -> dict:
         "initial_parse_success": items is not None,
         "initial_extraction_used": extraction_used,
         "initial_schema_valid": initial_valid,
+        "lenient_field_extract_attempted": False,
+        "lenient_field_extract_success": None,
         "repair_retry_attempted": False,
         "repair_retry_parse_success": None,
         "final_parse_status": "OK" if initial_valid else None,
     }
+
+    if not initial_valid:
+        trace["lenient_field_extract_attempted"] = True
+        lenient_items = _lenient_field_extract(raw)
+        lenient_valid = bool(lenient_items) and _validate_schema(lenient_items)
+        trace["lenient_field_extract_success"] = lenient_valid
+        if lenient_valid:
+            items = lenient_items
+            initial_valid = True
+            trace["final_parse_status"] = "OK_AFTER_LENIENT_EXTRACT"
 
     if not initial_valid:
         trace["repair_retry_attempted"] = True
@@ -184,6 +266,17 @@ def extract_concepts(source_text: str, model: str = DEFAULT_MODEL) -> dict:
             repaired_raw = _call_ollama(repair_prompt, model)
             repaired_items, repaired_extraction_used = _parse_json_array(repaired_raw)
             repaired_valid = repaired_items is not None and _validate_schema(repaired_items)
+            if not repaired_valid:
+                # Same reasoning as the pre-repair lenient pass above: the
+                # repair call itself can come back with the same class of
+                # punctuation-only malformation (observed: the repair
+                # model re-emitting a "fixed" response that still drops
+                # source_span outside its object). Try field-level
+                # reconstruction on the repair response too before giving
+                # up entirely - still gated by the same schema check and,
+                # downstream, verify_source_spans().
+                repaired_items = _lenient_field_extract(repaired_raw)
+                repaired_valid = bool(repaired_items) and _validate_schema(repaired_items)
         except UnderstandError:
             repaired_items, repaired_valid, repaired_raw = None, False, None
 
@@ -200,7 +293,7 @@ def extract_concepts(source_text: str, model: str = DEFAULT_MODEL) -> dict:
     return {
         "model": model,
         "raw_response": raw,
-        "json_parsed_successfully": trace["final_parse_status"] in ("OK", "OK_AFTER_REPAIR"),
+        "json_parsed_successfully": trace["final_parse_status"] in ("OK", "OK_AFTER_LENIENT_EXTRACT", "OK_AFTER_REPAIR"),
         "num_concepts_extracted": len(concepts),
         "concepts": concepts,
         "structured_output_trace": trace,

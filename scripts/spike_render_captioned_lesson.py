@@ -58,12 +58,64 @@ def _load_font(candidates, size):
     return ImageFont.load_default(size=size)  # always available, never crashes the render stage
 
 
-ARABIC_FONT = _load_font(_ARABIC_FONT_CANDIDATES, 30)
-LATIN_FONT = _load_font(_LATIN_FONT_CANDIDATES, 26)
+# Reference canvas height these base sizes were tuned against (matches
+# CANONICAL_CANVAS_H below) - draw_caption() scales bar height and font size
+# by each segment's OWN h relative to this reference, not a fixed pixel
+# count. Segments are rendered onto their own SOURCE clip's native canvas
+# (see render_segment/chain_with_xfade), so a fixed-pixel caption baked in
+# at e.g. 640x360 would end up visibly bigger than one baked in at 960x540
+# once chain_with_xfade scales every segment up to the shared canonical
+# canvas - confirmed by the user watching a rendered lesson: captions (and
+# the caption bar itself) were noticeably larger/taller on lower-native-
+# resolution segments (fingerspelling, some ESL Zayed clips) than on
+# 960x540 ZHO segments, even though the FINAL canvas is identical for all.
+_CAPTION_REF_H = 540
+_BASE_BAR_H = 56
+_BASE_ARABIC_SIZE = 30
+_BASE_LATIN_SIZE = 26
+
+ARABIC_FONT = _load_font(_ARABIC_FONT_CANDIDATES, _BASE_ARABIC_SIZE)
+LATIN_FONT = _load_font(_LATIN_FONT_CANDIDATES, _BASE_LATIN_SIZE)
+
+_SIZED_FONT_CACHE = {}
+
+
+def _sized_font(kind, size):
+    size = max(8, int(round(size)))
+    key = (kind, size)
+    if key not in _SIZED_FONT_CACHE:
+        candidates = _ARABIC_FONT_CANDIDATES if kind == "arabic" else _LATIN_FONT_CANDIDATES
+        _SIZED_FONT_CACHE[key] = _load_font(candidates, size)
+    return _SIZED_FONT_CACHE[key]
 
 
 def shape_arabic(text):
     return get_display(arabic_reshaper.reshape(text))
+
+
+import re as _re
+_ARABIC_RANGE = _re.compile(r"[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]")
+ARABIC_UNAVAILABLE_MARKER = "[AR UNAVAILABLE]"
+
+
+def _font_has_arabic_glyphs(font):
+    """Verified capability check, not an assumption: render a real Arabic
+    test string and confirm it actually produced visible ink (nonzero glyph
+    bbox) rather than trusting that a font file 'named Arabic' has coverage,
+    and rather than trusting Pillow's load_default() fallback (a bitmap
+    Latin-only font) to silently stand in for Arabic."""
+    try:
+        bbox = font.getbbox(shape_arabic("عربي"))
+        return bbox is not None and (bbox[2] - bbox[0]) > 0 and (bbox[3] - bbox[1]) > 0
+    except Exception:
+        return False
+
+
+# Verified once at import, not assumed: if the resolved "Arabic" font can't
+# actually produce Arabic ink (e.g. every candidate path missing and we fell
+# through to Pillow's Latin-only load_default()), fail loudly in the caption
+# bar via ARABIC_UNAVAILABLE_MARKER instead of silently emitting tofu boxes.
+ARABIC_FONT_CAPABLE = _font_has_arabic_glyphs(ARABIC_FONT)
 
 sys.path.insert(0, os.path.dirname(__file__))
 from spike_cartoon_avatar import (  # noqa: E402
@@ -94,6 +146,16 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NORM_DIR = f"{ROOT}/data/zho/spike_mediapipe/lesson/norm"
 OUT_DIR = f"{ROOT}/data/zho/spike_mediapipe/lesson/captioned"
 DEFAULT_FINAL_OUT_PATH = f"{ROOT}/data/zho/spike_mediapipe/lesson/lesson_captioned_xfade.mp4"
+# Fixed final-stitch canvas (see chain_with_xfade) - matches the ZHO source
+# clips' native resolution, the majority/institutional source. Every segment
+# normalizes to this exact canvas regardless of its own source resolution
+# (960x540, 854x480, 640x360, ...), so avatar/caption size is deterministic
+# and independent of which sources happen to appear in a given lesson.
+CANONICAL_CANVAS_W = 960
+CANONICAL_CANVAS_H = 540
+# ZHO's native studio fps - see chain_with_xfade's target_fps for why this,
+# not max(fps), is used as the final-stitch frame rate.
+CANONICAL_CANVAS_FPS = 25
 os.makedirs(OUT_DIR, exist_ok=True)
 # Cleaned-motion export for the whole lesson (all segments), same idea as
 # spike_cartoon_avatar.py's SPIKE_MOTION_JSON but covering every sign, not
@@ -151,19 +213,41 @@ def draw_caption(canvas, w, h, english, arabic):
     just a theoretical caveat. arabic_reshaper + python-bidi do the
     shaping/reordering; PIL with a real Arabic-capable font does the
     drawing; only then is it composited back onto the OpenCV canvas."""
-    bar_h = 56
+    # Resolution-independent sizing (see _CAPTION_REF_H docstring above) -
+    # a segment rendered on its own smaller/larger native canvas gets a
+    # proportionally smaller/larger bar and font, so once chain_with_xfade
+    # scales every segment up to the shared canonical canvas, the caption
+    # ends up the SAME absolute size for every segment regardless of which
+    # source resolution it was originally detected/rendered at.
+    scale = h / _CAPTION_REF_H
+    bar_h = max(20, int(round(_BASE_BAR_H * scale)))
+    ar_size = _BASE_ARABIC_SIZE * scale
+    lat_size = _BASE_LATIN_SIZE * scale
+    pad = max(6, int(round(14 * scale)))
+
     overlay = canvas.copy()
     cv2.rectangle(overlay, (0, h - bar_h), (w, h), (40, 34, 30), -1)
     cv2.addWeighted(overlay, 0.82, canvas, 0.18, 0, dst=canvas)
 
     key = (w, h, english, arabic)
     if key not in _CAPTION_CACHE:
+        lat_font = _sized_font("latin", lat_size)
         text_layer = Image.new("RGBA", (w, bar_h), (0, 0, 0, 0))
         draw = ImageDraw.Draw(text_layer)
-        draw.text((14, bar_h // 2), english, font=LATIN_FONT, fill=(250, 248, 244, 255), anchor="lm")
-        shaped = shape_arabic(arabic)
-        ar_w = draw.textlength(shaped, font=ARABIC_FONT)
-        draw.text((w - 14 - ar_w, bar_h // 2), shaped, font=ARABIC_FONT, fill=(250, 248, 244, 255), anchor="lm")
+        draw.text((pad, bar_h // 2), english, font=lat_font, fill=(250, 248, 244, 255), anchor="lm")
+        # Never blindly shape+draw whatever "arabic" string arrived: only do
+        # so if it's both real Arabic script AND the resolved font can
+        # actually render Arabic glyphs. Otherwise show an explicit
+        # unavailable marker (Latin font, always renders) rather than
+        # silently producing tofu boxes or fabricating text.
+        if ARABIC_FONT_CAPABLE and arabic and _ARABIC_RANGE.search(arabic):
+            shaped = shape_arabic(arabic)
+            ar_font = _sized_font("arabic", ar_size)
+        else:
+            shaped = ARABIC_UNAVAILABLE_MARKER
+            ar_font = lat_font
+        ar_w = draw.textlength(shaped, font=ar_font)
+        draw.text((w - pad - ar_w, bar_h // 2), shaped, font=ar_font, fill=(250, 248, 244, 255), anchor="lm")
         _CAPTION_CACHE[key] = np.array(text_layer)
 
     layer_rgba = _CAPTION_CACHE[key]
@@ -519,8 +603,19 @@ def chain_with_xfade(rendered, final_out_path=DEFAULT_FINAL_OUT_PATH):
         inputs += ["-i", path]
 
     dims = [_probe_wh(path) for path, _, _ in rendered]
-    target_w = max(w for w, h in dims)
-    target_h = max(h for w, h in dims)
+    # Canonical FIXED output canvas (build order Step: cross-source visual
+    # canonicalization) - deliberately NOT max(dims). A per-run "largest
+    # segment wins" target made final canvas size depend on which segments
+    # happened to appear together in a given lesson: a lesson mixing ZHO
+    # (960x540) with an ESL Zayed source at a different native resolution/
+    # aspect ratio than this run's tester happened to hit would silently
+    # letterbox-pad the mismatched segment smaller within the frame, so the
+    # avatar/captions visibly differ in size/scale depending on YouTube
+    # source resolution (360p/480p/540p/720p/...). A fixed canonical target
+    # means every segment - ZHO, ESL Zayed, fingerspell, any future source -
+    # always normalizes to the exact same output canvas, independent of
+    # what happens to be in this particular lesson.
+    target_w, target_h = CANONICAL_CANVAS_W, CANONICAL_CANVAS_H
     # xfade requires every input to share one timebase too, not just one
     # resolution - render_segment() writes each segment at its own SOURCE
     # clip's native fps (cv2 CAP_PROP_FPS), so a ZHO clip (e.g. 25fps) next
@@ -530,7 +625,29 @@ def chain_with_xfade(rendered, final_out_path=DEFAULT_FINAL_OUT_PATH):
     # stitching boundary as the resolution fix above, not in detection/
     # render_segment (which must stay in each segment's own native fps for
     # correct motion timing).
-    target_fps = max(fps for _, _, fps in rendered)
+    #
+    # Deliberately NOT max(fps) (was the original approach): ffmpeg's `fps`
+    # filter converts by nearest-frame sampling, which means the filter
+    # duplicates frames when upsampling and drops frames when downsampling.
+    # max() picks whichever source happens to have the highest native fps
+    # in THIS lesson's particular mix - almost always an ESL Zayed clip
+    # (YouTube's 30000/1001 standard) rather than ZHO's 25fps studio
+    # recordings. Since ZHO is the majority/institutional source in most
+    # lessons, that meant the MAJORITY of segments got upsampled (25->30),
+    # i.e. duplicate-framed, while the minority ESL Zayed segments passed
+    # through untouched - measured directly on a rendered final_episode.mp4
+    # (job 013fbd2aa3f0): a ZHO segment (FATHER) showed near-zero
+    # frame-to-frame pixel diff (a frozen/duplicated frame) on 15 of 50
+    # consecutive frame-pairs (~30%), vs only 2 of 41 (~5%) on an ESL Zayed
+    # segment (BROTHER) in the same video - the opposite of "ESL Zayed looks
+    # choppier" (a live user report), which was actually majority-ZHO
+    # judder from this exact upsampling. Fixed to the same canonical-source
+    # rationale as CANONICAL_CANVAS_W/H above: match ZHO's native fps, so
+    # the majority source passes through untouched and only the minority
+    # (typically ESL Zayed) source gets converted - and downsampling drops
+    # frames rather than duplicating them, which reads as smoother motion
+    # than periodic freezing for the same conversion ratio.
+    target_fps = CANONICAL_CANVAS_FPS
 
     filter_parts = []
     for idx in range(len(rendered)):
@@ -538,9 +655,24 @@ def chain_with_xfade(rendered, final_out_path=DEFAULT_FINAL_OUT_PATH):
         if (w, h) == (target_w, target_h):
             filter_parts.append(f"[{idx}:v]fps={target_fps},setsar=1[n{idx}]")
         else:
+            # Pad color matches the avatar's own background (BG in
+            # spike_cartoon_avatar.py, BGR (240,246,250) -> hex FAF6F0),
+            # not black. A source clip with a non-16:9 native aspect ratio
+            # (e.g. an ESL Zayed 640x480/4:3 download next to every other
+            # clip's 16:9) genuinely needs letterbox/pillarbox padding here
+            # to reach the canonical canvas without distorting the avatar's
+            # proportions - that size difference is an honest tradeoff, not
+            # a bug. But black bars read as a jarring "this segment is
+            # broken/different" discontinuity against every other segment's
+            # shared cream background (live user report: "the lesson video
+            # becomes small and completely different than the entire other
+            # thing" on the ESL Zayed "I" sign, which is exactly this
+            # 640x480 clip) - matching the pad color to BG makes the size
+            # difference far less visually jarring even though it doesn't
+            # (and shouldn't) eliminate it.
             filter_parts.append(
                 f"[{idx}:v]scale={target_w}:{target_h}:force_original_aspect_ratio=decrease,"
-                f"pad={target_w}:{target_h}:(ow-iw)/2:(oh-ih)/2:color=black,fps={target_fps},setsar=1[n{idx}]"
+                f"pad={target_w}:{target_h}:(ow-iw)/2:(oh-ih)/2:color=0xFAF6F0,fps={target_fps},setsar=1[n{idx}]"
             )
 
     prev_label = "n0"

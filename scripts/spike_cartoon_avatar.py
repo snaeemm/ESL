@@ -333,7 +333,32 @@ class HandTrack:
             self.last_real = (frame_idx, pts_now)
             return pts_now, 1.0
         if self.last_real is None:
-            return None, 0.0
+            # Leading gap: no hand detection yet at all this segment (this
+            # is the general root cause of the observed "arm rises before
+            # the hand appears" symptom - MediaPipe Holistic detects
+            # pose/shoulder landmarks reliably from frame 0, but hand
+            # landmarks routinely lock on several frames later, e.g. an
+            # ESL Zayed BROTHER segment: pose present frame 0, right_hand
+            # not detected until frame 8 of 45; a ZHO FAMILY segment: hand
+            # not until frame 7-8. draw_body() was drawn unconditionally
+            # once pose existed while hands stayed None/hidden for those
+            # leading frames, so the two body parts visibly animated in at
+            # different times instead of together. Symmetric fix with the
+            # existing trailing-gap hold+fade below: borrow the FIRST
+            # future real detection's hand shape, held in place and faded
+            # IN as that first detection approaches, exactly mirroring how
+            # a trailing gap holds the LAST real shape and fades OUT - so
+            # the hand appears (faded in) up to MAX_HOLD frames before its
+            # first real detection instead of not appearing at all.
+            nxt = future_lookup(frame_idx)
+            if nxt is None:
+                return None, 0.0
+            nxt_idx, nxt_pts = nxt
+            lead = nxt_idx - frame_idx
+            if lead > self.MAX_HOLD:
+                return None, 0.0
+            alpha = max(0.0, 1.0 - lead / self.MAX_HOLD)
+            return nxt_pts, alpha
         gap = frame_idx - self.last_real[0]
         if gap > self.MAX_HOLD:
             return None, 0.0

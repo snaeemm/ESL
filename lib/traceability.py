@@ -28,9 +28,20 @@ def build_traceability(source_manifest: dict, units: list, rendered_segments: li
         render_source = resolution.get("render_source")
         catalog_ref = resolution.get("catalog_ref")
         supplementary_ref = resolution.get("supplementary_ref")
+        arabic_caption_source = seg.get("arabic_caption_source")
         if render_source == "ZHO" and catalog_ref:
             selected_asset = {"zho_stable_id": catalog_ref.get("id"), "word_en": catalog_ref.get("word_en"),
                                "word_ar": catalog_ref.get("word_ar")}
+            if arabic_caption_source == "ESL_ZAYED_FALLBACK":
+                # Bug #1 fix: ZHO's own word_ar was missing/corrupt
+                # (word_ar_integrity != VALID) so the rendered Arabic
+                # caption actually came from the ESL Zayed supplementary
+                # catalog for the same concept -- surfaced explicitly here
+                # so traceability/UI never implies ZHO-institutional
+                # authority for this caption.
+                selected_asset["arabic_caption_source"] = "ESL_ZAYED_FALLBACK"
+                selected_asset["arabic_fallback_supplementary_id"] = seg.get("arabic_fallback_supplementary_id")
+                selected_asset["arabic_fallback_text"] = seg.get("arabic_fallback_text")
         elif render_source == "ESL_ZAYED" and supplementary_ref:
             selected_asset = {"supplementary_id": supplementary_ref.get("supplementary_id"),
                                "youtube_video_id": supplementary_ref.get("youtube_video_id"),
@@ -74,6 +85,7 @@ def build_traceability(source_manifest: dict, units: list, rendered_segments: li
                                      else "UNVERIFIED_FALLBACK" if render_source == "FINGERSPELL"
                                      else None),
             "supporting_sources": resolution.get("supporting_sources", []),
+            "arabic_caption_source": arabic_caption_source or render_source,
             "selected_asset": selected_asset,
             "selection_reason": resolution.get("match_reason"),
             "gap_reason": resolution.get("gap_reason"),
@@ -110,7 +122,11 @@ def write_traceability_markdown(trace: dict, out_path: str) -> None:
             status = f"{status} ({decision['fallback_type']})"
         ref = decision.get("catalog_ref") or decision.get("supplementary_ref") or {}
         if decision.get("catalog_ref"):
-            label = f"{ref.get('word_en','')} / {ref.get('word_ar','')}"
+            asset = row.get("selected_asset") or {}
+            if asset.get("arabic_caption_source") == "ESL_ZAYED_FALLBACK":
+                label = f"{ref.get('word_en','')} / {asset.get('arabic_fallback_text','')} [ESL_ZAYED_FALLBACK]"
+            else:
+                label = f"{ref.get('word_en','')} / {ref.get('word_ar','')}"
         elif decision.get("supplementary_ref"):
             label = f"{ref.get('english_meaning','')} / {ref.get('arabic_text','')}"
         else:

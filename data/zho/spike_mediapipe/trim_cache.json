@@ -294,5 +294,182 @@
     "dead_time_trim_applied": true,
     "caption_boundary_capped": false,
     "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0183.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0158": {
+    "caption_start_s": 0.0,
+    "caption_end_s": 2.0,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0158.mp4"
+  },
+  "8234ce5b-dd14-44a8-a0ca-3698ae710cda": {
+    "start_s": 0.12,
+    "end_s": 2.32,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Common Verbs/give_8234ce5b.mp4"
+  },
+  "3607aa50-a00e-4abf-a2ca-707a506830c5": {
+    "start_s": 0.16,
+    "end_s": 2.76,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/new_3607aa50.mp4"
+  },
+  "26c00e7d-e19b-4091-869b-042bacc51ab5": {
+    "start_s": 0.0,
+    "end_s": 2.6,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Health/age_26c00e7d.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0077": {
+    "caption_start_s": 0.0,
+    "caption_end_s": 2.0,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0077.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0097": {
+    "caption_start_s": 0.0,
+    "caption_end_s": 2.0,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0097.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0087": {
+    "caption_start_s": 8.5,
+    "caption_end_s": 11.0,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0087.mp4"
+  },
+  "845e3cfd-1b82-49dc-a920-326545aa15fd": {
+    "start_s": 1.04,
+    "end_s": 3.32,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Health/be-patient_845e3cfd.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0122": {
+    "caption_start_s": 11.5,
+    "caption_end_s": 13.5,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0122.mp4"
+  },
+  "fedc781a-0df0-4ca7-8424-288c564d1696": {
+    "start_s": 0.36,
+    "end_s": 2.44,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/zaai_fedc781a.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0086": {
+    "caption_start_s": 5.5,
+    "caption_end_s": 8.0,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0086.mp4"
+  },
+  "7de37cc8-1e3a-4efe-be64-b267f8007a7e": {
+    "start_s": 0.56,
+    "end_s": 3.12,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/intelligent_7de37cc8.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0054": {
+    "caption_start_s": 12.0,
+    "caption_end_s": 14.5,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0054.mp4"
+  },
+  "ad2bb1bf-7b7d-4fcf-a1de-a4b1cae9c977": {
+    "start_s": 0.88,
+    "end_s": 4.16,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/class_ad2bb1bf.mp4"
+  },
+  "a595f092-2453-49c1-93e1-971a3fee5a49": {
+    "start_s": 0.16,
+    "end_s": 3.04,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/good_a595f092.mp4"
+  },
+  "b9aa6dbe-3e0c-41e6-8161-a26c02ee4a20": {
+    "start_s": 0.24,
+    "end_s": 3.48,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/results_b9aa6dbe.mp4"
+  },
+  "0413e989-7b90-462b-bef0-1c7114978998": {
+    "start_s": 0.0,
+    "end_s": 2.6,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/excellent_0413e989.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0159": {
+    "caption_start_s": 2.5,
+    "caption_end_s": 4.0,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0159.mp4"
+  },
+  "be18e85a-b714-4b5a-9ad7-9cfe9cc0d442": {
+    "start_s": 0.32,
+    "end_s": 2.76,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/hot_be18e85a.mp4"
+  },
+  "8e466a0d-df28-402f-a06e-17bcf39a9bc7": {
+    "start_s": 1.04,
+    "end_s": 3.16,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Measurement Units/yesterday_8e466a0d.mp4"
+  },
+  "ddef0707-f3da-4249-9d48-51a6b49eef5f": {
+    "start_s": 0.36,
+    "end_s": 2.64,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Environment/cold_ddef0707.mp4"
+  },
+  "b215a92b-69e2-4c79-9e02-ce087a91ee6d": {
+    "start_s": 0.16,
+    "end_s": 2.4,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/fast_b215a92b.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0025": {
+    "caption_start_s": 0.0,
+    "caption_end_s": 2.0,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0025.mp4"
+  },
+  "9710ff8f-4fbd-48e6-aa95-2d90986b2714": {
+    "start_s": 0.12,
+    "end_s": 2.76,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/slow_9710ff8f.mp4"
+  },
+  "d44055d8-b54e-4ac0-b07f-b549a6658e1b": {
+    "start_s": 0.44,
+    "end_s": 3.52,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/exam_d44055d8.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0234": {
+    "caption_start_s": 0.0,
+    "caption_end_s": 1.5,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0234.mp4"
+  },
+  "0c8af9af-cf5f-4c93-be07-e89c95217c5f": {
+    "start_s": 0.56,
+    "end_s": 2.92,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/heavy_0c8af9af.mp4"
+  },
+  "1c2f8668-2f68-4d3c-9e5b-c12a68a7374d": {
+    "start_s": 0.0,
+    "end_s": 2.68,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Environment/rain_1c2f8668.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0028": {
+    "caption_start_s": 15.0,
+    "caption_end_s": 17.5,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0028.mp4"
+  },
+  "c8d2bb66-4daf-4453-a30e-bdb8cd33b4fb": {
+    "start_s": 0.24,
+    "end_s": 3.32,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Sports/football_c8d2bb66.mp4"
+  },
+  "32a82be5-2f19-48c5-8f3a-11044d0ee506": {
+    "start_s": 0.16,
+    "end_s": 2.64,
+    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Common Verbs/sing_32a82be5.mp4"
   }
 }
