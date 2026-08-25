@@ -11,6 +11,7 @@ it has no knowledge that a web app exists.
 """
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -33,6 +34,57 @@ from lib.clip_prep import prepare_clip, prepare_esl_zayed_clip, ClipPrepError
 from lib.terminology import resolve_terminology
 from lib.fingerspell import fingerspell
 from lib.traceability import build_traceability, write_traceability_json, write_traceability_markdown
+
+# Explicit "no fabrication" marker shown in the caption bar (both English and
+# Arabic slot) whenever a segment has no verified Arabic caption text. Never
+# guess/derive Arabic from an unrelated field (e.g. the English term) -- show
+# this instead so the gap is visible rather than silently rendered as tofu or
+# fabricated as if it were verified content.
+ARABIC_UNAVAILABLE_MARKER = "[AR UNAVAILABLE]"
+
+_ARABIC_RANGE = re.compile(r"[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]")
+
+
+def is_arabic_text(s):
+    """True only if s contains at least one real Arabic-script codepoint.
+    Used to refuse to caption a segment with a non-Arabic string (e.g. the
+    English term) mistakenly passed in as 'Arabic' -- the exact failure mode
+    that produced tofu boxes for FAMILY/FATHER/DOCTOR/MOTHER/TEACHER/SISTER."""
+    return bool(s) and bool(_ARABIC_RANGE.search(s))
+
+def esl_zayed_arabic_fallback(word_en):
+    """Bug #1 fix: when a ZHO catalog_ref's own word_ar is missing or
+    flagged word_ar_integrity != VALID (e.g. FATHER/MOTHER/SISTER's shared
+    "باب الأسرة" scraped-category-header corruption), look up the SAME
+    English concept in the ESL Zayed supplementary catalog and use its
+    Arabic label as a clearly-tagged fallback rather than showing
+    ARABIC_UNAVAILABLE_MARKER when a valid Arabic label actually exists
+    elsewhere for the same concept. Returns (arabic_text, supplementary_id)
+    or (None, None) if no renderable match is found -- never fabricates."""
+    if not word_en:
+        return None, None
+    from lib.vocab_retrieval import get_esl_zayed_index
+    row = get_esl_zayed_index().exact_match(word_en)
+    if row and row.get("arabic_text") and is_arabic_text(row["arabic_text"]):
+        return row["arabic_text"], row.get("supplementary_id")
+    return None, None
+
+
+def _english_caption_label(term, fallback_en):
+    """Never feed Arabic-script text through the caption bar's Latin/English
+    slot. For source_language=ar jobs, the semantic sign-plan's 'term' is
+    kept in the source script (e.g. r["term"]=="أبي"), not translated to a
+    canonical English gloss -- so passing it straight through as the 'english'
+    caption arg fed Arabic codepoints through the Latin-only caption font,
+    which has no glyphs for them, producing tofu boxes (mirror image of the
+    is_arabic_text() bug this file already guards against on the Arabic
+    side). Fall back to the catalog's own verified English name; if that's
+    unavailable too, show an explicit marker rather than silently rendering
+    tofu or fabricating an English label."""
+    if term and not is_arabic_text(term):
+        return term
+    return fallback_en.upper() if fallback_en else "[EN UNAVAILABLE]"
+
 
 STAGES = ["ENVIRONMENT_CHECK", "SOURCE", "UNDERSTAND", "STRUCTURE", "SIGN_PLAN",
           "SIGN_RESOLUTION", "DURATION_PLANNING", "VALIDATE", "CLIP_PREP",
@@ -295,13 +347,30 @@ def prepare_clips_for_units(included_units, motion_dir, model, source_language):
             if not authorized:
                 continue
 
-            def _emit_clip(norm_clip_path, label, extra_trace=None):
+            def _emit_clip(norm_clip_path, label, arabic_text=None, extra_trace=None):
+                # arabic_text: the caller MUST pass the verified Arabic string
+                # for the actual render_source of this segment (catalog_ref
+                # word_ar, supplementary_ref word_ar, or fingerspell
+                # arabic_word) -- never a generic "whatever's on r" lookup.
+                # Root cause of the Arabic-tofu defect: this used to default
+                # to r.get("terminology", {}).get("arabic_term") or r["term"],
+                # but "terminology" is only populated on the FALLBACK
+                # (translate/fingerspell) resolution layers -- exact
+                # bilingual matches (the common case) never set it, so this
+                # silently fell back to r["term"] (the ENGLISH label) and
+                # fed English text through the Arabic shaper/font, which
+                # rendered as tofu. Now the caller must supply the correct
+                # field per source, and if no verified Arabic text exists we
+                # render an explicit "unavailable" marker instead of ever
+                # fabricating/mis-mapping text (see is_arabic_text below).
                 nonlocal seg_idx
                 stem = f"{seg_idx:03d}_{label}"
                 dest = os.path.join(motion_dir, f"{stem}.mp4")
                 shutil.copyfile(norm_clip_path, dest)
-                segments.append((stem, r["term"], r.get("terminology", {}).get("arabic_term") or r["term"]))
-                trace_row = {"stem": stem, "unit_id": u["unit_id"], "resolution_index": r_idx}
+                caption_ar = arabic_text if (arabic_text and is_arabic_text(arabic_text)) else ARABIC_UNAVAILABLE_MARKER
+                segments.append((stem, label, caption_ar))
+                trace_row = {"stem": stem, "unit_id": u["unit_id"], "resolution_index": r_idx,
+                              "caption_arabic_source_ok": bool(arabic_text and is_arabic_text(arabic_text))}
                 if extra_trace:
                     trace_row.update(extra_trace)
                 seg_trace.append(trace_row)
@@ -317,7 +386,19 @@ def prepare_clips_for_units(included_units, motion_dir, model, source_language):
                 # RENDER stage below treats every file in it identically).
                 try:
                     prep = prepare_esl_zayed_clip(r["supplementary_ref"])
-                    _emit_clip(prep["norm_clip_path"], r["term"])
+                    _emit_clip(prep["norm_clip_path"],
+                               _english_caption_label(r["term"], r["supplementary_ref"].get("english_meaning")),
+                               # Field-mapping bug fix: ESL Zayed catalog rows
+                               # (and supplementary_ref, which is that same
+                               # raw row - see lib/sign_resolver.py's
+                               # _esl_zayed_resolution) key their Arabic text
+                               # as "arabic_text", never "word_ar" (that key
+                               # only exists on ZHO catalog_ref). Reading the
+                               # wrong key silently returned None here and
+                               # every ESL_ZAYED-sourced segment (e.g.
+                               # BROTHER/ESL_ZAYED_0039) lost its available
+                               # Arabic caption despite the catalog having it.
+                               arabic_text=r["supplementary_ref"].get("arabic_text"))
                     produced = True
                 except ClipPrepError as e:
                     clip_prep_failures.append({
@@ -347,6 +428,7 @@ def prepare_clips_for_units(included_units, motion_dir, model, source_language):
                                     })
                                     continue
                                 _emit_clip(fs_prep["norm_clip_path"], cr["name_ar"],
+                                           arabic_text=term_info["arabic_term"],
                                            extra_trace={"fallback_from": "ESL_ZAYED"})
                                 produced = True
 
@@ -354,7 +436,28 @@ def prepare_clips_for_units(included_units, motion_dir, model, source_language):
                 cref = r["catalog_ref"]
                 try:
                     prep = prepare_clip(cref)
-                    _emit_clip(prep["norm_clip_path"], r["term"])
+                    # Use the catalog's own verified word_ar -- but only if
+                    # its integrity was not flagged SUSPECT_SOURCE_CORRUPTION
+                    # (lib/sign_resolver.py sets word_ar_integrity); corrupt
+                    # metadata must never become an authoritative caption.
+                    cref_ar = cref.get("word_ar") if cref.get("word_ar_integrity", "VALID") == "VALID" else None
+                    arabic_caption_source = "ZHO"
+                    fallback_supp_id = None
+                    if not cref_ar:
+                        # Bug #1: ZHO word_ar missing/corrupt -- fall back to
+                        # the ESL Zayed supplementary catalog for the SAME
+                        # concept before giving up. Tagged distinctly
+                        # (ESL_ZAYED_FALLBACK) so it is never presented with
+                        # ZHO's institutional authority.
+                        cref_ar, fallback_supp_id = esl_zayed_arabic_fallback(cref.get("word_en"))
+                        if cref_ar:
+                            arabic_caption_source = "ESL_ZAYED_FALLBACK"
+                    _emit_clip(prep["norm_clip_path"],
+                               _english_caption_label(r["term"], cref.get("word_en")),
+                               arabic_text=cref_ar,
+                               extra_trace={"arabic_caption_source": arabic_caption_source,
+                                            "arabic_fallback_supplementary_id": fallback_supp_id,
+                                            "arabic_fallback_text": cref_ar if arabic_caption_source == "ESL_ZAYED_FALLBACK" else None})
                     produced = True
                 except ClipPrepError as e:
                     clip_prep_failures.append({"term": r["term"], "catalog_id": cref.get("id") or cref.get("catalog_id"), "error": str(e)})
@@ -367,7 +470,8 @@ def prepare_clips_for_units(included_units, motion_dir, model, source_language):
                     any_letter = True
                     try:
                         prep = prepare_clip(cr["catalog_row"])
-                        _emit_clip(prep["norm_clip_path"], cr["name_ar"])
+                        _emit_clip(prep["norm_clip_path"], cr["name_ar"],
+                                   arabic_text=r["fingerspell"].get("arabic_word"))
                         produced = True
                     except ClipPrepError as e:
                         clip_prep_failures.append({"term": r["term"], "catalog_id": cr["catalog_row"].get("id"), "error": str(e)})

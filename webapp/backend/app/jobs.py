@@ -135,7 +135,8 @@ def load_job_from_disk_if_missing(job_id: str) -> Job | None:
         status = "blocked"
     elif events and events[-1]["stage"] != "DONE":
         status = "error"  # process died mid-run before a restart
-    job = Job(job_id=job_id, status=status, output_dir=output_dir, events=events)
+    created_at = os.path.getmtime(events_path)
+    job = Job(job_id=job_id, status=status, output_dir=output_dir, events=events, created_at=created_at)
     with _JOBS_LOCK:
         _JOBS[job_id] = job
     return job
