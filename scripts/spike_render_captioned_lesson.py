@@ -807,6 +807,28 @@ def render_lesson(segments=None, norm_dir=NORM_DIR, out_dir=OUT_DIR,
         d["pose"] = rescale_and_shift_pose_list(d["pose"], a, target_x_px, target_y_px, ratio)
         d["left"] = rescale_and_shift_pts_list(d["left"], a, target_x_px, target_y_px, ratio)
         d["right"] = rescale_and_shift_pts_list(d["right"], a, target_x_px, target_y_px, ratio)
+        # Post-rescale jitter damping: rescale_and_shift_pts_list() is a
+        # pure per-frame linear transform (scale-around-anchor, same ratio
+        # every frame) of hand points that were already one-euro-smoothed
+        # in detect_segment() - it can't inject NEW noise, but it does
+        # multiply whatever residual smoothing noise was left by `ratio`,
+        # so a segment needing real enlargement (ratio > 1, e.g. a
+        # fingerspelling clip filmed wide so the signer's hand occupies a
+        # small fraction of its own frame) comes out of this loop with
+        # visibly jerkier hands than before the rescale existed, even
+        # though nothing about the ORIGINAL smoothing changed. Measured on
+        # a real rendered lesson (job bdff1892c9da) via its own exported
+        # motion.json: mean frame-to-frame hand displacement, normalized
+        # by shoulder width, rose from 0.026 pre-rescale-fix to 0.040
+        # post-rescale-fix (+56%), correlating with segments that needed
+        # the largest ratio. A light second EMA pass here (alpha=0.25,
+        # tuned by replaying that same motion.json offline against a
+        # target of matching the pre-fix jitter level) brings it back to
+        # ~0.028 without touching the actual target size/position the P0
+        # fix computed - a pure temporal smoothing pass changes frame-to-
+        # frame variance, not the sequence's mean position.
+        d["left"] = smooth_series(d["left"], alpha=0.25)
+        d["right"] = smooth_series(d["right"], alpha=0.25)
         print(f"  {stem}: own_scale={own_scale}, ratio={ratio:.3f}, target_px=({target_x_px:.1f}, {target_y_px:.1f})",
               file=sys.stderr)
 

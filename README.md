@@ -8,7 +8,7 @@ UAE MoE AI Center of Excellence case study prototype. Converts a verified academ
 
 https://github.com/user-attachments/assets/35e1091c-23f3-4d62-a54e-34654991a57b
 
-Narrated click-through of the web app (paste source → configure → generate → results, coverage, sign plan, review, and traceability tabs), captured live against the running app.
+Narrated click-through of the `/demo` presentation view against the hero run (job `013fbd2aa3f0`, "My Family and My Day at School") — 100% verified institutional (ZHO) sign coverage, zero fingerspelling, zero review-required items. Covers source verification, the real AI-vs-deterministic pipeline stages with measured timings, the generated episode, sign plan, review policy, traceability, the local-model selection benchmark, and architecture. Rendered with a fix (see `scripts/spike_render_captioned_lesson.py`) that damps hand jitter introduced by an earlier avatar-scale correction, measured and verified against the pipeline's own exported motion data.
 
 **Prototype lesson demo:**
 

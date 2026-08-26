@@ -10,10 +10,14 @@ import { useT } from '../i18n'
 // telemetry, metrics, or sign mappings are invented here — every number on
 // this page traces back to a JSON file the pipeline itself wrote.
 //
-// Defaults to the documented hero run (job bdff1892c9da, "A Day With My
-// Family Part 2") so a screen recording is deterministic; override with
-// ?job=<id> to present a different completed run.
-const DEFAULT_HERO_JOB = 'bdff1892c9da'
+// Defaults to the documented hero run (job 013fbd2aa3f0, "My Family and My
+// Day at School") so a screen recording is deterministic; override with
+// ?job=<id> to present a different completed run. Chosen over earlier hero
+// candidates for 100% verified institutional (ZHO) sign coverage with zero
+// fingerspelling and zero review-required items (PASS, not PASS_WITH_FALLBACK
+// or REVIEW_REQUIRED) — the actually-cleanest lesson this pipeline has
+// produced, not merely the first one tried.
+const DEFAULT_HERO_JOB = '013fbd2aa3f0'
 
 const SIX_STAGE_SUMMARY: { key: string; label: string; maps: string[] }[] = [
   { key: 'SOURCE', label: 'SOURCE', maps: ['SOURCE'] },
