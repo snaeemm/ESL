@@ -201,3 +201,40 @@ Open **http://localhost:5173**. The Vite dev server proxies `/api/*` to the back
 **Federal visual identity:** the frontend's colour palette, typography, logo, bilingual/RTL, and branding decisions are documented in detail — including what's an official guideline requirement versus a prototype implementation choice, and one disclosed gap (live re-verification of the guideline page was attempted but blocked by the site) — in `docs/FEDERAL_VISUAL_IDENTITY.md`.
 
 **Prototype limitations (web app specifically):** no database (job history is read from `outputs/webapp_jobs/` on disk, capped at 50 most recent); single-worker-thread job execution (no queueing/concurrency limits); no authentication (local-only, single-user prototype); not load-tested; no automated accessibility audit performed (see `docs/FEDERAL_VISUAL_IDENTITY.md` §11).
+
+## 19. Embedding-based candidate retrieval (bilingual ZHO resolution)
+
+Deterministic exact-match resolution (§7) is the primary path. `lib/vocab_embedding_st.py` adds an **optional Layer 4b**: local multilingual sentence-embedding retrieval (`sentence-transformers`, CPU-only, no API calls) used only to surface *candidate* catalog ids for Falcon to choose from — embedding similarity itself never authorizes a sign; `lib/sign_resolver.py` still deterministically verifies that whatever id Falcon picks was actually present in the candidate set shown to it (see §H finding in `data/zho/spike_mediapipe/ab_experiment_20260823/FINAL_REPORT.md`: Falcon can attach a garbled label to an otherwise-valid id, which is exactly why this boundary is hard-enforced in code, not just policy).
+
+Two lightweight multilingual candidates were benchmarked against each other and against plain lexical retrieval before either was trusted, per `scripts/vocab_embedding_benchmark.py`:
+
+| Model | Params | Dim | Task | Recall@1 | Recall@5 | Verdict |
+|---|---|---|---|---|---|---|
+| **MiniLM** (`paraphrase-multilingual-MiniLM-L12-v2`) | ~118M | 384 | 30-pair bilingual EN/AR synonym retrieval | **0.733** | **0.933** | **SELECTED** — beat e5-small, lexical-only, and Ollama `nomic-embed-text` on this task |
+| multilingual-e5-small | ~118M | 384 | same 30-pair benchmark | lower | lower | rejected |
+| MiniLM (same model) | ~118M | 384 | separate 16-item **sentence/phrase**-retrieval sanity check (15 positive-control cases) | 0.20 | 0.33 | **NOT_USEFUL** — re-tested honestly on a different task rather than assumed to transfer; concrete wrong matches documented (e.g. "greeting someone" → "You are welcome"). Never wired into `lib/sign_resolver.py`. |
+
+Full evidence trail: `data/zho/spike_mediapipe/ab_experiment_20260823/FINAL_REPORT.md` (§C/§D/§AD), `docs/PRESENTATION_EVIDENCE_GAPS.md`.
+
+## 20. Test suite
+
+`tests/` — **77 tests, 9 files, plain `assert`-based** (no pytest dependency required, though `pytest` also runs them directly since they're `test_*` functions). Falcon/Ollama network calls are mocked at the `lib.understand._call_ollama` boundary only; the parse/validation/resolution/rendering logic under test is real, unmocked code.
+
+```bash
+source .venv/bin/activate
+python -m pytest tests/ -q        # or: python -m tests.test_<name> per-file
+```
+
+| File | Tests | Covers |
+|---|---|---|
+| `test_resolver_regressions.py` | 21 | Sign-resolution hardening: semantic-preservation guard, ambiguous-category disambiguation, ZHO-exact priority over fallbacks |
+| `test_esl_zayed_supplementary.py` | 16 | ESL Zayed supplementary-catalog integration guardrails — ZHO always tried first, ESL Zayed candidates rejected if outside the shown candidate set, confidence tiers kept separate in coverage reporting |
+| `test_sign_plan_arabic_hints.py` | 8 | Arabic-source vocabulary hints in `lib/sign_plan.py` use the Arabic tokenizer (not the English one, which yields zero tokens on Arabic script); English-source behavior unchanged |
+| `test_clip_prep_reconciliation.py` | 7 | ESL Zayed clip materialization — CLIP_PREP no longer silently skips `VERIFIED_SIGN` items resolved via `ESL_ZAYED` (catalog_ref=None, supplementary_ref set) |
+| `test_arabic_clitic_normalization.py` | 6 | Arabic clitic/lexical query-side normalization in `lib/vocab_retrieval.py` |
+| `test_arabic_caption_field_mapping.py` | 5 | Arabic-caption tofu-box regression: caption text now sourced from the correct verified field per render_source, never a generic `terminology`/`term` fallback |
+| `test_catalog_bilingual.py` | 5 | Bilingual ZHO catalog join (word_en/word_ar pairing, integrity flagging of corrupted entries) |
+| `test_understand_structured_output.py` | 5 | Bounded structured-output handling: strict parse → lenient field extraction → one bounded repair-retry → deterministic `REVIEW_REQUIRED` if still invalid; no unbounded retries, no content fabrication |
+| `test_avatar_scale_resolution_invariance.py` | 4 | Avatar scale/anchor computed per-segment from that segment's own native resolution, not pooled across mixed-resolution segments |
+
+**Benchmarks** (separate from regression tests, preserved as evidence, not re-run automatically): `benchmarks/llm_grounding/` (model selection, §3), `benchmarks/alyah/` (secondary Emirati-dialect eval, §3), `scripts/vocab_embedding_benchmark.py` (embedding retrieval, §19).
