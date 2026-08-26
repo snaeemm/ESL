@@ -4,8 +4,17 @@ UAE MoE AI Center of Excellence case study prototype. Converts a verified academ
 
 ## Demo videos
 
-- [`demo/website_walkthrough_demo.mp4`](demo/website_walkthrough_demo.mp4) — narrated click-through of the web app (paste source → configure → generate → results, coverage, sign plan, review, and traceability tabs), captured live against the running app.
-- [`demo/prototype_lesson_demo.mp4`](demo/prototype_lesson_demo.mp4) — a generated lesson episode ("A Family Day at School and Home"), 76s, 75.0% ZHO institutional coverage / 8.3% ESL Zayed supplementary / ~16.7% fingerspelling fallback, 0 unsupported items.
+**Website walkthrough demo:**
+
+https://github.com/user-attachments/assets/35e1091c-23f3-4d62-a54e-34654991a57b
+
+Narrated click-through of the web app (paste source → configure → generate → results, coverage, sign plan, review, and traceability tabs), captured live against the running app.
+
+**Prototype lesson demo:**
+
+https://github.com/user-attachments/assets/320142cb-7282-430f-8808-76ce57d8bb3a
+
+A generated lesson episode ("A Family Day at School and Home"), 76s, 75.0% ZHO institutional coverage / 8.3% ESL Zayed supplementary / ~16.7% fingerspelling fallback, 0 unsupported items.
 
 ## 1. Challenge
 
