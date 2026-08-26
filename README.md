@@ -2,6 +2,8 @@
 
 UAE MoE AI Center of Excellence case study prototype. Converts a verified academic source document into a short, source-traceable educational video in Arabic Sign Language, using UAE/ZHO-sourced sign assets and local-only AI inference.
 
+By Shahzeb Naeem ([LinkedIn](https://www.linkedin.com/in/snaeemm/)) - related research: ["Generation and Detection of Sign Language Deepfakes: A Linguistic and Visual Analysis"](https://scholar.google.com/citations?user=mcm907QAAAAJ&hl=en), IEEE Transactions on Computational Social Systems, 2025.
+
 ## Demo videos
 
 **Website walkthrough demo:**
