@@ -6,8 +6,8 @@ import json
 import time
 import os
 
-DATA_PATH = "/private/tmp/claude-501/-Users-shaz-MOI-Arabic-Sign-Language/a3e00aef-4d03-4ba3-b410-a08b4dd3124e/scratchpad/alyah_test.parquet"
-CHECKPOINT_PATH = "/private/tmp/claude-501/-Users-shaz-MOI-Arabic-Sign-Language/a3e00aef-4d03-4ba3-b410-a08b4dd3124e/scratchpad/alyah_checkpoint.jsonl"
+DATA_PATH = "benchmarks/alyah/alyah_test.parquet"
+CHECKPOINT_PATH = "benchmarks/alyah/results/alyah_checkpoint.jsonl"
 
 df = pd.read_parquet(DATA_PATH)
 print(f"Total questions: {len(df)}", flush=True)

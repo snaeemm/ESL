@@ -2,7 +2,7 @@ import requests
 import json
 import re
 
-SOURCE_PATH = "/Users/shaz/MOI-Arabic-Sign-Language/content/grade6_science_ch3_cells.md"
+SOURCE_PATH = "content/grade6_science_ch3_cells.md"
 with open(SOURCE_PATH) as f:
     SOURCE_TEXT = f.read()
 
@@ -78,5 +78,5 @@ for i, sec in enumerate(sections):
 print(f"\n=== SUMMARY: {successes}/{len(sections)} sections produced valid JSON ===", flush=True)
 print(json.dumps(all_items, indent=2, ensure_ascii=False), flush=True)
 
-with open("/private/tmp/claude-501/-Users-shaz-MOI-Arabic-Sign-Language/a3e00aef-4d03-4ba3-b410-a08b4dd3124e/scratchpad/jais_chunked_results.json", "w") as f:
+with open("benchmarks/llm_grounding/results/jais_chunked_results.json", "w") as f:
     json.dump({"successes": successes, "total": len(sections), "items": all_items}, f, indent=2, ensure_ascii=False)

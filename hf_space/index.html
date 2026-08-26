@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-Powered Sign Language Academic Video Generator — UAE MoE Prototype</title>
+<style>
+  :root{
+    --white:#FFFFFF;
+    --silver:#C6C6C6;
+    --iron:#414042;
+    --gold:#B68A35;
+    --gold-tint:#FBF5EB;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--iron);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    line-height:1.6;
+  }
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 48px;background:var(--white);border-bottom:1px solid #E5E5E5;
+    flex-wrap:wrap;gap:12px;
+  }
+  header img{height:56px;width:auto;object-fit:contain}
+  .badge{
+    border:1.5px solid var(--gold);color:var(--gold);font-weight:700;
+    font-size:13px;letter-spacing:0.5px;padding:8px 18px;border-radius:999px;
+    white-space:nowrap;
+  }
+  .hero{
+    padding:56px 48px 40px;max-width:980px;margin:0 auto;text-align:center;
+  }
+  .hero h1{font-size:32px;font-weight:700;color:#262626;margin:0 0 14px}
+  .hero p{font-size:16px;color:#6b6b6d;max-width:680px;margin:0 auto}
+  section{max-width:980px;margin:0 auto;padding:32px 24px}
+  h2{font-size:22px;font-weight:700;color:var(--iron);border-left:4px solid var(--gold);padding-left:14px;margin-bottom:18px}
+  .video-card{
+    background:var(--white);border:1px solid #E5E5E5;border-radius:14px;
+    padding:24px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,0.04);
+  }
+  .video-card h3{margin:0 0 6px;font-size:17px;color:var(--iron)}
+  .video-card .meta{font-size:13px;color:#9a9a9c;margin-bottom:16px}
+  video{width:100%;border-radius:10px;display:block;background:#000}
+  .pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .pill{
+    font-size:12.5px;font-weight:700;color:var(--iron);
+    background:var(--gold-tint);border:1px solid var(--gold);
+    border-radius:999px;padding:6px 14px;
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+  .stat{
+    border:1px solid #E5E5E5;border-radius:12px;padding:18px;text-align:center;
+  }
+  .stat .num{font-size:26px;font-weight:700;color:var(--gold)}
+  .stat .label{font-size:12.5px;color:#6b6b6d;margin-top:4px}
+  .pipeline{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12.5px;background:#FAFAFA;border:1px solid #E5E5E5;border-radius:10px;
+    padding:20px;overflow-x:auto;color:var(--iron);line-height:1.9;white-space:pre;
+  }
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:8px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid #E5E5E5}
+  th{color:#9a9a9c;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.4px}
+  tr:last-child td{border-bottom:none}
+  .note{
+    font-size:12.5px;color:#9a9a9c;background:#FAFAFA;border-radius:10px;
+    padding:14px 16px;margin-top:10px;line-height:1.6;
+  }
+  footer{
+    text-align:center;padding:32px 24px 48px;font-size:12.5px;color:#9a9a9c;
+    border-top:1px solid #E5E5E5;margin-top:24px;
+  }
+  a{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="assets/moe-logo.png" alt="UAE Ministry of Education">
+  <div class="badge">MoE Case Study Prototype — Walkthrough</div>
+</header>
+
+<div class="hero">
+  <h1>AI-Powered Sign Language Academic Video Generator</h1>
+  <p>Turns a verified academic source document into a short, source-traceable educational video in Arabic Sign Language — using UAE/ZHO government sign assets and local-only AI inference. This page is a static walkthrough of the working prototype; it does not run the pipeline itself.</p>
+</div>
+
+<section>
+  <h2>Website walkthrough demo</h2>
+  <div class="video-card">
+    <h3>Narrated click-through of the prototype interface</h3>
+    <div class="meta">Hero run · job <code>013fbd2aa3f0</code> · "My Family and My Day at School" · 100% verified institutional (ZHO) sign coverage, zero fingerspelling, zero review-required items</div>
+    <video controls preload="metadata" poster="">
+      <source src="assets/website_walkthrough.mp4" type="video/mp4">
+      Your browser does not support embedded video. <a href="assets/website_walkthrough.mp4">Download the video</a>.
+    </video>
+    <div class="pill-row">
+      <span class="pill">Source verification</span>
+      <span class="pill">Real AI vs. deterministic stages</span>
+      <span class="pill">Sign plan</span>
+      <span class="pill">Review policy</span>
+      <span class="pill">Traceability</span>
+      <span class="pill">Local model benchmark</span>
+      <span class="pill">Architecture</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Prototype lesson demo</h2>
+  <div class="video-card">
+    <h3>The generated lesson episode itself</h3>
+    <div class="meta">~51s · 22 semantic units · job <code>013fbd2aa3f0</code></div>
+    <video controls preload="metadata">
+      <source src="assets/prototype_lesson.mp4" type="video/mp4">
+      Your browser does not support embedded video. <a href="assets/prototype_lesson.mp4">Download the video</a>.
+    </video>
+  </div>
+  <div class="grid">
+    <div class="stat"><div class="num">86.4%</div><div class="label">ZHO institutional sign coverage</div></div>
+    <div class="stat"><div class="num">13.6%</div><div class="label">ESL Zayed supplementary signs</div></div>
+    <div class="stat"><div class="num">0%</div><div class="label">Fingerspelling fallback</div></div>
+    <div class="stat"><div class="num">PASS</div><div class="label">Overall validation status</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Pipeline architecture</h2>
+  <div class="pipeline">SOURCE (hashed .md/.txt, EN or AR)
+  → UNDERSTAND      (local Falcon-H1-7B via Ollama: grounded concept extraction,
+                      deterministic source-span verification)
+  → STRUCTURE       (Episode Builder: verified concepts → short educational sentences)
+  → SIGN PLAN       (semantic decomposition: meaning, not just key_terms)
+  → TERMINOLOGY     (contextual EN→AR term translation for unresolved items,
+                      only when the source is English)
+  → SIGN RESOLUTION (deterministic match against the 1,143-entry ZHO catalog,
+                      or Arabic-fingerspelling fallback — NO model involved)
+  → VALIDATE        (deterministic provenance/coverage checks; can BLOCK rendering)
+  → CLIP PREP       (download + auto-trim ZHO clips, cached)
+  → MEDIAPIPE + RENDER (procedural avatar renderer)
+  → TRACEABILITY    (every rendered segment traced back to its source span)</div>
+  <div class="note">Every stage writes a JSON artifact — nothing generated downstream is ever treated as a new fact. The original source file is the sole authority throughout.</div>
+</section>
+
+<section>
+  <h2>Why Falcon-H1-7B (local model selection)</h2>
+  <table>
+    <thead><tr><th>Model</th><th>Cosine</th><th>ROUGE-1</th><th>ROUGE-L</th><th>Jaccard</th><th>BLEU</th><th>Source-span match</th></tr></thead>
+    <tbody>
+      <tr><td><b>Falcon-H1-7B-Instruct</b></td><td><b>0.908</b></td><td><b>0.755</b></td><td><b>0.734</b></td><td><b>0.664</b></td><td><b>0.597</b></td><td>85.7%</td></tr>
+      <tr><td>Qwen3.5-9B</td><td>0.808</td><td>0.574</td><td>0.522</td><td>0.484</td><td>0.310</td><td>88.9%</td></tr>
+      <tr><td>Qwen3-8B</td><td>0.793</td><td>0.576</td><td>0.503</td><td>0.470</td><td>0.315</td><td>60.0%</td></tr>
+      <tr><td>jais-adaptive-7B</td><td>0.510</td><td>0.120</td><td>0.094</td><td>0.116</td><td>0.000</td><td>0%</td></tr>
+    </tbody>
+  </table>
+  <div class="note">Falcon-H1-7B-Instruct wins every metric the brief names, on a grounding-faithfulness benchmark against the real source text — selected on that basis, not preference.</div>
+</section>
+
+<footer>
+  UAE Ministry of Education — AI Center of Excellence case study prototype. Static walkthrough page; not a live deployment of the pipeline.
+</footer>
+
+</body>
+</html>

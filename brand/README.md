@@ -17,7 +17,7 @@ brand/
 
 **File:** `assets/moe_logo_horizontal_full-colour.png` — 1633×400px, RGBA (transparent background), horizontal lockup: English wordmark ("UNITED ARAB EMIRATES / MINISTRY OF EDUCATION") + UAE federal eagle emblem in gold + Arabic wordmark, left-to-right in that order. Identical file also delivered via an explicit design handoff package (`Ministry of Education branding guidelines.zip` → `design_handoff_sign_language_generator/assets/moe-logo.png`), confirmed byte-identical to the copy already in this kit.
 
-**Provenance note:** originally sourced by the candidate from their own Downloads folder; subsequently re-supplied as part of an explicit design-handoff brand package (see `CLAUDE.md` at the repo root, copied from that package's `BRAND_GUIDE.md`), which states this is "the real MOE logo asset" and that no official logo file is published on the public GMO guideline site's own downloads section. Treated as the authoritative asset for this prototype on that basis. **Still not independently verified against an official Ministry-issued download in this session** — reasonable for this internal case-study prototype; confirm before any public/wider use.
+**Provenance note:** sourced from the candidate's own Downloads folder, and re-confirmed as part of a design-handoff brand package (`BRAND_GUIDE.md`), which states this is "the real MOE logo asset" and that no official logo file is published on the public GMO guideline site's own downloads section. Treated as the authoritative asset for this prototype on that basis. **Still not independently verified against an official Ministry-issued download** — reasonable for this internal case-study prototype; confirm before any public/wider use.
 
 **Per the design handoff's explicit build spec:** use the full logo only in page headers/splash; prefer a plain text wordmark ("UAE MINISTRY OF EDUCATION", gold, uppercase, letter-spaced) for any other in-app/repeated placement (nav bars, footers, etc.) rather than the full logo-with-emblem. This kit's rules below are updated accordingly.
 
@@ -32,7 +32,7 @@ brand/
 
 ## 2. Colour palette
 
-Primary federal palette — exact hex confirmed by the explicit design handoff (`CLAUDE.md` at repo root), superseding the earlier RGB-only values in `docs/FEDERAL_VISUAL_IDENTITY.md` §3 (which flagged them as unverified live — this handoff resolves that):
+Primary federal palette — exact hex confirmed by the design handoff, superseding the earlier RGB-only values in `docs/FEDERAL_VISUAL_IDENTITY.md` §3 (which flagged them as unverified live — this handoff resolves that):
 
 | Token | Name | Hex | Typical use |
 |---|---|---|---|

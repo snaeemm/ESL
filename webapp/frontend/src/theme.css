@@ -1,7 +1,7 @@
 /* Federal visual identity tokens — matches the high-fidelity design
-   handoff (design_handoff_sign_language_generator/, see BRAND_GUIDE.md /
-   CLAUDE.md at repo root) exactly, not an approximation. See
-   docs/FEDERAL_VISUAL_IDENTITY.md for the full decision record. */
+   handoff (design_handoff_sign_language_generator/, see BRAND_GUIDE.md)
+   exactly, not an approximation. See docs/FEDERAL_VISUAL_IDENTITY.md
+   for the full decision record. */
 :root {
   --federal-white: #FFFFFF;
   --federal-silver: #C6C6C6;
@@ -36,7 +36,7 @@
   --radius-pill: 999px;
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04);
 
-  /* stand-in for Univers Next — see CLAUDE.md. Blocker C fix: the
+  /* stand-in for Univers Next — see brand/README.md. Blocker C fix: the
      original stack ("Helvetica Neue", Arial, sans-serif) has no font
      listed that is guaranteed to carry Arabic glyphs on every platform
      — on systems where Arial's Arabic glyph subset isn't installed,

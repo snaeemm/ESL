@@ -2,212 +2,212 @@
   "eb6b778b-8816-4cb4-8e82-b71e24b705a0": {
     "start_s": 0.32,
     "end_s": 2.4,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/alif_eb6b778b.mp4"
+    "clip_path": "data/zho/clips/Alphabets/alif_eb6b778b.mp4"
   },
   "c1a43a99-8305-40ae-a3a1-652c44a898ed": {
     "start_s": 0.2,
     "end_s": 2.56,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/haa_c1a43a99.mp4"
+    "clip_path": "data/zho/clips/Alphabets/haa_c1a43a99.mp4"
   },
   "dbe4bc5c-2cb7-42d7-8767-765da721114b": {
     "start_s": 0.32,
     "end_s": 2.56,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/yaa_dbe4bc5c.mp4"
+    "clip_path": "data/zho/clips/Alphabets/yaa_dbe4bc5c.mp4"
   },
   "52b967f4-7185-4c17-bc3a-8db821582e52": {
     "start_s": 0.28,
     "end_s": 2.88,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/hamza-nabira_52b967f4.mp4"
+    "clip_path": "data/zho/clips/Alphabets/hamza-nabira_52b967f4.mp4"
   },
   "e6e69718-53a0-4b51-90c0-8b5f7961cc6e": {
     "start_s": 0.2,
     "end_s": 2.32,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/meem_e6e69718.mp4"
+    "clip_path": "data/zho/clips/Alphabets/meem_e6e69718.mp4"
   },
   "26f6fa6d-f706-4875-b80a-ef00025d14c5": {
     "start_s": 0.28,
     "end_s": 2.6,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/noon_26f6fa6d.mp4"
+    "clip_path": "data/zho/clips/Alphabets/noon_26f6fa6d.mp4"
   },
   "4777f0f0-cd48-4e1b-95f8-eefce9fd9345": {
     "start_s": 0.32,
     "end_s": 2.6,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/aeen_4777f0f0.mp4"
+    "clip_path": "data/zho/clips/Alphabets/aeen_4777f0f0.mp4"
   },
   "3c17f53c-4b3f-4d78-a4b5-8b25cc0ac424": {
     "start_s": 0.36,
     "end_s": 2.84,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/saad_3c17f53c.mp4"
+    "clip_path": "data/zho/clips/Alphabets/saad_3c17f53c.mp4"
   },
   "56ca7677-fd0f-4207-89ed-99432d6cca11": {
     "start_s": 0.52,
     "end_s": 2.76,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/raa_56ca7677.mp4"
+    "clip_path": "data/zho/clips/Alphabets/raa_56ca7677.mp4"
   },
   "d2e43581-2b29-4773-aef7-9c4d901d0c7a": {
     "start_s": 0.32,
     "end_s": 2.76,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/gaen_d2e43581.mp4"
+    "clip_path": "data/zho/clips/Alphabets/gaen_d2e43581.mp4"
   },
   "4c82e730-b6dc-4c57-b761-d73337fadfad": {
     "start_s": 0.2,
     "end_s": 2.36,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/taa_4c82e730.mp4"
+    "clip_path": "data/zho/clips/Alphabets/taa_4c82e730.mp4"
   },
   "9fdb14bb-9d70-4512-bd09-7b08fbba6fd4": {
     "start_s": 0.44,
     "end_s": 2.64,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/wow_9fdb14bb.mp4"
+    "clip_path": "data/zho/clips/Alphabets/wow_9fdb14bb.mp4"
   },
   "b997e9cc-e112-4635-9a15-f7c912b8eae8": {
     "start_s": 0.2,
     "end_s": 2.6,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/daal_b997e9cc.mp4"
+    "clip_path": "data/zho/clips/Alphabets/daal_b997e9cc.mp4"
   },
   "17fd4d03-5c19-4f4d-bdbf-8c4a47461e3a": {
     "start_s": 0.2,
     "end_s": 2.68,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/taa_17fd4d03.mp4"
+    "clip_path": "data/zho/clips/Alphabets/taa_17fd4d03.mp4"
   },
   "3fba6afb-34b1-4456-a708-366b64210e66": {
     "start_s": 0.24,
     "end_s": 2.72,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/seen_3fba6afb.mp4"
+    "clip_path": "data/zho/clips/Alphabets/seen_3fba6afb.mp4"
   },
   "7e07c42b-f9c6-4f8d-b030-8c0524d7215b": {
     "start_s": 0.36,
     "end_s": 2.64,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/kaaf_7e07c42b.mp4"
+    "clip_path": "data/zho/clips/Alphabets/kaaf_7e07c42b.mp4"
   },
   "27ad9f94-c15d-44a8-b77f-f1b4c05c5f66": {
     "start_s": 0.36,
     "end_s": 3.16,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/hamza-yaa_27ad9f94.mp4"
+    "clip_path": "data/zho/clips/Alphabets/hamza-yaa_27ad9f94.mp4"
   },
   "3778f0ca-74cb-43e5-8df4-71c0dd118692": {
     "start_s": 0.32,
     "end_s": 2.48,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/daad_3778f0ca.mp4"
+    "clip_path": "data/zho/clips/Alphabets/daad_3778f0ca.mp4"
   },
   "aa2d0805-1856-476a-a65a-45e9ebbfdfb8": {
     "start_s": 0.04,
     "end_s": 2.04,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/laam_aa2d0805.mp4"
+    "clip_path": "data/zho/clips/Alphabets/laam_aa2d0805.mp4"
   },
   "1eaeef62-c96d-4c6b-a095-26ef14fb7fc2": {
     "start_s": 0.56,
     "end_s": 3.04,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/khaa_1eaeef62.mp4"
+    "clip_path": "data/zho/clips/Alphabets/khaa_1eaeef62.mp4"
   },
   "b8e231d4-1d9e-4359-8806-a592fa7d0cb2": {
     "start_s": 0.24,
     "end_s": 2.36,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/zua_b8e231d4.mp4"
+    "clip_path": "data/zho/clips/Alphabets/zua_b8e231d4.mp4"
   },
   "c4889597-92f3-463e-bd39-a4e3c176848d": {
     "start_s": 0.2,
     "end_s": 2.36,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/faa_c4889597.mp4"
+    "clip_path": "data/zho/clips/Alphabets/faa_c4889597.mp4"
   },
   "d2892800-5447-43cb-be9c-1fa1501c4b4b": {
     "start_s": 0.36,
     "end_s": 3.16,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/jeem_d2892800.mp4"
+    "clip_path": "data/zho/clips/Alphabets/jeem_d2892800.mp4"
   },
   "9cecc2c2-4c3e-4662-a5ee-712f3e722d55": {
     "start_s": 0.28,
     "end_s": 2.52,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/baa_9cecc2c2.mp4"
+    "clip_path": "data/zho/clips/Alphabets/baa_9cecc2c2.mp4"
   },
   "97e18b50-06a5-4340-859d-9515105f59ba": {
     "start_s": 0.36,
     "end_s": 2.84,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/sheen_97e18b50.mp4"
+    "clip_path": "data/zho/clips/Alphabets/sheen_97e18b50.mp4"
   },
   "c022191d-63b3-4397-b758-f2edb22bf50f": {
     "start_s": 0.0,
     "end_s": 2.8,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Family/family_c022191d.mp4"
+    "clip_path": "data/zho/clips/Family/family_c022191d.mp4"
   },
   "5aae07f0-e199-4408-9d7a-dd067aab45c2": {
     "start_s": 0.32,
     "end_s": 2.36,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Family/father_5aae07f0.mp4"
+    "clip_path": "data/zho/clips/Family/father_5aae07f0.mp4"
   },
   "9116db67-cde3-4b39-bd03-f76caf73c0ea": {
     "start_s": 0.08,
     "end_s": 4.08,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Professions and Jobs/doctor_9116db67.mp4"
+    "clip_path": "data/zho/clips/Professions and Jobs/doctor_9116db67.mp4"
   },
   "5ffb35c4-cbdb-4b96-a96f-0f327e579e15": {
     "start_s": 0.0,
     "end_s": 2.32,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Family/mother_5ffb35c4.mp4"
+    "clip_path": "data/zho/clips/Family/mother_5ffb35c4.mp4"
   },
   "d88fb82a-69e1-475b-b651-4a6add2bfee1": {
     "start_s": 0.16,
     "end_s": 2.96,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/teacher_d88fb82a.mp4"
+    "clip_path": "data/zho/clips/Education/teacher_d88fb82a.mp4"
   },
   "c3ed9923-53d2-4f4e-a300-30de5d0e662b": {
     "start_s": 0.0,
     "end_s": 3.2,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Family/sister_c3ed9923.mp4"
+    "clip_path": "data/zho/clips/Family/sister_c3ed9923.mp4"
   },
   "38420a44-06d8-4552-b4e8-5c5f79687d30": {
     "start_s": 0.2,
     "end_s": 2.24,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/tua_38420a44.mp4"
+    "clip_path": "data/zho/clips/Alphabets/tua_38420a44.mp4"
   },
   "155bc851-2bc2-4a9f-bb17-4fbdd9380f19": {
     "start_s": 0.36,
     "end_s": 2.4,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/zaal_155bc851.mp4"
+    "clip_path": "data/zho/clips/Alphabets/zaal_155bc851.mp4"
   },
   "97fe13f3-9d7b-4e12-9a44-4ae5617edf66": {
     "start_s": 0.12,
     "end_s": 2.72,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Common Verbs/wakes-up_97fe13f3.mp4"
+    "clip_path": "data/zho/clips/Common Verbs/wakes-up_97fe13f3.mp4"
   },
   "1d33d82f-9862-45b7-85f8-b0ff66aa363b": {
     "start_s": 0.56,
     "end_s": 3.4,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Education/book_1d33d82f.mp4"
+    "clip_path": "data/zho/clips/Education/book_1d33d82f.mp4"
   },
   "ac41e3fb-5912-440d-ac63-64dc69f79add": {
     "start_s": 0.16,
     "end_s": 3.88,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/clips/Directions and Locations/before_ac41e3fb.mp4"
+    "clip_path": "data/zho/clips/Directions and Locations/before_ac41e3fb.mp4"
   },
   "2499aa36-8999-46df-b950-963d38e85700": {
     "start_s": 0.16,
     "end_s": 3.04,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/school_2499aa36.mp4"
+    "clip_path": "data/zho/clips/Education/school_2499aa36.mp4"
   },
   "4c5971c5-4871-48a5-8452-6428f829692e": {
     "start_s": 0.12,
     "end_s": 2.32,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/qaaf_4c5971c5.mp4"
+    "clip_path": "data/zho/clips/Alphabets/qaaf_4c5971c5.mp4"
   },
   "4c670667-4737-4386-a09c-442bd046d42b": {
     "start_s": 0.32,
     "end_s": 2.68,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/haa_4c670667.mp4"
+    "clip_path": "data/zho/clips/Alphabets/haa_4c670667.mp4"
   },
   "ba20af63-ac14-4722-b4ff-66d9defe0058": {
     "start_s": 0.12,
     "end_s": 2.08,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Health/morning_ba20af63.mp4"
+    "clip_path": "data/zho/clips/Health/morning_ba20af63.mp4"
   },
   "fe6f2235-9b9f-4566-9501-f0748043c219": {
     "start_s": 0.44,
     "end_s": 2.6,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Environment/sun_fe6f2235.mp4"
+    "clip_path": "data/zho/clips/Environment/sun_fe6f2235.mp4"
   },
   "07d2c108-f363-40a5-af91-3531772ef6da": {
     "start_s": 0.48,
     "end_s": 3.48,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Health/bacteria_07d2c108.mp4"
+    "clip_path": "data/zho/clips/Health/bacteria_07d2c108.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0001": {
     "caption_start_s": 6.0,
@@ -218,7 +218,7 @@
   "a5305ac2-3431-4636-933e-a1a01eaca34a": {
     "start_s": 0.76,
     "end_s": 3.32,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Measurement Units/early_a5305ac2.mp4"
+    "clip_path": "data/zho/clips/Measurement Units/early_a5305ac2.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0202": {
     "caption_start_s": 6.5,
@@ -236,12 +236,12 @@
   "870864a9-c689-456c-9dd7-2d0a6009b9a7": {
     "start_s": 0.64,
     "end_s": 3.16,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/long_870864a9.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/long_870864a9.mp4"
   },
   "b0d8b2c2-b61d-4517-8048-53e24d879f42": {
     "start_s": 0.28,
     "end_s": 2.44,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/worried_b0d8b2c2.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/worried_b0d8b2c2.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0027": {
     "caption_start_s": 5.5,
@@ -264,12 +264,12 @@
   "43a2ab87-8fd9-44f1-8f77-81aa261b45ca": {
     "start_s": 0.08,
     "end_s": 3.12,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Professions and Jobs/teacher_43a2ab87.mp4"
+    "clip_path": "data/zho/clips/Professions and Jobs/teacher_43a2ab87.mp4"
   },
   "f510e6d3-b4d2-4300-8028-7d3cc226b49e": {
     "start_s": 0.08,
     "end_s": 2.4,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Common Verbs/walk_f510e6d3.mp4"
+    "clip_path": "data/zho/clips/Common Verbs/walk_f510e6d3.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0073": {
     "caption_start_s": 5.5,
@@ -281,12 +281,12 @@
   "abd40727-b79c-40e3-8228-ecf7a904044c": {
     "start_s": 0.16,
     "end_s": 2.72,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/difficult_abd40727.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/difficult_abd40727.mp4"
   },
   "abfc28e2-5f4b-4802-a516-15b4da568fcd": {
     "start_s": 0.24,
     "end_s": 2.56,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/easy_abfc28e2.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/easy_abfc28e2.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0183": {
     "caption_start_s": 0.0,
@@ -305,17 +305,17 @@
   "8234ce5b-dd14-44a8-a0ca-3698ae710cda": {
     "start_s": 0.12,
     "end_s": 2.32,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Common Verbs/give_8234ce5b.mp4"
+    "clip_path": "data/zho/clips/Common Verbs/give_8234ce5b.mp4"
   },
   "3607aa50-a00e-4abf-a2ca-707a506830c5": {
     "start_s": 0.16,
     "end_s": 2.76,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/new_3607aa50.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/new_3607aa50.mp4"
   },
   "26c00e7d-e19b-4091-869b-042bacc51ab5": {
     "start_s": 0.0,
     "end_s": 2.6,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Health/age_26c00e7d.mp4"
+    "clip_path": "data/zho/clips/Health/age_26c00e7d.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0077": {
     "caption_start_s": 0.0,
@@ -341,7 +341,7 @@
   "845e3cfd-1b82-49dc-a920-326545aa15fd": {
     "start_s": 1.04,
     "end_s": 3.32,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Health/be-patient_845e3cfd.mp4"
+    "clip_path": "data/zho/clips/Health/be-patient_845e3cfd.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0122": {
     "caption_start_s": 11.5,
@@ -353,7 +353,7 @@
   "fedc781a-0df0-4ca7-8424-288c564d1696": {
     "start_s": 0.36,
     "end_s": 2.44,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Alphabets/zaai_fedc781a.mp4"
+    "clip_path": "data/zho/clips/Alphabets/zaai_fedc781a.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0086": {
     "caption_start_s": 5.5,
@@ -365,7 +365,7 @@
   "7de37cc8-1e3a-4efe-be64-b267f8007a7e": {
     "start_s": 0.56,
     "end_s": 3.12,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/intelligent_7de37cc8.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/intelligent_7de37cc8.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0054": {
     "caption_start_s": 12.0,
@@ -377,22 +377,22 @@
   "ad2bb1bf-7b7d-4fcf-a1de-a4b1cae9c977": {
     "start_s": 0.88,
     "end_s": 4.16,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/class_ad2bb1bf.mp4"
+    "clip_path": "data/zho/clips/Education/class_ad2bb1bf.mp4"
   },
   "a595f092-2453-49c1-93e1-971a3fee5a49": {
     "start_s": 0.16,
     "end_s": 3.04,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/good_a595f092.mp4"
+    "clip_path": "data/zho/clips/Education/good_a595f092.mp4"
   },
   "b9aa6dbe-3e0c-41e6-8161-a26c02ee4a20": {
     "start_s": 0.24,
     "end_s": 3.48,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/results_b9aa6dbe.mp4"
+    "clip_path": "data/zho/clips/Education/results_b9aa6dbe.mp4"
   },
   "0413e989-7b90-462b-bef0-1c7114978998": {
     "start_s": 0.0,
     "end_s": 2.6,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/excellent_0413e989.mp4"
+    "clip_path": "data/zho/clips/Education/excellent_0413e989.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0159": {
     "caption_start_s": 2.5,
@@ -404,22 +404,22 @@
   "be18e85a-b714-4b5a-9ad7-9cfe9cc0d442": {
     "start_s": 0.32,
     "end_s": 2.76,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/hot_be18e85a.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/hot_be18e85a.mp4"
   },
   "8e466a0d-df28-402f-a06e-17bcf39a9bc7": {
     "start_s": 1.04,
     "end_s": 3.16,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Measurement Units/yesterday_8e466a0d.mp4"
+    "clip_path": "data/zho/clips/Measurement Units/yesterday_8e466a0d.mp4"
   },
   "ddef0707-f3da-4249-9d48-51a6b49eef5f": {
     "start_s": 0.36,
     "end_s": 2.64,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Environment/cold_ddef0707.mp4"
+    "clip_path": "data/zho/clips/Environment/cold_ddef0707.mp4"
   },
   "b215a92b-69e2-4c79-9e02-ce087a91ee6d": {
     "start_s": 0.16,
     "end_s": 2.4,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/fast_b215a92b.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/fast_b215a92b.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0025": {
     "caption_start_s": 0.0,
@@ -431,12 +431,12 @@
   "9710ff8f-4fbd-48e6-aa95-2d90986b2714": {
     "start_s": 0.12,
     "end_s": 2.76,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/slow_9710ff8f.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/slow_9710ff8f.mp4"
   },
   "d44055d8-b54e-4ac0-b07f-b549a6658e1b": {
     "start_s": 0.44,
     "end_s": 3.52,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Education/exam_d44055d8.mp4"
+    "clip_path": "data/zho/clips/Education/exam_d44055d8.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0234": {
     "caption_start_s": 0.0,
@@ -448,12 +448,12 @@
   "0c8af9af-cf5f-4c93-be07-e89c95217c5f": {
     "start_s": 0.56,
     "end_s": 2.92,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Attributes and Situations/heavy_0c8af9af.mp4"
+    "clip_path": "data/zho/clips/Attributes and Situations/heavy_0c8af9af.mp4"
   },
   "1c2f8668-2f68-4d3c-9e5b-c12a68a7374d": {
     "start_s": 0.0,
     "end_s": 2.68,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Environment/rain_1c2f8668.mp4"
+    "clip_path": "data/zho/clips/Environment/rain_1c2f8668.mp4"
   },
   "ESL_ZAYED::ESL_ZAYED_0028": {
     "caption_start_s": 15.0,
@@ -465,12 +465,12 @@
   "c8d2bb66-4daf-4453-a30e-bdb8cd33b4fb": {
     "start_s": 0.24,
     "end_s": 3.32,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Sports/football_c8d2bb66.mp4"
+    "clip_path": "data/zho/clips/Sports/football_c8d2bb66.mp4"
   },
   "32a82be5-2f19-48c5-8f3a-11044d0ee506": {
     "start_s": 0.16,
     "end_s": 2.64,
-    "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Common Verbs/sing_32a82be5.mp4"
+    "clip_path": "data/zho/clips/Common Verbs/sing_32a82be5.mp4"
   },
   "2d85d0c1-a1f2-416a-9c62-20370169a7da": {
     "start_s": 0.28,

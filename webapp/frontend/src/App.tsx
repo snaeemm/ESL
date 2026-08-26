@@ -41,7 +41,7 @@ export default function App() {
 
   return (
     <>
-      {/* Logo bar — see brand/README.md and CLAUDE.md §Logo for usage rules
+      {/* Logo bar — see brand/README.md §Logo for usage rules
           (clear space, no recolour/stretch/rotation). object-fit: contain
           + fixed height enforces proportional scaling. */}
       <div className="brand-strip">

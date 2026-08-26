@@ -11,7 +11,7 @@ authorization rules). Dedupes by (youtube_video_id, item_index_in_video).
 """
 import json, os, glob
 
-ROOT = "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81"
+ROOT = "."
 CATALOG_PATH = os.path.join(ROOT, "data/zho/esl_zayed_supplementary_catalog.json")
 RESULTS_DIR = os.path.join(ROOT, "data/zho/spike_mediapipe/esl_zayed_caption_pilot_v2_20260823")
 

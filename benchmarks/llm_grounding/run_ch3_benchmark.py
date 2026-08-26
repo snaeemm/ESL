@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from rouge_score import rouge_scorer
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 
-SOURCE_PATH = "/Users/shaz/MOI-Arabic-Sign-Language/content/grade6_science_ch3_cells.md"
+SOURCE_PATH = "content/grade6_science_ch3_cells.md"
 
 with open(SOURCE_PATH) as f:
     SOURCE_TEXT = f.read()
@@ -111,7 +111,7 @@ for model in MODELS:
     metrics = score(flat_text, items)
     results[model] = metrics
     print(f"  {json.dumps(metrics, indent=2, ensure_ascii=False)}", flush=True)
-    with open(f"/private/tmp/claude-501/-Users-shaz-MOI-Arabic-Sign-Language/a3e00aef-4d03-4ba3-b410-a08b4dd3124e/scratchpad/ch3_extraction_{model.replace('/', '_').replace(':', '_')}.json", "w") as f:
+    with open(f"benchmarks/llm_grounding/results/ch3_extraction_{model.replace('/', '_').replace(':', '_')}.json", "w") as f:
         json.dump({"raw_response": raw, "parsed_items": items}, f, indent=2, ensure_ascii=False)
 
 print("\n=== FINAL RESULTS (all models) ===", flush=True)

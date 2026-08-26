@@ -8,7 +8,7 @@ import sys, os, json, subprocess, glob, re
 import easyocr
 from PIL import Image
 
-CORPUS = "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81/data/zho/spike_mediapipe/esl_zayed_full_93video_corpus_20260823.json"
+CORPUS = "data/zho/spike_mediapipe/esl_zayed_full_93video_corpus_20260823.json"
 BASE = os.path.dirname(os.path.abspath(__file__))
 VIDEOS_DIR = os.path.join(BASE, "videos")
 FRAMES_ROOT = os.path.join(BASE, "scale_frames")

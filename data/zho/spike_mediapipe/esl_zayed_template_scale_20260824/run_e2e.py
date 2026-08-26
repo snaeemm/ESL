@@ -1,6 +1,6 @@
 import sys, os, json, traceback
 
-ROOT = "/Users/shaz/MOI-Arabic-Sign-Language/.claude/worktrees/agent-a3731017e37e9bf81"
+ROOT = "."
 sys.path.insert(0, ROOT)
 from lib import pipeline_runner as pr
 

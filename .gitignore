@@ -84,3 +84,7 @@ data/zho/spike_mediapipe/esl_zayed_clips/*.mp4
 # packaged submission archive (generated output, not source — see
 # submission/SUBMISSION_MANIFEST.md; deliver separately from the repo)
 submission/
+
+# local dev-tool config, not part of the submitted application
+CLAUDE.md
+.claude/
