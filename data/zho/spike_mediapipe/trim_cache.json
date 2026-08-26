@@ -471,5 +471,64 @@
     "start_s": 0.16,
     "end_s": 2.64,
     "clip_path": "/Users/shaz/MOI-Arabic-Sign-Language/data/zho/clips/Common Verbs/sing_32a82be5.mp4"
+  },
+  "2d85d0c1-a1f2-416a-9c62-20370169a7da": {
+    "start_s": 0.28,
+    "end_s": 2.52,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/clips/Health/evening_2d85d0c1.mp4"
+  },
+  "34a99909-99d8-42b6-80b0-5874c6d928c2": {
+    "start_s": 0.0,
+    "end_s": 3.0,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/clips/Common Verbs/visits_34a99909.mp4"
+  },
+  "f6b779db-a7cc-4da3-a605-4ed59517706b": {
+    "start_s": 0.2,
+    "end_s": 3.36,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/clips/Family/grandmother_f6b779db.mp4"
+  },
+  "7b24bcd2-8194-4f49-8e9e-481c6504cfc8": {
+    "start_s": 1.08,
+    "end_s": 3.4,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/clips/Environment/city_7b24bcd2.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0227": {
+    "caption_start_s": 0.0,
+    "caption_end_s": 2.5,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0227.mp4"
+  },
+  "50046d0c-0eee-4403-a4c3-2634984b04f9": {
+    "start_s": 0.32,
+    "end_s": 2.96,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/clips/Household Items/house_50046d0c.mp4"
+  },
+  "0c0f1b6a-23b9-4356-9e9f-fed86a937ce2": {
+    "start_s": 0.4,
+    "end_s": 3.4,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/clips/Environment/farm_0c0f1b6a.mp4"
+  },
+  "c2420ddd-8ffa-4763-9016-0c587e17ef80": {
+    "start_s": 0.0,
+    "end_s": 3.44,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/clips/Plants/flower_c2420ddd.mp4"
+  },
+  "9b9e8a90-7928-4bcc-b010-9bf0a0275f4b": {
+    "start_s": 0.0,
+    "end_s": 3.08,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/clips/Family/lactation-brother_9b9e8a90.mp4"
+  },
+  "ESL_ZAYED::ESL_ZAYED_0191": {
+    "caption_start_s": 5.5,
+    "caption_end_s": 7.0,
+    "dead_time_trim_applied": true,
+    "caption_boundary_capped": false,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/spike_mediapipe/esl_zayed_clips/ESL_ZAYED_0191.mp4"
+  },
+  "077812b1-0ab2-4394-babc-75d40832483b": {
+    "start_s": 0.04,
+    "end_s": 2.64,
+    "clip_path": "/Users/shaz/MOE-Arabic-Sign-Language/data/zho/clips/Education/successful_077812b1.mp4"
   }
 }

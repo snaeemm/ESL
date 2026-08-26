@@ -2,6 +2,11 @@
 
 UAE MoE AI Center of Excellence case study prototype. Converts a verified academic source document into a short, source-traceable educational video in Arabic Sign Language, using UAE/ZHO-sourced sign assets and local-only AI inference.
 
+## Demo videos
+
+- [`demo/website_walkthrough_demo.mp4`](demo/website_walkthrough_demo.mp4) — narrated click-through of the web app (paste source → configure → generate → results, coverage, sign plan, review, and traceability tabs), captured live against the running app.
+- [`demo/prototype_lesson_demo.mp4`](demo/prototype_lesson_demo.mp4) — a generated lesson episode ("A Family Day at School and Home"), 76s, 75.0% ZHO institutional coverage / 8.3% ESL Zayed supplementary / ~16.7% fingerspelling fallback, 0 unsupported items.
+
 ## 1. Challenge
 
 Turn approved academic source material into a short sign-language video for students, while keeping every taught fact traceable back to the source, flagging (never guessing) uncertain vocabulary/sign coverage, running all core AI inference locally, and leaving a clear checkpoint for human review before anything ships.
@@ -39,7 +44,16 @@ Language independence: SOURCE, UNDERSTAND, and STRUCTURE work on either English 
 | Qwen3-8B | 0.793 | 0.576 | 0.503 | 0.470 | 0.315 | 60.0% | ✅ |
 | jais-adaptive-7B | 0.510 | 0.120 | 0.094 | 0.116 | 0.000 | 0% | ❌ |
 
-**Falcon-H1-7B-Instruct wins every metric the brief names** and was selected as the prototype model on that basis, not preference. `benchmarks/alyah/` is a **secondary, supporting** benchmark (1,173-question Emirati-dialect MCQ eval — Falcon-H1 64.88% accuracy) — informative regional-language context, not the primary selection criterion, and not conflated with source-grounding accuracy anywhere in this codebase.
+**Falcon-H1-7B-Instruct wins every metric the brief names** and was selected as the prototype model on that basis, not preference. `benchmarks/alyah/` is a **secondary, supporting** benchmark (1,173-question Emirati-dialect MCQ eval) — informative regional-language context, not the primary selection criterion, and not conflated with source-grounding accuracy anywhere in this codebase:
+
+| Model | Alyah accuracy |
+|---|---|
+| **Falcon-H1-7B-Instruct (Q4_K_M)** | **64.88%** (761/1,173) |
+| Qwen3:latest | 64.11% |
+| jais-adaptive-q4:7b | 51.41% |
+| Qwen3.5-9b:q4 | 26.00% |
+
+(source: `benchmarks/alyah/results/alyah_eval_FINAL.log`)
 
 **Prototype vs. production model:** the prototype uses one quantized 7B model chosen from this specific benchmark, on available local hardware. Production model selection would repeat the same evaluation framework across stronger, still-locally-deployable candidates as infrastructure allows (larger Falcon variants, GPU inference, vLLM/llama.cpp serving, possible domain fine-tuning with before/after evaluation — never assumed to help without measuring). **A developer-reported ~83% figure for a larger/different Falcon configuration on a related vocabulary/language evaluation was checked against this repository and is not backed by any script or result file here** — it is DEVELOPER-REPORTED / NOT YET VERIFIED IN THIS REPOSITORY, and is not presented as measured prototype evidence anywhere in this codebase.
 
