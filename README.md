@@ -12,7 +12,7 @@ Narrated click-through of the `/demo` presentation view against the hero run (jo
 
 **Prototype lesson demo:**
 
-https://github.com/user-attachments/assets/320142cb-7282-430f-8808-76ce57d8bb3a
+https://github.com/user-attachments/assets/2ffcfe8c-1900-492c-964d-21675ad28ed6
 
 The generated lesson episode itself (job `013fbd2aa3f0`, "My Family and My Day at School"), ~51s, 22 semantic units: **86.4% ZHO institutional coverage / 13.6% ESL Zayed supplementary, 0% fingerspelling fallback, 0 unsupported items** — `overall_status: PASS`. Rendered with the hand-jitter fix described in `scripts/spike_render_captioned_lesson.py`.
 
