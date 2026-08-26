@@ -68,6 +68,115 @@ def environment_status():
     return {"ok": not problems, "problems": problems, "model": DEFAULT_MODEL}
 
 
+@app.get("/api/pipeline/stages")
+def pipeline_stages():
+    """Static (not per-job) — the real STAGES list + AI-vs-deterministic
+    classification from lib/pipeline_runner.py, for the demo/presentation
+    UI's architecture panel. Never fabricated: STAGE_KIND lives next to
+    STAGES in pipeline_runner.py so it can't drift from the actual pipeline."""
+    from lib.pipeline_runner import STAGES, STAGE_KIND
+    return [
+        {"stage": s, **STAGE_KIND.get(s, {"kind": "UNKNOWN", "label": s})}
+        for s in STAGES if s != "DONE"
+    ]
+
+
+def _parse_ch3_benchmark_log(path):
+    """Parses the FINAL RESULTS JSON block out of a benchmark log — read-only,
+    tolerant of the log not existing or not matching the expected format
+    (returns None rather than raising, so a missing/renamed artifact degrades
+    the Evaluation section gracefully instead of 500ing)."""
+    if not os.path.isfile(path):
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            text = f.read()
+        marker = "=== FINAL RESULTS (all models) ==="
+        idx = text.find(marker)
+        if idx == -1:
+            return None
+        block = text[idx + len(marker):].strip()
+        return json.loads(block)
+    except Exception:
+        return None
+
+
+@app.get("/api/evaluation")
+def evaluation_summary():
+    """Reads real benchmark/report artifacts already in the repo and returns
+    a structured summary — never invents metrics. Any experiment whose
+    artifact isn't found is reported as unavailable rather than guessed."""
+    experiments = []
+
+    ch3_path = os.path.join(ROOT, "benchmarks", "llm_grounding", "results", "ch3_benchmark_results_v3_FINAL.log")
+    ch3 = _parse_ch3_benchmark_log(ch3_path)
+    experiments.append({
+        "name": "Local model selection — grounding benchmark",
+        "description": "Concept-extraction grounding quality across candidate local Ollama models on a curriculum chapter, "
+                        "scored against source-verbatim span match rate, cosine similarity and ROUGE.",
+        "dataset": "grade6_science_ch3_cells.md (1 chapter, repeated per model)",
+        "available": ch3 is not None,
+        "artifact": "benchmarks/llm_grounding/results/ch3_benchmark_results_v3_FINAL.log",
+        "models": ch3,
+        "selected_model": DEFAULT_MODEL,
+    })
+
+    resq_path = os.path.join(ROOT, "data", "zho", "spike_mediapipe", "resolution_quality_study_controlled_paired_20260823.md")
+    resq_exists = os.path.isfile(resq_path)
+    experiments.append({
+        "name": "MediaPipe resolution-quality study (controlled, paired)",
+        "description": "Same source clips run through MediaPipe Holistic landmark extraction at native 960x540 vs. "
+                        "downscaled 640x360, to isolate resolution as the sole variable in landmark-detection quality.",
+        "dataset": "Paired 960x540 / 640x360 ZHO clip subset",
+        "available": resq_exists,
+        "artifact": "data/zho/spike_mediapipe/resolution_quality_study_controlled_paired_20260823.md" if resq_exists else None,
+    })
+
+    ab_path = os.path.join(ROOT, "data", "zho", "spike_mediapipe", "ab_experiment_20260823", "retrieval_test_results_20260823.json")
+    ab_data = _read_json_if_exists(ab_path)
+    experiments.append({
+        "name": "Vocabulary retrieval A/B test",
+        "description": "Sign-term retrieval accuracy test over the ZHO/ESL Zayed vocabulary index.",
+        "dataset": "retrieval_tests.py test set",
+        "available": ab_data is not None,
+        "artifact": "data/zho/spike_mediapipe/ab_experiment_20260823/retrieval_test_results_20260823.json" if ab_data is not None else None,
+        "result": ab_data,
+    })
+
+    test_report_path = os.path.join(ROOT, "outputs", "_test_run_report.json")
+    test_report = _read_json_if_exists(test_report_path)
+    experiments.append({
+        "name": "Automated regression test suite",
+        "description": "pytest suite covering Arabic caption mapping, clitic normalization, avatar scale/resolution "
+                        "invariance, bilingual catalog matching, clip-prep reconciliation, ESL Zayed supplementary "
+                        "resolution, resolver regressions, and structured-output parsing.",
+        "dataset": f"{len(_list_test_files())} test files",
+        "available": test_report is not None,
+        "artifact": "outputs/_test_run_report.json" if test_report is not None else None,
+        "result": test_report,
+    })
+
+    duration_note = {
+        "name": "Duration-planner accuracy",
+        "description": "No dedicated standalone accuracy report exists for the duration planner in this repository. "
+                        "Its behavior is evidenced indirectly per-run via validation.json's duration_plan "
+                        "(requested vs. estimated vs. actual duration) for every completed job.",
+        "dataset": None,
+        "available": False,
+        "artifact": None,
+    }
+    experiments.append(duration_note)
+
+    return {"experiments": experiments}
+
+
+def _list_test_files():
+    tests_dir = os.path.join(ROOT, "tests")
+    if not os.path.isdir(tests_dir):
+        return []
+    return [f for f in os.listdir(tests_dir) if f.startswith("test_") and f.endswith(".py")]
+
+
 @app.post("/api/jobs")
 async def create_job_endpoint(
     source_text: str = Form(default=None),

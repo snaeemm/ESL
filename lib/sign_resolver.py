@@ -503,8 +503,9 @@ def _deterministic_lexical_resolution(item_text: str, model: str, source_span: s
             exact_category_candidate = dict(row)
             exact_category_candidate["_exact_category_ambiguous"] = True
         else:
+            word_ar_display = row.get("word_ar") or "(no Arabic term recorded in the ZHO catalog for this entry - the sign itself is still verified via its English catalog entry)"
             return {"row": row, "method": method, "information_loss": LOSS_FULL,
-                    "match_reason": f"exact bilingual match: query='{item_text}' == catalog word_en/word_ar='{row.get('word_en')}' / '{row.get('word_ar')}'"}
+                    "match_reason": f"exact bilingual match: query='{item_text}' == catalog word_en/word_ar='{row.get('word_en')}' / '{word_ar_display}'"}
 
     row, method, tok, form = idx.morphology_match(item_text)
     morphology_candidate = None

@@ -40,6 +40,27 @@ export interface JobResult {
   has_video: boolean
 }
 
+export interface PipelineStage {
+  stage: string
+  kind: 'AI' | 'AI_ASSISTED' | 'DETERMINISTIC' | 'UNKNOWN'
+  label: string
+}
+
+export interface EvaluationExperiment {
+  name: string
+  description: string
+  dataset: string | null
+  available: boolean
+  artifact: string | null
+  models?: Record<string, any> | null
+  selected_model?: string
+  result?: any
+}
+
+export interface EvaluationSummary {
+  experiments: EvaluationExperiment[]
+}
+
 export interface HistoryRow {
   job_id: string
   status: string
@@ -76,4 +97,7 @@ export const api = {
   jobArtifactUrl: (id: string, name: string) => `/api/jobs/${id}/artifacts/${name}`,
 
   listJobs: () => fetch('/api/jobs').then((r) => json<HistoryRow[]>(r)),
+
+  pipelineStages: () => fetch('/api/pipeline/stages').then((r) => json<PipelineStage[]>(r)),
+  evaluation: () => fetch('/api/evaluation').then((r) => json<EvaluationSummary>(r)),
 }

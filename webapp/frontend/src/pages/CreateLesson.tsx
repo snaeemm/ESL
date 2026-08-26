@@ -150,6 +150,10 @@ export default function CreateLesson() {
               <span>{t('config_review_prototype')}</span>
             </label>
           </div>
+          <p className="hint">
+            <strong>STRICT:</strong> Stop when expert review is required. &nbsp;·&nbsp;
+            <strong>PROTOTYPE:</strong> Render a review-marked prototype where safe.
+          </p>
         </div>
 
         {submitError && <div className="status-banner error">{submitError}</div>}

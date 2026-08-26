@@ -73,7 +73,13 @@ Example (English input "The membrane controls what enters and leaves the cell.")
 
 Rules:
 - 3 to 7 items per sentence. Do not pad or invent content not implied by the sentence.
-- Do not include grammatical function words (the, a, of, that) as separate items. More generally:
+- Do not include grammatical function words (the, a, of, that, is, are, was, were, am, be, been, and,
+  but, or, so, near) as separate items - this explicitly includes the copula ("X is a Y" contributes
+  only X and Y as items, never "is" itself) and coordinating conjunctions ("X and Y" contributes only
+  X and Y, never "and" itself). Every item you spend on a function word is an item NOT spent on real
+  content, and has caused real content (e.g. "brother"/"sister") to be silently dropped from the plan
+  in past runs when the 3-7 item budget filled up with copulas/conjunctions instead - budget discipline
+  on function words directly protects source-content completeness. More generally:
   each item must name an independent, meaning-bearing educational concept (a thing, action, quality,
   or relationship someone could picture, define, or point to on its own) - never a spoken-language
   connective, particle, or grammatical marker whose only job is to glue other words together
@@ -88,6 +94,12 @@ Rules:
   a fixed list of words to avoid.
 - Do not confuse a short word with a function word: a short verb, quality, or concrete noun (e.g. "GO",
   "HOT", "SUN") is still meaning-bearing and must be kept if the sentence depends on it.
+- Personal/possessive pronouns (I, me, my, you, your, we, our, they, with, to, for, of, before, after,
+  during, near, in) are function words under the test above just as often as articles are - sign
+  language conveys them through role-shift, pointing, and ordering, not a separate lexical sign for
+  "with" or "me". Do not output them as their own item; if the sentence's meaning genuinely depends on
+  WHO (e.g. distinguishing "my brother" from "her brother" matters to the lesson), let the surrounding
+  noun/role item (e.g. "BROTHER") carry that instead of adding a separate pronoun item.
 - If you are not confident a faithful semantic breakdown is possible for this sentence, output
   an empty array [] instead of guessing.
 

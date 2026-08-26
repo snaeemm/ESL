@@ -90,6 +90,29 @@ STAGES = ["ENVIRONMENT_CHECK", "SOURCE", "UNDERSTAND", "STRUCTURE", "SIGN_PLAN",
           "SIGN_RESOLUTION", "DURATION_PLANNING", "VALIDATE", "CLIP_PREP",
           "RENDER", "TRACEABILITY", "DONE"]
 
+# Pure metadata, no effect on execution — labels each stage by what actually
+# performs it, for the demo/presentation UI's "AI vs deterministic" panel.
+# Kept next to STAGES so it can't silently drift out of sync with the real
+# stage list. Source of truth for each label is the stage's own module
+# docstring (see imports above): understand.py/episode_builder.py call the
+# local Falcon model; sign_resolver.py/validator.py/traceability.py are
+# explicitly documented as deterministic; RENDER is MediaPipe landmark
+# extraction (not a generative model) plus deterministic avatar assembly.
+STAGE_KIND = {
+    "ENVIRONMENT_CHECK": {"kind": "DETERMINISTIC", "label": "Deterministic — environment/dependency checks"},
+    "SOURCE": {"kind": "DETERMINISTIC", "label": "Deterministic — hashing, language detection, manifest"},
+    "UNDERSTAND": {"kind": "AI", "label": "Local AI — Falcon (concept extraction)"},
+    "STRUCTURE": {"kind": "AI", "label": "Local AI — Falcon (episode structuring/simplification)"},
+    "SIGN_PLAN": {"kind": "AI_ASSISTED", "label": "AI-assisted — Falcon-guided semantic sign-plan drafting"},
+    "SIGN_RESOLUTION": {"kind": "AI_ASSISTED", "label": "AI-assisted retrieval + deterministic vocabulary authority"},
+    "DURATION_PLANNING": {"kind": "DETERMINISTIC", "label": "Deterministic — duration-aware subset selection"},
+    "VALIDATE": {"kind": "DETERMINISTIC", "label": "Deterministic — rules and confidence gates, no model calls"},
+    "CLIP_PREP": {"kind": "DETERMINISTIC", "label": "Deterministic — clip download/trim + MediaPipe hand detection"},
+    "RENDER": {"kind": "DETERMINISTIC", "label": "MediaPipe motion extraction + deterministic avatar renderer"},
+    "TRACEABILITY": {"kind": "DETERMINISTIC", "label": "Deterministic — pure join over prior stage outputs"},
+    "DONE": {"kind": "DETERMINISTIC", "label": "Complete"},
+}
+
 
 class PipelineBlocked(RuntimeError):
     """Raised (and always the LAST thing yielded, as a status='blocked'
