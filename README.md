@@ -24,11 +24,11 @@ The same lesson performed by a photoreal presenter generated from a single photo
 
 - Keypoints: [`demo/approach_A_keypoints/01_avatar_vs_seedance.mp4`](demo/approach_A_keypoints/01_avatar_vs_seedance.mp4)
 
-https://github.com/user-attachments/assets/2715fbac-4345-4076-bd7b-11bace741625
+https://github.com/user-attachments/assets/d43ba3eb-2fd2-47c3-8763-d5ba914f1ea6
 
 - Real signer video: [`demo/approach_B_real_video/01_scail2_full_lesson.mp4`](demo/approach_B_real_video/01_scail2_full_lesson.mp4)
 
-https://github.com/user-attachments/assets/d43ba3eb-2fd2-47c3-8763-d5ba914f1ea6
+https://github.com/user-attachments/assets/2715fbac-4345-4076-bd7b-11bace741625
 
 All comparison videos, the model comparison and the scripts: [`docs/PHOTOREAL_PRESENTER.md`](docs/PHOTOREAL_PRESENTER.md) and section 21 below.
 
