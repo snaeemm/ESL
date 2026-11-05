@@ -16,11 +16,11 @@ https://github.com/user-attachments/assets/d43ba3eb-2fd2-47c3-8763-d5ba914f1ea6
 
 **Approach B - SCAIL-2 driven directly by the real ZHO / ESL Zayed signer (open source, MIT licence, free, runs locally).** Real signer (left), SCAIL-2 (right), synced sign by sign. The most faithful to the real signs: handshape and palm orientation matched on every sign checked. No avatar is involved, so the comparison is against the signer it copies. Full lesson on its own: [`demo/approach_B_real_video/01_scail2_full_lesson.mp4`](demo/approach_B_real_video/01_scail2_full_lesson.mp4)
 
-https://github.com/user-attachments/assets/1545f7cd-d941-449e-9e31-a34a8eb239bc
+https://github.com/user-attachments/assets/c9cb28df-b9fd-48df-b5c4-f98611deddc4
 
 **How approach B got there.** Five SCAIL-2 full-lesson renders next to the real signer, from the first attempt to the final one (bottom right): 8-step render, a hand-fix LoRA, smoothed transitions, then a clean background with hard cuts between signs. The renders differ in length, so they drift apart over time; compare them by the sign caption.
 
-https://github.com/user-attachments/assets/61cf7526-1665-4536-947b-21bc406d04dd
+https://github.com/user-attachments/assets/d67ae1b4-b827-4c4c-8a5e-93d5d379bebb
 
 All comparison videos, the model comparison and the scripts: [`docs/PHOTOREAL_PRESENTER.md`](docs/PHOTOREAL_PRESENTER.md) and section 21 below.
 
