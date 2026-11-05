@@ -6,6 +6,22 @@ By Shahzeb Naeem ([LinkedIn](https://www.linkedin.com/in/snaeemm/)) - related re
 
 ## Demo videos
 
+### Photoreal presenter (latest)
+
+The same lesson performed by a photoreal presenter generated from a single photo, in two approaches. Best of each:
+
+**Approach A - keypoint avatar restyled by Seedance 2.0 mini (commercial, paid API).** Avatar (left), Seedance (right). Sharpest picture and smoothest motion, but it copies anything the avatar gets wrong. Source: [`demo/approach_A_keypoints/01_avatar_vs_seedance.mp4`](demo/approach_A_keypoints/01_avatar_vs_seedance.mp4)
+
+https://github.com/user-attachments/assets/d43ba3eb-2fd2-47c3-8763-d5ba914f1ea6
+
+**Approach B - SCAIL-2 driven directly by the real ZHO / ESL Zayed signer (open source, MIT licence, free, runs locally).** Real signer (left), SCAIL-2 (right). The most faithful to the real signs: handshape and palm orientation matched on every sign checked. No avatar is involved, so the comparison is against the signer it copies. Full lesson on its own: [`demo/approach_B_real_video/01_scail2_full_lesson.mp4`](demo/approach_B_real_video/01_scail2_full_lesson.mp4)
+
+https://github.com/user-attachments/assets/14b7c92f-7002-4e09-bfc2-45b4fcdc4ed5
+
+All comparison videos, the model comparison and the scripts: [`docs/PHOTOREAL_PRESENTER.md`](docs/PHOTOREAL_PRESENTER.md) and section 21 below.
+
+### Original prototype (signing avatar)
+
 **Website walkthrough demo:**
 
 https://github.com/user-attachments/assets/f26a133b-dfbb-4631-a4e3-a58ad53bb2d0
@@ -17,20 +33,6 @@ Narrated click-through of the `/demo` presentation view against the hero run (jo
 https://github.com/user-attachments/assets/2ffcfe8c-1900-492c-964d-21675ad28ed6
 
 The generated lesson episode itself (job `013fbd2aa3f0`, "My Family and My Day at School"), ~51s, 22 semantic units: **86.4% ZHO institutional coverage / 13.6% ESL Zayed supplementary, 0% fingerspelling fallback, 0 unsupported items** - `overall_status: PASS`. Rendered with the hand-jitter fix described in `scripts/spike_render_captioned_lesson.py`.
-
-**Photoreal presenter (follow-up work):**
-
-The same lesson performed by a photoreal presenter generated from a single photo, in two approaches: keypoint avatar restyled by a video model, and SCAIL-2 driven directly by the real ZHO / ESL Zayed signers' videos. Best of each:
-
-- Keypoints: [`demo/approach_A_keypoints/01_avatar_vs_seedance.mp4`](demo/approach_A_keypoints/01_avatar_vs_seedance.mp4)
-
-https://github.com/user-attachments/assets/d43ba3eb-2fd2-47c3-8763-d5ba914f1ea6
-
-- Real signer video: [`demo/approach_B_real_video/01_scail2_full_lesson.mp4`](demo/approach_B_real_video/01_scail2_full_lesson.mp4)
-
-https://github.com/user-attachments/assets/2715fbac-4345-4076-bd7b-11bace741625
-
-All comparison videos, the model comparison and the scripts: [`docs/PHOTOREAL_PRESENTER.md`](docs/PHOTOREAL_PRESENTER.md) and section 21 below.
 
 ## 1. Challenge
 
