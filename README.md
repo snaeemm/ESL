@@ -23,7 +23,12 @@ The generated lesson episode itself (job `013fbd2aa3f0`, "My Family and My Day a
 The same lesson performed by a photoreal presenter generated from a single photo, in two approaches: keypoint avatar restyled by a video model, and SCAIL-2 driven directly by the real ZHO / ESL Zayed signers' videos. Best of each:
 
 - Keypoints: [`demo/approach_A_keypoints/01_avatar_vs_seedance.mp4`](demo/approach_A_keypoints/01_avatar_vs_seedance.mp4)
+
+https://github.com/user-attachments/assets/2715fbac-4345-4076-bd7b-11bace741625
+
 - Real signer video: [`demo/approach_B_real_video/01_scail2_full_lesson.mp4`](demo/approach_B_real_video/01_scail2_full_lesson.mp4)
+
+https://github.com/user-attachments/assets/d43ba3eb-2fd2-47c3-8763-d5ba914f1ea6
 
 All comparison videos, the model comparison and the scripts: [`docs/PHOTOREAL_PRESENTER.md`](docs/PHOTOREAL_PRESENTER.md) and section 21 below.
 
