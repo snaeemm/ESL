@@ -18,6 +18,15 @@ https://github.com/user-attachments/assets/2ffcfe8c-1900-492c-964d-21675ad28ed6
 
 The generated lesson episode itself (job `013fbd2aa3f0`, "My Family and My Day at School"), ~51s, 22 semantic units: **86.4% ZHO institutional coverage / 13.6% ESL Zayed supplementary, 0% fingerspelling fallback, 0 unsupported items** - `overall_status: PASS`. Rendered with the hand-jitter fix described in `scripts/spike_render_captioned_lesson.py`.
 
+**Photoreal presenter (follow-up work):**
+
+The same lesson performed by a photoreal presenter generated from a single photo, in two approaches: keypoint avatar restyled by a video model, and SCAIL-2 driven directly by the real ZHO / ESL Zayed signers' videos. Best of each:
+
+- Keypoints: [`demo/approach_A_keypoints/01_avatar_vs_seedance.mp4`](demo/approach_A_keypoints/01_avatar_vs_seedance.mp4)
+- Real signer video: [`demo/approach_B_real_video/01_scail2_full_lesson.mp4`](demo/approach_B_real_video/01_scail2_full_lesson.mp4)
+
+All comparison videos, the model comparison and the scripts: [`docs/PHOTOREAL_PRESENTER.md`](docs/PHOTOREAL_PRESENTER.md) and section 21 below.
+
 ## 1. Challenge
 
 Turn approved academic source material into a short sign-language video for students, while keeping every taught fact traceable back to the source, flagging (never guessing) uncertain vocabulary/sign coverage, running all core AI inference locally, and leaving a clear checkpoint for human review before anything ships.
@@ -263,3 +272,20 @@ python -m pytest tests/ -q        # or: python -m tests.test_<name> per-file
 | `test_avatar_scale_resolution_invariance.py` | 4 | Avatar scale/anchor computed per-segment from that segment's own native resolution, not pooled across mixed-resolution segments |
 
 **Benchmarks** (separate from regression tests, preserved as evidence, not re-run automatically): `benchmarks/llm_grounding/` (model selection, §3), `benchmarks/alyah/` (secondary Emirati-dialect eval, §3), `scripts/vocab_embedding_benchmark.py` (embedding retrieval, §19).
+
+## 21. Photoreal presenter (follow-up)
+
+The procedural avatar (section 9) remains the prototype's renderer. [`docs/PHOTOREAL_PRESENTER.md`](docs/PHOTOREAL_PRESENTER.md) documents a follow-up that replaces only the final rendering step with a photoreal presenter; source understanding, sign planning and ZHO / ESL Zayed clip resolution are unchanged.
+
+| | Approach A: keypoints | Approach B: real signer video |
+|---|---|---|
+| Motion source | MediaPipe keypoints -> 2D avatar video | The real signer's video itself, plus a person mask |
+| Renderer | Video model restyles the avatar (Seedance 2.0 mini; LTX-2.3 IC-LoRA) | SCAIL-2 (14B, open, MIT) with one photo of the presenter |
+| Strength | Best picture quality and smoothness (Seedance) | Most faithful handshape and palm orientation |
+| Weakness | Copies avatar errors; 2D skeleton can invert palms | Soft fingers at times; pop at each per-sign cut |
+
+- **Selected:** approach B, because sign accuracy comes first. The comparison is a visual judgement against the real signer, not a benchmark.
+- **Local only:** approach B ran on a single AMD Ryzen AI Max workstation (ROCm, 64 GB shared memory); see [`docs/PHOTOREAL_SCAIL2_PATCHES.md`](docs/PHOTOREAL_SCAIL2_PATCHES.md).
+- **Scripts:** [`scripts/photoreal/`](scripts/photoreal/).
+- **Status:** the per-sign lesson (24 signs, 61 s) is complete; a one-take render of the whole lesson, which removes the pop at each cut, is in progress.
+
